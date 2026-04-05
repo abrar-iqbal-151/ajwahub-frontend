@@ -572,6 +572,40 @@
 
 .ai-history-a { font-size: 13px; color: #d4cccc; line-height: 1.6; }
 
+.ai-history-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.ai-continue-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ai-continue-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.ai-history-del-btn {
+  background: rgba(220,38,38,0.08);
+  color: #f87171;
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ai-history-del-btn:hover { background: rgba(220,38,38,0.15); }
+
 /* Login Footer */
 .login-footer {
   background: rgba(255, 255, 255, 0.04);

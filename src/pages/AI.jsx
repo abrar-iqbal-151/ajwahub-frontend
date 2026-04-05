@@ -159,6 +159,15 @@ function AI() {
     setShowCamera(false);
   };
 
+  const loadHistoryToChat = (h) => {
+    setMessages([
+      { role: 'model', text: '👋 Assalam o Alaikum! Main AjwaHub AI Assistant hoon. Koi bhi sawaal poochein!' },
+      { role: 'user', text: h.question },
+      { role: 'model', text: h.answer }
+    ]);
+    setActiveTab('chat');
+  };
+
   const deleteHistory = async (id) => {
     await fetch(`${API_URL}/api/ai/history/${id}`, { method: 'DELETE' });
     setChatHistory(prev => prev.filter(h => h._id !== id));
@@ -293,6 +302,10 @@ function AI() {
                     </div>
                     <div className="ai-history-q">🙋 {h.question}</div>
                     <div className="ai-history-a">🤖 {h.answer.length > 200 ? h.answer.substring(0, 200) + '...' : h.answer}</div>
+                    <div className="ai-history-actions">
+                      <button className="ai-continue-btn" onClick={() => loadHistoryToChat(h)}>▶ Continue Chat</button>
+                      <button className="ai-history-del-btn" onClick={() => deleteHistory(h._id)}>🗑️ Delete</button>
+                    </div>
                   </div>
                 ))}
               </div>
