@@ -1,0 +1,786 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../css/Settings.css';
+import Navbar from './Navbar';
+import ConfirmDialog from './ConfirmDialog';
+
+function Settings() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    username: '',
+    email: '',
+    phone: '',
+    profilePicture: ''
+  });
+  const [saved, setSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState('account');
+  const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [sessions, setSessions] = useState([]);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [addresses, setAddresses] = useState([]);
+  const [showAddressForm, setShowAddressForm] = useState(false);
+  const [editingAddressId, setEditingAddressId] = useState(null);
+  const [deleteAddressConfirm, setDeleteAddressConfirm] = useState(null);
+  const [addressFormData, setAddressFormData] = useState({
+    fullName: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'Pakistan',
+    isDefault: false
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem('ajwaHub_currentUser');
+    navigate('/login');
+  };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = localStorage.getItem('ajwaHub_currentUser');
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        console.log('📦 Current user data:', parsedUser);
+        
+        setUser(parsedUser);
+        setFormData({
+          fullName: parsedUser.name || '',
+          username: parsedUser.username || '',
+          email: parsedUser.email || '',
+          phone: parsedUser.phone || '',
+          profilePicture: parsedUser.profilePicture || ''
+        });
+        setTwoFAEnabled(parsedUser.twoFactorEnabled || false);
+        
+        // Try to fetch from backend for additional data
+        try {
+          const response = await fetch(`http://localhost:5000/api/users/profile/${parsedUser.email}`);
+          if (response.ok) {
+            const data = await response.json();
+            const completeUser = { ...parsedUser, ...data.user };
+            setUser(completeUser);
+            setFormData({
+              fullName: completeUser.name || '',
+              username: completeUser.username || '',
+              email: completeUser.email || '',
+              phone: completeUser.phone || '',
+              profilePicture: completeUser.profilePicture || ''
+            });
+            setTwoFAEnabled(completeUser.twoFactorEnabled || false);
+          }
+        } catch (error) {
+          console.log('Backend not available, using localStorage data');
+        }
+
+        const savedAddresses = JSON.parse(localStorage.getItem(`ajwaHub_addresses_${parsedUser.email}`) || '[]');
+        setAddresses(savedAddresses);
+        
+        // Also fetch from MongoDB
+        if (parsedUser.email) {
+          fetch(`http://localhost:5000/api/users/addresses/${parsedUser.email}`)
+            .then(r => r.json())
+            .then(d => setAddresses(d.addresses || []))
+            .catch(() => {});
+        }
+      }
+    };
+
+    fetchUserData();
+
+    // Add sample sessions for demonstration
+    const sampleSessions = [
+      {
+        device: 'Desktop',
+        location: 'Pakistan',
+        loginTime: new Date().toISOString(),
+        current: true
+      },
+      {
+        device: 'Desktop',
+        location: 'Pakistan',
+        loginTime: new Date(Date.now() - 86400000).toISOString(),
+        current: false
+      },
+      {
+        device: 'Desktop',
+        location: 'Pakistan',
+        loginTime: new Date(Date.now() - 172800000).toISOString(),
+        current: false
+      },
+      {
+        device: 'Desktop',
+        location: 'Pakistan',
+        loginTime: new Date(Date.now() - 259200000).toISOString(),
+        current: false
+      },
+      {
+        device: 'Desktop',
+        location: 'Pakistan',
+        loginTime: new Date(Date.now() - 345600000).toISOString(),
+        current: false
+      }
+    ];
+    
+    setSessions(sampleSessions);
+    localStorage.setItem('ajwaHub_sessions', JSON.stringify(sampleSessions));
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddressInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setAddressFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({ ...prev, profilePicture: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/users/profile/${user.email}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.fullName,
+          username: formData.username,
+          phone: formData.phone,
+          profilePicture: formData.profilePicture,
+          twoFactorEnabled: twoFAEnabled
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const updatedUser = { ...user, ...data.user };
+        localStorage.setItem('ajwaHub_currentUser', JSON.stringify(updatedUser));
+        setUser(updatedUser);
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      } else {
+        const err = await res.json();
+        alert('Failed to save: ' + (err.message || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Network error: ' + err.message);
+    }
+  };
+  const handleChangePassword = async () => {
+    setPasswordError('');
+    setPasswordSuccess('');
+
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+      setPasswordError('All fields are required'); return;
+    }
+    if (passwordData.newPassword.length < 8) {
+      setPasswordError('New password must be at least 8 characters'); return;
+    }
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError('Passwords do not match'); return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:5000/api/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email,
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPasswordSuccess('Password changed successfully!');
+        setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        setTimeout(() => setPasswordSuccess(''), 3000);
+      } else {
+        setPasswordError(data.message || 'Failed to change password');
+      }
+    } catch {
+      setPasswordError('Server connection failed. Please try again.');
+    }
+  };
+
+  const handleToggle2FA = async () => {
+    const newStatus = !twoFAEnabled;
+    const secret = newStatus ? generateSecret() : '';
+
+    try {
+      const res = await fetch('http://localhost:5000/api/users/2fa/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email, enabled: newStatus, secret })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const updatedUser = { ...user, twoFactorEnabled: newStatus, twoFactorSecret: secret };
+        localStorage.setItem('ajwaHub_currentUser', JSON.stringify(updatedUser));
+        setUser(updatedUser);
+        setTwoFAEnabled(newStatus);
+      }
+    } catch {
+      const updatedUser = { ...user, twoFactorEnabled: newStatus, twoFactorSecret: secret };
+      localStorage.setItem('ajwaHub_currentUser', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setTwoFAEnabled(newStatus);
+    }
+  };
+
+  const generateSecret = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+    let secret = '';
+    for (let i = 0; i < 32; i++) {
+      secret += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return secret;
+  };
+
+  const fetchAddresses = async () => {
+    if (!user || !user.email) {
+      console.log('No user or email available for fetching addresses');
+      return;
+    }
+    
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('📦 Fetched addresses from MongoDB:', data.addresses);
+        setAddresses(data.addresses || []);
+      }
+    } catch (error) {
+      console.error('❌ Fetch addresses error:', error);
+      // Fallback to localStorage
+      const savedAddresses = JSON.parse(localStorage.getItem(`ajwaHub_addresses_${user.email}`) || '[]');
+      setAddresses(savedAddresses);
+    }
+  };
+
+  const handleLogoutAllDevices = () => {
+    localStorage.removeItem('ajwaHub_sessions');
+    setSessions([]);
+    localStorage.removeItem('ajwaHub_currentUser');
+    navigate('/login');
+  };
+
+  const handleRemoveSession = (sessionIndex) => {
+    const updatedSessions = sessions.filter((_, index) => index !== sessionIndex);
+    setSessions(updatedSessions);
+    localStorage.setItem('ajwaHub_sessions', JSON.stringify(updatedSessions));
+  };
+
+  const handleSaveAddress = async () => {
+    if (!addressFormData.fullName.trim() || !addressFormData.phone.trim() || !addressFormData.address.trim() || !addressFormData.city.trim() || !addressFormData.state.trim() || !addressFormData.zipCode.trim()) {
+      alert('Please fill all fields');
+      return;
+    }
+
+    try {
+      const addressData = {
+        name: addressFormData.fullName,
+        address: addressFormData.address,
+        city: `${addressFormData.city}, ${addressFormData.state}`,
+        country: addressFormData.country,
+        postalCode: addressFormData.zipCode,
+        phone: addressFormData.phone,
+        isDefault: addressFormData.isDefault
+      };
+
+      const url = editingAddressId 
+        ? `http://localhost:5000/api/users/addresses/${user.email}/${editingAddressId}`
+        : `http://localhost:5000/api/users/addresses/${user.email}`;
+      
+      const method = editingAddressId ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(addressData)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAddresses(data.addresses || []);
+        setAddressFormData({ fullName: '', phone: '', address: '', city: '', state: '', zipCode: '', country: 'Pakistan', isDefault: false });
+        setEditingAddressId(null);
+        setShowAddressForm(false);
+      } else {
+        const error = await response.json();
+        alert('Failed to save address: ' + error.message);
+      }
+    } catch (error) {
+      console.error('❌ Save address error:', error);
+      alert('Network error. Please try again.');
+    }
+  };
+
+  const handleEditAddress = (address) => {
+    setAddressFormData({
+      fullName: address.name,
+      phone: address.phone,
+      address: address.address,
+      city: address.city.split(',')[0] || address.city,
+      state: address.city.split(',')[1]?.trim() || '',
+      zipCode: address.postalCode,
+      country: address.country,
+      isDefault: address.isDefault
+    });
+    setEditingAddressId(address.id);
+    setShowAddressForm(true);
+  };
+
+  const handleDeleteAddress = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        const data = await response.json();
+        setAddresses(data.addresses || []);
+      }
+    } catch { alert('Network error. Please try again.'); }
+  };
+
+  const handleSetDefaultAddress = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}/${id}/default`, { method: 'PUT' });
+      if (response.ok) {
+        const data = await response.json();
+        setAddresses(data.addresses || []);
+      }
+    } catch { alert('Network error. Please try again.'); }
+  };
+
+  const handleCancelAddress = () => {
+    setShowAddressForm(false);
+    setEditingAddressId(null);
+    setAddressFormData({
+      fullName: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      country: 'Pakistan',
+      isDefault: false
+    });
+  };
+
+  return (
+    <div className="settings-page">
+      <Navbar />
+
+      <div className="settings-container">
+        <div className="settings-tabs">
+          <button className={`tab-btn ${activeTab === 'account' ? 'active' : ''}`} onClick={() => setActiveTab('account')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Account
+          </button>
+          <button className={`tab-btn ${activeTab === 'security' ? 'active' : ''}`} onClick={() => setActiveTab('security')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Security
+          </button>
+          <button className={`tab-btn ${activeTab === 'addresses' ? 'active' : ''}`} onClick={() => setActiveTab('addresses')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Addresses
+          </button>
+        </div>
+
+        {activeTab === 'account' && (
+          <div className="settings-card">
+            <h2>Account Settings</h2>
+            
+            <div className="profile-picture-section">
+              <div className="profile-preview">
+                {formData.profilePicture ? (
+                  <img src={formData.profilePicture} alt="Profile" />
+                ) : (
+                  <div className="avatar-placeholder">
+                    {formData.fullName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </div>
+              <label className="upload-btn">
+                📷 Change Picture
+                <input type="file" accept="image/*" onChange={handleImageUpload} />
+              </label>
+            </div>
+
+            <div className="form-groups-container">
+              <div className="form-group">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Enter your username"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  disabled
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                />
+              </div>
+            </div>
+
+            <button className="save-btn" onClick={handleSave}>
+              💾 Save Changes
+            </button>
+
+            {saved && <div className="success-message">✓ Changes saved successfully!</div>}
+          </div>
+        )}
+
+        {activeTab === 'security' && (
+          <div className="settings-card security-card">
+            <h2>🔒 Security Settings</h2>
+
+            <div className="security-section">
+              <h3>Change Password</h3>
+              <div className="form-groups-container">
+                <div className="form-group">
+                  <label>Current Password</label>
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    value={passwordData.currentPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter current password"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>New Password</label>
+                  <input
+                    type="password"
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter new password"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Confirm new password"
+                  />
+                </div>
+              </div>
+
+              {passwordError && <div className="error-message">{passwordError}</div>}
+              {passwordSuccess && <div className="success-message">{passwordSuccess}</div>}
+
+              <button className="save-btn" onClick={handleChangePassword}>
+                🔑 Change Password
+              </button>
+            </div>
+
+            <div className="security-section">
+              <div className="two-fa-header">
+                <div className="two-fa-info">
+                  <h3>Two-Factor Authentication</h3>
+                  <p>Add an extra layer of security to your account</p>
+                </div>
+                <div className="two-fa-toggle">
+                  <label className="toggle-switch">
+                    <input 
+                      type="checkbox" 
+                      checked={twoFAEnabled}
+                      onChange={handleToggle2FA}
+                    />
+                    <span className="slider"></span>
+                  </label>
+                  <span className="toggle-label">
+                    {twoFAEnabled ? 'ON' : 'OFF'}
+                  </span>
+                </div>
+              </div>
+              
+              {twoFAEnabled && (
+                <div className="qr-code-section">
+                  <p className="qr-instruction">Scan this QR code with your authenticator app:</p>
+                  <div className="qr-code-container">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=otpauth://totp/AjwaHub:${encodeURIComponent(user?.email)}?secret=${user?.twoFactorSecret}&issuer=AjwaHub`}
+                      alt="2FA QR Code"
+                      className="qr-code-image"
+                    />
+                  </div>
+                  <p className="user-email">Account: {user?.email}</p>
+                  <p className="qr-note">Use Google Authenticator, Authy, or any TOTP app</p>
+                  <p className="toggle-status">✅ 2FA is enabled</p>
+                </div>
+              )}
+              
+              {!twoFAEnabled && (
+                <p className="toggle-status disabled">❌ 2FA is disabled</p>
+              )}
+            </div>
+
+            <div className="security-section">
+              <h3>Login Activity</h3>
+              <div className="sessions-list">
+                {sessions.length > 0 ? (
+                  sessions.map((session, index) => (
+                    <div key={index} className="session-item">
+                      <div className="session-info">
+                        <p className="device">📱 Desktop</p>
+                        <p className="location">📍 Pakistan</p>
+                        <p className="time">🕐 {new Date().toLocaleString()}</p>
+                      </div>
+                      <div className="session-actions">
+                        {session.current && <span className="current-badge">Current</span>}
+                        <button 
+                          className="remove-session-btn"
+                          onClick={() => handleRemoveSession(index)}
+                          disabled={session.current}
+                        >
+                          🗑️ Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="no-sessions">No active sessions</p>
+                )}
+              </div>
+            </div>
+
+            <div className="security-section">
+              <h3>Logout from All Devices</h3>
+              <p>This will log you out from all devices and sessions</p>
+              <button className="logout-all-btn" onClick={handleLogoutAllDevices}>
+                🚪 Logout from All Devices
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'addresses' && (
+          <div className="settings-card">
+            <div className="address-header">
+              <h2>📍 Address Management</h2>
+              <button className="add-btn" onClick={() => setShowAddressForm(true)}>
+                ➕ Add New Address
+              </button>
+            </div>
+
+            {showAddressForm && (
+              <div className="address-form-card">
+                <h3>{editingAddressId ? 'Edit Address' : 'Add New Address'}</h3>
+                <div className="form-grid">
+                  <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Full Name"
+                    value={addressFormData.fullName}
+                    onChange={handleAddressInputChange}
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={addressFormData.phone}
+                    onChange={handleAddressInputChange}
+                  />
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="Street Address"
+                    value={addressFormData.address}
+                    onChange={handleAddressInputChange}
+                    className="full-width"
+                  />
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    value={addressFormData.city}
+                    onChange={handleAddressInputChange}
+                  />
+                  <input
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                    value={addressFormData.state}
+                    onChange={handleAddressInputChange}
+                  />
+                  <input
+                    type="text"
+                    name="zipCode"
+                    placeholder="Zip Code"
+                    value={addressFormData.zipCode}
+                    onChange={handleAddressInputChange}
+                  />
+                  <input
+                    type="text"
+                    name="country"
+                    placeholder="Country"
+                    value={addressFormData.country}
+                    onChange={handleAddressInputChange}
+                  />
+                </div>
+                
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="isDefault"
+                    checked={addressFormData.isDefault}
+                    onChange={handleAddressInputChange}
+                  />
+                  Set as default shipping address
+                </label>
+
+                <div className="form-actions">
+                  <button className="save-btn" onClick={handleSaveAddress}>
+                    💾 Save Address
+                  </button>
+                  <button className="cancel-btn" onClick={handleCancelAddress}>
+                    ✕ Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="addresses-list">
+              {addresses.length === 0 ? (
+                <div className="no-addresses">
+                  <p>No addresses saved yet. Add your first address!</p>
+                </div>
+              ) : (
+                addresses.map(address => (
+                  <div key={address.id} className={`address-card ${address.isDefault ? 'default' : ''}`}>
+                    {address.isDefault && <span className="default-badge">⭐ Default</span>}
+                    
+                    <div className="address-info">
+                      <h4>{address.name}</h4>
+                      <p>{address.address}</p>
+                      <p>{address.city}</p>
+                      <p>{address.country} {address.postalCode}</p>
+                      <p>📞 {address.phone}</p>
+                    </div>
+
+                    <div className="address-actions">
+                      {!address.isDefault && (
+                        <button 
+                          className="set-default-btn"
+                          onClick={() => handleSetDefaultAddress(address.id)}
+                        >
+                          Set Default
+                        </button>
+                      )}
+                      <button 
+                        className="edit-btn"
+                        onClick={() => handleEditAddress(address)}
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button 
+                        className="delete-btn"
+                        onClick={() => setDeleteAddressConfirm(address.id)}
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+        
+      </div>
+      
+      {deleteAddressConfirm && (
+        <ConfirmDialog
+          message="Are you sure you want to remove this address?"
+          onConfirm={() => { handleDeleteAddress(deleteAddressConfirm); setDeleteAddressConfirm(null); }}
+          onCancel={() => setDeleteAddressConfirm(null)}
+        />
+      )}
+
+      <footer className="login-footer">
+        <div className="login-footer-inner">
+          <div className="login-footer-brand">
+            <img src="/LOGO.jpeg" alt="AjwaHub" className="login-footer-logo" />
+            <span className="login-footer-name">AjwaHub</span>
+          </div>
+          <div className="login-footer-links">
+            <a href="/about">About Us</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms</a>
+            <a href="/contact">Contact</a>
+          </div>
+          <div className="login-footer-social">
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+          </div>
+        </div>
+        <div className="login-footer-bottom">&copy; 2025 AjwaHub. All rights reserved.</div>
+      </footer>
+    </div>
+  );
+}
+
+export default Settings;

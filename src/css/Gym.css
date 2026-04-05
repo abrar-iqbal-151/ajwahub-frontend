@@ -1,0 +1,18 @@
+@import './Navbar.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at 30% 50%, #4a0000 0%, #000000 85%);
+  color: #f8fafc;
+}
+
+.home-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 30% 50%, #4a0000 0%, #000000 85%);
+}
