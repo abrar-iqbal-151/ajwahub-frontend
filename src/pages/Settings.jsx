@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Settings.css';
 import Navbar from './Navbar';
@@ -41,6 +41,11 @@ function Settings() {
     country: 'Pakistan',
     isDefault: false
   });
+
+  const [cropModal, setCropModal] = useState(false);
+  const [cropSrc, setCropSrc] = useState(null);
+  const [cropY, setCropY] = useState(50);
+  const [cropPreview, setCropPreview] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem('ajwaHub_currentUser');
@@ -160,11 +165,35 @@ function Settings() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, profilePicture: reader.result }));
+        setCropSrc(reader.result);
+        setCropY(50);
+        setCropModal(true);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const applyCrop = useCallback(() => {
+    const canvas = document.createElement('canvas');
+    const size = 300;
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      const scale = size / img.width;
+      const scaledH = img.height * scale;
+      const offsetY = -((scaledH - size) * cropY / 100);
+      ctx.drawImage(img, 0, offsetY, size, scaledH);
+      const cropped = canvas.toDataURL('image/jpeg', 0.9);
+      setFormData(prev => ({ ...prev, profilePicture: cropped }));
+      setCropModal(false);
+      setCropSrc(null);
+    };
+    img.src = cropSrc;
+  }, [cropSrc, cropY]);
+
+  const cancelCrop = () => { setCropModal(false); setCropSrc(null); };
 
   const handleSave = async () => {
     try {
@@ -759,6 +788,24 @@ function Settings() {
           onConfirm={() => { handleDeleteAddress(deleteAddressConfirm); setDeleteAddressConfirm(null); }}
           onCancel={() => setDeleteAddressConfirm(null)}
         />
+      )}
+
+      {cropModal && cropSrc && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+          <div style={{ background: '#1a0000', border: '1px solid rgba(251,146,60,0.3)', borderRadius: '16px', padding: '24px', width: '100%', maxWidth: '360px' }}>
+            <h3 style={{ color: '#fb923c', marginBottom: '16px', textAlign: 'center' }}>📷 Adjust Profile Picture</h3>
+            <div style={{ width: '200px', height: '200px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 16px', border: '3px solid rgba(251,146,60,0.4)', position: 'relative' }}>
+              <img src={cropSrc} alt="crop" style={{ width: '100%', position: 'absolute', top: `${-cropY * 2}px`, objectFit: 'cover' }} />
+            </div>
+            <label style={{ color: '#d4cccc', fontSize: '13px', display: 'block', marginBottom: '8px', textAlign: 'center' }}>Upar/Neeche Adjust Karo</label>
+            <input type="range" min="0" max="100" value={cropY} onChange={e => setCropY(Number(e.target.value))}
+              style={{ width: '100%', accentColor: '#fb923c', marginBottom: '16px' }} />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button onClick={applyCrop} style={{ flex: 1, padding: '10px', background: 'linear-gradient(135deg,#fb923c,#f97316)', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 700, cursor: 'pointer' }}>✅ Apply</button>
+              <button onClick={cancelCrop} style={{ flex: 1, padding: '10px', background: 'rgba(255,255,255,0.08)', color: '#9ca3af', border: '1px solid #374151', borderRadius: '10px', cursor: 'pointer' }}>Cancel</button>
+            </div>
+          </div>
+        </div>
       )}
 
       <footer className="login-footer">
