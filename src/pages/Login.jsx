@@ -69,9 +69,10 @@ function Login() {
           completeLogin(data);
         }
       } else {
-        if (response.status === 401) {
-          setEmailError('Email not registered');
-          setPasswordError('Incorrect password');
+        if (data.field === 'email') {
+          setEmailError(data.message);
+        } else if (data.field === 'password') {
+          setPasswordError(data.message);
         } else {
           setError(data.message || 'Invalid email or password');
         }
