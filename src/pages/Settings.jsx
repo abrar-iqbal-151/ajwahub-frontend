@@ -589,17 +589,51 @@ function Settings() {
               
               {twoFAEnabled && (
                 <div className="qr-code-section">
-                  <p className="qr-instruction">Scan this QR code with your authenticator app:</p>
-                  <div className="qr-code-container">
-                    <img 
-                      src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=otpauth://totp/AjwaHub:${encodeURIComponent(user?.email)}?secret=${user?.twoFactorSecret}&issuer=AjwaHub`}
-                      alt="2FA QR Code"
-                      className="qr-code-image"
-                    />
+                  <p className="qr-instruction">📱 Apne mobile mein Google Authenticator ya Authy app kholo</p>
+                  
+                  <div className="twofa-setup-grid">
+                    {/* QR Code */}
+                    <div className="twofa-qr-box">
+                      <p style={{ color: '#9ca3af', fontSize: '13px', marginBottom: '10px', textAlign: 'center' }}>Option 1: QR Scan Karo</p>
+                      <div className="qr-code-container">
+                        <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`otpauth://totp/AjwaHub:${user?.email}?secret=${user?.twoFactorSecret}&issuer=AjwaHub`)}`}
+                          alt="2FA QR Code"
+                          className="qr-code-image"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Manual Code */}
+                    <div className="twofa-manual-box">
+                      <p style={{ color: '#9ca3af', fontSize: '13px', marginBottom: '10px', textAlign: 'center' }}>Option 2: Code Manually Enter Karo</p>
+                      <div className="twofa-secret-box">
+                        <p style={{ color: '#6b7280', fontSize: '11px', marginBottom: '6px' }}>Secret Key:</p>
+                        <div className="twofa-secret-code">
+                          {user?.twoFactorSecret?.match(/.{1,4}/g)?.join(' ') || ''}
+                        </div>
+                        <button
+                          onClick={() => { navigator.clipboard.writeText(user?.twoFactorSecret || ''); }}
+                          style={{ marginTop: '8px', background: 'rgba(251,146,60,0.1)', color: '#fb923c', border: '1px solid rgba(251,146,60,0.3)', borderRadius: '8px', padding: '6px 14px', fontSize: '12px', cursor: 'pointer', width: '100%' }}
+                        >📋 Copy Key</button>
+                      </div>
+
+                      <div className="twofa-steps">
+                        <p>📲 Steps:</p>
+                        <ol>
+                          <li>Google Authenticator app kholo</li>
+                          <li>+ button dabao</li>
+                          <li>"Enter setup key" select karo</li>
+                          <li>Account name: AjwaHub</li>
+                          <li>Upar wala key paste karo</li>
+                          <li>6-digit code milega — login pe use karo</li>
+                        </ol>
+                      </div>
+                    </div>
                   </div>
-                  <p className="user-email">Account: {user?.email}</p>
-                  <p className="qr-note">Use Google Authenticator, Authy, or any TOTP app</p>
-                  <p className="toggle-status">✅ 2FA is enabled</p>
+
+                  <p className="user-email">🔐 Account: {user?.email}</p>
+                  <p className="toggle-status">✅ 2FA is enabled — Login pe 6-digit code maanga jayega</p>
                 </div>
               )}
               
