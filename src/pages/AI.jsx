@@ -172,6 +172,19 @@ function AI() {
   return (
     <div className="ai-page">
       <Navbar />
+
+      {/* CAMERA FULL SCREEN OVERLAY */}
+      {showCamera && (
+        <div className="ai-camera-overlay">
+          <video ref={videoRef} autoPlay playsInline className="ai-camera-video" />
+          <div className="ai-camera-btns">
+            <button className="ai-capture-btn" onClick={capturePhoto}>📸 Photo Lo</button>
+            <button className="ai-switch-cam-btn" onClick={switchCamera}>🔄 {facingMode === 'environment' ? 'Front Cam' : 'Back Cam'}</button>
+            <button className="ai-close-camera-btn" onClick={closeCamera}>✕ Band Karo</button>
+          </div>
+        </div>
+      )}
+
       <div className="ai-wrapper">
 
         <div className="ai-header">
@@ -227,16 +240,7 @@ function AI() {
                 <div ref={chatEndRef} />
               </div>
 
-              {showCamera && (
-                <div className="ai-camera-modal">
-                  <video ref={videoRef} autoPlay playsInline className="ai-camera-video" />
-                  <div className="ai-camera-btns">
-                    <button className="ai-capture-btn" onClick={capturePhoto}>📸 Photo Lo</button>
-                    <button className="ai-switch-cam-btn" onClick={switchCamera}>🔄 {facingMode === 'environment' ? 'Front' : 'Back'}</button>
-                    <button className="ai-close-camera-btn" onClick={closeCamera}>✕ Band Karo</button>
-                  </div>
-                </div>
-              )}
+              <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
 
               {pendingImage && (
                 <div className="ai-pending-img-wrap">
@@ -245,7 +249,6 @@ function AI() {
                 </div>
               )}
 
-              <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
               <div className="ai-input-row">
                 <button className="ai-icon-btn" onClick={() => fileInputRef.current.click()} disabled={loading} title="Image Upload">🖼️</button>
                 <button className="ai-icon-btn" onClick={() => openCamera()} disabled={loading} title="Camera">📷</button>
