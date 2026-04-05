@@ -69,12 +69,11 @@ function Login() {
           completeLogin(data);
         }
       } else {
-        if (data.message?.toLowerCase().includes('password')) {
+        if (response.status === 401) {
+          setEmailError('Email not registered');
           setPasswordError('Incorrect password');
-        } else if (data.message?.toLowerCase().includes('email') || data.message?.toLowerCase().includes('user')) {
-          setEmailError('Email not found');
         } else {
-          setPasswordError(data.message || 'Invalid email or password');
+          setError(data.message || 'Invalid email or password');
         }
       }
     } catch (err) {
