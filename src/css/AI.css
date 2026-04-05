@@ -363,6 +363,43 @@
   font-size: 13px; cursor: pointer;
 }
 
+.ai-switch-cam-btn {
+  background: rgba(59,130,246,0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 10px; padding: 9px 18px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s;
+}
+.ai-switch-cam-btn:hover { background: rgba(59,130,246,0.3); }
+
+.ai-pending-img-wrap {
+  position: relative;
+  margin: 0 16px 8px;
+  display: inline-block;
+}
+.ai-pending-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(251,146,60,0.5);
+  display: block;
+}
+.ai-remove-img-btn {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 22px; height: 22px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+
 /* ── INPUT ROW ── */
 .ai-input-row {
   display: flex;

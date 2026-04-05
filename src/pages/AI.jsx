@@ -23,6 +23,8 @@ function AI() {
   const [showCamera, setShowCamera] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [facingMode, setFacingMode] = useState('environment');
+  const [pendingImage, setPendingImage] = useState(null);
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const videoRef = useRef(null);
@@ -108,15 +110,25 @@ function AI() {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => sendImage(reader.result.split(',')[1], file.type, '📷 Image uploaded');
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      setPendingImage({ base64: dataUrl.split(',')[1], mimeType: file.type, src: dataUrl });
+    };
     reader.readAsDataURL(file);
     e.target.value = '';
   };
 
-  const openCamera = async () => {
+  const sendWithImage = () => {
+    if (!pendingImage) return;
+    sendImage(pendingImage.base64, pendingImage.mimeType, '📷 Image');
+    setPendingImage(null);
+  };
+
+  const openCamera = async (mode = facingMode) => {
     setShowCamera(true);
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      streamRef.current?.getTracks().forEach(t => t.stop());
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: mode } });
       streamRef.current = stream;
       setTimeout(() => { if (videoRef.current) videoRef.current.srcObject = stream; }, 100);
     } catch {
@@ -125,14 +137,21 @@ function AI() {
     }
   };
 
+  const switchCamera = () => {
+    const newMode = facingMode === 'environment' ? 'user' : 'environment';
+    setFacingMode(newMode);
+    openCamera(newMode);
+  };
+
   const capturePhoto = () => {
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     canvas.getContext('2d').drawImage(videoRef.current, 0, 0);
-    const base64 = canvas.toDataURL('image/jpeg').split(',')[1];
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    const base64 = dataUrl.split(',')[1];
     closeCamera();
-    sendImage(base64, 'image/jpeg', '📷 Camera photo');
+    setPendingImage({ base64, mimeType: 'image/jpeg', src: dataUrl });
   };
 
   const closeCamera = () => {
@@ -213,23 +232,31 @@ function AI() {
                   <video ref={videoRef} autoPlay playsInline className="ai-camera-video" />
                   <div className="ai-camera-btns">
                     <button className="ai-capture-btn" onClick={capturePhoto}>📸 Photo Lo</button>
+                    <button className="ai-switch-cam-btn" onClick={switchCamera}>🔄 {facingMode === 'environment' ? 'Front' : 'Back'}</button>
                     <button className="ai-close-camera-btn" onClick={closeCamera}>✕ Band Karo</button>
                   </div>
+                </div>
+              )}
+
+              {pendingImage && (
+                <div className="ai-pending-img-wrap">
+                  <img src={pendingImage.src} alt="preview" className="ai-pending-img" />
+                  <button className="ai-remove-img-btn" onClick={() => setPendingImage(null)}>✕</button>
                 </div>
               )}
 
               <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
               <div className="ai-input-row">
                 <button className="ai-icon-btn" onClick={() => fileInputRef.current.click()} disabled={loading} title="Image Upload">🖼️</button>
-                <button className="ai-icon-btn" onClick={openCamera} disabled={loading} title="Camera">📷</button>
+                <button className="ai-icon-btn" onClick={() => openCamera()} disabled={loading} title="Camera">📷</button>
                 <input
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                  placeholder="Koi bhi sawaal poochein..."
+                  onKeyDown={e => e.key === 'Enter' && (pendingImage ? sendWithImage() : sendMessage())}
+                  placeholder={pendingImage ? "Image ke saath message likhein..." : "Koi bhi sawaal poochein..."}
                   disabled={loading}
                 />
-                <button className="ai-send-btn" onClick={() => sendMessage()} disabled={loading || !input.trim()}>
+                <button className="ai-send-btn" onClick={() => pendingImage ? sendWithImage() : sendMessage()} disabled={loading || (!input.trim() && !pendingImage)}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
                   </svg>
