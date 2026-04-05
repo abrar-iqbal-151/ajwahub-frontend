@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import * as OTPAuth from 'otpauth';
 import '../css/ResetPassword.css';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function ResetPassword() {
   const navigate = useNavigate();
   const [step, setStep] = useState('email'); // email, verify-code, reset-password
@@ -67,7 +69,7 @@ function ResetPassword() {
       let userExists = false;
 
       try {
-        const backendResponse = await fetch('http://localhost:5000/api/users/check-email', {
+        const backendResponse = await fetch(`${API}/api/users/check-email`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: email.toLowerCase().trim() })
@@ -77,12 +79,12 @@ function ResetPassword() {
           const backendData = await backendResponse.json();
           userExists = backendData.exists === true;
         } else {
-          const profileRes = await fetch(`http://localhost:5000/api/users/profile/${email.toLowerCase().trim()}`);
+          const profileRes = await fetch(`${API}/api/users/profile/${email.toLowerCase().trim()}`);
           userExists = profileRes.ok;
         }
       } catch {
         try {
-          const profileRes = await fetch(`http://localhost:5000/api/users/profile/${email.toLowerCase().trim()}`);
+          const profileRes = await fetch(`${API}/api/users/profile/${email.toLowerCase().trim()}`);
           userExists = profileRes.ok;
         } catch {
           userExists = true;
@@ -116,7 +118,7 @@ function ResetPassword() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/users/profile/${email}`);
+      const res = await fetch(`${API}/api/users/profile/${email}`);
       if (!res.ok) { setError('User not found'); setLoading(false); return; }
       const data = await res.json();
       const secret = data.user?.twoFactorSecret;
@@ -184,7 +186,7 @@ function ResetPassword() {
 
     try {
       // Only use backend MongoDB
-      const response = await fetch('http://localhost:5000/api/reset-password', {
+      const response = await fetch(`${API}/api/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

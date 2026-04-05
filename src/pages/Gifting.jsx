@@ -4,7 +4,7 @@ import '../css/Gifting.css';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-const API = 'http://localhost:5000/api';
+const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
 const STATIC_GIFT_BOXES = [
   { _id: '1', name: 'Classic Date Box', description: 'A beautiful box of premium Ajwa dates, perfect for any occasion.', image: '/Gift 1.png', price: 1500, maxItems: 2, tag: 'Bestseller' },

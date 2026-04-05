@@ -11,10 +11,11 @@ function Contact() {
   const [sent, setSent] = useState(false);
   const [info, setInfo] = useState({ location: 'Madinah, Saudi Arabia', phone: '+92 300 0000000', email: 'support@ajwahub.com', hours: 'Mon–Sat, 9am – 6pm' });
 
+  const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
     if (userData) setUser(JSON.parse(userData));
-    fetch('http://localhost:5000/api/settings').then(r => r.json()).then(d => { if (d.settings) setInfo(d.settings); }).catch(() => {});
+    fetch(`${API}/api/settings`).then(r => r.json()).then(d => { if (d.settings) setInfo(d.settings); }).catch(() => {});
   }, []);
 
   const handleLogout = () => { localStorage.removeItem('ajwaHub_currentUser'); setUser(null); navigate('/description'); };
@@ -25,7 +26,7 @@ function Contact() {
     e.preventDefault();
     if (!user) { setShowLoginModal(true); return; }
     try {
-      await fetch('http://localhost:5000/api/contact', {
+      await fetch(`${API}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)

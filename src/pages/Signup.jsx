@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Signup.css';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '' });
@@ -54,7 +56,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${API}/api/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,7 +67,7 @@ function Signup() {
       });
       const data = await response.json();
       if (response.ok) {
-        const loginRes = await fetch('http://localhost:5000/api/login', {
+        const loginRes = await fetch(`${API}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: formData.email.toLowerCase().trim(), password: formData.password })

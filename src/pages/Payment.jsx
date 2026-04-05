@@ -26,8 +26,10 @@ function Payment() {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [paySettings, setPaySettings] = useState({ easypaisaNumber: '03202017120', jazzcashNumber: '03202017120', easypaisaName: 'AjwaHub', jazzcashName: 'AjwaHub', extraPayments: [], shippingCost: 200, taxRate: 17, discountRate: 0 });
 
+  const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/settings').then(r => r.json()).then(d => { if (d.settings) setPaySettings(d.settings); }).catch(() => {});
+    fetch(`${API}/api/settings`).then(r => r.json()).then(d => { if (d.settings) setPaySettings(d.settings); }).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ function Payment() {
       const u = JSON.parse(userData);
       setUser(u);
       if (u.email) {
-        fetch(`http://localhost:5000/api/users/addresses/${u.email}`)
+        fetch(`${API}/api/users/addresses/${u.email}`)
           .then(r => r.json())
           .then(d => {
             const addrs = d.addresses || [];
@@ -138,7 +140,7 @@ function Payment() {
       try {
         const formData = new FormData();
         formData.append('file', paymentScreenshot);
-        const upRes = await fetch('http://localhost:5000/api/upload', { method: 'POST', body: formData });
+        const upRes = await fetch(`${API}/api/upload`, { method: 'POST', body: formData });
         const upData = await upRes.json();
         if (upRes.ok) screenshotPath = upData.path;
       } catch {}
@@ -149,7 +151,7 @@ function Payment() {
     const orders = JSON.parse(localStorage.getItem('ajwaHub_orders') || '[]');
     orders.push(order);
     localStorage.setItem('ajwaHub_orders', JSON.stringify(orders));
-    try { await fetch('http://localhost:5000/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...order, trackingStatus: 'warehouse' }) }); } catch {}
+    try { await fetch(`${API}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...order, trackingStatus: 'warehouse' }) }); } catch {}
     localStorage.removeItem('ajwaHub_cart');
     setCartItems([]);
     setOrderStatus('Pending Approval');

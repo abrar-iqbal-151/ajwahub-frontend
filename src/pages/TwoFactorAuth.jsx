@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import * as OTPAuth from 'otpauth';
 import '../css/TwoFactorAuth.css';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function TwoFactorAuth() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,7 +55,7 @@ function TwoFactorAuth() {
 
     try {
       // Always fetch fresh from backend to get latest secret
-      const res = await fetch(`http://localhost:5000/api/users/profile/${userEmail}`);
+      const res = await fetch(`${API}/api/users/profile/${userEmail}`);
       if (!res.ok) { setError('User not found'); setLoading(false); return; }
       const data = await res.json();
       const secret = data.user?.twoFactorSecret || userSecret;

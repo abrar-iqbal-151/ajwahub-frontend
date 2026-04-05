@@ -4,6 +4,8 @@ import '../css/Settings.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function Settings() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -64,7 +66,7 @@ function Settings() {
         
         // Try to fetch from backend for additional data
         try {
-          const response = await fetch(`http://localhost:5000/api/users/profile/${parsedUser.email}`);
+          const response = await fetch(`${API}/api/users/profile/${parsedUser.email}`);
           if (response.ok) {
             const data = await response.json();
             const completeUser = { ...parsedUser, ...data.user };
@@ -87,7 +89,7 @@ function Settings() {
         
         // Also fetch from MongoDB
         if (parsedUser.email) {
-          fetch(`http://localhost:5000/api/users/addresses/${parsedUser.email}`)
+          fetch(`${API}/api/users/addresses/${parsedUser.email}`)
             .then(r => r.json())
             .then(d => setAddresses(d.addresses || []))
             .catch(() => {});
@@ -166,7 +168,7 @@ function Settings() {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/profile/${user.email}`, {
+      const res = await fetch(`${API}/api/users/profile/${user.email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -207,7 +209,7 @@ function Settings() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/change-password', {
+      const res = await fetch(`${API}/api/change-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -234,7 +236,7 @@ function Settings() {
     const secret = newStatus ? generateSecret() : '';
 
     try {
-      const res = await fetch('http://localhost:5000/api/users/2fa/toggle', {
+      const res = await fetch(`${API}/api/users/2fa/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: user.email, enabled: newStatus, secret })
@@ -270,7 +272,7 @@ function Settings() {
     }
     
     try {
-      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}`);
+      const response = await fetch(`${API}/api/users/addresses/${user.email}`);
       if (response.ok) {
         const data = await response.json();
         console.log('📦 Fetched addresses from MongoDB:', data.addresses);
@@ -315,8 +317,8 @@ function Settings() {
       };
 
       const url = editingAddressId 
-        ? `http://localhost:5000/api/users/addresses/${user.email}/${editingAddressId}`
-        : `http://localhost:5000/api/users/addresses/${user.email}`;
+        ? `${API}/api/users/addresses/${user.email}/${editingAddressId}`
+        : `${API}/api/users/addresses/${user.email}`;
       
       const method = editingAddressId ? 'PUT' : 'POST';
 
@@ -359,7 +361,7 @@ function Settings() {
 
   const handleDeleteAddress = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API}/api/users/addresses/${user.email}/${id}`, { method: 'DELETE' });
       if (response.ok) {
         const data = await response.json();
         setAddresses(data.addresses || []);
@@ -369,7 +371,7 @@ function Settings() {
 
   const handleSetDefaultAddress = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/addresses/${user.email}/${id}/default`, { method: 'PUT' });
+      const response = await fetch(`${API}/api/users/addresses/${user.email}/${id}/default`, { method: 'PUT' });
       if (response.ok) {
         const data = await response.json();
         setAddresses(data.addresses || []);

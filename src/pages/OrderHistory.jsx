@@ -5,7 +5,7 @@ import '../css/OrderHistory.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 
-const API = 'http://localhost:5000/api';
+const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
 const statusColors = {
   'Paid': '#4ade80', 'Approved': '#4ade80', 'Pending Approval': '#fbbf24', 'Cancelled': '#f87171', 'Delivered': '#3b82f6'
