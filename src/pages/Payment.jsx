@@ -209,19 +209,19 @@ function Payment() {
                     <button className="empty-cart-btn" onClick={() => navigate('/products')}>🛍️ Browse Products</button>
                   </div>
                 ) : (
-                {cartItems.map(item => (
-                  <div key={item.id} className="review-item">
-                    <button className="top-delete-btn" onClick={() => setDeleteConfirm(item.id)}>🗑️</button>
-                    <img src={item.image} alt={item.name} className="item-image" />
-                    <div className="item-info"><h4>{item.name}</h4><p>{item.weight}</p></div>
-                    <div className="quantity-controls">
-                      <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
-                      <span className="quantity">{item.quantity}</span>
-                      <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  cartItems.map(item => (
+                    <div key={item.id} className="review-item">
+                      <button className="top-delete-btn" onClick={() => setDeleteConfirm(item.id)}>🗑️</button>
+                      <img src={item.image} alt={item.name} className="item-image" />
+                      <div className="item-info"><h4>{item.name}</h4><p>{item.weight}</p></div>
+                      <div className="quantity-controls">
+                        <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                        <span className="quantity">{item.quantity}</span>
+                        <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                      </div>
+                      <span className="item-price">PKR {Math.round((item.price || 0) * (item.quantity || 1) * (1 - (item.discount || 0) / 100)).toLocaleString()}</span>
                     </div>
-                    <span className="item-price">PKR {Math.round((item.price || 0) * (item.quantity || 1) * (1 - (item.discount || 0) / 100)).toLocaleString()}</span>
-                  </div>
-                ))}
+                  ))
                 )}
               </div>
               <div className="order-summary">
