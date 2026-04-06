@@ -121,7 +121,9 @@ function Payment() {
   const proceedToPayment = () => { if (validateShipping()) setStep('payment'); };
 
   const validatePayment = () => {
-    if ((selectedPayment === 'card' || selectedPayment === 'easypaisa' || selectedPayment === 'jazzcash') && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
+    if (selectedPayment === 'card' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
+    if (selectedPayment === 'easypaisa' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
+    if (selectedPayment === 'jazzcash' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     setError(''); return true;
   };
 
@@ -347,6 +349,18 @@ function Payment() {
                   </div>
                 )}
                 <div className="pay-divider"><span>OR LOCAL PAYMENT</span></div>
+                <label className={`pay-option ${selectedPayment === 'cash' ? 'active' : ''}`}>
+                  <input type="radio" name="payment" value="cash" checked={selectedPayment === 'cash'} onChange={e => setSelectedPayment(e.target.value)} />
+                  <span className="pay-opt-icon">💵</span>
+                  <div><h5>Cash on Delivery</h5><p>Pay when you receive</p></div>
+                </label>
+                {selectedPayment === 'cash' && (
+                  <div className="pay-mobile-box">
+                    <div className="pay-mobile-row"><span>💵</span><strong>Pay cash when order arrives</strong></div>
+                    <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
+                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>🚚 Delivery person ko cash dena hoga</p>
+                  </div>
+                )}
                 <label className={`pay-option ${selectedPayment === 'easypaisa' ? 'active' : ''}`}>
                   <input type="radio" name="payment" value="easypaisa" checked={selectedPayment === 'easypaisa'} onChange={e => setSelectedPayment(e.target.value)} />
                   <span className="pay-opt-icon">📱</span>
