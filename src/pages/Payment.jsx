@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/Payment.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
-import StripePayment from '../components/StripePayment';
 
 function Payment() {
   const navigate = useNavigate();
@@ -122,11 +121,7 @@ function Payment() {
   const proceedToPayment = () => { if (validateShipping()) setStep('payment'); };
 
   const validatePayment = () => {
-    if (selectedPayment === 'card') {
-      if (!paymentForm.cardNumber || !paymentForm.cardHolder || !paymentForm.expiryDate || !paymentForm.cvv) { setError('Please fill all card details'); return false; }
-      if (paymentForm.cardNumber.replace(/\s/g,'').length < 13) { setError('Invalid card number'); return false; }
-    }
-    if ((selectedPayment === 'easypaisa' || selectedPayment === 'jazzcash') && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
+    if ((selectedPayment === 'card' || selectedPayment === 'easypaisa' || selectedPayment === 'jazzcash') && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     setError(''); return true;
   };
 
@@ -327,20 +322,20 @@ function Payment() {
                 <label className={`pay-option ${selectedPayment === 'card' ? 'active' : ''}`}>
                   <input type="radio" name="payment" value="card" checked={selectedPayment === 'card'} onChange={e => setSelectedPayment(e.target.value)} />
                   <span className="pay-opt-icon">💳</span>
-                  <div><h5>Debit / Credit Card</h5><p>Secure Stripe payment</p></div>
+                  <div><h5>Visa / Debit Card</h5><p>Direct bank transfer</p></div>
                 </label>
                 {selectedPayment === 'card' && (
                   <div className="pay-mobile-box">
-                    <div className="pay-mobile-row"><span>Card Number</span></div>
-                    <input type="text" placeholder="1234 5678 9012 3456" value={paymentForm.cardNumber} onChange={e => setPaymentForm(p => ({ ...p, cardNumber: e.target.value.replace(/\D/g,'').replace(/(\d{4})/g,'$1 ').trim() }))} maxLength="19" />
-                    <div className="pay-mobile-row"><span>Card Holder</span></div>
-                    <input type="text" placeholder="Name on card" value={paymentForm.cardHolder} onChange={e => setPaymentForm(p => ({ ...p, cardHolder: e.target.value }))} />
-                    <div className="pay-card-grid">
-                      <input type="text" placeholder="MM/YY" value={paymentForm.expiryDate} onChange={e => setPaymentForm(p => ({ ...p, expiryDate: e.target.value }))} maxLength="5" />
-                      <input type="text" placeholder="CVV" value={paymentForm.cvv} onChange={e => setPaymentForm(p => ({ ...p, cvv: e.target.value }))} maxLength="4" />
+                    <div className="pay-mobile-row"><span>Name:</span><strong>Muhammad Abrar</strong></div>
+                    <div className="pay-mobile-row">
+                      <span>Card No:</span>
+                      <strong style={{ letterSpacing: '2px' }}>5590 4902 0875 0081</strong>
+                      <button onClick={() => navigator.clipboard.writeText('5590490208750081')}>📋</button>
                     </div>
                     <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
-                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>🔒 Your payment will be verified by admin</p>
+                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>💳 Transfer karo aur screenshot upload karo</p>
+                    <label className="pay-upload-label">📤 Upload Screenshot<input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => setPaymentScreenshot(e.target.files[0])} /></label>
+                    {paymentScreenshot && <div className="pay-uploaded">✓ {paymentScreenshot.name}</div>}
                   </div>
                 )}
                 <div className="pay-divider"><span>OR LOCAL PAYMENT</span></div>
