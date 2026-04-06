@@ -125,28 +125,38 @@ function Description() {
         <section className="products-section">
           <div className="products-inner">
             <div className="section-header">
-              <h3 className="section-title">Our Premium Collection</h3>
+              <span className="desc-section-badge">🌴 Our Collection</span>
+              <h3 className="section-title">Premium Products</h3>
               <div className="section-divider" />
             </div>
+
             {/* Desktop carousel */}
             <div className="products-carousel desc-desktop-only">
               <button className="carousel-arrow carousel-arrow-left" onClick={() => setProductSlide(Math.max(0, productSlide - 5))}>❮</button>
               <div className="products-grid">
                 {products.slice(productSlide, productSlide + 5).map((product) => (
-                  <div key={product.id} className="product-card">
-                    <div className="product-image" onClick={() => handleProductClick(product)}>
+                  <div key={product.id} className="desc-product-card" onClick={() => handleProductClick(product)}>
+                    <div className="desc-product-img-wrap">
                       <img src={product.image} alt={product.name} onError={e => { e.target.src = '/dates.png'; }} />
+                      {product.discount && <span className="desc-product-badge">{product.discount}</span>}
+                      {!product.stock && <div className="desc-out-overlay">Out of Stock</div>}
+                      <div className="desc-product-overlay">
+                        <button className="desc-quick-btn" onClick={e => { e.stopPropagation(); setShowLoginModal(true); }}>🛒 Add to Cart</button>
+                      </div>
                     </div>
-                    <div className="product-info">
-                      <h3>{product.name}</h3>
-                      <div className="discount-tag">{product.discount}</div>
-                      <button className="small-add-to-cart-btn" onClick={() => setShowLoginModal(true)} disabled={!product.stock}>Add to Cart</button>
+                    <div className="desc-product-body">
+                      <h4>{product.name}</h4>
+                      <div className="desc-product-footer">
+                        <span className="desc-product-price">PKR {product.price?.toLocaleString()}</span>
+                        <span className="desc-product-rating">★ {product.rating}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
               <button className="carousel-arrow carousel-arrow-right" onClick={() => setProductSlide(Math.min(products.length - 5, productSlide + 5))}>❯</button>
             </div>
+
             {/* Mobile grid */}
             <div className="desc-mobile-grid">
               {products.map((product) => (
@@ -157,6 +167,7 @@ function Description() {
                   </div>
                   <div className="desc-mob-info">
                     <h4>{product.name}</h4>
+                    <span style={{ fontSize: '11px', color: '#fb923c', fontWeight: 700 }}>PKR {product.price?.toLocaleString()}</span>
                     <button className="desc-mob-btn" onClick={e => { e.stopPropagation(); setShowLoginModal(true); }} disabled={!product.stock}>Add to Cart</button>
                   </div>
                 </div>
