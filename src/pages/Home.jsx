@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/Home.css';
 import Navbar from './Navbar';
@@ -39,6 +39,22 @@ function Home() {
     const interval = setInterval(() => setReviewSlide(p => (p + 1) % reviews.length), 2000);
     return () => clearInterval(interval);
   }, [reviews.length]);
+
+  const [sectionSlides, setSectionSlides] = useState({});
+
+  // Auto slide for each section on mobile
+  useEffect(() => {
+    if (!homeContent?.sections) return;
+    const intervals = homeContent.sections.map(section => {
+      return setInterval(() => {
+        setSectionSlides(prev => ({
+          ...prev,
+          [section.key]: ((prev[section.key] || 0) + 1) % section.items.length
+        }));
+      }, 2500);
+    });
+    return () => intervals.forEach(clearInterval);
+  }, [homeContent?.sections]);
 
   const defaultStats = [
     { number: '50K+', label: 'Happy Customers' },
@@ -88,15 +104,56 @@ function Home() {
           <div className="section-header">
             <h2 className="section-title">{section.title}</h2>
           </div>
-          <div className="premium-products-grid">
+
+          {/* DESKTOP GRID */}
+          <div className="premium-products-grid desktop-only">
             {section.items.map((item, i) => (
               <div key={i} className="premium-product-card">
                 {item.video
-                  ? <video src={item.video} className="premium-product-image" controls />
+                  ? (
+                    <div className="premium-video-wrap">
+                      <video src={item.video} className="premium-product-image" playsInline muted loop
+                        onMouseEnter={e => e.target.play()}
+                        onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
+                      />
+                      <div className="premium-play-icon">▶</div>
+                    </div>
+                  )
                   : <img src={item.image} alt={item.name} className="premium-product-image" />}
                 <h4 className="premium-product-name">{item.name}</h4>
               </div>
             ))}
+          </div>
+
+          {/* MOBILE SLIDER */}
+          <div className="mobile-only">
+            <div className="mob-section-slider">
+              <div className="mob-section-slides" style={{ transform: `translateX(-${(sectionSlides[section.key] || 0) * 100}%)` }}>
+                {section.items.map((item, i) => (
+                  <div key={i} className="mob-section-slide">
+                    {item.video
+                      ? (
+                        <div className="premium-video-wrap" style={{ borderRadius: '1.2rem', marginBottom: 0 }}>
+                          <video src={item.video} className="mob-slide-media" playsInline muted loop
+                            onTouchStart={e => e.target.play()}
+                          />
+                          <div className="premium-play-icon">▶</div>
+                        </div>
+                      )
+                      : <img src={item.image} alt={item.name} className="mob-slide-media" />}
+                    <h4 className="premium-product-name" style={{ marginTop: '8px' }}>{item.name}</h4>
+                  </div>
+                ))}
+              </div>
+              <div className="mob-section-dots">
+                {section.items.map((_, i) => (
+                  <button key={i}
+                    className={`dot ${(sectionSlides[section.key] || 0) === i ? 'active' : ''}`}
+                    onClick={() => setSectionSlides(prev => ({ ...prev, [section.key]: i }))}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       ))}
