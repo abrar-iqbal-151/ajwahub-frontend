@@ -77,11 +77,6 @@ function Home() {
               </div>
             ))}
           </div>
-          <div className="slider-dots">
-            {images.map((_, i) => (
-              <button key={i} className={`dot ${currentSlide === i ? 'active' : ''}`} onClick={() => setCurrentSlide(i)} />
-            ))}
-          </div>
         </div>
       </div>
 
@@ -145,14 +140,6 @@ function Home() {
                   </div>
                 ))}
               </div>
-              <div className="mob-section-dots">
-                {section.items.map((_, i) => (
-                  <button key={i}
-                    className={`dot ${(sectionSlides[section.key] || 0) === i ? 'active' : ''}`}
-                    onClick={() => setSectionSlides(prev => ({ ...prev, [section.key]: i }))}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -199,11 +186,6 @@ function Home() {
                 </div>
                 <p className="review-text">"{r.text}"</p>
               </div>
-            ))}
-          </div>
-          <div className="reviews-dots">
-            {reviews.map((_, i) => (
-              <button key={i} className={`dot ${reviewSlide === i ? 'active' : ''}`} onClick={() => setReviewSlide(i)} />
             ))}
           </div>
         </div>
