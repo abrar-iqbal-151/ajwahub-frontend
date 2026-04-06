@@ -85,6 +85,19 @@ function Home() {
         </div>
       </div>
 
+      {/* PACK IMAGES */}
+      <div className="pack-images">
+        <div className="section-header">
+          <h2 className="pack-section-title">🌴 Our Premium Date Collections</h2>
+        </div>
+        <div className="pack-grid">
+          <div className="pack-card featured" onClick={() => navigate('/products')}><img src="/Pack 1.jpg" alt="Premium Ajwa Dates" className="pack-image" /><h3 className="pack-title">Premium Ajwa Dates</h3></div>
+          <div className="pack-card" onClick={() => navigate('/products')}><img src="/pack 2.jpg" alt="Dates" className="pack-image" /><h3 className="pack-title">Dates</h3></div>
+          <div className="pack-card" onClick={() => navigate('/products')}><img src="/pack 3.jpg" alt="Royal Medjool Dates" className="pack-image" /><h3 className="pack-title">Royal Medjool Dates</h3></div>
+          <div className="pack-card" onClick={() => navigate('/products')}><img src="/pack 4.jpg" alt="Dry Fruits" className="pack-image" /><h3 className="pack-title">Dry Fruits</h3></div>
+        </div>
+      </div>
+
       {/* DYNAMIC SECTIONS */}
       {homeContent?.sections?.map(section => (
         <div key={section.key} className="premium-products-section">

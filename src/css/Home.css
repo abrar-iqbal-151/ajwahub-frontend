@@ -192,10 +192,25 @@ body {
   .home-page { padding-top: 61px; }
 
   /* Pack */
-  .pack-images { padding: 1rem 0.75rem; }
+  .pack-images { padding: 1rem 0; }
   .pack-section-title { font-size: 1.4rem; }
-  .pack-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .pack-image { height: 120px; border-radius: 0.75rem; }
+  .pack-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 0 0.75rem 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .pack-grid::-webkit-scrollbar { display: none; }
+  .pack-card {
+    min-width: 160px;
+    width: 160px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  .pack-image { height: 140px; border-radius: 0.75rem; }
   .pack-title { font-size: 0.88rem; margin: 0.4rem 0 0 0; }
 
   /* Premium products */
