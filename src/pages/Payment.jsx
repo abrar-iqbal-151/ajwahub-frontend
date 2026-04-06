@@ -201,6 +201,14 @@ function Payment() {
             <h2>📦 Order Review</h2>
             <div className="review-content">
               <div className="items-list">
+                {cartItems.length === 0 ? (
+                  <div className="empty-cart-state">
+                    <div className="empty-cart-icon">🛒</div>
+                    <h3>Your cart is empty</h3>
+                    <p>Add some products to get started</p>
+                    <button className="empty-cart-btn" onClick={() => navigate('/products')}>🛍️ Browse Products</button>
+                  </div>
+                ) : (
                 {cartItems.map(item => (
                   <div key={item.id} className="review-item">
                     <button className="top-delete-btn" onClick={() => setDeleteConfirm(item.id)}>🗑️</button>
@@ -214,6 +222,7 @@ function Payment() {
                     <span className="item-price">PKR {Math.round((item.price || 0) * (item.quantity || 1) * (1 - (item.discount || 0) / 100)).toLocaleString()}</span>
                   </div>
                 ))}
+                )}
               </div>
               <div className="order-summary">
                 {cartItems.length > 0 && (
