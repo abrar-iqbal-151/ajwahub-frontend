@@ -110,17 +110,19 @@
 .desc-quick-btn:hover { transform: scale(1.05); }
 
 .desc-product-body {
-  padding: 12px 14px 14px;
+  padding: 14px 16px 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
 }
 
 .desc-product-body h4 {
-  font-size: 13px;
-  font-weight: 700;
-  color: #f1f5f9;
-  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.3px;
 }
 
 .desc-product-footer {
@@ -130,21 +132,22 @@
 }
 
 .desc-product-price {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 15px;
+  font-weight: 900;
   background: linear-gradient(135deg, #fb923c, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.3px;
 }
 
 .desc-product-rating {
   font-size: 11px;
   color: #fbbf24;
   font-weight: 700;
-  background: rgba(251,191,36,0.1);
-  padding: 3px 8px;
+  background: rgba(251,191,36,0.12);
+  padding: 4px 10px;
   border-radius: 20px;
-  border: 1px solid rgba(251,191,36,0.2);
+  border: 1px solid rgba(251,191,36,0.25);
 }
 
 /* MARQUEE */
