@@ -39,6 +39,15 @@ function Description() {
   const hero1 = heroes.find(h => h.key === 'hero1');
   const hero2 = heroes.find(h => h.key === 'hero2');
 
+  const stats = [
+    { number: '50K+', label: 'Happy Customers' },
+    { number: '100%', label: 'Pure & Natural' },
+    { number: '15+', label: 'Premium Products' },
+    { number: '4.9★', label: 'Average Rating' },
+  ];
+
+  const marqueeItems = ['🌴 Premium Ajwa Dates', '🥜 Dry Fruits', '🎁 Gift Boxes', '✈️ Fast Delivery', '💯 100% Natural', '🏆 Best Quality', '🌴 Premium Ajwa Dates', '🥜 Dry Fruits', '🎁 Gift Boxes', '✈️ Fast Delivery', '💯 100% Natural', '🏆 Best Quality'];
+
   return (
     <div className="description-page">
 
@@ -82,6 +91,34 @@ function Description() {
           </section>
         )}
       </main>
+
+      {/* MARQUEE SCROLL */}
+      <div className="desc-marquee-wrap">
+        <div className="desc-marquee">
+          {marqueeItems.map((item, i) => (
+            <span key={i} className="desc-marquee-item">{item}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* STATS */}
+      <div className="desc-stats">
+        {stats.map((s, i) => (
+          <div key={i} className="desc-stat-card">
+            <h3>{s.number}</h3>
+            <p>{s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* TRUST BADGES */}
+      <div className="desc-trust">
+        <div className="desc-trust-item"><span>🔒</span><p>Secure Payment</p></div>
+        <div className="desc-trust-item"><span>🚚</span><p>Fast Delivery</p></div>
+        <div className="desc-trust-item"><span>🌱</span><p>100% Natural</p></div>
+        <div className="desc-trust-item"><span>🔄</span><p>Easy Returns</p></div>
+        <div className="desc-trust-item"><span>🏆</span><p>Premium Quality</p></div>
+      </div>
 
       {products.length > 0 && (
         <section className="products-section">
