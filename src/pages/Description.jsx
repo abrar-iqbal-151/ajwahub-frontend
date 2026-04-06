@@ -118,6 +118,7 @@ function Description() {
         <div className="desc-trust-item"><span>🌱</span><p>100% Natural</p></div>
         <div className="desc-trust-item"><span>🔄</span><p>Easy Returns</p></div>
         <div className="desc-trust-item"><span>🏆</span><p>Premium Quality</p></div>
+        <div className="desc-trust-item"><span>📞</span><p>24/7 Support</p></div>
       </div>
 
       {products.length > 0 && (
