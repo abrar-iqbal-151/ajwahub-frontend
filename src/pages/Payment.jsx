@@ -214,12 +214,16 @@ function Payment() {
                 ))}
               </div>
               <div className="order-summary">
-                <div className="summary-row"><span>Subtotal</span><span>PKR {subtotal}</span></div>
-                <div className="summary-row"><span>Discount</span><span className="discount">-PKR {discount}</span></div>
-                <div className="summary-row"><span>Shipping</span><span>PKR {shipping}</span></div>
-                <div className="summary-row"><span>Tax ({paySettings.taxRate ?? 17}%)</span><span>PKR {tax}</span></div>
-                <div className="summary-divider"></div>
-                <div className="summary-row total"><span>Total</span><span>PKR {total}</span></div>
+                {cartItems.length > 0 && (
+                  <>
+                    <div className="summary-row"><span>Subtotal</span><span>PKR {subtotal}</span></div>
+                    <div className="summary-row"><span>Discount</span><span className="discount">-PKR {discount}</span></div>
+                    <div className="summary-row"><span>Shipping</span><span>PKR {shipping}</span></div>
+                    <div className="summary-row"><span>Tax ({paySettings.taxRate ?? 17}%)</span><span>PKR {tax}</span></div>
+                    <div className="summary-divider"></div>
+                    <div className="summary-row total"><span>Total</span><span>PKR {total}</span></div>
+                  </>
+                )}
               </div>
             </div>
             <div className="button-group">
@@ -310,10 +314,14 @@ function Payment() {
                   ))}
                 </div>
                 <div className="pay-summary">
-                  <div className="pay-row"><span>Subtotal</span><span>PKR {subtotal.toLocaleString()}</span></div>
-                  <div className="pay-row"><span>Shipping</span><span>PKR {shipping}</span></div>
-                  <div className="pay-row"><span>Tax ({paySettings.taxRate ?? 17}%)</span><span>PKR {tax.toLocaleString()}</span></div>
-                  <div className="pay-row total"><span>Total</span><span>PKR {total.toLocaleString()}</span></div>
+                  {cartItems.length > 0 && (
+                    <>
+                      <div className="pay-row"><span>Subtotal</span><span>PKR {subtotal.toLocaleString()}</span></div>
+                      <div className="pay-row"><span>Shipping</span><span>PKR {shipping}</span></div>
+                      <div className="pay-row"><span>Tax ({paySettings.taxRate ?? 17}%)</span><span>PKR {tax.toLocaleString()}</span></div>
+                      <div className="pay-row total"><span>Total</span><span>PKR {total.toLocaleString()}</span></div>
+                    </>
+                  )}
                 </div>
               </div>
 
