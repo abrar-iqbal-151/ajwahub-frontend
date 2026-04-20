@@ -84,12 +84,37 @@ function Payment() {
 
   const validateField = (name, value) => {
     switch (name) {
-      case 'fullName': if (!value.trim()) return 'Full name required'; if (value.trim().length < 3) return 'At least 3 characters'; return '';
-      case 'phone': if (!value.trim()) return 'Phone number required'; if (!/^[0-9]+$/.test(value)) return 'Only numbers allowed'; if (value.length < 11) return 'Must be 11 digits'; return '';
-      case 'address': if (!value.trim()) return 'Street address required'; return '';
-      case 'city': if (!value.trim()) return 'City required'; if (/[0-9]/.test(value)) return 'No numbers in city name'; return '';
-      case 'state': if (!value.trim()) return 'State required'; if (/[0-9]/.test(value)) return 'No numbers in state name'; return '';
-      case 'zipCode': if (!value.trim()) return 'Zip code required'; if (!/^[0-9]+$/.test(value)) return 'Only numbers allowed'; return '';
+      case 'fullName':
+        if (!value.trim()) return 'Full name required';
+        if (value.trim().length < 3) return 'At least 3 characters';
+        if (/[0-9]/.test(value)) return 'Name mein numbers nahi honay chahiye';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Name mein special characters nahi honay chahiye';
+        return '';
+      case 'phone':
+        if (!value.trim()) return 'Phone number required';
+        if (!/^[0-9]+$/.test(value)) return 'Sirf numbers allowed hain';
+        if (value.length < 11) return 'Must be 11 digits';
+        return '';
+      case 'address':
+        if (!value.trim()) return 'Street address required';
+        if (value.trim().length < 10) return 'Poora address likhein (ghar no, gali, area)';
+        return '';
+      case 'city':
+        if (!value.trim()) return 'City required';
+        if (/[0-9]/.test(value)) return 'City mein numbers nahi honay chahiye';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Sirf city ka naam likhein';
+        if (value.trim().length < 3) return 'Valid city naam likhein';
+        return '';
+      case 'state':
+        if (!value.trim()) return 'Province required';
+        if (/[0-9]/.test(value)) return 'Province mein numbers nahi honay chahiye';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Sirf province ka naam likhein';
+        return '';
+      case 'zipCode':
+        if (!value.trim()) return 'Zip code required';
+        if (!/^[0-9]+$/.test(value)) return 'Sirf numbers allowed hain';
+        if (value.length < 5) return 'Valid zip code likhein';
+        return '';
       default: return '';
     }
   };
