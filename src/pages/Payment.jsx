@@ -331,7 +331,7 @@ function Payment() {
                   <input type="text" name={name} placeholder={placeholder} value={shippingAddress[name]} onChange={handleShippingChange} onBlur={() => handleBlur(name)}
                     className={`ship-input ${touched[name] && fieldErrors[name] ? 'err' : touched[name] && !fieldErrors[name] ? 'ok' : ''}`} />
                   {touched[name] && fieldErrors[name] && <span className="ship-error">⚠ {fieldErrors[name]}</span>}
-                  {touched[name] && !fieldErrors[name] && shippingAddress[name] && <span className="ship-ok">✓ Looks good</span>}
+                  {touched[name] && !fieldErrors[name] && shippingAddress[name] && <span className="ship-ok">✅ Valid</span>}
                 </div>
               ))}
 
@@ -354,7 +354,7 @@ function Payment() {
                   />
                 </div>
                 {touched.phone && fieldErrors.phone && <span className="ship-error">⚠ {fieldErrors.phone}</span>}
-                {touched.phone && !fieldErrors.phone && shippingAddress.phone && <span className="ship-ok">✓ Looks good</span>}
+                {touched.phone && !fieldErrors.phone && shippingAddress.phone && <span className="ship-ok">✅ Valid</span>}
               </div>
               {/* CITY DROPDOWN */}
               <div className="ship-field">
@@ -371,7 +371,7 @@ function Payment() {
                   ))}
                 </select>
                 {touched.city && fieldErrors.city && <span className="ship-error">⚠ {fieldErrors.city}</span>}
-                {touched.city && !fieldErrors.city && shippingAddress.city && <span className="ship-ok">✓ Looks good</span>}
+                {touched.city && !fieldErrors.city && shippingAddress.city && <span className="ship-ok">✅ Valid</span>}
               </div>
 
               {/* ADDRESS */}
@@ -380,7 +380,7 @@ function Payment() {
                 <input type="text" name="address" placeholder="House #, Street, Area" value={shippingAddress.address} onChange={handleShippingChange} onBlur={() => handleBlur('address')}
                   className={`ship-input ${touched.address && fieldErrors.address ? 'err' : touched.address && !fieldErrors.address ? 'ok' : ''}`} />
                 {touched.address && fieldErrors.address && <span className="ship-error">⚠ {fieldErrors.address}</span>}
-                {touched.address && !fieldErrors.address && shippingAddress.address && <span className="ship-ok">✓ Looks good</span>}
+                {touched.address && !fieldErrors.address && shippingAddress.address && <span className="ship-ok">✅ Valid</span>}
               </div>
 
               {/* ZIP CODE */}
@@ -390,7 +390,7 @@ function Payment() {
                   className={`ship-input ${touched.zipCode && fieldErrors.zipCode ? 'err' : touched.zipCode && !fieldErrors.zipCode ? 'ok' : ''}`}
                   maxLength={6} />
                 {touched.zipCode && fieldErrors.zipCode && <span className="ship-error">⚠ {fieldErrors.zipCode}</span>}
-                {touched.zipCode && !fieldErrors.zipCode && shippingAddress.zipCode && <span className="ship-ok">✓ Looks good</span>}
+                {touched.zipCode && !fieldErrors.zipCode && shippingAddress.zipCode && <span className="ship-ok">✅ Valid</span>}
               </div>
             </div>
             <div className="button-group">
