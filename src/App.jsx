@@ -1,3 +1,4 @@
+import Premium from './pages/Premium'
 import { Routes, Route } from 'react-router-dom'
 import Description from './pages/Description'
 import Home from './pages/Home'
@@ -47,6 +48,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Terms />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/premium" element={<Premium />} />
         <Route path="/orders" element={<OrderHistory />} />
 
 
