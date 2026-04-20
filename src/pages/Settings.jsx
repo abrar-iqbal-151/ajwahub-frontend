@@ -465,24 +465,24 @@ function Settings() {
 
             <div className="form-groups-container">
               <div className="form-group">
-                <label>Full Name</label>
+                <label>First Name</label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="Enter your full name"
+                  name="firstName"
+                  value={formData.fullName.split(' ')[0] || ''}
+                  onChange={e => setFormData(prev => ({ ...prev, fullName: e.target.value + ' ' + (prev.fullName.split(' ')[1] || '') }))}
+                  placeholder="Enter your first name"
                 />
               </div>
 
               <div className="form-group">
-                <label>Username</label>
+                <label>Last Name</label>
                 <input
                   type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  placeholder="Enter your username"
+                  name="lastName"
+                  value={formData.fullName.split(' ')[1] || ''}
+                  onChange={e => setFormData(prev => ({ ...prev, fullName: (prev.fullName.split(' ')[0] || '') + ' ' + e.target.value }))}
+                  placeholder="Enter your last name"
                 />
               </div>
 
