@@ -164,7 +164,9 @@ function OrderHistory() {
                       <div className="oh-info-cards">
                         <div className="oh-info-card">
                           <span className="oh-info-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
-                          <div><small>Method</small><strong style={{ textTransform: 'capitalize' }}>{order.paymentMethod}</strong></div>
+                          <div><small>Method</small><strong style={{ textTransform: 'capitalize' }}>
+                            {order.paymentMethod === 'cash' ? '💵 Cash on Delivery' : order.paymentMethod === 'card' ? '💳 Card Transfer' : order.paymentMethod === 'easypaisa' ? '📱 Easypaisa' : order.paymentMethod === 'jazzcash' ? '🎵 JazzCash' : order.paymentMethod}
+                          </strong></div>
                         </div>
                         <div className="oh-info-card">
                           <span className="oh-info-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
@@ -196,7 +198,14 @@ function OrderHistory() {
                     </div>
 
                     {/* SCREENSHOT */}
-                    {order.paymentScreenshot ? (
+                    {order.paymentMethod === 'cash' ? (
+                      <div className="oh-section">
+                        <p className="oh-section-title">💵 Payment Method</p>
+                        <div style={{ textAlign: 'center', padding: '20px', color: '#4ade80', fontSize: '13px', background: 'rgba(74,222,128,0.05)', borderRadius: '10px', border: '1px solid rgba(74,222,128,0.2)' }}>
+                          ✅ Cash on Delivery — Pay when order arrives
+                        </div>
+                      </div>
+                    ) : order.paymentScreenshot ? (
                       <div className="oh-section">
                         <p className="oh-section-title">
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
