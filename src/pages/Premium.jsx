@@ -13,6 +13,7 @@ function Premium() {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState('');
   const user = JSON.parse(localStorage.getItem('ajwaHub_currentUser') || 'null');
 
   useEffect(() => {
@@ -34,7 +35,10 @@ function Premium() {
     navigate('/payment');
   };
 
-  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  const filtered = products.filter(p =>
+    (filter === 'all' || p.category === filter) &&
+    p.name?.toLowerCase().includes(search.toLowerCase())
+  );
   const featured = products.filter(p => p.featured);
 
   const renderStars = (r) => [...Array(5)].map((_, i) => (
@@ -97,10 +101,19 @@ function Premium() {
           <div className="premium-filters">
             {['all', 'dates', 'dry'].map(f => (
               <button key={f} className={`premium-filter-btn ${filter === f ? 'active' : ''}`} onClick={() => setFilter(f)}>
-                {f === 'all' ? 'All' : f === 'dates' ? '🌴 Dates' : '🥜 Dry Fruits'}
+                {f === 'all' ? 'All Categories' : f === 'dates' ? '🌴 Dates' : '🥜 Dry Fruits'}
               </button>
             ))}
           </div>
+        </div>
+        <div className="premium-search-bar">
+          <span>🔍</span>
+          <input
+            placeholder="Search products..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+          <span className="premium-search-count">{filtered.length} Products</span>
         </div>
 
         {loading ? (
