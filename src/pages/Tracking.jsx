@@ -114,7 +114,7 @@ function Tracking() {
                   <div><small>Order ID</small><strong>#{activeOrder.orderId?.slice(-8)}</strong></div>
                   <div><small>Total</small><strong>PKR {activeOrder.total?.toLocaleString()}</strong></div>
                   <div><small>Payment</small><strong style={{ color: activeOrder.status === 'Approved' || activeOrder.status === 'Delivered' ? '#4ade80' : activeOrder.status === 'Pending Approval' ? '#fbbf24' : activeOrder.status === 'Cancelled' ? '#ef4444' : '#fbbf24' }}>{activeOrder.status === 'Pending Approval' ? 'Pending Approval' : activeOrder.status === 'Approved' ? 'Approved' : activeOrder.status === 'Delivered' ? 'Delivered' : activeOrder.status}</strong></div>
-                  <div><small>Method</small><strong>{activeOrder.paymentMethod === 'card' ? 'Card' : activeOrder.paymentMethod === 'easypaisa' ? 'Easypaisa' : 'JazzCash'}</strong></div>
+                  <div><small>Method</small><strong>{activeOrder.paymentMethod === 'card' ? 'Card' : activeOrder.paymentMethod === 'easypaisa' ? 'Easypaisa' : activeOrder.paymentMethod === 'jazzcash' ? 'JazzCash' : activeOrder.paymentMethod === 'cash' ? 'Cash on Delivery' : activeOrder.paymentMethod}</strong></div>
                   <div><small>Date</small><strong>{new Date(activeOrder.createdAt || Date.now()).toLocaleDateString()}</strong></div>
                   {activeOrder.shippingId && <div><small>Shipping ID</small><strong style={{ color: '#60a5fa' }}>{activeOrder.shippingId}</strong></div>}
                   {activeOrder.shippingCompany && <div><small>Courier</small><strong>{activeOrder.shippingCompany}</strong></div>}
