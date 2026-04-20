@@ -444,7 +444,7 @@ function Payment() {
                       <button onClick={() => navigator.clipboard.writeText('5590490208750081')}>📋</button>
                     </div>
                     <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
-                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>💳 Transfer karo aur screenshot upload karo</p>
+                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>💳 Transfer the amount and upload screenshot</p>
                     <label className="pay-upload-label">📤 Upload Screenshot<input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => setPaymentScreenshot(e.target.files[0])} /></label>
                     {paymentScreenshot && <div className="pay-uploaded">✓ {paymentScreenshot.name}</div>}
                   </div>
@@ -457,9 +457,9 @@ function Payment() {
                 </label>
                 {selectedPayment === 'cash' && (
                   <div className="pay-mobile-box">
-                    <div className="pay-mobile-row"><span>💵</span><strong>Pay cash when order arrives</strong></div>
+                    <div className="pay-mobile-row"><span>💵</span><strong>Pay cash when order arrives at your door</strong></div>
                     <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
-                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>🚚 Delivery person ko cash dena hoga</p>
+                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>🚚 Please keep the exact amount ready for the delivery person</p>
                   </div>
                 )}
                 <label className={`pay-option ${selectedPayment === 'easypaisa' ? 'active' : ''}`}>
