@@ -85,35 +85,35 @@ function Payment() {
   const validateField = (name, value) => {
     switch (name) {
       case 'fullName':
-        if (!value.trim()) return 'Full name required';
-        if (value.trim().length < 3) return 'At least 3 characters';
-        if (/[0-9]/.test(value)) return 'Name mein numbers nahi honay chahiye';
-        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Name mein special characters nahi honay chahiye';
+        if (!value.trim()) return 'Full name is required';
+        if (value.trim().length < 3) return 'At least 3 characters required';
+        if (/[0-9]/.test(value)) return 'Name cannot contain numbers';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Name cannot contain special characters';
         return '';
       case 'phone':
-        if (!value.trim()) return 'Phone number required';
-        if (!/^[0-9]+$/.test(value)) return 'Sirf numbers allowed hain';
+        if (!value.trim()) return 'Phone number is required';
+        if (!/^[0-9]+$/.test(value)) return 'Only numbers are allowed';
         if (value.length < 11) return 'Must be 11 digits';
         return '';
       case 'address':
-        if (!value.trim()) return 'Street address required';
-        if (value.trim().length < 10) return 'Poora address likhein (ghar no, gali, area)';
+        if (!value.trim()) return 'Street address is required';
+        if (value.trim().length < 10) return 'Please enter complete address (house no, street, area)';
         return '';
       case 'city':
-        if (!value.trim()) return 'City required';
-        if (/[0-9]/.test(value)) return 'City mein numbers nahi honay chahiye';
-        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Sirf city ka naam likhein';
-        if (value.trim().length < 3) return 'Valid city naam likhein';
+        if (!value.trim()) return 'City is required';
+        if (/[0-9]/.test(value)) return 'City name cannot contain numbers';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Please enter city name only';
+        if (value.trim().length < 3) return 'Please enter a valid city name';
         return '';
       case 'state':
-        if (!value.trim()) return 'Province required';
-        if (/[0-9]/.test(value)) return 'Province mein numbers nahi honay chahiye';
-        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Sirf province ka naam likhein';
+        if (!value.trim()) return 'Province is required';
+        if (/[0-9]/.test(value)) return 'Province name cannot contain numbers';
+        if (/[!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?]/.test(value)) return 'Please enter province name only';
         return '';
       case 'zipCode':
-        if (!value.trim()) return 'Zip code required';
-        if (!/^[0-9]+$/.test(value)) return 'Sirf numbers allowed hain';
-        if (value.length < 5) return 'Valid zip code likhein';
+        if (!value.trim()) return 'Zip code is required';
+        if (!/^[0-9]+$/.test(value)) return 'Only numbers are allowed';
+        if (value.length < 5) return 'Please enter a valid zip code';
         return '';
       default: return '';
     }
@@ -133,6 +133,21 @@ function Payment() {
     setTouched(prev => ({ ...prev, [name]: true }));
     setFieldErrors(prev => ({ ...prev, [name]: validateField(name, shippingAddress[name]) }));
   };
+
+  const pakistanCities = [
+    'Abbottabad','Attock','Awaran','Badin','Bahawalnagar','Bahawalpur','Bannu','Batagram',
+    'Bhakkar','Bhalwal','Bhimber','Burewala','Chakwal','Chaman','Charsadda','Chiniot',
+    'Chishtian','Dadu','Dera Ghazi Khan','Dera Ismail Khan','Faisalabad','Ghotki',
+    'Gujranwala','Gujrat','Gwadar','Hafizabad','Haripur','Hyderabad','Islamabad',
+    'Jacobabad','Jhelum','Jhang','Kamalia','Kamoke','Karachi','Kasur','Khanewal',
+    'Kharian','Khushab','Khuzdar','Kohat','Kot Addu','Lahore','Larkana','Layyah',
+    'Lodhran','Mandi Bahauddin','Mansehra','Mardan','Mianwali','Mirpur','Mirpur Khas',
+    'Multan','Muridke','Muzaffarabad','Muzaffargarh','Narowal','Nawabshah','Nowshera',
+    'Okara','Pakpattan','Peshawar','Quetta','Rahim Yar Khan','Rawalpindi','Sadiqabad',
+    'Sahiwal','Sargodha','Sheikhupura','Sialkot','Sibi','Sukkur','Swabi','Swat',
+    'Tando Adam','Tando Allahyar','Taxila','Toba Tek Singh','Turbat','Umerkot',
+    'Vehari','Wah Cantonment','Wazirabad','Zhob'
+  ].sort();
 
   const isShippingValid = () =>
     shippingAddress.fullName.trim() && shippingAddress.phone.trim() && shippingAddress.phone.length >= 11 &&
@@ -312,7 +327,6 @@ function Payment() {
                 { name: 'fullName', label: 'Full Name', placeholder: 'e.g. Ahmed Khan', icon: '👤', half: true },
                 { name: 'phone', label: 'Phone Number', placeholder: '03XX-XXXXXXX', icon: '📞', half: true },
                 { name: 'address', label: 'Street Address', placeholder: 'House #, Street, Area', icon: '🏠', half: false },
-                { name: 'city', label: 'City', placeholder: 'e.g. Karachi', icon: '🏙️', half: true },
                 { name: 'state', label: 'Province', placeholder: 'e.g. Sindh', icon: '📍', half: true },
                 { name: 'zipCode', label: 'Zip Code', placeholder: 'e.g. 75500', icon: '📮', half: true },
               ].map(({ name, label, placeholder, icon, half }) => (
@@ -325,6 +339,24 @@ function Payment() {
                   {touched[name] && !fieldErrors[name] && shippingAddress[name] && <span className="ship-ok">✓ Looks good</span>}
                 </div>
               ))}
+
+              {/* CITY DROPDOWN */}
+              <div className="ship-field">
+                <label className="ship-label">🏙️ City</label>
+                <select
+                  name="city"
+                  value={shippingAddress.city}
+                  onChange={e => { setShippingAddress(prev => ({ ...prev, city: e.target.value })); setTouched(prev => ({ ...prev, city: true })); setFieldErrors(prev => ({ ...prev, city: e.target.value ? '' : 'City is required' })); }}
+                  className={`ship-input ${touched.city && fieldErrors.city ? 'err' : touched.city && shippingAddress.city ? 'ok' : ''}`}
+                >
+                  <option value="">-- Select City --</option>
+                  {pakistanCities.map(city => (
+                    <option key={city} value={city}>{city}</option>
+                  ))}
+                </select>
+                {touched.city && fieldErrors.city && <span className="ship-error">⚠ {fieldErrors.city}</span>}
+                {touched.city && !fieldErrors.city && shippingAddress.city && <span className="ship-ok">✓ Looks good</span>}
+              </div>
             </div>
             <div className="button-group">
               <button className="back-btn" onClick={() => setStep('review')}>← Back</button>
