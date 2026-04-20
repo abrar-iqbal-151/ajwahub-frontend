@@ -93,7 +93,7 @@ function Payment() {
       case 'phone':
         if (!value.trim()) return 'Phone number is required';
         if (!/^[0-9]+$/.test(value)) return 'Only numbers are allowed';
-        if (value.length < 11) return 'Must be 11 digits';
+        if (value.length < 10) return 'Must be 10 digits';
         return '';
       case 'address':
         if (!value.trim()) return 'Street address is required';
