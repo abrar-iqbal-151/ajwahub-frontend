@@ -55,10 +55,13 @@ function GymAI() {
   }, []);
 
   const callAI = async (message) => {
+    const u = localStorage.getItem('ajwaHub_currentUser');
+    const parsed = u ? JSON.parse(u) : null;
+    const userId = parsed?._id || parsed?.id || parsed?.email || '';
     const res = await fetch(`${API}/api/ai/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({ message, userId, userName: parsed?.name || '' })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'AI error');
