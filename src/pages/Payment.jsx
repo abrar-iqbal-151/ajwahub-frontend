@@ -12,7 +12,7 @@ function Payment() {
   const [step, setStep] = useState('review');
   const [selectedPayment, setSelectedPayment] = useState('card');
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
-  const [shippingAddress, setShippingAddress] = useState({ fullName: '', phone: '', address: '', city: '', state: '', zipCode: '' });
+  const [shippingAddress, setShippingAddress] = useState({ fullName: '', phone: '', address: '', city: '', zipCode: '' });
   const [fieldErrors, setFieldErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [paymentForm, setPaymentForm] = useState({ cardNumber: '', cardHolder: '', expiryDate: '', cvv: '' });
@@ -150,8 +150,8 @@ function Payment() {
   ].sort();
 
   const isShippingValid = () =>
-    shippingAddress.fullName.trim() && shippingAddress.phone.trim() && shippingAddress.phone.length >= 11 &&
-    shippingAddress.address.trim() && shippingAddress.city.trim() && shippingAddress.state.trim() && shippingAddress.zipCode.trim();
+    shippingAddress.fullName.trim() && shippingAddress.phone.trim() && shippingAddress.phone.length >= 10 &&
+    shippingAddress.address.trim() && shippingAddress.city.trim() && shippingAddress.zipCode.trim();
 
   const validateShipping = () => {
     if (!isShippingValid()) { setError('Please fill all shipping fields correctly.'); return false; }
@@ -325,21 +325,37 @@ function Payment() {
             <div className="ship-grid">
               {[
                 { name: 'fullName', label: 'Full Name', placeholder: 'e.g. Ahmed Khan', icon: '👤', half: true },
-                { name: 'phone', label: 'Phone Number', placeholder: '03XX-XXXXXXX', icon: '📞', half: true },
-                { name: 'address', label: 'Street Address', placeholder: 'House #, Street, Area', icon: '🏠', half: false },
-                { name: 'state', label: 'Province', placeholder: 'e.g. Sindh', icon: '📍', half: true },
-                { name: 'zipCode', label: 'Zip Code', placeholder: 'e.g. 75500', icon: '📮', half: true },
               ].map(({ name, label, placeholder, icon, half }) => (
                 <div key={name} className={`ship-field ${half ? '' : 'full'}`}>
                   <label className="ship-label">{icon} {label}</label>
                   <input type="text" name={name} placeholder={placeholder} value={shippingAddress[name]} onChange={handleShippingChange} onBlur={() => handleBlur(name)}
-                    className={`ship-input ${touched[name] && fieldErrors[name] ? 'err' : touched[name] && !fieldErrors[name] ? 'ok' : ''}`}
-                    maxLength={name === 'phone' ? 11 : name === 'zipCode' ? 6 : undefined} />
+                    className={`ship-input ${touched[name] && fieldErrors[name] ? 'err' : touched[name] && !fieldErrors[name] ? 'ok' : ''}`} />
                   {touched[name] && fieldErrors[name] && <span className="ship-error">⚠ {fieldErrors[name]}</span>}
                   {touched[name] && !fieldErrors[name] && shippingAddress[name] && <span className="ship-ok">✓ Looks good</span>}
                 </div>
               ))}
 
+              {/* PHONE WITH +92 */}
+              <div className="ship-field">
+                <label className="ship-label">📞 Phone Number</label>
+                <div className="ship-phone-wrap">
+                  <span className="ship-phone-code">🇵🇰 +92</span>
+                  <input
+                    type="text" name="phone" placeholder="3XX XXXXXXX"
+                    value={shippingAddress.phone}
+                    onChange={e => {
+                      const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                      setShippingAddress(prev => ({ ...prev, phone: val }));
+                      if (touched.phone) setFieldErrors(prev => ({ ...prev, phone: validateField('phone', val) }));
+                    }}
+                    onBlur={() => handleBlur('phone')}
+                    className={`ship-input ${touched.phone && fieldErrors.phone ? 'err' : touched.phone && !fieldErrors.phone ? 'ok' : ''}`}
+                    maxLength={10}
+                  />
+                </div>
+                {touched.phone && fieldErrors.phone && <span className="ship-error">⚠ {fieldErrors.phone}</span>}
+                {touched.phone && !fieldErrors.phone && shippingAddress.phone && <span className="ship-ok">✓ Looks good</span>}
+              </div>
               {/* CITY DROPDOWN */}
               <div className="ship-field">
                 <label className="ship-label">🏙️ City</label>
@@ -356,6 +372,25 @@ function Payment() {
                 </select>
                 {touched.city && fieldErrors.city && <span className="ship-error">⚠ {fieldErrors.city}</span>}
                 {touched.city && !fieldErrors.city && shippingAddress.city && <span className="ship-ok">✓ Looks good</span>}
+              </div>
+
+              {/* ADDRESS */}
+              <div className="ship-field full">
+                <label className="ship-label">🏠 Street Address</label>
+                <input type="text" name="address" placeholder="House #, Street, Area" value={shippingAddress.address} onChange={handleShippingChange} onBlur={() => handleBlur('address')}
+                  className={`ship-input ${touched.address && fieldErrors.address ? 'err' : touched.address && !fieldErrors.address ? 'ok' : ''}`} />
+                {touched.address && fieldErrors.address && <span className="ship-error">⚠ {fieldErrors.address}</span>}
+                {touched.address && !fieldErrors.address && shippingAddress.address && <span className="ship-ok">✓ Looks good</span>}
+              </div>
+
+              {/* ZIP CODE */}
+              <div className="ship-field">
+                <label className="ship-label">📮 Zip Code</label>
+                <input type="text" name="zipCode" placeholder="e.g. 75500" value={shippingAddress.zipCode} onChange={handleShippingChange} onBlur={() => handleBlur('zipCode')}
+                  className={`ship-input ${touched.zipCode && fieldErrors.zipCode ? 'err' : touched.zipCode && !fieldErrors.zipCode ? 'ok' : ''}`}
+                  maxLength={6} />
+                {touched.zipCode && fieldErrors.zipCode && <span className="ship-error">⚠ {fieldErrors.zipCode}</span>}
+                {touched.zipCode && !fieldErrors.zipCode && shippingAddress.zipCode && <span className="ship-ok">✓ Looks good</span>}
               </div>
             </div>
             <div className="button-group">

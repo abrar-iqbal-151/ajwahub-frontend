@@ -749,6 +749,32 @@ body {
 .ship-field { display: flex; flex-direction: column; gap: 6px; }
 .ship-field.full { grid-column: 1 / -1; }
 
+.ship-phone-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ship-phone-code {
+  padding: 11px 12px;
+  background: rgba(255,255,255,0.06);
+  border-right: 1px solid rgba(255,255,255,0.15);
+  color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ship-phone-wrap .ship-input {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  flex: 1;
+}
+.ship-phone-wrap .ship-input:focus { box-shadow: none; }
+
 .ship-label { font-size: 12px; font-weight: 700; color: #e5e0e0; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .ship-input,
