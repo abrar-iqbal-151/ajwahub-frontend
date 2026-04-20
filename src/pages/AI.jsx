@@ -15,7 +15,7 @@ const formatText = (text) =>
 function AI() {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([
-    { role: 'model', text: '👋 Assalam o Alaikum! Main AjwaHub AI Assistant hoon. Koi bhi sawaal poochein!' }
+    { role: 'model', text: '👋 Assalam o Alaikum! Main AjwaHub AI Assistant hoon.\n\nMain Abrar (CEO, AjwaHub) ki taraf se aapki madad ke liye hoon. Koi bhi sawaal poochein!' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
