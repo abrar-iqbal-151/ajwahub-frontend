@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const NAV_LINKS = [
   { label: 'Home',       path: '/home',     icon: '🏠' },
   { label: 'Products',   path: '/products', icon: '🛍️' },
+  { label: 'Premium',    path: '/premium',  icon: '👑' },
   { label: 'AI',         path: '/ai',       icon: '🤖' },
   { label: 'Gifting',    path: '/gifting',  icon: '🎁' },
   { label: 'Wishlist',   path: '/wishlist', icon: '❤️' },
