@@ -15,6 +15,7 @@ function Premium() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
+  const [settings, setSettings] = useState({ premiumFeaturedTitle: '⭐ Featured', premiumFeaturedSubtitle: 'Top Picks', premiumSectionTitle: 'All Premium Products' });
   const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('ajwaHub_cart') || '[]'));
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const cartQuantity = cart.reduce((t, i) => t + i.quantity, 0);
@@ -26,6 +27,10 @@ function Premium() {
       .then(d => setProducts(d.products || []))
       .catch(() => {})
       .finally(() => setLoading(false));
+    fetch(`${API}/settings`)
+      .then(r => r.json())
+      .then(d => { if (d.settings) setSettings(s => ({ ...s, ...d.settings })); })
+      .catch(() => {});
   }, []);
 
   const addToCart = (product) => {
@@ -77,8 +82,8 @@ function Premium() {
       {featured.length > 0 && (
         <div className="premium-featured-section">
           <div className="premium-section-header">
-            <span className="premium-badge">⭐ Featured</span>
-            <h2>Top Picks</h2>
+            <span className="premium-badge">{settings.premiumFeaturedTitle}</span>
+            <h2>{settings.premiumFeaturedSubtitle}</h2>
           </div>
           <div className="premium-featured-grid">
             {featured.slice(0, 3).map(p => (
@@ -107,7 +112,7 @@ function Premium() {
       {/* ALL PRODUCTS */}
       <div className="premium-all-section">
         <div className="premium-section-header">
-          <h2>All Premium Products</h2>
+          <h2>{settings.premiumSectionTitle}</h2>
         </div>
         <div className="products-toolbar">
           <div className="products-search">
