@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../css/Premium.css';
+import '../css/Products.css';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -12,8 +13,11 @@ function Premium() {
   const [selected, setSelected] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
+  const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('ajwaHub_cart') || '[]'));
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
+  const cartQuantity = cart.reduce((t, i) => t + i.quantity, 0);
   const user = JSON.parse(localStorage.getItem('ajwaHub_currentUser') || 'null');
 
   useEffect(() => {
@@ -26,17 +30,23 @@ function Premium() {
 
   const addToCart = (product) => {
     if (!user) { setShowLoginModal(true); return; }
-    const cart = JSON.parse(localStorage.getItem('ajwaHub_cart') || '[]');
     const existing = cart.find(i => i.id === product._id);
     const updated = existing
       ? cart.map(i => i.id === product._id ? { ...i, quantity: i.quantity + 1 } : i)
       : [...cart, { id: product._id, name: product.name, price: product.price, image: product.image, weight: product.weight, quantity: 1 }];
+    setCart(updated);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updated));
-    navigate('/payment');
+    setShowCartDropdown(true);
+  };
+
+  const removeFromCart = (id) => {
+    const updated = cart.filter(i => i.id !== id);
+    setCart(updated);
+    localStorage.setItem('ajwaHub_cart', JSON.stringify(updated));
   };
 
   const filtered = products.filter(p =>
-    (filter === 'all' || p.category === filter) &&
+    (!filter || p.category === filter) &&
     p.name?.toLowerCase().includes(search.toLowerCase())
   );
   const featured = products.filter(p => p.featured);
@@ -98,22 +108,57 @@ function Premium() {
       <div className="premium-all-section">
         <div className="premium-section-header">
           <h2>All Premium Products</h2>
-          <div className="premium-filters">
-            {['all', 'dates', 'dry'].map(f => (
-              <button key={f} className={`premium-filter-btn ${filter === f ? 'active' : ''}`} onClick={() => setFilter(f)}>
-                {f === 'all' ? 'All Categories' : f === 'dates' ? '🌴 Dates' : '🥜 Dry Fruits'}
-              </button>
-            ))}
-          </div>
         </div>
-        <div className="premium-search-bar">
-          <span>🔍</span>
-          <input
-            placeholder="Search products..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-          <span className="premium-search-count">{filtered.length} Products</span>
+        <div className="products-toolbar">
+          <div className="products-search">
+            <span>🔍</span>
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="products-filters">
+            <select value={filter} onChange={e => setFilter(e.target.value)}>
+              <option value="">All Categories</option>
+              <option value="dates">Dates</option>
+              <option value="dry">Dry Fruits</option>
+            </select>
+          </div>
+          <div className="cart-btn-wrap">
+            <div className="cart-count-frame" onClick={() => setShowCartDropdown(!showCartDropdown)}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="cart-svg-icon">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span className="cart-count">{cartQuantity}</span>
+            </div>
+            {showCartDropdown && cart.length > 0 && (
+              <div className="cart-dropdown">
+                <div className="cart-dropdown-header">
+                  <h4>Cart Items</h4>
+                  <button className="close-dropdown" onClick={() => setShowCartDropdown(false)}>✕</button>
+                </div>
+                <div className="cart-items">
+                  {cart.map(item => (
+                    <div key={item.id} className="cart-item">
+                      <img src={item.image} alt={item.name} className="cart-item-image" />
+                      <div className="cart-item-info">
+                        <h5>{item.name}</h5>
+                        <p>PKR {item.price?.toLocaleString()} x {item.quantity}</p>
+                      </div>
+                      <button className="remove-item-btn" onClick={() => removeFromCart(item.id)}>🗑️</button>
+                    </div>
+                  ))}
+                </div>
+                <div className="cart-dropdown-footer">
+                  <button className="checkout-btn" onClick={() => { setShowCartDropdown(false); navigate('/payment'); }}>Checkout</button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {loading ? (
