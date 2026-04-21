@@ -484,7 +484,23 @@ function Payment() {
                     <div className="pay-mobile-row"><span>Name:</span><strong>{selectedPayment === 'easypaisa' ? paySettings.easypaisaName : paySettings.jazzcashName}</strong></div>
                     <div className="pay-mobile-row"><span>Account:</span><strong>{selectedPayment === 'easypaisa' ? paySettings.easypaisaNumber : paySettings.jazzcashNumber}</strong><button onClick={() => navigator.clipboard.writeText(selectedPayment === 'easypaisa' ? paySettings.easypaisaNumber : paySettings.jazzcashNumber)}>📋</button></div>
                     <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
-                    <a href={selectedPayment === 'easypaisa' ? 'https://easypaisa.com.pk' : 'https://jazzcash.com.pk'} target="_blank" rel="noopener noreferrer" className="pay-open-btn">Open {selectedPayment === 'easypaisa' ? 'Easypaisa' : 'JazzCash'} →</a>
+                    <div className="pay-deeplink-btns">
+                      <a
+                        href={selectedPayment === 'easypaisa'
+                          ? `easypaisa://send?to=${paySettings.easypaisaNumber}&amount=${total}`
+                          : `jazzcash://send?to=${paySettings.jazzcashNumber}&amount=${total}`}
+                        className="pay-app-btn"
+                        onClick={e => {
+                          setTimeout(() => {
+                            window.location.href = selectedPayment === 'easypaisa'
+                              ? `https://easypaisa.com.pk/paybill?msisdn=${paySettings.easypaisaNumber}&amount=${total}`
+                              : `https://jazzcash.com.pk/send-money?to=${paySettings.jazzcashNumber}&amount=${total}`;
+                          }, 1500);
+                        }}
+                      >
+                        📱 Open {selectedPayment === 'easypaisa' ? 'Easypaisa' : 'JazzCash'} App
+                      </a>
+                    </div>
                     <label className="pay-upload-label">📤 Upload Screenshot<input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => setPaymentScreenshot(e.target.files[0])} /></label>
                     {paymentScreenshot && <div className="pay-uploaded">✓ {paymentScreenshot.name}</div>}
                   </div>

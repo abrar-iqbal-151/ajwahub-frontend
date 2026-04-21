@@ -69,12 +69,26 @@ function Premium() {
         <div className="premium-hero-content">
           <span className="premium-hero-badge">👑 Exclusive Collection</span>
           <h1>Premium <span>Products</span></h1>
-          <p>Handpicked finest dates & dry fruits — crafted for those who demand the best</p>
           <div className="premium-hero-stats">
             <div><h3>100%</h3><p>Pure & Natural</p></div>
             <div><h3>Premium</h3><p>Quality</p></div>
             <div><h3>Fresh</h3><p>Harvested</p></div>
           </div>
+        </div>
+      </div>
+
+      {/* SEARCH BAR BELOW HERO */}
+      <div className="premium-search-bar">
+        <div className="products-search">
+          <span>🔍</span>
+          <input type="text" placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)} />
+        </div>
+        <div className="products-filters">
+          <select value={filter} onChange={e => setFilter(e.target.value)}>
+            <option value="">All Categories</option>
+            <option value="dates">Dates</option>
+            <option value="dry">Dry Fruits</option>
+          </select>
         </div>
       </div>
 
