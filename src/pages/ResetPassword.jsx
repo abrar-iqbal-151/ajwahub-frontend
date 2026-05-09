@@ -72,7 +72,7 @@ function ResetPassword() {
     setLoading(false);
   };
 
-  // Step 2: Verify code
+  
   const handleVerifyCode = async (e) => {
     e.preventDefault();
     setError(''); setLoading(true);
@@ -115,7 +115,7 @@ function ResetPassword() {
     setLoading(false);
   };
 
-  // Resend email OTP
+ 
   const handleResend = async () => {
     setError(''); setLoading(true);
     try {
@@ -130,7 +130,6 @@ function ResetPassword() {
     setLoading(false);
   };
 
-  // Step 3: Reset password
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError(''); setLoading(true);

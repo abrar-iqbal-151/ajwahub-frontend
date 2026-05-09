@@ -15,7 +15,7 @@ const formatText = (text) =>
 function AI() {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([
-    { role: 'model', text: `👋 Assalam o Alaikum${user?.name ? ', ' + user.name.split(' ')[0] : ''}! Main AjwaHub AI Assistant hoon.\n\nMain Abrar (CEO, AjwaHub) ki taraf se aapki madad ke liye hoon. Koi bhi sawaal poochein!` }
+    { role: 'model', text: '👋 Assalam o Alaikum! Main AjwaHub AI Assistant hoon. Koi bhi sawaal poochein!' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,14 +32,7 @@ function AI() {
 
   useEffect(() => {
     const u = localStorage.getItem('ajwaHub_currentUser');
-    if (u) {
-      const parsed = JSON.parse(u);
-      setUser(parsed);
-      const firstName = parsed.name?.split(' ')[0] || '';
-      if (firstName) {
-        setMessages([{ role: 'model', text: `👋 Assalam o Alaikum, ${firstName}! Main AjwaHub AI Assistant hoon.\n\nMain Abrar (CEO, AjwaHub) ki taraf se aapki madad ke liye hoon. Koi bhi sawaal poochein!` }]);
-      }
-    }
+    if (u) setUser(JSON.parse(u));
   }, []);
 
   useEffect(() => {
@@ -86,7 +79,7 @@ function AI() {
       const reply = data?.response || data?.message || 'Sorry, jawab nahi mila. Dobara try karein.';
       setMessages(prev => [...prev, { role: 'model', text: formatText(reply) }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'model', text: '❌ Connection error. Backend chal raha hai? Check karein.' }]);
+      setMessages(prev => [...prev, { role: 'model', text: ' Connection error. Backend chal raha hai? Check karein.' }]);
     }
     setLoading(false);
   };
@@ -108,7 +101,7 @@ function AI() {
       const data = await res.json();
       setMessages(prev => [...prev, { role: 'model', text: formatText(data?.response || 'Image analyze nahi ho saki.') }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'model', text: '❌ Image error. Dobara try karein.' }]);
+      setMessages(prev => [...prev, { role: 'model', text: ' Image error. Dobara try karein.' }]);
     }
     setLoading(false);
   };
@@ -139,7 +132,7 @@ function AI() {
       streamRef.current = stream;
       setTimeout(() => { if (videoRef.current) videoRef.current.srcObject = stream; }, 100);
     } catch {
-      setMessages(prev => [...prev, { role: 'model', text: '❌ Camera permission nahi mili.' }]);
+      setMessages(prev => [...prev, { role: 'model', text: ' Camera permission nahi mili.' }]);
       setShowCamera(false);
     }
   };

@@ -55,6 +55,7 @@ function Signup() {
       setError('Please accept the Terms of Service'); setLoading(false); return;
     }
 
+
     try {
       const response = await fetch(`${API}/api/signup`, {
         method: 'POST',
@@ -65,7 +66,9 @@ function Signup() {
           password: formData.password
         })
       });
-      const data = await response.json();
+
+
+  const data = await response.json();
       if (response.ok) {
         const loginRes = await fetch(`${API}/api/login`, {
           method: 'POST',

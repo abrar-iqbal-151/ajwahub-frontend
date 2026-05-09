@@ -54,7 +54,7 @@ function TwoFactorAuth() {
     setError('');
 
     try {
-      // Always fetch fresh from backend to get latest secret
+   
       const res = await fetch(`${API}/api/users/profile/${userEmail}`);
       if (!res.ok) { setError('User not found'); setLoading(false); return; }
       const data = await res.json();
