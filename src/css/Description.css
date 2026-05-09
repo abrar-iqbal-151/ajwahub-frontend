@@ -111,13 +111,13 @@
 
 .desc-product-body {
   padding: 14px 16px 16px;
-  background: #ffffff;
+  background: linear-gradient(180deg, #1a0000, #2d0000);
 }
 
 .desc-product-body h4 {
   font-size: 14px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: #fca5a5;
   margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
@@ -619,8 +619,8 @@ body, html {
 
 /* Premium Card Container */
 .product-card {
-  background: #ffffff;
-  border: 1px solid rgba(220,38,38,0.12);
+  background: linear-gradient(145deg, #1a0000, #2d0000);
+  border: 1px solid rgba(220,38,38,0.3);
   border-radius: 28px;
   padding: 8px;
   display: flex;
@@ -629,13 +629,21 @@ body, html {
   position: relative;
   overflow: hidden;
   min-height: 220px;
-  box-shadow: 0 4px 16px rgba(220,38,38,0.06);
+  box-shadow: 0 4px 20px rgba(220,38,38,0.15);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(220,38,38,0.08), transparent);
+  pointer-events: none;
 }
 
 .product-card:hover {
-  transform: translateY(-15px);
-  border-color: #dc2626;
-  box-shadow: 0 20px 40px rgba(220,38,38,0.15);
+  transform: translateY(-12px);
+  border-color: #ef4444;
+  box-shadow: 0 24px 48px rgba(220,38,38,0.35);
 }
 
 /* Modern Image Styling */
@@ -672,17 +680,15 @@ body, html {
 }
 
 .product-info h3 {
-  color: #1a1a1a;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 800;
-  margin: 0;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #dc2626, #ef4444);
+  margin: 6px 0 4px;
+  background: linear-gradient(135deg, #ffffff, #fca5a5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.3px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
 }
