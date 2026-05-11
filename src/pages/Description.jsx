@@ -83,6 +83,25 @@ function Description() {
         )}
       </main>
 
+      {/* FEATURE SECTION */}
+      <section className="desc-feature-section">
+        <div className="desc-feature-img-wrap">
+          <img src="/Product 1.png" alt="Ajwa Dates" className="desc-feature-img" onError={e => e.target.src='/dates.png'} />
+        </div>
+        <div className="desc-feature-content">
+          <span className="desc-feature-badge">🌟 Premium Quality</span>
+          <h2 className="desc-feature-title">Why Choose <span>AjwaHub?</span></h2>
+          <p className="desc-feature-text">We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.</p>
+          <div className="desc-feature-list">
+            <div className="desc-feature-item"><span>✅</span><p>100% Natural & Pure</p></div>
+            <div className="desc-feature-item"><span>📦</span><p>Premium Packaging</p></div>
+            <div className="desc-feature-item"><span>🚚</span><p>Fast Delivery Across Pakistan</p></div>
+            <div className="desc-feature-item"><span>⭐</span><p>Trusted by 50,000+ Customers</p></div>
+          </div>
+          <button className="desc-feature-btn" onClick={() => navigate('/signup')}>Shop Now →</button>
+        </div>
+      </section>
+
       {products.length > 0 && (
         <section className="products-section">
           <div className="products-inner">

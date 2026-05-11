@@ -1784,3 +1784,121 @@ body, html {
 }
 
 
+
+/* FEATURE SECTION */
+.desc-feature-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 80px 6%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.desc-feature-img-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.desc-feature-img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: 0 24px 60px rgba(220,38,38,0.2);
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.desc-feature-badge {
+  display: inline-block;
+  background: rgba(220,38,38,0.1);
+  border: 1px solid rgba(220,38,38,0.3);
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.desc-feature-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #111827;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.desc-feature-title span {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.desc-feature-text {
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.desc-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.desc-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.desc-feature-item span { font-size: 18px; }
+
+.desc-feature-item p {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.desc-feature-btn {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(220,38,38,0.3);
+  letter-spacing: 0.5px;
+}
+
+.desc-feature-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(220,38,38,0.4);
+}
+
+@media (max-width: 768px) {
+  .desc-feature-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 4%;
+  }
+  .desc-feature-img { max-width: 280px; }
+  .desc-feature-title { font-size: 1.8rem; }
+}
