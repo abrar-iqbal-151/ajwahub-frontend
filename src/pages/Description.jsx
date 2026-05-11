@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../css/Description.css';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
@@ -16,6 +17,7 @@ function Description() {
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [feature, setFeature] = useState(null);
+  const [deliveryMap, setDeliveryMap] = useState(null);
 
   useEffect(() => {
     Promise.all([
@@ -23,11 +25,13 @@ function Description() {
       fetch(`${API}/content/products`).then(r => r.json()),
       fetch(`${API}/content/reviews`).then(r => r.json()),
       fetch(`${API}/content/feature`).then(r => r.json()),
-    ]).then(([h, p, r, f]) => {
+      fetch(`${API}/content/delivery-map`).then(r => r.json()),
+    ]).then(([h, p, r, f, d]) => {
       setHeroes(h.heroes || []);
       setProducts(p.products || []);
       setReviews(r.reviews || []);
       setFeature(f.feature || null);
+      setDeliveryMap(d.deliveryMap || null);
     }).catch(() => {});
   }, []);
 
@@ -221,6 +225,29 @@ function Description() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* DELIVERY MAP SECTION */}
+      {deliveryMap && (
+        <section className="desc-map-section">
+          <div className="desc-map-header">
+            <h3 className="desc-map-title">
+              {deliveryMap.title.split(' ').slice(0, 2).join(' ')} <span className="desc-map-highlight">{deliveryMap.title.split(' ').slice(2).join(' ')}</span>
+            </h3>
+          </div>
+
+          <div className="desc-map-container">
+            <img 
+              src={deliveryMap.mapImage} 
+              alt="Pakistan Delivery Map" 
+              className="desc-map-image" 
+              onError={e => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.5);"><p style="font-size: 3rem; margin-bottom: 16px;">🗺️</p><p style="font-size: 1.2rem; font-weight: 600;">Map Image Not Found</p><p style="font-size: 0.9rem; margin-top: 8px;">Please upload a map image from Admin Panel</p></div>';
+              }}
+            />
           </div>
         </section>
       )}

@@ -1970,6 +1970,80 @@ body, html {
 
 
 
+/* DELIVERY MAP SECTION - IMAGE BASED */
+.desc-map-section {
+  padding: 50px 4%;
+  margin: 40px 4% 30px;
+  background: linear-gradient(135deg, rgba(15, 52, 67, 0.6) 0%, rgba(8, 28, 36, 0.9) 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 32px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+.desc-map-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.desc-map-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.desc-map-highlight {
+  background: linear-gradient(135deg, #fb923c, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.desc-map-container {
+  position: relative;
+  background: rgba(8, 28, 36, 0.8);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.desc-map-image {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  filter: drop-shadow(0 0 20px rgba(139, 186, 195, 0.2));
+}
+
+@media (max-width: 768px) {
+  .desc-map-section {
+    padding: 35px 4%;
+  }
+  
+  .desc-map-title {
+    font-size: 1.8rem;
+  }
+  
+  .desc-map-container {
+    padding: 30px 20px;
+  }
+  
+  .desc-map-image {
+    max-width: 100%;
+  }
+}
+
 /* FEATURE SECTION */
 .desc-feature-section {
   display: grid;
