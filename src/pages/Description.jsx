@@ -85,6 +85,7 @@ function Description() {
 
       {/* FEATURE SECTION */}
       <section className="desc-feature-section">
+        <h3 className="section-title" style={{gridColumn:'1/-1', textAlign:'center', marginBottom:'0'}}>Our Premium Collection</h3>
         <div className="desc-feature-img-wrap">
           <div className="desc-float-single">
             <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e=>e.target.src='/dates.png'}/></div>
@@ -94,7 +95,6 @@ function Description() {
           </div>
         </div>
         <div className="desc-feature-content">
-          <span className="desc-feature-badge">🌟 Premium Quality</span>
           <h2 className="desc-feature-title">Why Choose <span>AjwaHub?</span></h2>
           <p className="desc-feature-text">We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.</p>
           <div className="desc-feature-list">

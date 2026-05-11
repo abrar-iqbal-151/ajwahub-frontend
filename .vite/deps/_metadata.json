@@ -1,0 +1,43 @@
+{
+  "hash": "28b72d13",
+  "configHash": "5d8cb3ca",
+  "lockfileHash": "fb53f21c",
+  "browserHash": "a318bdd5",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "a2f7e0c0",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "0804feab",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "7bab4f21",
+      "needsInterop": false
+    },
+    "otpauth": {
+      "src": "../../node_modules/otpauth/dist/otpauth.esm.js",
+      "file": "otpauth.js",
+      "fileHash": "fe80000b",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-HCGKX5ED": {
+      "file": "chunk-HCGKX5ED.js"
+    },
+    "chunk-WNPTCGAH": {
+      "file": "chunk-WNPTCGAH.js"
+    },
+    "chunk-5WRI5ZAA": {
+      "file": "chunk-5WRI5ZAA.js"
+    }
+  }
+}
