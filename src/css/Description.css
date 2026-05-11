@@ -1952,3 +1952,64 @@ body, html {
   .desc-feature-img-wrap { height: 300px; }
   .desc-float-col img { height: 140px; }
 }
+
+/* SINGLE ROW 4 IMAGES DIAGONAL */
+.desc-feature-img-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 420px;
+  overflow: hidden;
+}
+
+.desc-float-single {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.desc-float-item {
+  flex: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(220,38,38,0.18);
+  position: relative;
+}
+
+.desc-float-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Triangle staircase heights */
+.desc-float-item1 { height: 160px; animation: floatImg 3s ease-in-out infinite; }
+.desc-float-item2 { height: 220px; animation: floatImg 3s ease-in-out infinite 0.4s; }
+.desc-float-item3 { height: 300px; animation: floatImg 3s ease-in-out infinite 0.8s; }
+.desc-float-item4 { height: 380px; animation: floatImg 3s ease-in-out infinite 1.2s; }
+
+/* Red diagonal shape overlay */
+.desc-float-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(220,38,38,0.3), transparent);
+  pointer-events: none;
+}
+
+@keyframes floatImg {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+@media (max-width: 768px) {
+  .desc-float-item1 { height: 90px; }
+  .desc-float-item2 { height: 120px; }
+  .desc-float-item3 { height: 160px; }
+  .desc-float-item4 { height: 200px; }
+  .desc-feature-img-wrap { height: 220px; }
+}

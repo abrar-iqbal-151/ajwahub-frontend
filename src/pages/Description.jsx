@@ -86,13 +86,11 @@ function Description() {
       {/* FEATURE SECTION */}
       <section className="desc-feature-section">
         <div className="desc-feature-img-wrap">
-          <div className="desc-float-col desc-float-col1">
-            <img src="/Product 1.png" alt="Product 1" onError={e => e.target.src='/dates.png'} />
-            <img src="/Product 2.png" alt="Product 2" onError={e => e.target.src='/dates.png'} />
-          </div>
-          <div className="desc-float-col desc-float-col2">
-            <img src="/Product 3.png" alt="Product 3" onError={e => e.target.src='/dates.png'} />
-            <img src="/Product 4.png" alt="Product 4" onError={e => e.target.src='/dates.png'} />
+          <div className="desc-float-single">
+            <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e=>e.target.src='/dates.png'}/></div>
+            <div className="desc-float-item desc-float-item2"><img src="/Product 2.png" alt="P2" onError={e=>e.target.src='/dates.png'}/></div>
+            <div className="desc-float-item desc-float-item3"><img src="/Product 3.png" alt="P3" onError={e=>e.target.src='/dates.png'}/></div>
+            <div className="desc-float-item desc-float-item4"><img src="/Product 4.png" alt="P4" onError={e=>e.target.src='/dates.png'}/></div>
           </div>
         </div>
         <div className="desc-feature-content">
