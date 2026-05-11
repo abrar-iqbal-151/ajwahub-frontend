@@ -1793,7 +1793,10 @@ body, html {
   align-items: center;
   padding: 80px 4%;
   margin: 0 4%;
-  background: rgba(255,255,255,0.6);
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.6) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 30px;
 }
 
