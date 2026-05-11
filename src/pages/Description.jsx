@@ -250,6 +250,39 @@ function Description() {
         </section>
       )}
 
+      {/* ABOUT SECTION */}
+      <section className="desc-about-section">
+        <div className="desc-about-content">
+          <div className="desc-about-left">
+            <h3 className="desc-about-title">How Our Dates Are Grown</h3>
+            <p className="desc-about-text">
+              Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations. 
+              The journey begins with carefully selected date palm trees planted in nutrient-rich soil.
+            </p>
+            <p className="desc-about-text">
+              Farmers meticulously water the palms using traditional irrigation methods, ensuring each tree receives the perfect 
+              amount of moisture. The dates are hand-pollinated during the flowering season to guarantee the best quality fruit.
+            </p>
+            <p className="desc-about-text">
+              As the dates ripen under the warm sun, they develop their natural sweetness and rich flavor. Each date is 
+              carefully harvested by hand at peak ripeness, then sorted and packaged to preserve its freshness and nutritional value.
+            </p>
+            <p className="desc-about-text">
+              From farm to your table, we ensure every date meets our strict quality standards, bringing you the authentic 
+              taste of nature's finest superfood.
+            </p>
+          </div>
+          <div className="desc-about-right">
+            <img 
+              src="/dates-farming.jpg" 
+              alt="Date Farming Process" 
+              className="desc-about-image"
+              onError={e => e.target.src = '/dates.png'}
+            />
+          </div>
+        </div>
+      </section>
+
       {showProductDetails && selectedProduct && (
         <div className="product-details-overlay" onClick={closeProductDetails} style={{ zIndex: 99999 }}>
           <div className="product-details-modal" onClick={e => e.stopPropagation()} style={{ zIndex: 100000 }}>
