@@ -111,6 +111,7 @@ function Description() {
         <section className="products-section">
           <div className="products-inner">
             <div className="section-header">
+              <span className="desc-section-badge">👑 Premium Collection</span>
               <h3 className="section-title">Our Premium Collection</h3>
               <div className="section-divider" />
             </div>
