@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import '../css/Description.css';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
@@ -238,17 +237,16 @@ function Description() {
             </h3>
           </div>
 
-          <div className="desc-map-container">
-            <img 
-              src={deliveryMap.mapImage} 
-              alt="Pakistan Delivery Map" 
-              className="desc-map-image" 
-              onError={e => {
-                e.target.style.display = 'none';
-                e.target.parentElement.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.5);"><p style="font-size: 3rem; margin-bottom: 16px;">🗺️</p><p style="font-size: 1.2rem; font-weight: 600;">Map Image Not Found</p><p style="font-size: 0.9rem; margin-top: 8px;">Please upload a map image from Admin Panel</p></div>';
-              }}
-            />
-          </div>
+          <img 
+            src={deliveryMap.mapImage} 
+            alt="Pakistan Delivery Map" 
+            className="desc-map-image"
+            loading="eager"
+            onError={e => {
+              e.target.style.display = 'none';
+              e.target.parentElement.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.5);"><p style="font-size: 3rem; margin-bottom: 16px;">🗺️</p><p style="font-size: 1.2rem; font-weight: 600;">Map Image Not Found</p><p style="font-size: 0.9rem; margin-top: 8px;">Please upload a map image from Admin Panel</p></div>';
+            }}
+          />
         </section>
       )}
 

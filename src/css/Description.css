@@ -1972,21 +1972,20 @@ body, html {
 
 /* DELIVERY MAP SECTION - IMAGE BASED */
 .desc-map-section {
-  padding: 50px 4%;
+  padding: 25px 4%;
   margin: 40px 4% 30px;
-  background: linear-gradient(135deg, rgba(15, 52, 67, 0.6) 0%, rgba(8, 28, 36, 0.9) 100%);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.6) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 30px;
   position: relative;
   z-index: 1;
-  box-shadow: 0 0 50px rgba(0,0,0,0.5);
 }
 
 .desc-map-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 }
 
 .desc-map-title {
@@ -2003,27 +2002,30 @@ body, html {
   -webkit-text-fill-color: transparent;
 }
 
-.desc-map-container {
-  position: relative;
-  background: rgba(8, 28, 36, 0.8);
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.05);
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
 .desc-map-image {
-  width: 100%;
-  max-width: 700px;
+  width: calc(100% + 8%);
+  max-width: none;
   height: auto;
   display: block;
-  border-radius: 12px;
-  filter: drop-shadow(0 0 20px rgba(139, 186, 195, 0.2));
+  margin: 0 -4%;
+  border-radius: 20px;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+  animation: slideInFromRight 1.5s ease-out;
+  object-fit: contain;
+  object-position: center;
+  border: 2px solid rgba(139, 186, 195, 0.3);
+  box-shadow: 0 0 30px rgba(139, 186, 195, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2035,12 +2037,9 @@ body, html {
     font-size: 1.8rem;
   }
   
-  .desc-map-container {
-    padding: 30px 20px;
-  }
-  
   .desc-map-image {
-    max-width: 100%;
+    width: calc(100% + 8%);
+    margin: 0 -4%;
   }
 }
 
