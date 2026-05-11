@@ -1791,10 +1791,10 @@ body, html {
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  padding: 80px 6%;
-  max-width: 1300px;
-  margin: 0 auto;
-  background: #fff;
+  padding: 80px 4%;
+  margin: 0 4%;
+  background: rgba(255,255,255,0.6);
+  border-radius: 30px;
 }
 
 .desc-feature-img-wrap {
@@ -1819,9 +1819,9 @@ body, html {
 
 .desc-feature-badge {
   display: inline-block;
-  background: #fff0f0;
-  border: 1px solid #fca5a5;
-  color: #dc2626;
+  background: rgba(220,38,38,0.15);
+  border: 1px solid rgba(220,38,38,0.4);
+  color: #f87171;
   font-size: 12px;
   font-weight: 700;
   padding: 6px 18px;
@@ -1834,20 +1834,20 @@ body, html {
 .desc-feature-title {
   font-size: 2.8rem;
   font-weight: 900;
-  color: #111827;
+  color: #f1f5f9;
   line-height: 1.2;
   margin-bottom: 16px;
   letter-spacing: -0.5px;
 }
 
 .desc-feature-title span {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
+  background: linear-gradient(135deg, #f87171, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .desc-feature-text {
-  color: #374151;
+  color: #d1d5db;
   font-size: 15px;
   line-height: 1.8;
   margin-bottom: 28px;
@@ -1864,8 +1864,8 @@ body, html {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fff0f0;
-  border: 1px solid #fca5a5;
+  background: rgba(220,38,38,0.08);
+  border: 1px solid rgba(220,38,38,0.2);
   border-radius: 12px;
   padding: 10px 16px;
 }
@@ -1873,7 +1873,7 @@ body, html {
 .desc-feature-item span { font-size: 18px; }
 
 .desc-feature-item p {
-  color: #111827;
+  color: #f1f5f9;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
