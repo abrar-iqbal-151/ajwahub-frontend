@@ -15,16 +15,19 @@ function Description() {
   const [heroes, setHeroes] = useState([]);
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [feature, setFeature] = useState(null);
 
   useEffect(() => {
     Promise.all([
       fetch(`${API}/content/heroes`).then(r => r.json()),
       fetch(`${API}/content/products`).then(r => r.json()),
       fetch(`${API}/content/reviews`).then(r => r.json()),
-    ]).then(([h, p, r]) => {
+      fetch(`${API}/content/feature`).then(r => r.json()),
+    ]).then(([h, p, r, f]) => {
       setHeroes(h.heroes || []);
       setProducts(p.products || []);
       setReviews(r.reviews || []);
+      setFeature(f.feature || null);
     }).catch(() => {});
   }, []);
 
@@ -106,13 +109,19 @@ function Description() {
           </div>
         </div>
         <div className="desc-feature-content">
-          <h2 className="desc-feature-title">Why Choose <span>AjwaHub?</span></h2>
-          <p className="desc-feature-text">We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.</p>
+          <h2 className="desc-feature-title">{feature ? feature.title.split(' ').slice(0, 2).join(' ') : 'Why Choose'} <span>{feature ? feature.title.split(' ').slice(2).join(' ') : 'AjwaHub?'}</span></h2>
+          <p className="desc-feature-text">{feature ? feature.description : 'We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.'}</p>
           <div className="desc-feature-list">
-            <div className="desc-feature-item"><span>✅</span><p>100% Natural & Pure</p></div>
-            <div className="desc-feature-item"><span>📦</span><p>Premium Packaging</p></div>
-            <div className="desc-feature-item"><span>🚚</span><p>Fast Delivery Across Pakistan</p></div>
-            <div className="desc-feature-item"><span>⭐</span><p>Trusted by 50,000+ Customers</p></div>
+            {feature && feature.features ? feature.features.map((item, i) => (
+              <div key={i} className="desc-feature-item"><span>{item.icon}</span><p>{item.text}</p></div>
+            )) : (
+              <>
+                <div className="desc-feature-item"><span>✅</span><p>100% Natural & Pure</p></div>
+                <div className="desc-feature-item"><span>📦</span><p>Premium Packaging</p></div>
+                <div className="desc-feature-item"><span>🚚</span><p>Fast Delivery Across Pakistan</p></div>
+                <div className="desc-feature-item"><span>⭐</span><p>Trusted by 50,000+ Customers</p></div>
+              </>
+            )}
           </div>
           <button className="desc-feature-btn" onClick={() => navigate('/signup')}>Shop Now →</button>
         </div>
