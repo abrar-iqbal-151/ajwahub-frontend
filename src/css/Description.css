@@ -366,7 +366,7 @@ body, html {
   transform: translateX(-50%) !important;
   width: 88% !important;
   max-width: 1200px !important;
-  background: rgba(255,255,255,0.6) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -399,7 +399,7 @@ body, html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -517,7 +517,7 @@ body, html {
   padding: 100px 5% 80px;
   background: rgba(0, 0, 0, 0.4);
   position: relative;
-  background: rgba(255,255,255,0.6);
+  margin-top: 40px;
   margin-bottom: 30px;
 }
 
@@ -601,7 +601,7 @@ body, html {
 /* Premium Card Container */
 .product-card {
   background: transparent;
-  background: #dc2626;
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
