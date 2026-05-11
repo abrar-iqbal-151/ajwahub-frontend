@@ -441,13 +441,10 @@ body, html {
   display: block;
   margin: 0;
   padding: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
 }
 
 .main-content { flex: 1; }
@@ -616,6 +613,7 @@ body, html {
   -webkit-backdrop-filter: blur(20px);
   border-radius: 30px;
   position: relative;
+  z-index: 1;
 }
 
 .section-title {
@@ -709,6 +707,7 @@ body, html {
   position: relative;
   overflow: hidden;
   min-height: 220px;
+  cursor: default;
 }
 
 .product-card:hover {
@@ -728,6 +727,11 @@ body, html {
   background: #000;
   border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.02);
 }
 
 .product-image img {
@@ -1027,9 +1031,9 @@ body, html {
 
 /* Floating AI Button */
 .float-ai-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
   width: 62px;
   height: 62px;
   border-radius: 50%;
@@ -1040,7 +1044,7 @@ body, html {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 999;
+  z-index: 9998 !important;
   animation: floatBounce 2.5s ease-in-out infinite;
   user-select: none;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -1049,11 +1053,13 @@ body, html {
 .float-ai-btn:hover {
   transform: scale(1.1) translateY(-4px);
   box-shadow: 0 10px 32px rgba(251, 146, 60, 0.7);
+  animation-play-state: paused;
 }
 
 .float-ai-icon {
   font-size: 1.6rem;
   line-height: 1;
+  color: #fff;
 }
 
 .float-ai-label {
@@ -1071,6 +1077,7 @@ body, html {
   border-radius: 50%;
   border: 2px solid rgba(251, 146, 60, 0.6);
   animation: ripplePop 2.5s ease-out infinite;
+  pointer-events: none;
 }
 
 .float-ai-ring2 {
@@ -1088,54 +1095,140 @@ body, html {
 }
 
 @media (max-width: 768px) {
-  .float-ai-btn { width: 54px; height: 54px; bottom: 20px; right: 18px; }
+  .float-ai-btn { width: 54px; height: 54px; bottom: 20px; right: 20px; z-index: 9998; }
   .float-ai-icon { font-size: 1.4rem; }
 }
 
 /* Footer */
-.footer {
-  margin-top: 30px;
-  padding: 25px 0;
+.login-footer {
+  margin-top: 60px;
+  padding: 40px 0 25px;
   background: radial-gradient(circle at 50% 50%, rgba(74, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
   border-top: 1px solid rgba(220, 38, 38, 0.2);
-  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.footer-content {
-  padding: 0;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+.login-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 25px;
 }
 
-.footer-content span {
+.login-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-footer-logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.login-footer-name {
+  font-size: 1.5rem;
+  font-weight: 800;
   background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.login-footer-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.login-footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.login-footer-links a:hover {
+  color: #fb923c;
+}
+
+.login-footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.login-footer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s;
+}
+
+.login-footer-social a:hover {
+  background: rgba(251, 146, 60, 0.2);
+  border-color: #fb923c;
+  color: #fb923c;
+  transform: translateY(-3px);
+}
+
+.login-footer-bottom {
+  text-align: center;
+  padding: 20px 5%;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .login-footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .login-footer-links {
+    justify-content: center;
+  }
 }
 
 /* Modal Styling */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
 }
 
 .modal {
-  background: rgba(26, 26, 46, 0.95);
-  border: 1.5px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 400px;
-  width: 90%;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(15, 15, 30, 0.98)) !important;
+  border: 2px solid rgba(251, 146, 60, 0.3) !important;
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  max-width: 400px !important;
+  width: 90% !important;
+  position: relative !important;
+  z-index: 100000 !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(251, 146, 60, 0.2) !important;
+  animation: modalSlideIn 0.3s ease-out !important;
 }
 
 .modal-header {
@@ -1407,6 +1500,7 @@ body, html {
   -webkit-backdrop-filter: blur(20px);
   border-radius: 30px;
   position: relative;
+  z-index: 1;
 }
 
 .reviews-carousel-inner {
@@ -1613,48 +1707,35 @@ body, html {
 
 /* Product Details Modal */
 .product-details-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  backdrop-filter: blur(5px);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
 }
 
 .product-details-modal {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(15, 15, 30, 0.95));
-  border: 2px solid rgba(251, 146, 60, 0.3);
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-  animation: modalSlideIn 0.3s ease-out;
-}
-
-/* Modern Product Details Modal */
-.product-details-modal {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(15, 15, 30, 0.95));
-  border: 2px solid rgba(251, 146, 60, 0.3);
-  border-radius: 25px;
-  padding: 35px;
-  max-width: 650px;
-  width: 90%;
-  height: auto;
-  max-height: none;
-  overflow: visible;
-  position: relative;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 146, 60, 0.2);
-  animation: modalSlideIn 0.4s ease-out;
-  backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(15, 15, 30, 0.98)) !important;
+  border: 2px solid rgba(251, 146, 60, 0.3) !important;
+  border-radius: 25px !important;
+  padding: 35px !important;
+  max-width: 650px !important;
+  width: 90% !important;
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  z-index: 100000 !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(251, 146, 60, 0.2) !important;
+  animation: modalSlideIn 0.4s ease-out !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
 
 .close-btn {
@@ -1902,6 +1983,8 @@ body, html {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 30px;
+  position: relative;
+  z-index: 1;
 }
 
 .desc-feature-img-wrap {

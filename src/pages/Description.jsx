@@ -31,8 +31,16 @@ function Description() {
     }).catch(() => {});
   }, []);
 
-  const handleProductClick = (product) => { setSelectedProduct(product); setShowProductDetails(true); };
-  const closeProductDetails = () => { setShowProductDetails(false); setSelectedProduct(null); };
+  const handleProductClick = (product) => { 
+    console.log('Product clicked:', product);
+    setSelectedProduct(product); 
+    setShowProductDetails(true); 
+  };
+  const closeProductDetails = () => { 
+    console.log('Closing product details');
+    setShowProductDetails(false); 
+    setSelectedProduct(null); 
+  };
 
   const renderStars = (rating) =>
     [...Array(5)].map((_, i) => (
@@ -218,8 +226,8 @@ function Description() {
       )}
 
       {showProductDetails && selectedProduct && (
-        <div className="product-details-overlay" onClick={closeProductDetails}>
-          <div className="product-details-modal" onClick={e => e.stopPropagation()}>
+        <div className="product-details-overlay" onClick={closeProductDetails} style={{ zIndex: 99999 }}>
+          <div className="product-details-modal" onClick={e => e.stopPropagation()} style={{ zIndex: 100000 }}>
             <button className="close-btn" onClick={closeProductDetails}>✕</button>
             <div className="product-details-content">
               <div className="product-details-image">
@@ -228,7 +236,7 @@ function Description() {
               <div className="product-details-info">
                 <h2>{selectedProduct.name}</h2>
                 <p className="product-description">{selectedProduct.description}</p>
-                <p className="product-weight">Weight: {selectedProduct.weight}</p>
+                <p className="product-weight">📦 Weight: {selectedProduct.weight}</p>
                 <div className="rating">
                   {renderStars(selectedProduct.rating)}
                   <span className="rating-value">({selectedProduct.rating})</span>
@@ -236,9 +244,17 @@ function Description() {
                 <div className="price-stock">
                   <span className="price">PKR {selectedProduct.price}</span>
                   <span className={`stock ${selectedProduct.stock ? 'in-stock' : 'out-stock'}`}>
-                    {selectedProduct.stock ? 'In Stock' : 'Out of Stock'}
+                    {selectedProduct.stock ? '✅ In Stock' : '❌ Out of Stock'}
                   </span>
                 </div>
+                <button 
+                  className="add-to-cart-btn" 
+                  onClick={() => { closeProductDetails(); setShowLoginModal(true); }}
+                  disabled={!selectedProduct.stock}
+                  style={{ marginTop: '20px', width: '100%' }}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
@@ -246,8 +262,8 @@ function Description() {
       )}
 
       {showLoginModal && (
-        <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={() => setShowLoginModal(false)} style={{ zIndex: 99999 }}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ zIndex: 100000 }}>
             <div className="modal-header">
               <h3 className="modal-title">Login Required</h3>
               <p className="modal-text">Please login or sign up to add items to cart</p>
