@@ -1846,7 +1846,7 @@ body, html {
 }
 
 .desc-feature-text {
-  color: #6b7280;
+  color: #374151;
   font-size: 15px;
   line-height: 1.8;
   margin-bottom: 28px;
@@ -1863,12 +1863,16 @@ body, html {
   display: flex;
   align-items: center;
   gap: 12px;
+  background: rgba(220,38,38,0.04);
+  border: 1px solid rgba(220,38,38,0.1);
+  border-radius: 12px;
+  padding: 10px 16px;
 }
 
 .desc-feature-item span { font-size: 18px; }
 
 .desc-feature-item p {
-  color: #374151;
+  color: #111827;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
