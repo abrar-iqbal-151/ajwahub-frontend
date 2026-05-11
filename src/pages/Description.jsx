@@ -86,7 +86,14 @@ function Description() {
       {/* FEATURE SECTION */}
       <section className="desc-feature-section">
         <div className="desc-feature-img-wrap">
-          <img src="/Product 1.png" alt="Ajwa Dates" className="desc-feature-img" onError={e => e.target.src='/dates.png'} />
+          <div className="desc-float-col desc-float-col1">
+            <img src="/Product 1.png" alt="Product 1" onError={e => e.target.src='/dates.png'} />
+            <img src="/Product 2.png" alt="Product 2" onError={e => e.target.src='/dates.png'} />
+          </div>
+          <div className="desc-float-col desc-float-col2">
+            <img src="/Product 3.png" alt="Product 3" onError={e => e.target.src='/dates.png'} />
+            <img src="/Product 4.png" alt="Product 4" onError={e => e.target.src='/dates.png'} />
+          </div>
         </div>
         <div className="desc-feature-content">
           <span className="desc-feature-badge">🌟 Premium Quality</span>
