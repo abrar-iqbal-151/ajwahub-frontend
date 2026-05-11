@@ -102,10 +102,20 @@ function Description() {
         <h3 className="section-title" style={{gridColumn:'1/-1', textAlign:'center', marginBottom:'0'}}>Our Premium Collection</h3>
         <div className="desc-feature-img-wrap">
           <div className="desc-float-single">
-            <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e=>e.target.src='/dates.png'}/></div>
-            <div className="desc-float-item desc-float-item2"><img src="/Product 2.png" alt="P2" onError={e=>e.target.src='/dates.png'}/></div>
-            <div className="desc-float-item desc-float-item3"><img src="/Product 3.png" alt="P3" onError={e=>e.target.src='/dates.png'}/></div>
-            <div className="desc-float-item desc-float-item4"><img src="/Product 4.png" alt="P4" onError={e=>e.target.src='/dates.png'}/></div>
+            {feature && feature.images && feature.images.length > 0 ? (
+              feature.images.map((img, i) => (
+                <div key={i} className={`desc-float-item desc-float-item${i+1}`}>
+                  <img src={img} alt={`P${i+1}`} onError={e=>e.target.src='/dates.png'}/>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e=>e.target.src='/dates.png'}/></div>
+                <div className="desc-float-item desc-float-item2"><img src="/Product 2.png" alt="P2" onError={e=>e.target.src='/dates.png'}/></div>
+                <div className="desc-float-item desc-float-item3"><img src="/Product 3.png" alt="P3" onError={e=>e.target.src='/dates.png'}/></div>
+                <div className="desc-float-item desc-float-item4"><img src="/Product 4.png" alt="P4" onError={e=>e.target.src='/dates.png'}/></div>
+              </>
+            )}
           </div>
         </div>
         <div className="desc-feature-content">
