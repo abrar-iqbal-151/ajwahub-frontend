@@ -619,7 +619,7 @@ body, html {
 
 /* Premium Card Container */
 .product-card {
-  background: #ffffff;
+  background: rgba(15,15,15,0.85);
   border: none;
   border-radius: 16px;
   padding: 0;
@@ -629,14 +629,12 @@ body, html {
   position: relative;
   overflow: hidden;
   min-height: 280px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
-
-.product-card::before { display: none; }
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
 }
 
 /* Modern Image Styling */
@@ -668,45 +666,44 @@ body, html {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  text-align: left;
+  text-align: center;
   padding: 14px 16px 16px;
-  background: #ffffff;
-  gap: 0;
-  justify-content: flex-start;
+  background: #dc2626;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-info h3 {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  margin: 0 0 8px;
-  color: #111827;
-  -webkit-text-fill-color: #111827;
-  letter-spacing: 0.2px;
-  text-transform: none;
-  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 
 /* Discount Tag */
 .discount-tag {
-  background: #dc2626;
-  color: #fff;
+  background: rgba(251,146,60,0.15);
+  color: #fb923c;
   font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 0 10px;
+  letter-spacing: 1.5px;
+  margin: 0;
   display: inline-block;
-  box-shadow: none;
-  animation: none;
-  position: static;
-  overflow: visible;
   width: fit-content;
+  border: 1px solid rgba(251,146,60,0.4);
 }
 
 .discount-tag::before { display: none; }
@@ -714,21 +711,19 @@ body, html {
 /* Modern Small Add to Cart Button */
 .small-add-to-cart-btn {
   padding: 10px 0;
-  border-radius: 8px;
-  font-weight: 700;
+  border-radius: 50px;
+  font-weight: 800;
   cursor: pointer;
-  transition: background 0.2s ease;
-  font-size: 12px;
+  transition: all 0.2s ease;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  background: #dc2626;
-  color: #fff;
+  letter-spacing: 1.5px;
+  background: #ffffff;
+  color: #dc2626;
   border: none;
-  box-shadow: none;
-  margin-top: auto;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  margin-top: 4px;
   width: 100%;
-  margin-left: 0;
-  margin-right: 0;
   display: block;
   backdrop-filter: none;
 }
@@ -736,9 +731,9 @@ body, html {
 .small-add-to-cart-btn::before { display: none; }
 
 .small-add-to-cart-btn:hover {
-  background: #b91c1c;
-  transform: none;
-  box-shadow: none;
+  background: #fff;
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .small-add-to-cart-btn:active { opacity: 0.85; }
