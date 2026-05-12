@@ -17,21 +17,15 @@ function Description() {
   const [reviews, setReviews] = useState([]);
   const [feature, setFeature] = useState(null);
   const [deliveryMap, setDeliveryMap] = useState(null);
+  const [about, setAbout] = useState(null);
   const [aboutSlide, setAboutSlide] = useState(0);
-
-  const aboutImages = [
-    '/dates-farming.jpg',
-    '/Product 1.png',
-    '/Product 2.png',
-    '/Product 3.png',
-  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setAboutSlide(prev => (prev + 1) % aboutImages.length);
+      setAboutSlide(prev => (prev + 1) % (about?.images?.length || 4));
     }, 2500);
     return () => clearInterval(timer);
-  }, []);
+  }, [about]);
 
   useEffect(() => {
     Promise.all([
@@ -40,12 +34,14 @@ function Description() {
       fetch(`${API}/content/reviews`).then(r => r.json()),
       fetch(`${API}/content/feature`).then(r => r.json()),
       fetch(`${API}/content/delivery-map`).then(r => r.json()),
-    ]).then(([h, p, r, f, d]) => {
+      fetch(`${API}/content/about`).then(r => r.json()),
+    ]).then(([h, p, r, f, d, a]) => {
       setHeroes(h.heroes || []);
       setProducts(p.products || []);
       setReviews(r.reviews || []);
       setFeature(f.feature || null);
       setDeliveryMap(d.deliveryMap || null);
+      setAbout(a.about || null);
     }).catch(() => {});
   }, []);
 
@@ -108,6 +104,15 @@ function Description() {
             </div>
           </section>
         )}
+        {hero1 && (
+          <div className="hero-offer-strip">
+            <span className="hero-offer-flash">⚡</span>
+            <span className="hero-offer-text">LIMITED TIME OFFER</span>
+            <span className="hero-offer-badge">50% OFF</span>
+            <span className="hero-offer-text">ON ALL PREMIUM DATES</span>
+            <span className="hero-offer-flash">⚡</span>
+          </div>
+        )}
 
         {hero2 && (
           <section className="hero hero--right">
@@ -120,6 +125,15 @@ function Description() {
               <p className="hero-text">{hero2.text}</p>
             </div>
           </section>
+        )}
+        {hero2 && (
+          <div className="hero-offer-strip">
+            <span className="hero-offer-flash">🔥</span>
+            <span className="hero-offer-text">EXCLUSIVE DEAL</span>
+            <span className="hero-offer-badge">50% OFF</span>
+            <span className="hero-offer-text">FREE DELIVERY ABOVE PKR 2000</span>
+            <span className="hero-offer-flash">🔥</span>
+          </div>
         )}
       </main>
 
@@ -269,27 +283,19 @@ function Description() {
       <section className="desc-about-section">
         <div className="desc-about-content">
           <div className="desc-about-left">
-            <h3 className="desc-about-title">How Our Dates Are Grown</h3>
-            <p className="desc-about-text">
-              Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations. 
-              The journey begins with carefully selected date palm trees planted in nutrient-rich soil.
-            </p>
-            <p className="desc-about-text">
-              Farmers meticulously water the palms using traditional irrigation methods, ensuring each tree receives the perfect 
-              amount of moisture. The dates are hand-pollinated during the flowering season to guarantee the best quality fruit.
-            </p>
-            <p className="desc-about-text">
-              As the dates ripen under the warm sun, they develop their natural sweetness and rich flavor. Each date is 
-              carefully harvested by hand at peak ripeness, then sorted and packaged to preserve its freshness and nutritional value.
-            </p>
-            <p className="desc-about-text">
-              From farm to your table, we ensure every date meets our strict quality standards, bringing you the authentic 
-              taste of nature's finest superfood.
-            </p>
+            <h3 className="desc-about-title">{about?.title || 'How Our Dates Are Grown'}</h3>
+            {(about?.paragraphs || [
+              'Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations. The journey begins with carefully selected date palm trees planted in nutrient-rich soil.',
+              'Farmers meticulously water the palms using traditional irrigation methods, ensuring each tree receives the perfect amount of moisture. The dates are hand-pollinated during the flowering season to guarantee the best quality fruit.',
+              'As the dates ripen under the warm sun, they develop their natural sweetness and rich flavor. Each date is carefully harvested by hand at peak ripeness, then sorted and packaged to preserve its freshness and nutritional value.',
+              "From farm to your table, we ensure every date meets our strict quality standards, bringing you the authentic taste of nature's finest superfood."
+            ]).map((para, i) => (
+              <p key={i} className="desc-about-text">{para}</p>
+            ))}
           </div>
           <div className="desc-about-right">
             <div className="desc-about-slider">
-              {aboutImages.map((img, i) => (
+              {(about?.images || ['/dates-farming.jpg', '/Product 1.png', '/Product 2.png', '/Product 3.png']).map((img, i) => (
                 <img
                   key={i}
                   src={img}
@@ -299,7 +305,7 @@ function Description() {
                 />
               ))}
               <div className="desc-about-dots">
-                {aboutImages.map((_, i) => (
+                {(about?.images || ['/dates-farming.jpg', '/Product 1.png', '/Product 2.png', '/Product 3.png']).map((_, i) => (
                   <span key={i} className={`desc-about-dot${aboutSlide === i ? ' active' : ''}`} onClick={() => setAboutSlide(i)} />
                 ))}
               </div>
