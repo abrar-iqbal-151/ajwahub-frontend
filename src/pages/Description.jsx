@@ -17,6 +17,21 @@ function Description() {
   const [reviews, setReviews] = useState([]);
   const [feature, setFeature] = useState(null);
   const [deliveryMap, setDeliveryMap] = useState(null);
+  const [aboutSlide, setAboutSlide] = useState(0);
+
+  const aboutImages = [
+    '/dates-farming.jpg',
+    '/Product 1.png',
+    '/Product 2.png',
+    '/Product 3.png',
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAboutSlide(prev => (prev + 1) % aboutImages.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -273,12 +288,22 @@ function Description() {
             </p>
           </div>
           <div className="desc-about-right">
-            <img 
-              src="/dates-farming.jpg" 
-              alt="Date Farming Process" 
-              className="desc-about-image"
-              onError={e => e.target.src = '/dates.png'}
-            />
+            <div className="desc-about-slider">
+              {aboutImages.map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`Farm ${i + 1}`}
+                  className={`desc-about-slide-img${aboutSlide === i ? ' active' : ''}`}
+                  onError={e => e.target.src = '/dates.png'}
+                />
+              ))}
+              <div className="desc-about-dots">
+                {aboutImages.map((_, i) => (
+                  <span key={i} className={`desc-about-dot${aboutSlide === i ? ' active' : ''}`} onClick={() => setAboutSlide(i)} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
