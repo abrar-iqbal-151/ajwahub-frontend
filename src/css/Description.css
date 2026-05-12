@@ -1165,107 +1165,194 @@ body, html {
 /* Footer */
 .login-footer {
   margin-top: 60px;
-  padding: 40px 0 25px;
-  background: radial-gradient(circle at 50% 50%, rgba(74, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
-  border-top: 1px solid rgba(220, 38, 38, 0.2);
+  padding: 40px 0 0;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
   position: relative;
   z-index: 1;
+  overflow: hidden;
+}
+
+.login-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #fb923c, #fbbf24, #fb923c, transparent);
 }
 
 .login-footer-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 25px;
+  padding: 0 5% 30px;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
 .login-footer-brand {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
+  max-width: 260px;
+}
+
+.login-footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .login-footer-logo {
-  width: 45px;
-  height: 45px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
+  border: 1px solid rgba(251,146,60,0.3);
 }
 
 .login-footer-name {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
+  background: linear-gradient(135deg, #fb923c, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
 }
 
+.login-footer-tagline {
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.login-footer-links-wrap {
+  display: flex;
+  gap: 50px;
+}
+
+.login-footer-col-title {
+  color: rgba(255,255,255,0.85);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
 .login-footer-links {
   display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .login-footer-links a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255,255,255,0.45);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
 }
 
-.login-footer-links a:hover {
-  color: #fb923c;
+.login-footer-links a::before {
+  content: '';
+  width: 0;
+  height: 1px;
+  background: #fb923c;
+  transition: width 0.3s ease;
+  display: inline-block;
 }
+
+.login-footer-links a:hover { color: #fb923c; gap: 8px; }
+.login-footer-links a:hover::before { width: 10px; }
 
 .login-footer-social {
   display: flex;
-  gap: 15px;
+  gap: 8px;
 }
 
 .login-footer-social a {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s;
+  color: rgba(255,255,255,0.45);
+  transition: all 0.3s ease;
 }
 
 .login-footer-social a:hover {
-  background: rgba(251, 146, 60, 0.2);
-  border-color: #fb923c;
+  background: rgba(251,146,60,0.15);
+  border-color: rgba(251,146,60,0.35);
   color: #fb923c;
   transform: translateY(-3px);
 }
 
 .login-footer-bottom {
-  text-align: center;
-  padding: 20px 5%;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 5%;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.3);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.login-footer-payments {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pay-icon {
+  border-radius: 6px;
+  opacity: 0.95;
+  transition: opacity 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 4px 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.pay-icon img {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.pay-icon:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.login-footer-bottom-right {
+  color: rgba(255,255,255,0.25);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 @media (max-width: 768px) {
-  .login-footer-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-  
-  .login-footer-links {
-    justify-content: center;
-  }
+  .login-footer-inner { grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 5% 24px; }
+  .login-footer-brand { grid-column: 1 / -1; max-width: 100%; }
+  .login-footer-bottom { justify-content: center; text-align: center; }
+  .login-footer-payments { justify-content: center; }
 }
 
 /* Modal Styling */
