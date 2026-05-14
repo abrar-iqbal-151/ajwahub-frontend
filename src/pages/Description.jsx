@@ -21,6 +21,15 @@ function Description() {
   const [about, setAbout] = useState(null);
   const [aboutSlide, setAboutSlide] = useState(0);
   const [paymentIcons, setPaymentIcons] = useState([]);
+  const [selectedWeight, setSelectedWeight] = useState('1kg Special Box');
+
+  const getPriceForWeight = (basePrice, weight) => {
+    if (weight.includes('500g')) return Math.round(basePrice * 0.55);
+    if (weight.includes('2kg')) return basePrice * 2 - 500;
+    if (weight.includes('3kg')) return basePrice * 3 - 700;
+    if (weight.includes('5kg')) return basePrice * 5 - 1500;
+    return basePrice;
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,14 +59,14 @@ function Description() {
   }, []);
 
   const handleProductClick = (product) => { 
-    console.log('Product clicked:', product);
+    setSelectedWeight('1kg Special Box');
     setSelectedProduct(product); 
     setShowProductDetails(true); 
   };
   const closeProductDetails = () => { 
-    console.log('Closing product details');
     setShowProductDetails(false); 
     setSelectedProduct(null); 
+    setSelectedWeight('1kg Special Box');
   };
 
   const renderStars = (rating) =>
@@ -318,36 +327,59 @@ function Description() {
         </div>
       </section>
 
-      {showProductDetails && selectedProduct && (
-        <div className="product-details-overlay" onClick={closeProductDetails} style={{ zIndex: 99999 }}>
-          <div className="product-details-modal" onClick={e => e.stopPropagation()} style={{ zIndex: 100000 }}>
+                        {showProductDetails && selectedProduct && (
+        <div className="product-details-overlay" onClick={closeProductDetails}>
+          <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={closeProductDetails}>✕</button>
+            
             <div className="product-details-content">
-              <div className="product-details-info">
-                <h2>{selectedProduct.name}</h2>
-              </div>
-              <div className="product-details-image">
-                <img src={selectedProduct.image} alt={selectedProduct.name} onError={e => { e.target.src = '/dates.png'; }} />
-              </div>
-              <div className="product-details-info">
-                <p className="product-description">{selectedProduct.description}</p>
-                <div className="price-stock">
-                  <span className={`stock ${selectedProduct.stock ? 'in-stock' : 'out-stock'}`}>
-                    {selectedProduct.stock ? '✅ In Stock' : '❌ Out of Stock'}
-                  </span>
-                  <p className="product-weight">📦 Weight: {selectedProduct.weight}</p>
+              <div className="pd-left">
+                <div className="pd-image-wrapper">
+                  <img 
+                    src={selectedProduct.image} 
+                    alt={selectedProduct.name} 
+                    onError={(e) => { e.target.src = '/dates.png'; }}
+                  />
                 </div>
-                <div className="rating">
-                  {renderStars(selectedProduct.rating)}
-                  <span className="rating-value">({selectedProduct.rating})</span>
+              </div>
+
+              <div className="pd-right">
+                <div className="pd-header-row">
+                  <h2 className="pd-title">{selectedProduct.name}</h2>
+                  {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
                 </div>
-                <span className="price">PKR {selectedProduct.price}</span>
-                <button 
-                  className="add-to-cart-btn" 
-                  onClick={() => { closeProductDetails(); setShowLoginModal(true); }}
-                  disabled={!selectedProduct.stock}
-                  style={{ marginTop: '10px', width: '100%' }}
-                >
+                <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
+                
+                <div className="pd-storage-note">
+                  {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
+                </div>
+
+                <div className="pd-stock-status">
+                  <span className="stock-dot"></span> In Stock
+                </div>
+
+                <div className="pd-weight-selection">
+                  <p className="weight-label">Weight: <span>{selectedWeight}</span></p>
+                  <div className="weight-options">
+                    {(selectedProduct.weights && selectedProduct.weights.length > 0 ? selectedProduct.weights : [
+                      { label: '1kg Special Box', savings: '' },
+                      { label: '500g Mini Box', savings: '' },
+                      { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                      { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                      { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                    ]).map((w, idx) => (
+                      <button 
+                        key={idx}
+                        className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
+                        onClick={() => setSelectedWeight(w.label)}
+                      >
+                        {w.label} {w.savings && <span>{w.savings}</span>}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button className="pd-add-to-cart-btn" onClick={() => { closeProductDetails(); setShowLoginModal(true); }}>
                   Add to Cart
                 </button>
               </div>

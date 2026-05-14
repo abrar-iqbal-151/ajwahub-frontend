@@ -20,6 +20,15 @@ function Products() {
   const [cartQuantity, setCartQuantity] = useState(0);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [products, setProducts] = useState([]);
+  const [selectedWeight, setSelectedWeight] = useState('1kg Special Box');
+
+  const getPriceForWeight = (basePrice, weight) => {
+    if (weight.includes('500g')) return Math.round(basePrice * 0.55);
+    if (weight.includes('2kg')) return basePrice * 2 - 500;
+    if (weight.includes('3kg')) return basePrice * 3 - 700;
+    if (weight.includes('5kg')) return basePrice * 5 - 1500;
+    return basePrice;
+  };
 
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
@@ -90,6 +99,7 @@ function Products() {
   };
 
   const handleProductClick = (product) => {
+    setSelectedWeight('1kg Special Box');
     setSelectedProduct(product);
     setShowProductDetails(true);
   };
@@ -97,6 +107,7 @@ function Products() {
   const closeProductDetails = () => {
     setShowProductDetails(false);
     setSelectedProduct(null);
+    setSelectedWeight('1kg Special Box');
   };
 
   const filteredProducts = products.filter(product => {
@@ -256,12 +267,14 @@ function Products() {
                 </div>
 
                 <div className="pd-right">
-                  <h2 className="pd-title">{selectedProduct.name} — Premium A++ Quality</h2>
-                  <div className="pd-price">Rs.{selectedProduct.price.toLocaleString()}.00</div>
+                  <div className="pd-header-row">
+                    <h2 className="pd-title">{selectedProduct.name}</h2>
+                    {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
+                  </div>
+                  <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
                   
                   <div className="pd-storage-note">
-                    Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....
-                    <a href="#" className="pd-view-details-link">View details</a>
+                    {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
                   </div>
 
                   <div className="pd-stock-status">
@@ -269,17 +282,27 @@ function Products() {
                   </div>
 
                   <div className="pd-weight-selection">
-                    <p className="weight-label">Weight: <span>1kg Special Box</span></p>
+                    <p className="weight-label">Weight: <span>{selectedWeight}</span></p>
                     <div className="weight-options">
-                      <button className="weight-opt active">1kg Special Box</button>
-                      <button className="weight-opt">500g Mini Box</button>
-                      <button className="weight-opt">2kg Briefcase Box <span>(Save Rs 500)</span></button>
-                      <button className="weight-opt">3kg Saudi Box <span>(Save Rs 700)</span></button>
-                      <button className="weight-opt">5kg Family Carton <span>(Save Rs 1500)</span></button>
+                      {(selectedProduct.weights && selectedProduct.weights.length > 0 ? selectedProduct.weights : [
+                        { label: '1kg Special Box', savings: '' },
+                        { label: '500g Mini Box', savings: '' },
+                        { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                        { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                        { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                      ]).map((w, idx) => (
+                        <button 
+                          key={idx}
+                          className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
+                          onClick={() => setSelectedWeight(w.label)}
+                        >
+                          {w.label} {w.savings && <span>{w.savings}</span>}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
-                  <button className="pd-add-to-cart-btn" onClick={() => addToCart(selectedProduct)}>
+                  <button className="pd-add-to-cart-btn" onClick={() => addToCart({ ...selectedProduct, price: getPriceForWeight(selectedProduct.price, selectedWeight), weight: selectedWeight })}>
                     Add to Cart
                   </button>
                 </div>
