@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../css/Premium.css';
 import '../css/Products.css';
+import Footer from '../components/Footer';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -281,21 +282,7 @@ function Premium() {
         </div>
       )}
 
-      <footer className="login-footer">
-        <div className="login-footer-inner">
-          <div className="login-footer-brand">
-            <img src="/LOGO.jpeg" alt="AjwaHub" className="login-footer-logo" />
-            <span className="login-footer-name">AjwaHub</span>
-          </div>
-          <div className="login-footer-links">
-            <a href="/about">About Us</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms</a>
-            <a href="/contact">Contact</a>
-          </div>
-        </div>
-        <div className="login-footer-bottom">&copy; 2025 AjwaHub. All rights reserved.</div>
-      </footer>
+      <Footer />
     </div>
   );
 }
