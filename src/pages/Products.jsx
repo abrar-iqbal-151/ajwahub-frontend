@@ -105,6 +105,17 @@ function Products() {
     return matchesSearch && matchesCategory;
   });
 
+    const arabicMap = {
+    'Ajwa': 'عجوة',
+    'Amber': 'عنبر',
+    'Safawi': 'صفاوي',
+    'Mabroom': 'مبروم',
+    'Sukari': 'سكري',
+    'Sagai': 'صقعي',
+    'Kalmi': 'كالمي',
+    'Medjool': 'مجدول'
+  };
+
   return (
     <div className="products-page">
       {/* 3D Background */}
@@ -175,7 +186,7 @@ function Products() {
 
         <div className="products-grid">
           {filteredProducts.map(product => (
-            <div key={product.id} className="product-card">
+                                    <div key={product.id} className="product-card">
               <div className="product-image" onClick={() => handleProductClick(product)}>
                 <img 
                   src={product.image} 
@@ -184,9 +195,13 @@ function Products() {
                     e.target.src = '/dates.png';
                   }}
                 />
-                <div className={`stock-overlay ${product.stock ? 'in-stock' : 'out-stock'}`}>
-                  {product.stock ? 'In Stock' : 'Out of Stock'}
+                <div className="product-badges">
+                  <div className={`stock-badge ${product.stock ? 'in-stock' : 'out-stock'}`}>
+                    {product.stock ? '● In Stock' : '○ Out of Stock'}
+                  </div>
+
                 </div>
+                
                 <button 
                   className={`wishlist-icon ${wishlist.includes(product.id) ? 'active' : ''}`}
                   onClick={(e) => {
@@ -195,51 +210,78 @@ function Products() {
                   }}
                   title="Add to Wishlist"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill={wishlist.includes(product.id) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                   </svg>
                 </button>
               </div>
 
               <div className="product-info">
-                <h3>{product.name}</h3>
-
-                <div className="price-section">
-                  <span className="price">PKR {product.price.toLocaleString()}</span>
-                  <span className="weight">{product.weight}</span>
+                <h3>{product.name.split(' ')[0]}</h3>
+                <div className="product-arabic-name">
+                  {Object.keys(arabicMap).find(k => product.name.includes(k)) ? arabicMap[Object.keys(arabicMap).find(k => product.name.includes(k))] : 'عجوة'}
                 </div>
+                
+
 
                 <button 
-                  className="small-add-to-cart-btn"
-                  onClick={() => addToCart(product)}
+                  className="boutique-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleProductClick(product);
+                  }}
                   disabled={!product.stock}
                 >
-                  Add to Cart
+                  View Details
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {showProductDetails && selectedProduct && (
+                {showProductDetails && selectedProduct && (
           <div className="product-details-overlay" onClick={closeProductDetails}>
             <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
               <button className="close-btn" onClick={closeProductDetails}>✕</button>
               
               <div className="product-details-content">
-                <div className="product-details-image">
-                  <img 
-                    src={selectedProduct.image} 
-                    alt={selectedProduct.name} 
-                    onError={(e) => {
-                      e.target.src = '/dates.png';
-                    }}
-                  />
+                <div className="pd-left">
+                  <div className="pd-image-wrapper">
+                    <img 
+                      src={selectedProduct.image} 
+                      alt={selectedProduct.name} 
+                      onError={(e) => { e.target.src = '/dates.png'; }}
+                    />
+                  </div>
                 </div>
 
-                <div className="product-details-info">
-                  <h2>{selectedProduct.name}</h2>
-                  <p className="product-description">{selectedProduct.description}</p>
+                <div className="pd-right">
+                  <h2 className="pd-title">{selectedProduct.name} — Premium A++ Quality</h2>
+                  <div className="pd-price">Rs.{selectedProduct.price.toLocaleString()}.00</div>
+                  
+                  <div className="pd-storage-note">
+                    Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....
+                    <a href="#" className="pd-view-details-link">View details</a>
+                  </div>
+
+                  <div className="pd-stock-status">
+                    <span className="stock-dot"></span> In Stock
+                  </div>
+
+                  <div className="pd-weight-selection">
+                    <p className="weight-label">Weight: <span>1kg Special Box</span></p>
+                    <div className="weight-options">
+                      <button className="weight-opt active">1kg Special Box</button>
+                      <button className="weight-opt">500g Mini Box</button>
+                      <button className="weight-opt">2kg Briefcase Box <span>(Save Rs 500)</span></button>
+                      <button className="weight-opt">3kg Saudi Box <span>(Save Rs 700)</span></button>
+                      <button className="weight-opt">5kg Family Carton <span>(Save Rs 1500)</span></button>
+                    </div>
+                  </div>
+
+                  <button className="pd-add-to-cart-btn" onClick={() => addToCart(selectedProduct)}>
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
