@@ -581,12 +581,13 @@ body {
 }
 
 .product-card {
-  background: #fdfaf3; /* Creamy white */
+  background: #ffffff; /* Clean White */
   border: 1px solid #c5a059; /* Bronze/Gold border */
+  color: #1a1a1a;
   border-radius: 28px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  height: 340px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -601,17 +602,23 @@ body {
 
 .product-image {
   position: relative;
-  height: 280px;
+  height: 220px; /* Reduced height to give more room for info */
   overflow: hidden;
   border-radius: 20px;
   cursor: pointer;
   flex-shrink: 0;
+  background: #f9f9f9; /* Modern light gray background */
+  border: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
 }
 
 .product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
   transition: transform 0.6s ease;
 }
 
@@ -635,14 +642,14 @@ body {
   border-radius: 50px;
   font-size: 0.65rem;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.9);
+  background: #fdfaf3;
   border: 1px solid #c5a059;
   text-transform: uppercase;
 }
 
 .stock-badge.in-stock {
-  color: #dc2626; /* Red color as requested */
-  border-color: #dc2626;
+  color: #059669; /* Premium Green instead of Red */
+  border-color: #059669;
 }
 
 .stock-badge.out-stock {
@@ -702,14 +709,14 @@ body {
 .product-info h3 {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #5c4b37; /* Dark bronze */
+  color: #5c4b37; /* Dark bronze text */
   margin: 0;
   font-family: 'Playfair Display', serif;
 }
 
 .product-arabic-name {
   font-size: 1.05rem;
-  color: #8d7558;
+  color: #c5a059; /* Gold color */
   font-family: 'Noto Sans Arabic', sans-serif;
   margin-bottom: 2px;
 }
@@ -723,7 +730,7 @@ body {
   background: transparent;
   border: 1.5px solid #c5a059;
   border-radius: 50px;
-  color: #c5a059;
+  color: #c5a059; /* Bronze/Gold text */
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
