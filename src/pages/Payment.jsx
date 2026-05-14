@@ -200,7 +200,18 @@ function Payment() {
   if (step === 'confirmation') {
     return (
       <div className="payment-page">
-        <nav className="navbar">
+      {/* 3D Background */}
+      <div className="desc-bg-3d">
+        <div className="desc-bg-grid" />
+        <div className="desc-orb desc-orb1" />
+        <div className="desc-orb desc-orb2" />
+        <div className="desc-orb desc-orb3" />
+        <div className="desc-orb desc-orb4" />
+        <div className="desc-bg-lines">
+          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+        </div>
+      </div>
+<nav className="navbar">
           <div className="nav-logo" onClick={() => navigate('/home')}>
             <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
             <span className="nav-logo-text">AjwaHub</span>
@@ -222,7 +233,18 @@ function Payment() {
 
   return (
     <div className="payment-page">
-      <Navbar />
+      {/* 3D Background */}
+      <div className="desc-bg-3d">
+        <div className="desc-bg-grid" />
+        <div className="desc-orb desc-orb1" />
+        <div className="desc-orb desc-orb2" />
+        <div className="desc-orb desc-orb3" />
+        <div className="desc-orb desc-orb4" />
+        <div className="desc-bg-lines">
+          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+        </div>
+      </div>
+<Navbar />
       <div className="payment-container">
         <div className="progress-steps">
           {[{ key: 'review', label: 'Review', icon: '🛒' }, { key: 'shipping', label: 'Shipping', icon: '📍' }, { key: 'payment', label: 'Payment', icon: '💳' }, { key: 'confirmation', label: 'Done', icon: '✅' }].map((s, i) => {
@@ -563,3 +585,5 @@ function Payment() {
 }
 
 export default Payment;
+
+
