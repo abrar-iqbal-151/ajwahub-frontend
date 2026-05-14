@@ -115,7 +115,7 @@ function Home() {
           {/* DESKTOP GRID */}
           <div className="premium-products-grid desktop-only">
             {section.items.map((item, i) => (
-              <div key={i} className="premium-product-card" onClick={() => navigate('/products')} style={{ cursor: 'pointer' }}>
+              <div key={i} className="premium-product-card" onClick={() => navigate(section.title?.toUpperCase() === 'PREMIUM COLLECTION' ? '/premium' : section.title?.toUpperCase() === 'SPECIAL GIFT BOXES' ? '/gifting' : section.title?.toUpperCase() === 'FITNESS & WELLNESS' ? '/gymai' : '/products')} style={{ cursor: 'pointer' }}>
                 {item.video
                   ? (
                     <div className="premium-video-wrap">
@@ -137,20 +137,20 @@ function Home() {
             <div className="mob-section-slider">
               <div className="mob-section-slides" style={{ transform: `translateX(-${(sectionSlides[section.key] || 0) * 100}%)` }}>
                 {section.items.map((item, i) => (
-                  <div key={i} className="mob-section-slide" onClick={() => navigate('/products')} style={{ cursor: 'pointer', padding: '0 8px' }}>
+                  <div key={i} className="mob-section-slide" onClick={() => navigate(section.title?.toUpperCase() === 'PREMIUM COLLECTION' ? '/premium' : section.title?.toUpperCase() === 'SPECIAL GIFT BOXES' ? '/gifting' : section.title?.toUpperCase() === 'FITNESS & WELLNESS' ? '/gymai' : '/products')} style={{ cursor: 'pointer', padding: '0 8px' }}>
                     <div className="premium-product-card" style={{ margin: 0, height: '100%' }}>
                       {item.video
                         ? (
-                          <div className="premium-video-wrap" style={{ borderRadius: '0.8rem', marginBottom: '12px' }}>
-                            <video src={item.video} className="mob-slide-media" playsInline muted loop
-                              onTouchStart={e => e.target.play()}
-                              style={{ borderRadius: '0.8rem', height: '180px' }}
-                            />
-                            <div className="premium-play-icon">▶</div>
-                          </div>
-                        )
-                        : <img src={item.image} alt={item.name} className="mob-slide-media" style={{ borderRadius: '0.8rem', height: '180px', marginBottom: '12px' }} />}
-                      <h4 className="premium-product-name">{item.name}</h4>
+                          <div className="premium-video-wrap" style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', marginBottom: '12px' }}>
+                          <video src={item.video} className="mob-slide-media" playsInline muted loop
+                            onTouchStart={e => e.target.play()}
+                            style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px' }}
+                          />
+                          <div className="premium-play-icon">▶</div>
+                        </div>
+                      )
+                      : <img src={item.image} alt={item.name} className="mob-slide-media" style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px', marginBottom: '12px' }} />}
+                    <h4 className="premium-product-name">{item.name}</h4>
                     </div>
                   </div>
                 ))}
