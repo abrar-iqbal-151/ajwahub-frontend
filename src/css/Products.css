@@ -36,7 +36,8 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #3a0808;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border: 1.5px solid rgba(255,255,255,0.3);
   border-radius: 12px;
   padding: 10px 14px;
@@ -50,7 +51,8 @@ body {
 .products-search input::placeholder { color: #d4cccc; }
 
 .products-filters select {
-  background: #3a0808;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border: 1.5px solid rgba(255,255,255,0.3);
   border-radius: 12px;
   padding: 10px 14px;
@@ -180,7 +182,8 @@ body {
   padding: 1rem 1rem 1rem 3rem;
   border: 1.5px solid rgba(255,255,255,0.3);
   border-radius: 0.5rem;
-  background: #3a0808;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   color: #ffffff;
   font-size: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
