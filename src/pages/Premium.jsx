@@ -122,9 +122,7 @@ function Premium() {
 
       {/* ALL PRODUCTS */}
       <div className="premium-all-section">
-        <div className="premium-section-header">
-          <h2>{settings.premiumSectionTitle}</h2>
-        </div>
+
         <div className="products-toolbar">
           <div className="products-search">
             <span>🔍</span>
@@ -137,10 +135,11 @@ function Premium() {
           </div>
           <div className="products-filters">
             <select value={filter} onChange={e => setFilter(e.target.value)}>
-              <option value="">All Categories</option>
-              <option value="dates">Dates</option>
-              <option value="dry">Dry Fruits</option>
+              <option value="">All</option>
+              <option value="fruits">Fruits</option>
+              <option value="dry_dates">Dry Dates</option>
             </select>
+
           </div>
           <div className="cart-btn-wrap">
             <div className="cart-count-frame" onClick={() => setShowCartDropdown(!showCartDropdown)}>

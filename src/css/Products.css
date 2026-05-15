@@ -27,17 +27,22 @@ body {
 /* PREMIUM PRODUCTS HEADER */
 .products-header {
   position: relative;
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.12), rgba(0, 0, 0, 0.4));
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(197, 160, 89, 0.4);
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 2px solid rgba(197, 160, 89, 0.5);
   border-radius: 40px;
-  padding: 80px 40px;
+  padding: 85px 40px;
   margin-bottom: 50px;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 50px rgba(197, 160, 89, 0.1);
+  box-shadow: 
+    0 50px 100px -20px rgba(0, 0, 0, 0.9),
+    0 30px 60px -30px rgba(0, 0, 0, 0.7),
+    inset 0 0 60px rgba(197, 160, 89, 0.15);
   animation: phFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 
 @keyframes phFadeIn {
   from {
@@ -73,13 +78,19 @@ body {
 }
 
 .ph-title {
-  font-size: 3.5rem;
-  font-weight: 400;
+  font-size: 3.8rem;
+  font-weight: 900;
   color: #ffffff;
   font-family: 'Playfair Display', serif;
   margin: 0;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #fff, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  letter-spacing: -1px;
 }
+
 
 .ph-arabic {
   font-size: 2.2rem;

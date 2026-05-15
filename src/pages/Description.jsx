@@ -216,7 +216,7 @@ function Description() {
                 </div>
               ))}
             </div>
-            <button className="desc-ai-btn" onClick={() => navigate('/ai')}>Explore AjwaHub AI →</button>
+            <button className="desc-ai-btn" onClick={() => setShowLoginModal(true)}>Explore AjwaHub AI →</button>
           </div>
 
           <div className="desc-ai-img-wrap">
@@ -252,9 +252,14 @@ function Description() {
         <section className="products-section">
           <div className="products-inner">
             <div className="section-header">
-              <h3 className="section-title">Our Premium Collection</h3>
+              <h3 className="section-title">The Premium Collection</h3>
+              <h2 style={{ fontFamily: "'Amiri', serif", color: "#c5a059", fontSize: "2rem", marginBottom: "15px" }}>مجموعة مختارة بعناية</h2>
+              <p style={{ color: "rgba(255,255,255,0.6)", maxWidth: "700px", margin: "0 auto", lineHeight: "1.6", fontSize: "1.1rem" }}>
+                Experience the finest handpicked dates and natural superfoods, delivered from our farms to your doorstep with love and purity.
+              </p>
               <div className="section-divider" />
             </div>
+
             {/* Desktop carousel */}
             <div className="products-carousel desc-desktop-only">
               <button className="carousel-arrow carousel-arrow-left" onClick={() => setProductSlide(Math.max(0, productSlide - 5))}>❮</button>
