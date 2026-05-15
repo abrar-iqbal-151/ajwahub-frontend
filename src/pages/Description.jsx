@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Description.css';
+import '../css/AiSection.css';
+
 import Footer from '../components/Footer';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
@@ -21,6 +23,8 @@ function Description() {
   const [about, setAbout] = useState(null);
   const [aboutSlide, setAboutSlide] = useState(0);
   const [paymentIcons, setPaymentIcons] = useState([]);
+  const [aiSection, setAiSection] = useState(null);
+
   const [selectedWeight, setSelectedWeight] = useState('1kg Special Box');
 
   const getPriceForWeight = (basePrice, weight) => {
@@ -47,7 +51,9 @@ function Description() {
       fetch(`${API}/content/delivery-map`).then(r => r.json()),
       fetch(`${API}/content/about`).then(r => r.json()),
       fetch(`${API}/content/payment-icons`).then(r => r.json()),
-    ]).then(([h, p, r, f, d, a, pi]) => {
+      fetch(`${API}/content/ai-section`).then(r => r.json()),
+    ]).then(([h, p, r, f, d, a, pi, ai]) => {
+
       setHeroes(h.heroes || []);
       setProducts(p.products || []);
       setReviews(r.reviews || []);
@@ -55,7 +61,9 @@ function Description() {
       setDeliveryMap(d.deliveryMap || null);
       setAbout(a.about || null);
       setPaymentIcons(pi.icons || []);
+      setAiSection(ai.aiSection || null);
     }).catch(() => { });
+
   }, []);
 
   const handleProductClick = (product) => {
@@ -189,6 +197,54 @@ function Description() {
           <button className="desc-feature-btn" onClick={() => navigate('/signup')}>Shop Now →</button>
         </div>
       </section>
+      
+      {/* AI SECTION */}
+      {aiSection && (
+        <section className="desc-ai-section">
+          <div className="desc-ai-content">
+            <div className="desc-ai-badge">{aiSection.badge}</div>
+            <h2 className="desc-ai-title">{aiSection.title.split(' ').slice(0, -2).join(' ')} <span>{aiSection.title.split(' ').slice(-2).join(' ')}</span></h2>
+            <p className="desc-ai-text">{aiSection.description}</p>
+            <div className="desc-ai-list">
+              {aiSection.features.map((f, i) => (
+                <div key={i} className="desc-ai-item">
+                  <span className="desc-ai-icon-glow">{f.icon}</span>
+                  <div className="desc-ai-item-text">
+                    <h4>{f.title}</h4>
+                    <p>{f.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="desc-ai-btn" onClick={() => navigate('/ai')}>Explore AjwaHub AI →</button>
+          </div>
+
+          <div className="desc-ai-img-wrap">
+            <div className="desc-ai-video-frame">
+              <video 
+                src={aiSection.video} 
+                className="desc-ai-video" 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.classList.add('video-placeholder');
+                }}
+              />
+              <div className="desc-ai-video-overlay">
+                <div className="scan-line" />
+                <div className="ai-status-pulse" />
+              </div>
+              <div className="desc-ai-frame-glow" />
+            </div>
+          </div>
+        </section>
+      )}
+
+
+
 
 
 

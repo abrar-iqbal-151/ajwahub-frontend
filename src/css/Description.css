@@ -506,10 +506,14 @@ html {
   position: relative;
   height: 400px;
   margin: 0 4% 30px;
-  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 2rem 0.5rem 2rem 0.5rem;
   overflow: hidden;
-  border: 1px solid var(--glass-border);
 }
+
 
 .hero--right {
   margin-top: 30px;
@@ -659,13 +663,14 @@ html {
   padding: 80px 4%;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem 0.5rem 2rem 0.5rem;
   position: relative;
   z-index: 1;
 }
+
 
 .section-title {
   font-family: 'Impact', sans-serif;
@@ -1824,13 +1829,14 @@ html {
   padding: 80px 4%;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem 0.5rem 2rem 0.5rem;
   position: relative;
   z-index: 1;
 }
+
 
 .reviews-carousel-inner {
   max-width: 1300px;
@@ -2399,7 +2405,7 @@ html {
   padding: 25px 0;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem 0.5rem 2rem 0.5rem;
@@ -2407,6 +2413,7 @@ html {
   z-index: 1;
   overflow: hidden;
 }
+
 
 .desc-map-header {
   text-align: center;
@@ -2460,13 +2467,14 @@ html {
   padding: 60px 4%;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem 0.5rem 2rem 0.5rem;
   position: relative;
   z-index: 1;
 }
+
 
 .desc-about-content {
   display: grid;
@@ -2638,13 +2646,14 @@ html {
   padding: 80px 4%;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem 0.5rem 2rem 0.5rem;
   position: relative;
   z-index: 1;
 }
+
 
 .desc-feature-img-wrap {
   position: relative;
