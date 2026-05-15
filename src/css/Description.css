@@ -668,10 +668,10 @@ body, html {
 
 /* Premium Card Container */
 .product-card {
-  background: rgba(220, 38, 38, 0.15);
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 30, 10, 0.95));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(220, 38, 38, 0.35);
+  border: 2px solid #c5a059;
   border-radius: 28px;
   padding: 8px;
   display: flex;
@@ -681,13 +681,14 @@ body, html {
   overflow: hidden;
   min-height: 220px;
   cursor: default;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(197, 160, 89, 0.05);
 }
 
 .product-card:hover {
   transform: translateY(-15px);
-  border-color: rgba(220, 38, 38, 0.6);
-  background: rgba(220, 38, 38, 0.25);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 20px rgba(220, 38, 38, 0.25);
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(30, 25, 15, 0.98), rgba(60, 45, 20, 0.98));
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(197, 160, 89, 0.4);
 }
 
 /* Modern Image Styling */
