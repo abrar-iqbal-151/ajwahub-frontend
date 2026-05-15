@@ -37,7 +37,15 @@ function AI() {
   }, []);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatEndRef.current) {
+      const container = chatEndRef.current.parentElement;
+      if (container) {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -192,7 +200,7 @@ function AI() {
           {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
 
       {/* CAMERA FULL SCREEN OVERLAY */}
       {showCamera && (
@@ -209,8 +217,12 @@ function AI() {
       <div className="ai-wrapper">
 
         <div className="ai-header">
+          <div className="ai-header-badge">
+            <span className="ai-badge-dot"></span>
+            AI Assistant Pro
+          </div>
           <h1>AjwaHub <span>AI Assistant</span></h1>
-          <p>Koi bhi sawaal poochein — products, health, ya kuch bhi!</p>
+          <p>Powered by Advanced Intelligence — Ask about products, health, or lifestyle.</p>
         </div>
 
         <div className="ai-main-layout">
@@ -235,97 +247,96 @@ function AI() {
 
           {/* RIGHT CONTENT */}
           <div className="ai-content">
-        {/* CHAT TAB */}
-        {activeTab === 'chat' && (
-          <div className="ai-chat-layout" style={{gridTemplateColumns: '1fr'}}>
-            <div className="ai-chat-box">
-              <div className="ai-messages">
-                {messages.map((msg, i) => (
-                  <div key={i} className={`ai-msg ${msg.role === 'user' ? 'user' : 'bot'}`}>
-                    {msg.role === 'model' && <div className="ai-bot-avatar">🤖</div>}
-                    <div className="ai-msg-bubble">
-                      {msg.isImage && <img src={msg.src} alt="uploaded" className="ai-msg-img" />}
-                      {msg.text}
-                    </div>
-                    {msg.role === 'user' && (
-                      <div className="ai-user-avatar">{user?.name?.charAt(0)?.toUpperCase() || '👤'}</div>
+            {/* CHAT TAB */}
+            {activeTab === 'chat' && (
+              <div className="ai-chat-layout">
+                <div className="ai-chat-box">
+                  <div className="ai-messages">
+                    {messages.map((msg, i) => (
+                      <div key={i} className={`ai-msg ${msg.role === 'user' ? 'user' : 'bot'}`}>
+                        {msg.role === 'model' && <div className="ai-bot-avatar">🤖</div>}
+                        <div className="ai-msg-bubble">
+                          {msg.isImage && <img src={msg.src} alt="uploaded" className="ai-msg-img" />}
+                          {msg.text}
+                        </div>
+                        {msg.role === 'user' && (
+                          <div className="ai-user-avatar">{user?.name?.charAt(0)?.toUpperCase() || '👤'}</div>
+                        )}
+                      </div>
+                    ))}
+                    {loading && (
+                      <div className="ai-msg bot">
+                        <div className="ai-bot-avatar">🤖</div>
+                        <div className="ai-msg-bubble ai-typing"><span /><span /><span /></div>
+                      </div>
                     )}
+                    <div ref={chatEndRef} />
                   </div>
-                ))}
-                {loading && (
-                  <div className="ai-msg bot">
-                    <div className="ai-bot-avatar">🤖</div>
-                    <div className="ai-msg-bubble ai-typing"><span /><span /><span /></div>
+
+                  <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
+
+                  {pendingImage && (
+                    <div className="ai-pending-img-wrap">
+                      <img src={pendingImage.src} alt="preview" className="ai-pending-img" />
+                      <button className="ai-remove-img-btn" onClick={() => setPendingImage(null)}>✕</button>
+                    </div>
+                  )}
+
+                  <div className="ai-input-row">
+                    <button className="ai-icon-btn" onClick={() => fileInputRef.current.click()} disabled={loading} title="Image Upload">🖼️</button>
+                    <button className="ai-icon-btn" onClick={() => openCamera()} disabled={loading} title="Camera">📷</button>
+                    <input
+                      value={input}
+                      onChange={e => setInput(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && (pendingImage ? sendWithImage() : sendMessage())}
+                      placeholder={pendingImage ? "Image ke saath message likhein..." : "Koi bhi sawaal poochein..."}
+                      disabled={loading}
+                    />
+                    <button className="ai-send-btn" onClick={() => pendingImage ? sendWithImage() : sendMessage()} disabled={loading || (!input.trim() && !pendingImage)}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* HISTORY TAB */}
+            {activeTab === 'history' && (
+              <div className="ai-history-wrapper">
+                <div className="ai-history-header">
+                  <span>{chatHistory.length} conversations</span>
+                  {chatHistory.length > 0 && <button className="ai-clear-btn" onClick={clearHistory}>🗑️ Clear All</button>}
+                </div>
+                {historyLoading ? (
+                  <div className="ai-history-loading">Loading...</div>
+                ) : chatHistory.length === 0 ? (
+                  <div className="ai-history-empty">📭 Koi history nahi mili</div>
+                ) : (
+                  <div className="ai-history-list">
+                    {chatHistory.map(h => (
+                      <div key={h._id} className="ai-history-card">
+                        <div className="ai-history-card-top">
+                          <span className="ai-history-type">{h.type === 'image' ? '🖼️ Image' : '💬 Text'}</span>
+                          <span className="ai-history-date">
+                            {new Date(h.createdAt).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                          <button className="ai-history-del" onClick={() => deleteHistory(h._id)}>🗑️</button>
+                        </div>
+                        <div className="ai-history-q">🙋 {h.question}</div>
+                        <div className="ai-history-a">🤖 {h.answer.length > 200 ? h.answer.substring(0, 200) + '...' : h.answer}</div>
+                        <div className="ai-history-actions">
+                          <button className="ai-continue-btn" onClick={() => loadHistoryToChat(h)}>▶ Continue Chat</button>
+                          <button className="ai-history-del-btn" onClick={() => deleteHistory(h._id)}>🗑️ Delete</button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
-                <div ref={chatEndRef} />
-              </div>
-
-              <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
-
-              {pendingImage && (
-                <div className="ai-pending-img-wrap">
-                  <img src={pendingImage.src} alt="preview" className="ai-pending-img" />
-                  <button className="ai-remove-img-btn" onClick={() => setPendingImage(null)}>✕</button>
-                </div>
-              )}
-
-              <div className="ai-input-row">
-                <button className="ai-icon-btn" onClick={() => fileInputRef.current.click()} disabled={loading} title="Image Upload">🖼️</button>
-                <button className="ai-icon-btn" onClick={() => openCamera()} disabled={loading} title="Camera">📷</button>
-                <input
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && (pendingImage ? sendWithImage() : sendMessage())}
-                  placeholder={pendingImage ? "Image ke saath message likhein..." : "Koi bhi sawaal poochein..."}
-                  disabled={loading}
-                />
-                <button className="ai-send-btn" onClick={() => pendingImage ? sendWithImage() : sendMessage()} disabled={loading || (!input.trim() && !pendingImage)}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* HISTORY TAB */}
-        {activeTab === 'history' && (
-          <div className="ai-history-wrapper">
-            <div className="ai-history-header">
-              <span>{chatHistory.length} conversations</span>
-              {chatHistory.length > 0 && <button className="ai-clear-btn" onClick={clearHistory}>🗑️ Clear All</button>}
-            </div>
-            {historyLoading ? (
-              <div className="ai-history-loading">Loading...</div>
-            ) : chatHistory.length === 0 ? (
-              <div className="ai-history-empty">📭 Koi history nahi mili</div>
-            ) : (
-              <div className="ai-history-list">
-                {chatHistory.map(h => (
-                  <div key={h._id} className="ai-history-card">
-                    <div className="ai-history-card-top">
-                      <span className="ai-history-type">{h.type === 'image' ? '🖼️ Image' : '💬 Text'}</span>
-                      <span className="ai-history-date">
-                        {new Date(h.createdAt).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                      <button className="ai-history-del" onClick={() => deleteHistory(h._id)}>🗑️</button>
-                    </div>
-                    <div className="ai-history-q">🙋 {h.question}</div>
-                    <div className="ai-history-a">🤖 {h.answer.length > 200 ? h.answer.substring(0, 200) + '...' : h.answer}</div>
-                    <div className="ai-history-actions">
-                      <button className="ai-continue-btn" onClick={() => loadHistoryToChat(h)}>▶ Continue Chat</button>
-                      <button className="ai-history-del-btn" onClick={() => deleteHistory(h._id)}>🗑️ Delete</button>
-                    </div>
-                  </div>
-                ))}
               </div>
             )}
           </div>
-        )}
-
-        </div>
         </div>
       </div>
 
@@ -335,5 +346,3 @@ function AI() {
 }
 
 export default AI;
-
-
