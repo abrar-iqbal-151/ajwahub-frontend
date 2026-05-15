@@ -834,11 +834,12 @@ body {
 
 .pd-left {
   flex: 1.1;
-  background: #ffffff;
+  background: #fdfaf3; /* Boutique Light Cream */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 30px;
+  border-right: 1px solid rgba(197, 160, 89, 0.2);
 }
 
 .pd-image-wrapper {
@@ -848,12 +849,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 20px;
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.pd-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, rgba(197, 160, 89, 0.05) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .pd-image-wrapper img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+  transition: transform 0.5s ease;
+}
+
+.pd-image-wrapper:hover img {
+  transform: scale(1.05);
 }
 
 .pd-right {

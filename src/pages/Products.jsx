@@ -259,7 +259,7 @@ function Products() {
                 <div className="pd-left">
                   <div className="pd-image-wrapper">
                     <img 
-                      src={selectedProduct.image} 
+                      src={selectedProduct.detailImage || selectedProduct.image} 
                       alt={selectedProduct.name} 
                       onError={(e) => { e.target.src = '/dates.png'; }}
                     />
