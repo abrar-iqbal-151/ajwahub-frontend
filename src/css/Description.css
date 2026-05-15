@@ -2396,7 +2396,7 @@ html {
 
 /* DELIVERY MAP SECTION - IMAGE BASED */
 .desc-map-section {
-  padding: 25px 4%;
+  padding: 25px 0;
   margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -2405,11 +2405,13 @@ html {
   border-radius: 2rem 0.5rem 2rem 0.5rem;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 .desc-map-header {
   text-align: center;
   margin-bottom: 15px;
+  padding: 0 4%;
 }
 
 .desc-map-title {
@@ -2427,17 +2429,17 @@ html {
 }
 
 .desc-map-image {
-  width: calc(100% + 8%);
+  width: 100%;
   max-width: none;
   height: auto;
   display: block;
-  margin: 0 -4%;
-  border-radius: 20px;
+  margin: 0;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
   animation: slideInFromRight 1.5s ease-out;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  border: 2px solid rgba(139, 186, 195, 0.3);
+  border-top: 2px solid rgba(139, 186, 195, 0.3);
+
   box-shadow: 0 0 30px rgba(139, 186, 195, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 

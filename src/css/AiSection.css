@@ -22,7 +22,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -32,8 +32,13 @@
 }
 
 @keyframes gridPan {
-  from { background-position: 0 0; }
-  to { background-position: 30px 30px; }
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 30px 30px;
+  }
 }
 
 .desc-ai-img-wrap {
@@ -72,8 +77,15 @@
 }
 
 @keyframes textPulse {
-  0%, 100% { filter: drop-shadow(0 0 10px rgba(251, 146, 60, 0.3)); }
-  50% { filter: drop-shadow(0 0 25px rgba(251, 146, 60, 0.6)); }
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(251, 146, 60, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 25px rgba(251, 146, 60, 0.6));
+  }
 }
 
 .desc-ai-text {
@@ -159,7 +171,10 @@
 .desc-ai-btn::before {
   content: '';
   position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
   background: linear-gradient(45deg, #fb923c, #fbbf24, #f87171, #fb923c);
   z-index: -1;
   border-radius: 50px;
@@ -179,9 +194,17 @@
 }
 
 @keyframes glowingBtn {
-  0% { background-position: 0 0; }
-  50% { background-position: 400% 0; }
-  100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -190,16 +213,17 @@
     padding: 40px 5%;
     gap: 40px;
   }
-  
+
   .desc-ai-title {
     font-size: 2.2rem;
   }
-  
+
   .desc-ai-list {
     grid-template-columns: 1fr;
   }
-  
+
   .desc-ai-img-wrap {
-    order: -1; /* Move video above text on mobile */
+    order: -1;
+    /* Move video above text on mobile */
   }
 }
