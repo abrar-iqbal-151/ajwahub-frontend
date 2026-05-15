@@ -17,6 +17,7 @@ function Premium() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
   const [settings, setSettings] = useState({ premiumFeaturedTitle: '⭐ Featured', premiumFeaturedSubtitle: 'Top Picks', premiumSectionTitle: 'All Premium Products' });
+  const [selectedWeight, setSelectedWeight] = useState(null);
   const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('ajwaHub_cart') || '[]'));
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const cartQuantity = cart.reduce((t, i) => t + i.quantity, 0);
@@ -25,7 +26,22 @@ function Premium() {
   useEffect(() => {
     fetch(`${API}/premium-products`)
       .then(r => r.json())
-      .then(d => setProducts(d.products || []))
+      .then(d => {
+        const processed = (d.products || []).map(p => {
+          if (!p.weightOptions || p.weightOptions.length === 0) {
+            const base = p.price;
+            p.weightOptions = [
+              { label: '1kg Special Box', price: base, savings: 0 },
+              { label: '500g Mini Box', price: Math.round(base * 0.55), savings: 0 },
+              { label: '2kg Briefcase Box', price: (base * 2) - 500, savings: 500 },
+              { label: '3kg Saudi Box', price: (base * 3) - 700, savings: 700 },
+              { label: '5kg Family Carton', price: (base * 5) - 1500, savings: 1500 }
+            ];
+          }
+          return p;
+        });
+        setProducts(processed);
+      })
       .catch(() => { })
       .finally(() => setLoading(false));
     fetch(`${API}/settings`)
@@ -34,12 +50,25 @@ function Premium() {
       .catch(() => { });
   }, []);
 
-  const addToCart = (product) => {
+  const addToCart = (product, weightData = null) => {
     if (!user) { setShowLoginModal(true); return; }
-    const existing = cart.find(i => i.id === product._id);
+    
+    const price = weightData ? weightData.price : product.price;
+    const weight = weightData ? weightData.label : product.weight;
+    const cartId = weightData ? `${product._id}-${weightData.label}` : product._id;
+
+    const existing = cart.find(i => i.id === cartId);
     const updated = existing
-      ? cart.map(i => i.id === product._id ? { ...i, quantity: i.quantity + 1 } : i)
-      : [...cart, { id: product._id, name: product.name, price: product.price, image: product.image, weight: product.weight, quantity: 1 }];
+      ? cart.map(i => i.id === cartId ? { ...i, quantity: i.quantity + 1 } : i)
+      : [...cart, { 
+          id: cartId, 
+          productId: product._id,
+          name: product.name, 
+          price: price, 
+          image: product.image, 
+          weight: weight, 
+          quantity: 1 
+        }];
     setCart(updated);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updated));
     setShowCartDropdown(true);
@@ -164,23 +193,19 @@ function Premium() {
                   {!p.stock && <div className="premium-out-overlay">Out of Stock</div>}
                 </div>
                 <div className="premium-card-body">
-                  <h4>{p.name}</h4>
-                  <p>{p.description?.substring(0, 60)}...</p>
-                  <div className="premium-card-stars">{renderStars(p.rating)}</div>
-                  <div className="premium-card-footer">
-                    <div>
-                      <span className="premium-price">PKR {p.price?.toLocaleString()}</span>
-                      {p.originalPrice > p.price && (
-                        <span className="premium-discount">
-                          {Math.round((1 - p.price / p.originalPrice) * 100)}% OFF
-                        </span>
-                      )}
-                    </div>
-                    <button className="premium-add-btn" disabled={!p.stock}
-                      onClick={e => { e.stopPropagation(); addToCart(p); }}>
-                      {p.stock ? 'Add to Cart' : 'Out of Stock'}
-                    </button>
+                  <div className="premium-card-header">
+                    <h4>{p.name?.substring(0, 15)}</h4>
+                    {p.arabicName && <h4 className="premium-arabic">{p.arabicName}</h4>}
                   </div>
+                  
+                  <button className="premium-view-btn" onClick={(e) => { 
+                    e.stopPropagation(); 
+                    setSelected(p); 
+                    setSelectedWeight(p.weightOptions?.[0] || null);
+                    setShowModal(true); 
+                  }}>
+                    View Details
+                  </button>
                 </div>
               </div>
             ))}
@@ -199,22 +224,66 @@ function Premium() {
                 <span className="premium-card-badge">{selected.badge}</span>
               </div>
               <div className="premium-modal-info">
-                <h2>{selected.name}</h2>
-                <div className="premium-card-stars">{renderStars(selected.rating)} <span style={{ color: '#9ca3af', fontSize: '13px' }}>({selected.rating})</span></div>
-                <p>{selected.description}</p>
-                <div style={{ display: 'flex', gap: '12px', margin: '12px 0' }}>
-                  <span style={{ background: 'rgba(251,146,60,0.1)', color: '#fb923c', padding: '4px 12px', borderRadius: '20px', fontSize: '13px' }}>⚖️ {selected.weight}</span>
-                  <span style={{ background: selected.stock ? 'rgba(74,222,128,0.1)' : 'rgba(239,68,68,0.1)', color: selected.stock ? '#4ade80' : '#f87171', padding: '4px 12px', borderRadius: '20px', fontSize: '13px' }}>
-                    {selected.stock ? '✅ In Stock' : '❌ Out of Stock'}
-                  </span>
+                <div className="pm-header">
+                  <h2>{selected.name}</h2>
+                  {selected.arabicName && <h2 className="pm-arabic">{selected.arabicName}</h2>}
                 </div>
-                <div className="premium-modal-price">
-                  <span className="premium-price" style={{ fontSize: '24px' }}>PKR {selected.price?.toLocaleString()}</span>
-                  {selected.originalPrice > selected.price && <span className="premium-original">PKR {selected.originalPrice?.toLocaleString()}</span>}
+
+                <div className="pm-price-display">
+                  PKR {(selectedWeight ? selectedWeight.price : selected.price)?.toLocaleString()}
                 </div>
-                <button className="premium-add-btn" style={{ width: '100%', padding: '14px', fontSize: '15px', marginTop: '16px' }}
-                  disabled={!selected.stock} onClick={() => { setShowModal(false); addToCart(selected); }}>
-                  🛒 Add to Cart
+
+                <p className="pm-desc">{selected.description}</p>
+                
+                <div className="pm-stock-status">
+                  <span className={`status-dot ${selected.stock ? 'status-green' : 'status-red'}`}></span>
+                  {selected.stock ? 'In Stock' : 'Out of Stock'}
+                </div>
+
+                {selected.weightOptions && selected.weightOptions.length > 0 && (
+                  <div className="pm-weight-section">
+                    <label>Weight: <span>{selectedWeight?.label || selected.weight}</span></label>
+                    
+                    {/* Top Pills for first 2 options */}
+                    <div className="weight-pills-row">
+                      {selected.weightOptions.slice(0, 2).map((opt, idx) => (
+                        <div 
+                          key={idx} 
+                          className={`weight-pill ${selectedWeight?.label === opt.label ? 'active' : ''}`}
+                          onClick={() => setSelectedWeight(opt)}
+                        >
+                          {opt.label}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Vertical list for rest */}
+                    {selected.weightOptions.length > 2 && (
+                      <div className="weight-list-vertical">
+                        {selected.weightOptions.slice(2).map((opt, idx) => (
+                          <div 
+                            key={idx} 
+                            className={`weight-list-item ${selectedWeight?.label === opt.label ? 'active' : ''}`}
+                            onClick={() => setSelectedWeight(opt)}
+                          >
+                            <div className="wli-left">
+                              <span className="wli-label">{opt.label}</span>
+                              {opt.savings > 0 && <span className="wli-savings">(Save PKR {opt.savings})</span>}
+                            </div>
+                            <span className="wli-price">PKR {opt.price?.toLocaleString()}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <button 
+                  className="pm-add-btn"
+                  disabled={!selected.stock} 
+                  onClick={() => { setShowModal(false); addToCart(selected, selectedWeight); }}
+                >
+                  Add to Cart
                 </button>
               </div>
             </div>
