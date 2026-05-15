@@ -140,9 +140,24 @@ function Products() {
           {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
 
       <div className="products-container">
+        <header className="products-header">
+          <div className="ph-content">
+            <span className="ph-badge">Boutique Selection</span>
+            <h1 className="ph-title">The Premium Collection</h1>
+            <h2 className="ph-arabic">مجموعة مختارة بعناية</h2>
+            <div className="ph-divider">
+              <span className="ph-line"></span>
+              <span className="ph-dot"></span>
+              <span className="ph-line"></span>
+            </div>
+            <p className="ph-desc">Experience the finest handpicked dates and natural superfoods, delivered from our farms to your doorstep with love and purity.</p>
+          </div>
+          <div className="ph-spotlight"></div>
+        </header>
+
         <div className="products-toolbar">
           <div className="products-search">
             <span>🔍</span>
