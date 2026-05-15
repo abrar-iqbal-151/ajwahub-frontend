@@ -33,7 +33,7 @@ function Products() {
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
     if (userData) setUser(JSON.parse(userData));
-    fetch(`${API}/shop-products`).then(r => r.json()).then(d => setProducts(d.products || [])).catch(() => {});
+    fetch(`${API}/shop-products`).then(r => r.json()).then(d => setProducts(d.products || [])).catch(() => { });
   }, []);
 
   const handleLogout = () => {
@@ -42,23 +42,23 @@ function Products() {
     navigate('/description');
   };
 
-  const toggleProfileMenu = () => {};
+  const toggleProfileMenu = () => { };
   const isActive = (path) => location.pathname === path;
 
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
     let updatedCart;
-    
+
     if (existingItem) {
-      updatedCart = cart.map(item => 
-        item.id === product.id 
+      updatedCart = cart.map(item =>
+        item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
     } else {
       updatedCart = [...cart, { ...product, quantity: 1 }];
     }
-    
+
     setCart(updatedCart);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updatedCart));
     setCartQuantity(updatedCart.reduce((total, item) => total + item.quantity, 0));
@@ -94,7 +94,7 @@ function Products() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ products: updatedWishlistProducts })
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
 
@@ -116,7 +116,7 @@ function Products() {
     return matchesSearch && matchesCategory;
   });
 
-    const arabicMap = {
+  const arabicMap = {
     'Ajwa': 'عجوة',
     'Amber': 'عنبر',
     'Safawi': 'صفاوي',
@@ -137,7 +137,7 @@ function Products() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
       <Navbar />
@@ -212,11 +212,11 @@ function Products() {
 
         <div className="products-grid">
           {filteredProducts.map(product => (
-                                    <div key={product.id} className="product-card">
+            <div key={product.id} className="product-card">
               <div className="product-image" onClick={() => handleProductClick(product)}>
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
+                <img
+                  src={product.image}
+                  alt={product.name}
                   onError={(e) => {
                     e.target.src = '/dates.png';
                   }}
@@ -227,8 +227,8 @@ function Products() {
                   </div>
 
                 </div>
-                
-                <button 
+
+                <button
                   className={`wishlist-icon ${wishlist.includes(product.id) ? 'active' : ''}`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -247,10 +247,10 @@ function Products() {
                 <div className="product-arabic-name">
                   {Object.keys(arabicMap).find(k => product.name.includes(k)) ? arabicMap[Object.keys(arabicMap).find(k => product.name.includes(k))] : 'عجوة'}
                 </div>
-                
 
 
-                <button 
+
+                <button
                   className="boutique-btn"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -265,17 +265,17 @@ function Products() {
           ))}
         </div>
 
-                {showProductDetails && selectedProduct && (
+        {showProductDetails && selectedProduct && (
           <div className="product-details-overlay" onClick={closeProductDetails}>
             <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
               <button className="close-btn" onClick={closeProductDetails}>✕</button>
-              
+
               <div className="product-details-content">
                 <div className="pd-left">
                   <div className="pd-image-wrapper">
-                    <img 
-                      src={selectedProduct.detailImage || selectedProduct.image} 
-                      alt={selectedProduct.name} 
+                    <img
+                      src={selectedProduct.detailImage || selectedProduct.image}
+                      alt={selectedProduct.name}
                       onError={(e) => { e.target.src = '/dates.png'; }}
                     />
                   </div>
@@ -287,7 +287,7 @@ function Products() {
                     {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
                   </div>
                   <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
-                  
+
                   <div className="pd-storage-note">
                     {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
                   </div>
@@ -306,7 +306,7 @@ function Products() {
                         { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
                         { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
                       ]).map((w, idx) => (
-                        <button 
+                        <button
                           key={idx}
                           className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
                           onClick={() => setSelectedWeight(w.label)}

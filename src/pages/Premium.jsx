@@ -26,12 +26,12 @@ function Premium() {
     fetch(`${API}/premium-products`)
       .then(r => r.json())
       .then(d => setProducts(d.products || []))
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
     fetch(`${API}/settings`)
       .then(r => r.json())
       .then(d => { if (d.settings) setSettings(s => ({ ...s, ...d.settings })); })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const addToCart = (product) => {
@@ -71,10 +71,10 @@ function Premium() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
 
       {/* HERO */}
       <div className="premium-hero">
@@ -89,51 +89,7 @@ function Premium() {
         </div>
       </div>
 
-      {/* SEARCH BAR BELOW HERO */}
-      <div className="premium-search-bar">
-        <div className="products-search">
-          <span>🔍</span>
-          <input type="text" placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)} />
-        </div>
-        <div className="products-filters">
-          <select value={filter} onChange={e => setFilter(e.target.value)}>
-            <option value="">All Categories</option>
-            <option value="dates">Dates</option>
-            <option value="dry">Dry Fruits</option>
-          </select>
-        </div>
-      </div>
 
-      {/* FEATURED */}
-      {featured.length > 0 && (
-        <div className="premium-featured-section">
-          <div className="premium-section-header">
-            <span className="premium-badge">{settings.premiumFeaturedTitle}</span>
-            <h2>{settings.premiumFeaturedSubtitle}</h2>
-          </div>
-          <div className="premium-featured-grid">
-            {featured.slice(0, 3).map(p => (
-              <div key={p._id} className="premium-featured-card" onClick={() => { setSelected(p); setShowModal(true); }}>
-                <div className="premium-featured-img">
-                  <img src={p.image} alt={p.name} onError={e => e.target.style.display='none'} />
-                  <span className="premium-featured-badge">{p.badge}</span>
-                </div>
-                <div className="premium-featured-info">
-                  <h3>{p.name}</h3>
-                  <p>{p.description?.substring(0, 80)}...</p>
-                  <div className="premium-featured-footer">
-                    <div>
-                      <span className="premium-price">PKR {p.price?.toLocaleString()}</span>
-                      {p.originalPrice > p.price && <span className="premium-original">PKR {p.originalPrice?.toLocaleString()}</span>}
-                    </div>
-                    <button className="premium-add-btn" onClick={e => { e.stopPropagation(); addToCart(p); }}>Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ALL PRODUCTS */}
       <div className="premium-all-section">
@@ -203,7 +159,7 @@ function Premium() {
             {filtered.map(p => (
               <div key={p._id} className="premium-card" onClick={() => { setSelected(p); setShowModal(true); }}>
                 <div className="premium-card-img">
-                  <img src={p.image} alt={p.name} onError={e => e.target.style.display='none'} />
+                  <img src={p.image} alt={p.name} onError={e => e.target.style.display = 'none'} />
                   <span className="premium-card-badge">{p.badge}</span>
                   {!p.stock && <div className="premium-out-overlay">Out of Stock</div>}
                 </div>
@@ -239,7 +195,7 @@ function Premium() {
             <button className="premium-modal-close" onClick={() => setShowModal(false)}>✕</button>
             <div className="premium-modal-content">
               <div className="premium-modal-img">
-                <img src={selected.image} alt={selected.name} onError={e => e.target.style.display='none'} />
+                <img src={selected.image} alt={selected.name} onError={e => e.target.style.display = 'none'} />
                 <span className="premium-card-badge">{selected.badge}</span>
               </div>
               <div className="premium-modal-info">
