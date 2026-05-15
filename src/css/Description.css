@@ -398,7 +398,7 @@ html {
 
 .description-page {
   min-height: 100vh;
-  background: radial-gradient(circle at 30% 50%, var(--deep-red) 0%, #000000 85%);
+  background: transparent;
   display: block;
   margin: 0;
   padding: 0;
@@ -2634,7 +2634,7 @@ html {
   gap: 60px;
   align-items: center;
   padding: 80px 4%;
-  margin: 0 4%;
+  margin: 40px 4% 30px;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(20px);

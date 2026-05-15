@@ -55,17 +55,17 @@ function Description() {
       setDeliveryMap(d.deliveryMap || null);
       setAbout(a.about || null);
       setPaymentIcons(pi.icons || []);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
-  const handleProductClick = (product) => { 
+  const handleProductClick = (product) => {
     setSelectedWeight('1kg Special Box');
-    setSelectedProduct(product); 
-    setShowProductDetails(true); 
+    setSelectedProduct(product);
+    setShowProductDetails(true);
   };
-  const closeProductDetails = () => { 
-    setShowProductDetails(false); 
-    setSelectedProduct(null); 
+  const closeProductDetails = () => {
+    setShowProductDetails(false);
+    setSelectedProduct(null);
     setSelectedWeight('1kg Special Box');
   };
 
@@ -87,7 +87,7 @@ function Description() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay:`${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
 
@@ -152,21 +152,21 @@ function Description() {
 
       {/* FEATURE SECTION */}
       <section className="desc-feature-section">
-        <h3 className="section-title" style={{gridColumn:'1/-1', textAlign:'center', marginBottom:'0'}}>Our Premium AjwaHub</h3>
+        <h3 className="section-title" style={{ gridColumn: '1/-1', textAlign: 'center', marginBottom: '0' }}>Our Premium AjwaHub</h3>
         <div className="desc-feature-img-wrap">
           <div className="desc-float-single">
             {feature && feature.images && feature.images.length > 0 ? (
               feature.images.map((img, i) => (
-                <div key={i} className={`desc-float-item desc-float-item${i+1}`}>
-                  <img src={img} alt={`P${i+1}`} onError={e=>e.target.src='/dates.png'}/>
+                <div key={i} className={`desc-float-item desc-float-item${i + 1}`}>
+                  <img src={img} alt={`P${i + 1}`} onError={e => e.target.src = '/dates.png'} />
                 </div>
               ))
             ) : (
               <>
-                <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e=>e.target.src='/dates.png'}/></div>
-                <div className="desc-float-item desc-float-item2"><img src="/Product 2.png" alt="P2" onError={e=>e.target.src='/dates.png'}/></div>
-                <div className="desc-float-item desc-float-item3"><img src="/Product 3.png" alt="P3" onError={e=>e.target.src='/dates.png'}/></div>
-                <div className="desc-float-item desc-float-item4"><img src="/Product 4.png" alt="P4" onError={e=>e.target.src='/dates.png'}/></div>
+                <div className="desc-float-item desc-float-item1"><img src="/Product 1.png" alt="P1" onError={e => e.target.src = '/dates.png'} /></div>
+                <div className="desc-float-item desc-float-item2"><img src="/Product 2.png" alt="P2" onError={e => e.target.src = '/dates.png'} /></div>
+                <div className="desc-float-item desc-float-item3"><img src="/Product 3.png" alt="P3" onError={e => e.target.src = '/dates.png'} /></div>
+                <div className="desc-float-item desc-float-item4"><img src="/Product 4.png" alt="P4" onError={e => e.target.src = '/dates.png'} /></div>
               </>
             )}
           </div>
@@ -189,6 +189,8 @@ function Description() {
           <button className="desc-feature-btn" onClick={() => navigate('/signup')}>Shop Now →</button>
         </div>
       </section>
+
+
 
       {products.length > 0 && (
         <section className="products-section">
@@ -279,9 +281,9 @@ function Description() {
             </h3>
           </div>
 
-          <img 
-            src={deliveryMap.mapImage} 
-            alt="Pakistan Delivery Map" 
+          <img
+            src={deliveryMap.mapImage}
+            alt="Pakistan Delivery Map"
             className="desc-map-image"
             loading="eager"
             onError={e => {
@@ -327,17 +329,17 @@ function Description() {
         </div>
       </section>
 
-                        {showProductDetails && selectedProduct && (
+      {showProductDetails && selectedProduct && (
         <div className="product-details-overlay" onClick={closeProductDetails}>
           <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={closeProductDetails}>✕</button>
-            
+
             <div className="product-details-content">
               <div className="pd-left">
                 <div className="pd-image-wrapper">
-                  <img 
-                    src={selectedProduct.detailImage || selectedProduct.image} 
-                    alt={selectedProduct.name} 
+                  <img
+                    src={selectedProduct.detailImage || selectedProduct.image}
+                    alt={selectedProduct.name}
                     onError={(e) => { e.target.src = '/dates.png'; }}
                   />
                 </div>
@@ -349,7 +351,7 @@ function Description() {
                   {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
                 </div>
                 <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
-                
+
                 <div className="pd-storage-note">
                   {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
                 </div>
@@ -368,7 +370,7 @@ function Description() {
                       { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
                       { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
                     ]).map((w, idx) => (
-                      <button 
+                      <button
                         key={idx}
                         className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
                         onClick={() => setSelectedWeight(w.label)}
