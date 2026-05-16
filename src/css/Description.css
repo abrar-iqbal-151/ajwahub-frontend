@@ -3380,4 +3380,174 @@ html {
   .floating-card-details p {
     font-size: 10px;
   }
+}
+
+/* ==========================================
+   DESCRIPTION PAGE FOOTER GOLDEN OVERRIDES 
+   ========================================== */
+.description-page .login-footer {
+  background: linear-gradient(135deg, #111111 0%, #000000 35%, #b8860b 100%) !important; /* Premium Midnight Black to Champagne Gold Satin gradient */
+  border-top: 2px solid #ffd700 !important; /* Gleaming gold border framing */
+  padding: 40px 5% 24px !important;
+  color: #ffffff !important; /* High contrast white text */
+}
+
+.description-page .login-footer-col-title {
+  color: #dfc15d !important; /* Champagne Gold for column titles */
+  font-weight: 800 !important;
+  font-size: 1.1rem !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+  padding-bottom: 6px !important;
+}
+
+.description-page .login-footer-name {
+  color: #dfc15d !important; /* Champagne Gold brand name */
+  font-weight: 900 !important;
+}
+
+.description-page .login-footer-tagline {
+  color: #e5e7eb !important; /* Soft white tagline text */
+  font-weight: 500 !important;
+}
+
+.description-page .login-footer-links a {
+  color: #e5e7eb !important; /* Soft white quick links */
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.description-page .login-footer-links a:hover {
+  color: #ffffff !important;
+  padding-left: 4px !important;
+}
+
+.description-page .login-footer-social a {
+  color: #111111 !important;
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important; /* Gleaming gold bubbles for social media icons */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+}
+
+.description-page .login-footer-social a:hover {
+  color: #ffffff !important;
+  background: #000000 !important;
+  transform: scale(1.1) !important;
+}
+
+.description-page .login-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #e5e7eb !important;
+  font-weight: 600 !important;
+  padding-top: 1.5rem !important;
+}
+
+.description-page .login-footer-bottom span {
+  color: #dfc15d !important; /* Champagne Gold highlights in footer bottom */
+}
+
+/* ========================================================
+   DESCRIPTION PAGE SECTION & CARD BLACK-GOLD MIX OVERRIDES
+   ======================================================== */
+
+/* 1. Global Section Containers (Glass Removed -> Velvet Black & Gold) */
+.description-page .products-section,
+.description-page .desc-feature-section,
+.description-page .desc-ai-section,
+.description-page .desc-gifting-section,
+.description-page .reviews-carousel-section,
+.description-page .desc-map-section,
+.description-page .desc-about-section {
+  background: linear-gradient(135deg, #141210 0%, #0a0807 100%) !important; /* Velvet Midnight Black */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 2px solid #d4af37 !important; /* Premium Gold framing border */
+  border-radius: 2rem 0.5rem 2rem 0.5rem !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(197, 160, 89, 0.08) !important;
+}
+
+/* 2. Inner Cards and Nested Boxes (Glass Removed -> Dark Charcoal & Gold) */
+.description-page .product-card,
+.description-page .desc-mob-card,
+.description-page .desc-feature-item,
+.description-page .desc-ai-item,
+.description-page .gifting-floating-card,
+.description-page .review-carousel-card,
+.description-page .desc-mob-review-card,
+.description-page .desc-about-point {
+  background: linear-gradient(135deg, #1f1a16 0%, #110e0c 100%) !important; /* Smoked Dark Charcoal */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.45) !important; /* Rigid sunehri gold border */
+  border-radius: 20px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.03) !important;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 3. Hover States (Scale & Golden Glow) */
+.description-page .product-card:hover,
+.description-page .desc-mob-card:hover,
+.description-page .desc-feature-item:hover,
+.description-page .desc-ai-item:hover,
+.description-page .gifting-floating-card:hover,
+.description-page .review-carousel-card:hover,
+.description-page .desc-mob-review-card:hover,
+.description-page .desc-about-point:hover {
+  background: #0d0a08 !important;
+  border-color: #ffd700 !important; /* Brilliant gold on hover */
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2) !important;
+  transform: translateY(-8px) !important;
+}
+
+/* 4. Typography & Visual Contrast inside Cards */
+.description-page .product-info h3,
+.description-page .desc-mob-info h4,
+.description-page .desc-ai-item-text h4,
+.description-page .desc-feature-item p,
+.description-page .floating-card-details h4,
+.description-page .review-author,
+.description-page .desc-about-point p strong {
+  color: #dfc15d !important; /* Brilliant Champagne Gold for headers inside black boxes! */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  font-weight: 700 !important;
+}
+
+.description-page .desc-ai-item-text p,
+.description-page .floating-card-details p,
+.description-page .review-text,
+.description-page .desc-about-point p {
+  color: #e5e7eb !important; /* Premium readable soft white text */
+}
+
+/* 5. Icon Glow & Bullets */
+.description-page .desc-ai-icon-glow,
+.description-page .floating-card-icon,
+.description-page .desc-gifting-icon-glow {
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #dfc15d !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+}
+
+/* 6. Section Titles inside Containers */
+.description-page .products-inner .section-title,
+.description-page .desc-feature-section .section-title,
+.description-page .reviews-carousel-inner .section-title,
+.description-page .desc-map-title,
+.description-page .desc-about-title {
+  color: #dfc15d !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 7. Shimmering Add to Cart Buttons inside Black Boxes */
+.description-page .small-add-to-cart-btn {
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important;
+  color: #111111 !important;
+  font-weight: 800 !important;
+}
+
+.description-page .small-add-to-cart-btn:hover {
+  background: #ffffff !important;
+  color: #111111 !important;
 }
