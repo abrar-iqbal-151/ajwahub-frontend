@@ -179,13 +179,25 @@ body {
   }
 }
 
-/* GLOBAL DARK THEME (Black Background, White Boxes) */
+/* GLOBAL DARK THEME (White Background, Black Boxes) */
 body.dark-theme .desc-bg-3d {
-  background: radial-gradient(circle at 30% 50%, #111111 0%, #000000 100%) !important;
+  background: radial-gradient(circle at 30% 50%, #ffffff 0%, #f4f4f6 100%) !important; /* Pristine Light White/Cream background in dark mode! */
 }
 
 body.dark-theme .desc-bg-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.6) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.6) 2px, transparent 2px) !important;
+    linear-gradient(rgba(0, 0, 0, 0.15) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.15) 2px, transparent 2px) !important; /* Elegant dark grid lines visible on white page background! */
+}
+
+body.dark-theme .desc-bg-line {
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.12), transparent) !important; /* Elegant dark animating vertical lines! */
+}
+
+body.dark-theme .desc-orb1 {
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.15), transparent 70%) !important; /* Amber light glow */
+}
+
+body.dark-theme .desc-orb2 {
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.12), transparent 70%) !important; /* Gold glow */
 }

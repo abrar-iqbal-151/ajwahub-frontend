@@ -25,9 +25,9 @@ function Home() {
   }, [location.key]);
 
   useEffect(() => {
-    fetch(`${API}/home-content`).then(r => r.json()).then(d => setHomeContent(d.content)).catch(() => {});
-    fetch(`${API}/content/reviews`).then(r => r.json()).then(d => setReviews(d.reviews || [])).catch(() => {});
-    fetch(`${API}/content/payment-icons`).then(r => r.json()).then(d => setPaymentIcons(d.icons || [])).catch(() => {});
+    fetch(`${API}/home-content`).then(r => r.json()).then(d => setHomeContent(d.content)).catch(() => { });
+    fetch(`${API}/content/reviews`).then(r => r.json()).then(d => setReviews(d.reviews || [])).catch(() => { });
+    fetch(`${API}/content/payment-icons`).then(r => r.json()).then(d => setPaymentIcons(d.icons || [])).catch(() => { });
   }, []);
 
   const images = homeContent?.sliderImages || ['/home mock 1.png', '/home mock 2.png', '/home mock 3.png'];
@@ -76,7 +76,7 @@ function Home() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay:`${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
 
@@ -146,15 +146,15 @@ function Home() {
                       {item.video
                         ? (
                           <div className="premium-video-wrap" style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', marginBottom: '12px' }}>
-                          <video src={item.video} className="mob-slide-media" playsInline muted loop
-                            onTouchStart={e => e.target.play()}
-                            style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px' }}
-                          />
-                          <div className="premium-play-icon">▶</div>
-                        </div>
-                      )
-                      : <img src={item.image} alt={item.name} className="mob-slide-media" style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px', marginBottom: '12px' }} />}
-                    <h4 className="premium-product-name">{item.name}</h4>
+                            <video src={item.video} className="mob-slide-media" playsInline muted loop
+                              onTouchStart={e => e.target.play()}
+                              style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px' }}
+                            />
+                            <div className="premium-play-icon">▶</div>
+                          </div>
+                        )
+                        : <img src={item.image} alt={item.name} className="mob-slide-media" style={{ borderRadius: '1.8rem 0.3rem 1.8rem 0.3rem', height: '180px', marginBottom: '12px' }} />}
+                      <h4 className="premium-product-name">{item.name}</h4>
                     </div>
                   </div>
                 ))}
