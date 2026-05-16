@@ -1,4 +1,4 @@
-/* UNIFIED NAVBAR STYLES */
+﻿/* UNIFIED NAVBAR STYLES */
 .navbar {
   padding: 0 1.5rem;
   display: flex;
@@ -89,6 +89,7 @@
   flex-shrink: 0;
   min-width: 120px;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -469,6 +470,7 @@
   flex-shrink: 0;
   min-width: 130px;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -645,7 +647,7 @@
   }
 }
 
-/* ── NAV LEFT GROUP ── */
+/* â”€â”€ NAV LEFT GROUP â”€â”€ */
 .nav-left-group {
   display: flex;
   align-items: center;
@@ -654,7 +656,7 @@
   min-width: 150px;
 }
 
-/* ── HAMBURGER BUTTON ── */
+/* â”€â”€ HAMBURGER BUTTON â”€â”€ */
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -688,7 +690,7 @@
   }
 }
 
-/* ── DRAWER OVERLAY ── */
+/* â”€â”€ DRAWER OVERLAY â”€â”€ */
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -703,7 +705,7 @@
   to   { opacity: 1; }
 }
 
-/* ── MOBILE DRAWER ── */
+/* â”€â”€ MOBILE DRAWER â”€â”€ */
 .mobile-drawer {
   position: fixed;
   top: 0;
@@ -935,3 +937,35 @@
   background: rgba(239, 68, 68, 0.2);
   border-color: rgba(239, 68, 68, 0.4);
 }
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle-btn {
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 12px;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(251, 146, 60, 0.2);
+  border-color: rgba(251, 146, 60, 0.3);
+  transform: rotate(15deg);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    margin-right: 5px;
+  }
+}
+
