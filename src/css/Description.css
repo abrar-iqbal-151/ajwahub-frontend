@@ -1205,10 +1205,10 @@ html {
 .login-footer {
   margin-top: 60px;
   padding: 40px 0 0;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(197, 160, 89, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(197, 160, 89, 0.25);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -1220,8 +1220,8 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #fb923c, #fbbf24, #fb923c, transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c5a059, #ffd700, #c5a059, transparent);
 }
 
 .login-footer-inner {
@@ -1275,7 +1275,7 @@ html {
 }
 
 .login-footer-col-title {
-  color: rgba(255, 255, 255, 0.85);
+  color: #c5a059;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1290,7 +1290,7 @@ html {
 }
 
 .login-footer-links a {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(197, 160, 89, 0.6);
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
@@ -1309,7 +1309,7 @@ html {
 }
 
 .login-footer-links a:hover {
-  color: #fb923c;
+  color: #ffd700;
   gap: 8px;
 }
 
@@ -1326,19 +1326,19 @@ html {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(197, 160, 89, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(197, 160, 89, 0.6);
   transition: all 0.3s ease;
 }
 
 .login-footer-social a:hover {
-  background: rgba(251, 146, 60, 0.15);
-  border-color: rgba(251, 146, 60, 0.35);
-  color: #fb923c;
+  background: rgba(197, 160, 89, 0.2);
+  border-color: rgba(197, 160, 89, 0.45);
+  color: #ffd700;
   transform: translateY(-3px);
 }
 
@@ -1347,8 +1347,8 @@ html {
   justify-content: space-between;
   align-items: center;
   padding: 14px 5%;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(197, 160, 89, 0.12);
+  color: rgba(197, 160, 89, 0.4);
   font-size: 11px;
   letter-spacing: 0.5px;
   flex-wrap: wrap;

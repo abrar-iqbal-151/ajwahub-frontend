@@ -178,6 +178,7 @@ body {
     transform: scaleY(1);
   }
 }
+
 /* GLOBAL DARK THEME (Black Background, White Boxes) */
 body.dark-theme .desc-bg-3d {
   background: radial-gradient(circle at 30% 50%, #111111 0%, #000000 100%) !important;
