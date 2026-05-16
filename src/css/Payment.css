@@ -14,7 +14,7 @@ body {
 
 .payment-page {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 30%, #5a0000 0%, #1a0000 70%);
+  background: radial-gradient(circle at 20% 30%, #1a120b 0%, #0a0704 70%);
   font-family: 'Inter', -apple-system, sans-serif;
   padding-top: 80px;
 }
@@ -58,17 +58,18 @@ body {
   padding-right: 14px;
 }
 
-.ps-step { background: rgba(251,146,60,0.06); }
-.ps-step.completed { background: rgba(251,146,60,0.12); color: #6b7280; }
-.ps-step.active { background: rgba(251,146,60,0.25); color: #f1f5f9; }
+.ps-step { background: rgba(197, 160, 89, 0.06); }
+.ps-step.completed { background: rgba(197, 160, 89, 0.12); color: #c5a059; }
+.ps-step.active { background: rgba(197, 160, 89, 0.25); color: #ffd700; }
 
 .ps-icon { font-size: 14px; }
 .ps-label { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; color: #fff; text-transform: uppercase; }
 
 /* Checkout Step */
 .checkout-step {
-  background: #3a0808;
-  border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
   border-radius: 24px;
   padding: 32px;
   animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1);
@@ -83,9 +84,10 @@ body {
 }
 
 .checkout-step h2 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
-  color: #ffffff;
+  color: #ffd700;
+  font-family: 'Playfair Display', serif;
   margin-bottom: 24px;
   letter-spacing: -0.3px;
 }
@@ -130,13 +132,13 @@ body {
   gap: 14px;
   align-items: center;
   padding: 14px 16px;
-  background: rgba(55, 8, 8, 0.85);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 14px;
   position: relative;
   transition: border-color 0.2s;
 }
-.review-item:hover { border-color: rgba(220,38,38,0.2); }
+.review-item:hover { border-color: rgba(197, 160, 89, 0.4); }
 
 .item-image {
   width: 64px;
@@ -151,7 +153,7 @@ body {
 .item-info h4 { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .item-info p { font-size: 12px; color: #d4cccc; }
 
-.item-price { font-weight: 800; font-size: 14px; background: linear-gradient(135deg, #4ade80, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; flex-shrink: 0; }
+.item-price { font-weight: 800; font-size: 14px; color: #c5a059; white-space: nowrap; flex-shrink: 0; }
 
 .top-delete-btn {
   background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
@@ -197,10 +199,11 @@ body {
 
 /* Order Summary */
 .order-summary {
-  background: #3a0808;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 18px;
-  padding: 20px;
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 24px;
+  padding: 24px;
   position: sticky;
   top: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -229,8 +232,8 @@ body {
   margin-top: 4px;
   border-top: 1px solid rgba(255,255,255,0.1);
 }
-.summary-row.total span:first-child { color: #f1f5f9; font-size: 15px; }
-.summary-row.total span:last-child { background: linear-gradient(135deg, #4ade80, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; }
+.summary-row.total span:first-child { color: #ffd700; font-size: 16px; font-weight: 800; }
+.summary-row.total span:last-child { color: #c5a059; font-size: 20px; font-weight: 800; }
 
 /* Forms */
 .form-grid {
@@ -256,9 +259,9 @@ body {
 
 .form-grid input:focus {
   outline: none;
-  border-color: #fb923c;
-  background: rgba(15, 23, 42, 0.8);
-  box-shadow: 0 0 15px rgba(251, 146, 60, 0.2);
+  border-color: #c5a059;
+  background: rgba(197, 160, 89, 0.05);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
 }
 
 .next-btn.disabled {
@@ -286,16 +289,16 @@ body {
 
 .card-form input {
   padding: 0.9rem 1rem;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(251, 146, 60, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(197, 160, 89, 0.2);
   border-radius: 0.75rem;
   color: #f8fafc;
 }
 
 .card-form input:focus {
   outline: none;
-  border-color: #fb923c;
-  background: rgba(15, 23, 42, 0.8);
+  border-color: #c5a059;
+  background: rgba(197, 160, 89, 0.05);
 }
 
 .form-row {
@@ -326,40 +329,40 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 12px;
   transition: all 0.2s;
 }
 .payment-option input:checked + .payment-content {
-  border-color: rgba(220,38,38,0.5);
-  background: rgba(220,38,38,0.06);
+  border-color: #c5a059;
+  background: rgba(197, 160, 89, 0.1);
 }
 .payment-option:hover .payment-content {
-  border-color: rgba(255,255,255,0.15);
+  border-color: rgba(197, 160, 89, 0.4);
 }
 
 .payment-icon { font-size: 22px; min-width: 36px; text-align: center; }
 .payment-content h4 { color: #f1f5f9; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
 .payment-content p { color: #d4cccc; font-size: 12px; }
 
-/* Mobile Payment Form */
 .mobile-payment-form {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(251, 146, 60, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(197, 160, 89, 0.2);
   border-radius: 1rem;
   padding: 2rem;
   margin: 2rem 0;
 }
 
 .payment-instructions h3 {
-  color: #fb923c;
+  color: #c5a059;
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .order-details {
-  background: rgba(30, 41, 59, 0.8);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 0.75rem;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -370,7 +373,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(251, 146, 60, 0.1);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.1);
 }
 
 .detail-row:last-child {
@@ -379,23 +382,23 @@ body {
 
 .order-id-display, .account-number {
   font-family: 'Courier New', monospace;
-  background: rgba(251, 146, 60, 0.1);
+  background: rgba(197, 160, 89, 0.1);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  color: #fb923c;
+  color: #c5a059;
   font-weight: 700;
 }
 
 .amount {
-  color: #10b981;
+  color: #ffd700;
   font-weight: 700;
   font-size: 1.1rem;
 }
 
 .copy-btn {
-  background: rgba(251, 146, 60, 0.1);
-  border: 1px solid rgba(251, 146, 60, 0.3);
-  color: #fb923c;
+  background: rgba(197, 160, 89, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  color: #c5a059;
   padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -403,8 +406,9 @@ body {
 }
 
 .copy-btn:hover {
-  background: rgba(251, 146, 60, 0.2);
+  background: rgba(197, 160, 89, 0.2);
   transform: scale(1.05);
+  color: #ffd700;
 }
 
 .payment-steps {
@@ -483,11 +487,11 @@ body {
   gap: 12px;
   margin-top: 24px;
 }
-.back-btn { flex: 0 0 auto; padding: 12px 24px; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); color: #9ca3af; border: 1px solid rgba(255,255,255,0.1); }
-.back-btn:hover { background: rgba(255,255,255,0.08); color: #f1f5f9; }
+.back-btn { flex: 0 0 auto; padding: 12px 24px; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); color: #c5a059; border: 1px solid rgba(197, 160, 89, 0.3); }
+.back-btn:hover { background: rgba(197, 160, 89, 0.1); color: #ffd700; }
 .next-btn, .pay-btn, .cancel-btn { flex: 0 0 auto; padding: 12px 28px; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.next-btn, .pay-btn { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; box-shadow: 0 6px 18px rgba(220,38,38,0.3); }
-.next-btn:hover, .pay-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(220,38,38,0.4); }
+.next-btn, .pay-btn { background: linear-gradient(135deg, #c5a059, #b08d4b); color: #1a120b; box-shadow: 0 6px 18px rgba(197, 160, 89, 0.2); }
+.next-btn:hover, .pay-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(197, 160, 89, 0.4); }
 .next-btn.disabled, .pay-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 .pay-btn.processing { background: rgba(100,116,139,0.5); box-shadow: none; }
 
@@ -515,9 +519,10 @@ body {
 }
 
 .confirmation-card {
-  background: #3a0808;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 24px;
   padding: 3rem;
   text-align: center;
   max-width: 500px;
@@ -538,7 +543,7 @@ body {
 
 .confirmation-card h1 {
   font-size: 2rem;
-  background: linear-gradient(135deg, #10b981, #34d399);
+  background: linear-gradient(135deg, #ffd700, #c5a059);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -546,7 +551,7 @@ body {
 }
 
 .order-id {
-  color: #fb923c;
+  color: #ffd700;
   font-size: 1.1rem;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -554,7 +559,7 @@ body {
 
 .order-id strong {
   font-family: 'Courier New', monospace;
-  background: rgba(251, 146, 60, 0.1);
+  background: rgba(197, 160, 89, 0.1);
   padding: 0.25rem 0.75rem;
   border-radius: 0.5rem;
 }
@@ -566,7 +571,7 @@ body {
 }
 
 .order-status strong {
-  color: #10b981;
+  color: #c5a059;
 }
 
 .status-message {
