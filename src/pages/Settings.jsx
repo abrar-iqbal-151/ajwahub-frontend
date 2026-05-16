@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Settings.css';
 import Navbar from './Navbar';
@@ -106,41 +106,46 @@ function Settings() {
     fetchUserData();
 
     // Add sample sessions for demonstration
-    const sampleSessions = [
-      {
-        device: 'Desktop',
-        location: 'Pakistan',
-        loginTime: new Date().toISOString(),
-        current: true
-      },
-      {
-        device: 'Desktop',
-        location: 'Pakistan',
-        loginTime: new Date(Date.now() - 86400000).toISOString(),
-        current: false
-      },
-      {
-        device: 'Desktop',
-        location: 'Pakistan',
-        loginTime: new Date(Date.now() - 172800000).toISOString(),
-        current: false
-      },
-      {
-        device: 'Desktop',
-        location: 'Pakistan',
-        loginTime: new Date(Date.now() - 259200000).toISOString(),
-        current: false
-      },
-      {
-        device: 'Desktop',
-        location: 'Pakistan',
-        loginTime: new Date(Date.now() - 345600000).toISOString(),
-        current: false
-      }
-    ];
+    const savedSessions = localStorage.getItem('ajwaHub_sessions');
+    if (savedSessions) {
+      setSessions(JSON.parse(savedSessions));
+    } else {
+      const sampleSessions = [
+        {
+          device: 'Desktop',
+          location: 'Pakistan',
+          loginTime: new Date().toISOString(),
+          current: true
+        },
+        {
+          device: 'Desktop',
+          location: 'Pakistan',
+          loginTime: new Date(Date.now() - 86400000).toISOString(),
+          current: false
+        },
+        {
+          device: 'Desktop',
+          location: 'Pakistan',
+          loginTime: new Date(Date.now() - 172800000).toISOString(),
+          current: false
+        },
+        {
+          device: 'Desktop',
+          location: 'Pakistan',
+          loginTime: new Date(Date.now() - 259200000).toISOString(),
+          current: false
+        },
+        {
+          device: 'Desktop',
+          location: 'Pakistan',
+          loginTime: new Date(Date.now() - 345600000).toISOString(),
+          current: false
+        }
+      ];
 
-    setSessions(sampleSessions);
-    localStorage.setItem('ajwaHub_sessions', JSON.stringify(sampleSessions));
+      setSessions(sampleSessions);
+      localStorage.setItem('ajwaHub_sessions', JSON.stringify(sampleSessions));
+    }
   }, []);
 
   const handleChange = (e) => {
