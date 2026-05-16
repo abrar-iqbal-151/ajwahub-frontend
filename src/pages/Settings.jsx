@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+﻿import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Settings.css';
 import Navbar from './Navbar';
@@ -59,7 +59,7 @@ function Settings() {
       if (userData) {
         const parsedUser = JSON.parse(userData);
         console.log('📦 Current user data:', parsedUser);
-        
+
         setUser(parsedUser);
         setFormData({
           fullName: parsedUser.name || '',
@@ -69,7 +69,7 @@ function Settings() {
           profilePicture: parsedUser.profilePicture || ''
         });
         setTwoFAEnabled(parsedUser.twoFactorEnabled || false);
-        
+
         // Try to fetch from backend for additional data
         try {
           const response = await fetch(`${API}/api/users/profile/${parsedUser.email}`);
@@ -92,13 +92,13 @@ function Settings() {
 
         const savedAddresses = JSON.parse(localStorage.getItem(`ajwaHub_addresses_${parsedUser.email}`) || '[]');
         setAddresses(savedAddresses);
-        
+
         // Also fetch from MongoDB
         if (parsedUser.email) {
           fetch(`${API}/api/users/addresses/${parsedUser.email}`)
             .then(r => r.json())
             .then(d => setAddresses(d.addresses || []))
-            .catch(() => {});
+            .catch(() => { });
         }
       }
     };
@@ -138,7 +138,7 @@ function Settings() {
         current: false
       }
     ];
-    
+
     setSessions(sampleSessions);
     localStorage.setItem('ajwaHub_sessions', JSON.stringify(sampleSessions));
   }, []);
@@ -300,7 +300,7 @@ function Settings() {
       console.log('No user or email available for fetching addresses');
       return;
     }
-    
+
     try {
       const response = await fetch(`${API}/api/users/addresses/${user.email}`);
       if (response.ok) {
@@ -346,10 +346,10 @@ function Settings() {
         isDefault: addressFormData.isDefault
       };
 
-      const url = editingAddressId 
+      const url = editingAddressId
         ? `${API}/api/users/addresses/${user.email}/${editingAddressId}`
         : `${API}/api/users/addresses/${user.email}`;
-      
+
       const method = editingAddressId ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -434,23 +434,23 @@ function Settings() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
 
       <div className="settings-container">
         <div className="settings-tabs">
           <button className={`tab-btn ${activeTab === 'account' ? 'active' : ''}`} onClick={() => setActiveTab('account')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             Account
           </button>
           <button className={`tab-btn ${activeTab === 'security' ? 'active' : ''}`} onClick={() => setActiveTab('security')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
             Security
           </button>
           <button className={`tab-btn ${activeTab === 'addresses' ? 'active' : ''}`} onClick={() => setActiveTab('addresses')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
             Addresses
           </button>
         </div>
@@ -458,7 +458,7 @@ function Settings() {
         {activeTab === 'account' && (
           <div className="settings-card">
             <h2>Account Settings</h2>
-            
+
             <div className="profile-picture-section">
               <div className="profile-preview">
                 {formData.profilePicture ? (
@@ -586,8 +586,8 @@ function Settings() {
                 </div>
                 <div className="two-fa-toggle">
                   <label className="toggle-switch">
-                    <input 
-                      type="checkbox" 
+                    <input
+                      type="checkbox"
                       checked={twoFAEnabled}
                       onChange={handleToggle2FA}
                     />
@@ -598,11 +598,11 @@ function Settings() {
                   </span>
                 </div>
               </div>
-              
+
               {twoFAEnabled && (
                 <div className="qr-code-section">
                   <p className="qr-instruction">📱 Apne mobile mein Google Authenticator ya Authy app kholo</p>
-                  
+
                   <div className="twofa-setup-grid">
                     {/* QR Code */}
                     <div className="twofa-qr-box">
@@ -648,7 +648,7 @@ function Settings() {
                   <p className="toggle-status">✅ 2FA is enabled — Login pe 6-digit code maanga jayega</p>
                 </div>
               )}
-              
+
               {!twoFAEnabled && (
                 <p className="toggle-status disabled">❌ 2FA is disabled</p>
               )}
@@ -667,7 +667,7 @@ function Settings() {
                       </div>
                       <div className="session-actions">
                         {session.current && <span className="current-badge">Current</span>}
-                        <button 
+                        <button
                           className="remove-session-btn"
                           onClick={() => handleRemoveSession(index)}
                           disabled={session.current}
@@ -757,7 +757,7 @@ function Settings() {
                     onChange={handleAddressInputChange}
                   />
                 </div>
-                
+
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
@@ -788,7 +788,7 @@ function Settings() {
                 addresses.map(address => (
                   <div key={address.id} className={`address-card ${address.isDefault ? 'default' : ''}`}>
                     {address.isDefault && <span className="default-badge">⭐ Default</span>}
-                    
+
                     <div className="address-info">
                       <h4>{address.name}</h4>
                       <p>{address.address}</p>
@@ -799,20 +799,20 @@ function Settings() {
 
                     <div className="address-actions">
                       {!address.isDefault && (
-                        <button 
+                        <button
                           className="set-default-btn"
                           onClick={() => handleSetDefaultAddress(address.id)}
                         >
                           Set Default
                         </button>
                       )}
-                      <button 
+                      <button
                         className="edit-btn"
                         onClick={() => handleEditAddress(address)}
                       >
                         ✏️ Edit
                       </button>
-                      <button 
+                      <button
                         className="delete-btn"
                         onClick={() => setDeleteAddressConfirm(address.id)}
                       >
@@ -825,9 +825,9 @@ function Settings() {
             </div>
           </div>
         )}
-        
+
       </div>
-      
+
       {deleteAddressConfirm && (
         <ConfirmDialog
           message="Are you sure you want to remove this address?"
