@@ -11,11 +11,21 @@
   max-width: 1400px;
   width: 95%;
   margin: 0 auto;
-  padding: 30px 40px;
+  padding: 40px;
 }
 
 /* HEADER */
-.trk-header { text-align: center; margin-bottom: 24px; }
+.trk-header { 
+  text-align: center; 
+  margin-top: 120px;
+  margin-bottom: 24px; 
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 24px;
+  padding: 32px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
 .trk-badge {
   display: inline-flex;
   align-items: center;
@@ -34,25 +44,36 @@
 .trk-header p { color: #d4cccc; font-size: 15px; }
 
 /* EMPTY */
-.trk-empty { text-align: center; padding: 60px 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; max-width: 500px; margin: 0 auto; }
-.trk-empty-icon { font-size: 60px; margin-bottom: 16px; opacity: 0.6; }
-.trk-empty h3 { font-size: 20px; font-weight: 700; color: #f1f5f9; margin-bottom: 8px; }
-.trk-empty p { color: #6b7280; margin-bottom: 24px; }
+.trk-empty {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 24px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.trk-empty-icon { font-size: 60px; margin-bottom: 16px; color: #c5a059; opacity: 0.8; }
+.trk-empty h3 { font-size: 22px; font-weight: 800; color: #ffd700; font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+.trk-empty p { color: rgba(197, 160, 89, 0.7); margin-bottom: 24px; font-size: 14px; }
 .trk-empty button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: linear-gradient(135deg, #ffd700, #c5a059);
   border: none;
-  color: white;
+  color: #1a120b;
   padding: 12px 28px;
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
 }
-.trk-empty button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(220,38,38,0.4); }
+.trk-empty button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5); }
 
 /* LAYOUT */
 .trk-layout { display: block; }
