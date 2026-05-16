@@ -99,8 +99,6 @@
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-  max-width: 1050px;
-  margin: 0 auto;
   border: 1px solid rgba(255,255,255,0.1);
 }
 
