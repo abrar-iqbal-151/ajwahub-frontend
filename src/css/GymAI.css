@@ -5,141 +5,184 @@
   background: radial-gradient(circle at 20% 30%, #3a0000 0%, #000000 70%);
   color: #e5e7eb;
   font-family: 'Inter', sans-serif;
+  padding-top: 80px; /* Prevent Navbar overlay */
 }
 
-/* ── HERO ── */
-.gymai-hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 60px 60px;
-  max-width: 1200px;
+/* ── HERO WRAPPER ── */
+.gymai-hero-wrapper {
+  max-width: 1400px;
   margin: 0 auto;
-  gap: 40px;
-  min-height: 420px;
+  padding: 30px 2rem 0;
 }
 
-.gymai-hero-inner { flex: 1; }
+/* ── HERO — Products-style gold glass frame ── */
+.gymai-hero {
+  position: relative;
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(15, 10, 5, 0.98));
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 2px solid rgba(197, 160, 89, 0.5);
+  border-radius: 40px;
+  padding: 40px 40px; /* Reduced padding to make height smaller */
+  margin-bottom: 50px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow:
+    0 50px 100px -20px rgba(0, 0, 0, 0.9),
+    0 30px 60px -30px rgba(0, 0, 0, 0.7),
+    inset 0 0 60px rgba(197, 160, 89, 0.15);
+  animation: gymHeroFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
+@keyframes gymHeroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gymai-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Badge */
 .gymai-hero-badge {
-  display: inline-block;
-  background: rgba(220,38,38,0.15);
-  border: 1px solid rgba(220,38,38,0.4);
-  color: #f87171;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(197, 160, 89, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  color: #c5a059;
   padding: 6px 18px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
+.gymai-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #c5a059;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #c5a059;
+  animation: gymPulse 2s infinite;
+}
+
+@keyframes gymPulse {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Title */
 .gymai-hero h1 {
-  font-size: 52px;
+  font-size: 3.8rem;
   font-weight: 900;
-  color: #f1f5f9;
-  line-height: 1.1;
-  margin-bottom: 16px;
-  letter-spacing: -1.5px;
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  background: linear-gradient(135deg, #fff, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
 }
 
 .gymai-hero h1 span {
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #f87171);
+  background: linear-gradient(135deg, #ffd700, #c5a059);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* Divider */
+.gymai-hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 5px 0;
+}
+
+.gymai-divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.5), transparent);
+}
+
+.gymai-divider-dot {
+  width: 8px;
+  height: 8px;
+  background: #c5a059;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #c5a059;
+}
+
+/* Subtitle */
 .gymai-hero p {
-  color: #6b7280;
-  font-size: 16px;
-  max-width: 480px;
-  line-height: 1.7;
-  margin-bottom: 32px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 700px;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.gymai-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+/* Hero Buttons */
+.gymai-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
 .gymai-hero-btn {
-  padding: 13px 28px;
-  border-radius: 14px;
+  padding: 13px 32px;
+  border-radius: 50px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   border: none;
   transition: all 0.25s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: 0.3px;
 }
 
 .gymai-hero-btn.primary {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: linear-gradient(135deg, #c5a059, #b8860b);
   color: white;
-  box-shadow: 0 8px 24px rgba(220,38,38,0.35);
+  box-shadow: 0 8px 24px rgba(197, 160, 89, 0.35);
 }
-.gymai-hero-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(220,38,38,0.5); }
+.gymai-hero-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(197, 160, 89, 0.5); }
 
 .gymai-hero-btn.secondary {
-  background: rgba(255,255,255,0.06);
-  color: #f1f5f9;
-  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: #c5a059;
+  border: 1.5px solid rgba(197, 160, 89, 0.5);
 }
-.gymai-hero-btn.secondary:hover { background: rgba(255,255,255,0.1); }
+.gymai-hero-btn.secondary:hover { background: rgba(197, 160, 89, 0.1); border-color: #c5a059; }
 
-/* HERO VISUAL */
-.gymai-hero-visual {
-  position: relative;
-  width: 320px;
-  height: 320px;
-  flex-shrink: 0;
-}
-
-.gymai-center-orb {
+/* Spotlight */
+.gymai-hero-spotlight {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 96px; height: 96px;
-  background: radial-gradient(circle, rgba(180,83,9,0.25) 0%, rgba(120,50,5,0.15) 100%);
-  border: 1.5px solid rgba(251,146,60,0.35);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 40px rgba(180,83,9,0.3), inset 0 0 20px rgba(251,146,60,0.08);
-  animation: pulse 2.5s ease-in-out infinite;
+  top: -50%;
+  left: -20%;
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(197, 160, 89, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  animation: gymSpotlight 10s infinite alternate ease-in-out;
 }
 
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 40px rgba(180,83,9,0.3), inset 0 0 20px rgba(251,146,60,0.08); }
-  50% { box-shadow: 0 0 70px rgba(180,83,9,0.5), inset 0 0 30px rgba(251,146,60,0.15); }
+@keyframes gymSpotlight {
+  from { transform: translateX(-10%); }
+  to   { transform: translateX(10%); }
 }
 
-.gymai-orb {
-  position: absolute;
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  animation: orbit 6s ease-in-out infinite;
+@media (max-width: 768px) {
+  .gymai-hero { padding: 50px 20px; }
+  .gymai-hero h1 { font-size: 2.4rem; }
+  .gymai-hero p { font-size: 0.95rem; }
+  .gymai-hero-btns { justify-content: center; }
 }
 
-.orb1 { background: rgba(180,83,9,0.15); top: 10px; left: 50%; transform: translateX(-50%); animation-delay: 0s; box-shadow: 0 0 18px rgba(251,146,60,0.2); }
-.orb2 { background: rgba(180,120,60,0.15); right: 10px; top: 50%; transform: translateY(-50%); animation-delay: -1.5s; box-shadow: 0 0 18px rgba(217,160,100,0.2); }
-.orb3 { background: rgba(34,197,94,0.12); bottom: 10px; left: 50%; transform: translateX(-50%); animation-delay: -3s; box-shadow: 0 0 18px rgba(74,222,128,0.15); }
-.orb4 { background: rgba(120,80,40,0.18); left: 10px; top: 50%; transform: translateY(-50%); animation-delay: -4.5s; box-shadow: 0 0 18px rgba(180,120,60,0.2); }
 
-@keyframes orbitX {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.08); }
-}
-@keyframes orbitY {
-  0%, 100% { transform: translateY(-50%) scale(1); }
-  50% { transform: translateY(-50%) scale(1.08); }
-}
-
-.orb1 { background: rgba(180,83,9,0.15); top: 10px; left: 50%; transform: translateX(-50%); animation: orbitX 3s ease-in-out infinite; animation-delay: 0s; box-shadow: 0 0 18px rgba(251,146,60,0.2); }
-.orb2 { background: rgba(180,120,60,0.15); right: 10px; top: 50%; transform: translateY(-50%); animation: orbitY 3s ease-in-out infinite; animation-delay: -0.75s; box-shadow: 0 0 18px rgba(217,160,100,0.2); }
-.orb3 { background: rgba(34,197,94,0.12); bottom: 10px; left: 50%; transform: translateX(-50%); animation: orbitX 3s ease-in-out infinite; animation-delay: -1.5s; box-shadow: 0 0 18px rgba(74,222,128,0.15); }
-.orb4 { background: rgba(120,80,40,0.18); left: 10px; top: 50%; transform: translateY(-50%); animation: orbitY 3s ease-in-out infinite; animation-delay: -2.25s; box-shadow: 0 0 18px rgba(180,120,60,0.2); }
 
 /* ── STATS ── */
 .gymai-stats {
