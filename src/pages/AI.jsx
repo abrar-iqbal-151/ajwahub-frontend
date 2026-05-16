@@ -1,6 +1,6 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaRobot, FaUser, FaHistory, FaPaperPlane, FaImage, FaSearch, FaPlus, FaTrash, FaCrown, FaCode, FaGlobe } from 'react-icons/fa';
+import { FaRobot, FaUser, FaHistory, FaPaperPlane, FaImage, FaSearch, FaPlus, FaTrash, FaCrown, FaCode, FaGlobe, FaCamera } from 'react-icons/fa';
 import Navbar from './Navbar';
 import Footer from '../components/Footer';
 import '../css/AI.css';
@@ -37,6 +37,7 @@ function AI() {
 
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('ajwaHub_currentUser');
@@ -171,8 +172,20 @@ function AI() {
 
   return (
     <div className="ai-page">
+      {/* 3D Background */}
+      <div className="desc-bg-3d">
+        <div className="desc-bg-grid" />
+        <div className="desc-orb desc-orb1" />
+        <div className="desc-orb desc-orb2" />
+        <div className="desc-orb desc-orb3" />
+        <div className="desc-orb desc-orb4" />
+        <div className="desc-bg-lines">
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
+        </div>
+      </div>
       <Navbar />
       <div className="ai-wrapper">
+
         <div className="ai-header">
           <div className="ai-header-content">
             <span className="ai-badge">AI Assistant Pro</span>
@@ -242,10 +255,14 @@ function AI() {
                 </div>
 
                 <div className="ai-input-row">
-                  <button className="ai-icon-btn" onClick={() => fileInputRef.current.click()}>
+                  <button className="ai-icon-btn" title="Upload Image" onClick={() => fileInputRef.current.click()}>
                     <FaImage />
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
+                  <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={() => cameraInputRef.current.click()}>
+                    <FaCamera />
+                  </button>
+                  <input type="file" hidden ref={cameraInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" capture="environment" />
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />

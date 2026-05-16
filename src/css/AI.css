@@ -411,6 +411,22 @@
 
 .ai-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Camera scan button — gold accent */
+.ai-camera-btn {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.15), rgba(197, 160, 89, 0.05));
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  color: #c5a059 !important;
+}
+
+.ai-camera-btn:hover {
+  background: rgba(197, 160, 89, 0.25) !important;
+  border-color: #c5a059 !important;
+  box-shadow: 0 0 14px rgba(197, 160, 89, 0.3);
+  color: #ffd700 !important;
+}
+
+
+
 /* Selected image preview */
 .ai-selected-image {
   position: relative;
@@ -597,20 +613,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: #fafafa;
-  border-top: 1px solid #eef2f7;
+  gap: 8px;
+  padding: 6px 20px 10px;
+  background: transparent;
+  border-top: none;
   font-size: 11px;
-  color: #b0bcc8;
-  letter-spacing: 0.2px;
+  color: #a0aec0;
+  letter-spacing: 0.4px;
   flex-shrink: 0;
 }
 
 .ai-ceo-footer strong {
-  color: #c9a84c;
+  color: #c5a059;
   font-weight: 700;
+  letter-spacing: 0.3px;
 }
+
+
 
 /* ─────────────────────────────────────────
    MOBILE

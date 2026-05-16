@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/Wishlist.css';
+import '../css/Products.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 import Footer from '../components/Footer';
@@ -21,6 +22,20 @@ function Wishlist() {
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [cartDeleteConfirm, setCartDeleteConfirm] = useState(null);
+  const [selectedWeight, setSelectedWeight] = useState('1kg Special Box');
+
+  const getPriceForWeight = (basePrice, weight) => {
+    if (weight.includes('500g')) return Math.round(basePrice * 0.55);
+    if (weight.includes('2kg')) return basePrice * 2 - 500;
+    if (weight.includes('3kg')) return basePrice * 3 - 700;
+    if (weight.includes('5kg')) return basePrice * 5 - 1500;
+    return basePrice;
+  };
+
+  const arabicMap = {
+    'Ajwa': 'عجوة', 'Amber': 'عنبر', 'Safawi': 'صفاوي', 'Mabroom': 'مبروم',
+    'Sukari': 'سكري', 'Sagai': 'صقعي', 'Kalmi': 'كالمي', 'Medjool': 'مجدول'
+  };
 
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
@@ -74,7 +89,7 @@ function Wishlist() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ products: updatedWishlist })
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
 
@@ -87,12 +102,16 @@ function Wishlist() {
     return matchesSearch && matchesCategory && matchesStock;
   });
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<span key={i} className={`star ${i <= Math.floor(rating) ? 'filled' : 'empty'}`}>{i <= Math.floor(rating) ? '★' : '☆'}</span>);
-    }
-    return stars;
+  const handleProductClick = (product) => {
+    setSelectedWeight('1kg Special Box');
+    setSelectedProduct(product);
+    setShowProductDetails(true);
+  };
+
+  const closeProductDetails = () => {
+    setShowProductDetails(false);
+    setSelectedProduct(null);
+    setSelectedWeight('1kg Special Box');
   };
 
   return (
@@ -105,16 +124,44 @@ function Wishlist() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
 
       <div className="products-container">
-        <div className="wishlist-header">
-          <h1 className="wishlist-title">My Wishlist</h1>
-          <p className="wishlist-subtitle">Your favorite products in one place</p>
+        <div className="wishlist-hero">
+          <div className="wishlist-hero-content-box">
+            {/* Floating Decorative Elements */}
+            <div className="hero-decor-heart hd1">❤️</div>
+            <div className="hero-decor-heart hd2">✨</div>
+            <div className="hero-decor-heart hd3">❤️</div>
+
+            <div className="wishlist-hero-content">
+              <span className="wishlist-hero-badge">
+                <span className="pulse-dot"></span> Your Personal Collection
+              </span>
+              <h1>My <span>Wishlist</span></h1>
+              <p>Curating your most-loved premium dates and handpicked dry fruits in one elegant space.</p>
+            </div>
+
+            <div className="wishlist-hero-stats">
+              <div className="w-stat">
+                <h3>{wishlistItems.length}</h3>
+                <p>Saved Items</p>
+              </div>
+              <div className="w-stat-divider"></div>
+              <div className="w-stat">
+                <h3>{cartQuantity}</h3>
+                <p>In Cart</p>
+              </div>
+            </div>
+          </div>
         </div>
+
+
+
+
 
         {/* TOOLBAR */}
         <div className="products-toolbar">
@@ -189,29 +236,34 @@ function Wishlist() {
           <div className="products-grid">
             {filteredProducts.map(product => (
               <div key={product.id} className="product-card">
-                <div className="product-image" onClick={() => { setSelectedProduct(product); setShowProductDetails(true); }}>
+                <div className="product-image" onClick={() => handleProductClick(product)}>
                   <img src={product.image} alt={product.name} onError={(e) => { e.target.src = '/dates.png'; }} />
-                  <div className={`stock-overlay ${product.stock ? 'in-stock' : 'out-stock'}`}>
-                    {product.stock ? 'In Stock' : 'Out of Stock'}
+                  <div className="product-badges">
+                    <div className={`stock-badge ${product.stock ? 'in-stock' : 'out-stock'}`}>
+                      {product.stock ? '● In Stock' : '○ Out of Stock'}
+                    </div>
                   </div>
                   <button
                     className="wishlist-icon active"
                     onClick={(e) => { e.stopPropagation(); setDeleteConfirm(product.id); }}
                     title="Remove from Wishlist"
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                   </button>
                 </div>
                 <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <div className="price-section">
-                    <span className="price">PKR {product.price.toLocaleString()}</span>
-                    <span className="weight">{product.weight}</span>
+                  <h3>{product.name.split(' ')[0]}</h3>
+                  <div className="product-arabic-name">
+                    {Object.keys(arabicMap).find(k => product.name.includes(k)) ? arabicMap[Object.keys(arabicMap).find(k => product.name.includes(k))] : 'عجوة'}
                   </div>
-                  <button className="small-add-to-cart-btn" onClick={() => addToCart(product)} disabled={!product.stock}>
-                    Add to Cart
+                  <button
+                    className="boutique-btn"
+                    onClick={(e) => { e.stopPropagation(); handleProductClick(product); }}
+                    disabled={!product.stock}
+                  >
+                    View Details
                   </button>
                 </div>
               </div>
@@ -220,21 +272,44 @@ function Wishlist() {
         )}
 
         {showProductDetails && selectedProduct && (
-          <div className="product-details-overlay" onClick={() => setShowProductDetails(false)}>
+          <div className="product-details-overlay" onClick={closeProductDetails}>
             <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
-              <button className="close-btn" onClick={() => setShowProductDetails(false)}>✕</button>
+              <button className="close-btn" onClick={closeProductDetails}>✕</button>
               <div className="product-details-content">
-                <div className="product-details-image">
-                  <img src={selectedProduct.image} alt={selectedProduct.name} onError={(e) => { e.target.src = '/dates.png'; }} />
-                </div>
-                <div className="product-details-info">
-                  <h2>{selectedProduct.name}</h2>
-                  <p className="product-description">{selectedProduct.description}</p>
-                  <p className="product-weight">Weight: {selectedProduct.weight}</p>
-                  <div className="rating">
-                    {renderStars(selectedProduct.rating)}
-                    <span className="rating-value">({selectedProduct.rating})</span>
+                <div className="pd-left">
+                  <div className="pd-image-wrapper">
+                    <img src={selectedProduct.detailImage || selectedProduct.image} alt={selectedProduct.name} onError={(e) => { e.target.src = '/dates.png'; }} />
                   </div>
+                </div>
+                <div className="pd-right">
+                  <div className="pd-header-row">
+                    <h2 className="pd-title">{selectedProduct.name}</h2>
+                    {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
+                  </div>
+                  <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
+                  <div className="pd-storage-note">
+                    {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
+                  </div>
+                  <div className="pd-stock-status"><span className="stock-dot"></span> In Stock</div>
+                  <div className="pd-weight-selection">
+                    <p className="weight-label">Weight: <span>{selectedWeight}</span></p>
+                    <div className="weight-options">
+                      {(selectedProduct.weights && selectedProduct.weights.length > 0 ? selectedProduct.weights : [
+                        { label: '1kg Special Box', savings: '' },
+                        { label: '500g Mini Box', savings: '' },
+                        { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                        { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                        { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                      ]).map((w, idx) => (
+                        <button key={idx} className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`} onClick={() => setSelectedWeight(w.label)}>
+                          {w.label} {w.savings && <span>{w.savings}</span>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <button className="pd-add-to-cart-btn" onClick={() => addToCart({ ...selectedProduct, price: getPriceForWeight(selectedProduct.price, selectedWeight), weight: selectedWeight })}>
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
