@@ -3386,44 +3386,53 @@ html {
    DESCRIPTION PAGE FOOTER GOLDEN OVERRIDES 
    ========================================== */
 .description-page .login-footer {
-  background: linear-gradient(135deg, #111111 0%, #000000 35%, #b8860b 100%) !important; /* Premium Midnight Black to Champagne Gold Satin gradient */
-  border-top: 2px solid #ffd700 !important; /* Gleaming gold border framing */
+  background: linear-gradient(135deg, #24211e 0%, #302b26 40%, #f7dc6f 100%) !important; /* Premium Smoked Light Black to Lighter Champagne Gold gradient */
+  border-top: 2px solid #ffd700 !important; /* Bright gold border framing */
   padding: 40px 5% 24px !important;
-  color: #ffffff !important; /* High contrast white text */
+  color: #ffffff !important; /* Premium high contrast white text */
 }
 
 .description-page .login-footer-col-title {
-  color: #dfc15d !important; /* Champagne Gold for column titles */
+  color: #ffd700 !important; /* Shining Gold for column titles */
   font-weight: 800 !important;
   font-size: 1.1rem !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
   padding-bottom: 6px !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9) !important; /* Soft dark shadow for contrast on gold side */
 }
 
 .description-page .login-footer-name {
-  color: #dfc15d !important; /* Champagne Gold brand name */
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Signature Navbar gradient */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
   font-weight: 900 !important;
+  text-shadow: none !important; /* Clear shadow for clean gradient clip */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)) !important; /* Soft backdrop shadow for perfect visibility */
 }
 
 .description-page .login-footer-tagline {
-  color: #e5e7eb !important; /* Soft white tagline text */
+  color: #ffffff !important; /* High-contrast white tagline */
   font-weight: 500 !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 }
 
 .description-page .login-footer-links a {
-  color: #e5e7eb !important; /* Soft white quick links */
+  color: #ffffff !important; /* High-contrast white links */
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 }
 
 .description-page .login-footer-links a:hover {
-  color: #ffffff !important;
+  color: #ffd700 !important;
   padding-left: 4px !important;
 }
 
 .description-page .login-footer-social a {
   color: #111111 !important;
-  background: linear-gradient(135deg, #ffd700, #c5a059) !important; /* Gleaming gold bubbles for social media icons */
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important; /* Shimmering gold bubbles for social media icons */
   box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
 }
 
@@ -3434,14 +3443,27 @@ html {
 }
 
 .description-page .login-footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: #e5e7eb !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
   font-weight: 600 !important;
   padding-top: 1.5rem !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 }
 
 .description-page .login-footer-bottom span {
-  color: #dfc15d !important; /* Champagne Gold highlights in footer bottom */
+  color: #ffffff !important; /* Other bottom span highlights in white */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+.description-page .login-footer-bottom-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Signature Navbar gradient */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)) !important;
 }
 
 /* ========================================================

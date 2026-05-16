@@ -77,7 +77,7 @@ function Footer() {
       </div>
       <div className="login-footer-bottom">
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span style={{ color: '#fb923c', fontWeight: '700' }}>AjwaHub</span>
+          <span className="login-footer-bottom-brand" style={{ fontWeight: '700' }}>AjwaHub</span>
           <span>&copy; {new Date().getFullYear()}. All rights reserved.</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
