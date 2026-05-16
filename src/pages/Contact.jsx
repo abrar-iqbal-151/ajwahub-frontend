@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
 import '../css/Contact.css';
 
 function Contact() {
@@ -18,7 +20,6 @@ function Contact() {
   }, []);
 
   const handleLogout = () => { localStorage.removeItem('ajwaHub_currentUser'); setUser(null); navigate('/description'); };
-  const isActive = (path) => location.pathname === path;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,77 +37,42 @@ function Contact() {
 
   return (
     <div className="contact-page">
-      {/* 3D Background */}
-      <div className="desc-bg-3d">
-        <div className="desc-bg-grid" />
-        <div className="desc-orb desc-orb1" />
-        <div className="desc-orb desc-orb2" />
-        <div className="desc-orb desc-orb3" />
-        <div className="desc-orb desc-orb4" />
-        <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
-        </div>
-      </div>
-<nav className="navbar">
-        <div className="nav-logo">
-          <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
-          <span className="nav-logo-text">AjwaHub</span>
-        </div>
-        <div className="nav-menu">
-          <button className={`nav-item ${isActive('/home') ? 'active' : ''}`} onClick={() => navigate("/home")}>Home</button>
-          <button className={`nav-item ${isActive('/products') ? 'active' : ''}`} onClick={() => navigate("/products")}>Products</button>
-          <button className={`nav-item ${isActive('/ai') ? 'active' : ''}`} onClick={() => navigate("/ai")}>AI</button>
-          <button className={`nav-item ${isActive('/gifting') ? 'active' : ''}`} onClick={() => navigate("/gifting")}>Gifting</button>
-          <button className={`nav-item ${isActive('/wishlist') ? 'active' : ''}`} onClick={() => navigate("/wishlist")}>Wishlist</button>
-          <button className={`nav-item ${isActive('/gymai') ? 'active' : ''}`} onClick={() => navigate("/gymai")}>GymAI</button>
-          <button className={`nav-item ${isActive('/tracking') ? 'active' : ''}`} onClick={() => navigate("/tracking")}>Tracking</button>
-          <button className={`nav-item ${isActive('/payment') ? 'active' : ''}`} onClick={() => navigate("/payment")}>Payment</button>
-          <button className={`nav-item ${isActive('/contact') ? 'active' : ''}`} onClick={() => navigate("/contact")}>Contact</button>
-          <button className={`nav-item ${isActive('/settings') ? 'active' : ''}`} onClick={() => navigate("/settings")}>Settings</button>
-        </div>
-        <div className="nav-right">
-          {user && (
-            <div className="user-profile" onClick={() => setShowProfileMenu(!showProfileMenu)}>
-              <span className="user-name">{user.name}</span>
-              <div className="user-avatar">
-                {user.profilePicture ? <img src={user.profilePicture} alt="Profile" className="avatar-image" /> : <span className="avatar-initial">{user.name.charAt(0).toUpperCase()}</span>}
-                <div className="online-dot"></div>
-              </div>
-              {showProfileMenu && (
-                <div className="profile-dropdown">
-                  <button className="dropdown-item" onClick={() => { setShowProfileMenu(false); navigate("/contact"); }}>📧 Contact</button>
-                  <button className="dropdown-item" onClick={() => { setShowProfileMenu(false); navigate("/settings"); }}>⚙️ Settings</button>
-                  <button className="dropdown-item logout" onClick={() => { setShowProfileMenu(false); handleLogout(); }}>🚪 Logout</button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="contact-wrapper">
 
         {/* LEFT INFO */}
         <div className="contact-info">
-          <span className="contact-badge">📬 Get In Touch</span>
+          <span className="contact-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{marginRight: '6px'}}><path d="M22 2L11 13"></path><path d="M22 2L15 22L11 13L2 9L22 2"></path></svg>
+            Get In Touch
+          </span>
           <h1>Let's <span>Talk</span></h1>
           <p>Have a question, feedback, or want to place a bulk order? We're here to help.</p>
 
           <div className="contact-cards">
             <div className="contact-card">
-              <div className="cc-icon">📍</div>
+              <div className="cc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
               <div><h4>Location</h4><p>{info.location}</p></div>
             </div>
             <div className="contact-card">
-              <div className="cc-icon">📞</div>
+              <div className="cc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
               <div><h4>Phone</h4><p>{info.phone}</p></div>
             </div>
             <div className="contact-card">
-              <div className="cc-icon">✉️</div>
+              <div className="cc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
               <div><h4>Email</h4><p>{info.email}</p></div>
             </div>
             <div className="contact-card">
-              <div className="cc-icon">🕐</div>
+              <div className="cc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
               <div><h4>Hours</h4><p>{info.hours}</p></div>
             </div>
           </div>
@@ -150,16 +116,9 @@ function Contact() {
         </div>
       </div>
 
-      <footer className="footer" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(74,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%)', borderTop: '1px solid rgba(220,38,38,0.2)', textAlign: 'center', padding: '20px 0', marginTop: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.6)', fontSize: '14px' }}>
-          <span>© 2025 Made by</span>
-          <span style={{ background: 'linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 800 }}>AjwaHub Team</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
 
 export default Contact;
-
-

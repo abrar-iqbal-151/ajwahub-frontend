@@ -630,9 +630,9 @@ body {
 
 /* FOOTER */
 .footer {
-  background: linear-gradient(135deg, rgba(50, 10, 10, 0.95), rgba(30, 5, 5, 0.95));
+  background: linear-gradient(145deg, rgba(28, 20, 12, 0.95), rgba(15, 10, 5, 0.95));
   padding: 3rem 2rem 1rem;
-  border-top: 1px solid rgba(251, 146, 60, 0.2);
+  border-top: 1px solid rgba(197, 160, 89, 0.2);
   backdrop-filter: blur(20px);
 }
 
@@ -660,11 +660,12 @@ body {
 
 .footer-logo span {
   font-size: 1.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fb923c, #fbbf24);
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffd700, #c5a059);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Playfair Display', serif;
 }
 
 .footer-links {
@@ -680,8 +681,9 @@ body {
 }
 
 .footer-links a:hover {
-  color: #fb923c;
+  color: #c5a059;
   transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
 }
 
 .footer-social {
@@ -701,9 +703,10 @@ body {
 }
 
 .footer-social a:hover {
-  color: #fb923c;
-  background: rgba(251, 146, 60, 0.1);
+  color: #ffd700;
+  background: rgba(197, 160, 89, 0.15);
   transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
 }
 
 .footer-social svg {
@@ -715,7 +718,7 @@ body {
   text-align: center;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(251, 146, 60, 0.1);
+  border-top: 1px solid rgba(197, 160, 89, 0.15);
 }
 
 .footer-bottom p {
