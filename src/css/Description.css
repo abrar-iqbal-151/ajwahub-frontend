@@ -3528,16 +3528,16 @@ html {
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
 }
 
-/* 6. Section Titles inside Containers */
-.description-page .products-inner .section-title,
-.description-page .desc-feature-section .section-title,
-.description-page .reviews-carousel-inner .section-title,
+/* 6. Section Titles inside Containers (Bulletproof Flat Clean Gold overrides) */
+.description-page .section-title,
 .description-page .desc-map-title,
 .description-page .desc-about-title {
   color: #dfc15d !important;
+  -webkit-text-fill-color: #dfc15d !important; /* Force solid gold text fill, removing transparent/gradient look */
   background: none !important;
-  -webkit-text-fill-color: initial !important;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  -webkit-background-clip: initial !important; /* Completely clear background text clipping */
+  text-shadow: none !important; /* 0% glowiness, completely flat and modern */
+  filter: none !important; /* Clear any dropshadow or glow filters */
 }
 
 /* 7. Shimmering Add to Cart Buttons inside Black Boxes */
