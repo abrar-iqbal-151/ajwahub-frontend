@@ -110,7 +110,8 @@ function Home() {
 
       {/* DYNAMIC SECTIONS */}
       {homeContent?.sections?.map(section => (
-        <div key={section.key} className="premium-products-section">
+        <div key={section.key} className={`premium-products-section section-${section.key}`}>
+
           <div className="section-header">
             <h2 className="section-title">{section.title}</h2>
           </div>
