@@ -29,7 +29,7 @@ function Payment() {
   const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    fetch(`${API}/api/settings`).then(r => r.json()).then(d => { if (d.settings) setPaySettings(d.settings); }).catch(() => {});
+    fetch(`${API}/api/settings`).then(r => r.json()).then(d => { if (d.settings) setPaySettings(d.settings); }).catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function Payment() {
               });
               setSelectedAddressId(def.id);
             }
-          }).catch(() => {});
+          }).catch(() => { });
       }
     }
     const savedCart = JSON.parse(localStorage.getItem('ajwaHub_cart') || '[]');
@@ -136,18 +136,18 @@ function Payment() {
   };
 
   const pakistanCities = [
-    'Abbottabad','Attock','Awaran','Badin','Bahawalnagar','Bahawalpur','Bannu','Batagram',
-    'Bhakkar','Bhalwal','Bhimber','Burewala','Chakwal','Chaman','Charsadda','Chiniot',
-    'Chishtian','Dadu','Dera Ghazi Khan','Dera Ismail Khan','Faisalabad','Ghotki',
-    'Gujranwala','Gujrat','Gwadar','Hafizabad','Haripur','Hyderabad','Islamabad',
-    'Jacobabad','Jhelum','Jhang','Kamalia','Kamoke','Karachi','Kasur','Khanewal',
-    'Kharian','Khushab','Khuzdar','Kohat','Kot Addu','Lahore','Larkana','Layyah',
-    'Lodhran','Mandi Bahauddin','Mansehra','Mardan','Mianwali','Mirpur','Mirpur Khas',
-    'Multan','Muridke','Muzaffarabad','Muzaffargarh','Narowal','Nawabshah','Nowshera',
-    'Okara','Pakpattan','Peshawar','Quetta','Rahim Yar Khan','Rawalpindi','Sadiqabad',
-    'Sahiwal','Sargodha','Sheikhupura','Sialkot','Sibi','Sukkur','Swabi','Swat',
-    'Tando Adam','Tando Allahyar','Taxila','Toba Tek Singh','Turbat','Umerkot',
-    'Vehari','Wah Cantonment','Wazirabad','Zhob'
+    'Abbottabad', 'Attock', 'Awaran', 'Badin', 'Bahawalnagar', 'Bahawalpur', 'Bannu', 'Batagram',
+    'Bhakkar', 'Bhalwal', 'Bhimber', 'Burewala', 'Chakwal', 'Chaman', 'Charsadda', 'Chiniot',
+    'Chishtian', 'Dadu', 'Dera Ghazi Khan', 'Dera Ismail Khan', 'Faisalabad', 'Ghotki',
+    'Gujranwala', 'Gujrat', 'Gwadar', 'Hafizabad', 'Haripur', 'Hyderabad', 'Islamabad',
+    'Jacobabad', 'Jhelum', 'Jhang', 'Kamalia', 'Kamoke', 'Karachi', 'Kasur', 'Khanewal',
+    'Kharian', 'Khushab', 'Khuzdar', 'Kohat', 'Kot Addu', 'Lahore', 'Larkana', 'Layyah',
+    'Lodhran', 'Mandi Bahauddin', 'Mansehra', 'Mardan', 'Mianwali', 'Mirpur', 'Mirpur Khas',
+    'Multan', 'Muridke', 'Muzaffarabad', 'Muzaffargarh', 'Narowal', 'Nawabshah', 'Nowshera',
+    'Okara', 'Pakpattan', 'Peshawar', 'Quetta', 'Rahim Yar Khan', 'Rawalpindi', 'Sadiqabad',
+    'Sahiwal', 'Sargodha', 'Sheikhupura', 'Sialkot', 'Sibi', 'Sukkur', 'Swabi', 'Swat',
+    'Tando Adam', 'Tando Allahyar', 'Taxila', 'Toba Tek Singh', 'Turbat', 'Umerkot',
+    'Vehari', 'Wah Cantonment', 'Wazirabad', 'Zhob'
   ].sort();
 
   const isShippingValid = () =>
@@ -181,7 +181,7 @@ function Payment() {
         const upRes = await fetch(`${API}/api/upload`, { method: 'POST', body: formData });
         const upData = await upRes.json();
         if (upRes.ok) screenshotPath = upData.path;
-      } catch {}
+      } catch { }
     }
     const newOrderId = 'ORD' + Date.now();
     setOrderId(newOrderId);
@@ -189,7 +189,7 @@ function Payment() {
     const orders = JSON.parse(localStorage.getItem('ajwaHub_orders') || '[]');
     orders.push(order);
     localStorage.setItem('ajwaHub_orders', JSON.stringify(orders));
-    try { await fetch(`${API}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...order, trackingStatus: 'warehouse' }) }); } catch {}
+    try { await fetch(`${API}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...order, trackingStatus: 'warehouse' }) }); } catch { }
     localStorage.removeItem('ajwaHub_cart');
     setCartItems([]);
     setOrderStatus('Pending Approval');
@@ -201,18 +201,18 @@ function Payment() {
   if (step === 'confirmation') {
     return (
       <div className="payment-page">
-      {/* 3D Background */}
-      <div className="desc-bg-3d">
-        <div className="desc-bg-grid" />
-        <div className="desc-orb desc-orb1" />
-        <div className="desc-orb desc-orb2" />
-        <div className="desc-orb desc-orb3" />
-        <div className="desc-orb desc-orb4" />
-        <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+        {/* 3D Background */}
+        <div className="desc-bg-3d">
+          <div className="desc-bg-grid" />
+          <div className="desc-orb desc-orb1" />
+          <div className="desc-orb desc-orb2" />
+          <div className="desc-orb desc-orb3" />
+          <div className="desc-orb desc-orb4" />
+          <div className="desc-bg-lines">
+            {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
+          </div>
         </div>
-      </div>
-<nav className="navbar">
+        <nav className="navbar">
           <div className="nav-logo" onClick={() => navigate('/home')}>
             <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
             <span className="nav-logo-text">AjwaHub</span>
@@ -242,10 +242,10 @@ function Payment() {
         <div className="desc-orb desc-orb3" />
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
         </div>
       </div>
-<Navbar />
+      <Navbar />
       <div className="payment-container">
         <div className="progress-steps">
           {[{ key: 'review', label: 'Review', icon: '🛒' }, { key: 'shipping', label: 'Shipping', icon: '📍' }, { key: 'payment', label: 'Payment', icon: '💳' }, { key: 'confirmation', label: 'Done', icon: '✅' }].map((s, i) => {
@@ -262,7 +262,7 @@ function Payment() {
         {step === 'review' && (
           <div className="checkout-step">
             <h2>📦 Order Review</h2>
-            <div className="review-content">
+            <div className={`review-content ${cartItems.length === 0 ? 'empty' : ''}`}>
               <div className="items-list">
                 {cartItems.length === 0 ? (
                   <div className="empty-cart-state">
@@ -287,8 +287,8 @@ function Payment() {
                   ))
                 )}
               </div>
-              <div className="order-summary">
-                {cartItems.length > 0 && (
+              {cartItems.length > 0 && (
+                <div className="order-summary">
                   <>
                     <div className="summary-row"><span>Subtotal</span><span>PKR {subtotal}</span></div>
                     <div className="summary-row"><span>Discount</span><span className="discount">-PKR {discount}</span></div>
@@ -297,8 +297,8 @@ function Payment() {
                     <div className="summary-divider"></div>
                     <div className="summary-row total"><span>Total</span><span>PKR {total}</span></div>
                   </>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div className="button-group">
               <button className={`next-btn ${cartItems.length === 0 ? 'disabled' : ''}`} disabled={cartItems.length === 0} onClick={() => { if (cartItems.length === 0) { setError('Your cart is empty. Please add items first.'); return; } setError(''); setStep('shipping'); }}>
