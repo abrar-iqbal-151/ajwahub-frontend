@@ -313,6 +313,57 @@ function Description() {
         </section>
       )}
 
+      {/* GIFTING SECTION */}
+      <section className="desc-gifting-section">
+        <div className="desc-gifting-img-wrap">
+          <div className="desc-gifting-frame">
+            <img src="/Gift 2.png" alt="AjwaHub Premium Gifting Box" className="desc-gifting-img" />
+            <div className="desc-gifting-video-overlay">
+              <div className="gifting-scan-line" />
+              <div className="gifting-status-pulse" />
+            </div>
+            <div className="desc-gifting-frame-glow" />
+          </div>
+          {/* Layered Floating Mini-Card for Extra Premium Look */}
+          <div className="gifting-floating-card">
+            <span className="floating-card-icon">🎁</span>
+            <div className="floating-card-details">
+              <h4>Special Edition</h4>
+              <p>Royal Gift Boxes</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="desc-gifting-content">
+          <div className="desc-gifting-badge">💝 ELEGANT GIFTING</div>
+          <h2 className="desc-gifting-title">
+            Share Health & Purity With <span>Our Gift Collections</span>
+          </h2>
+          <p className="desc-gifting-text">
+            Give the gift of premium wellness and taste. Our handpicked organic dates, signature honey infusions, and exotic dry fruits are elegantly packed in custom luxury briefcases and artisan boxes. Designed perfectly for family celebrations, corporate events, and special moments of sharing.
+          </p>
+          <div className="desc-gifting-features">
+            <div className="desc-gifting-feat-item">
+              <span className="desc-gifting-icon-glow">✨</span>
+              <div className="desc-gifting-item-text">
+                <h4>Customized Luxury Packaging</h4>
+                <p>Sophisticated premium boxes, briefcases, and custom wooden cases with personalized gift tags.</p>
+              </div>
+            </div>
+            <div className="desc-gifting-feat-item">
+              <span className="desc-gifting-icon-glow">🏆</span>
+              <div className="desc-gifting-item-text">
+                <h4>100% Handpicked Quality</h4>
+                <p>Sourced directly from selected farms, sorted, and packed to pristine hygiene standards.</p>
+              </div>
+            </div>
+          </div>
+          <button className="desc-gifting-btn" onClick={() => setShowLoginModal(true)}>
+            Explore Gifting Collections →
+          </button>
+        </div>
+      </section>
+
       {reviews.length > 0 && (
         <section className="reviews-carousel-section">
           <div className="reviews-carousel-inner">
