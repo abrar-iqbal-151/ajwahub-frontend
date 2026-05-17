@@ -20,7 +20,6 @@ import Delivered from './pages/Delivered'
 import Terms from './pages/Terms'
 import AboutUs from './pages/AboutUs'
 import OrderHistory from './pages/OrderHistory'
-import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -49,7 +48,6 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/orders" element={<OrderHistory />} />
-        <Route path="/contact" element={<Contact />} />
 
       </Routes>
     </div>

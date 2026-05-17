@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { label: 'Orders', path: '/orders', icon: '🧾' },
   { label: 'Payment', path: '/payment', icon: '💳' },
   { label: 'Settings', path: '/settings', icon: '⚙️' },
-  { label: 'Contact', path: '/contact', icon: '📞' },
 ];
 
 function Navbar({ extraLeft }) {
