@@ -76,7 +76,6 @@
   text-transform: uppercase;
   margin-bottom: 12px !important;
   /* Compact badge margin */
-  box-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
 }
 
 .premium-hero h1 {
@@ -131,7 +130,6 @@
   height: 8px;
   background: #c5a059;
   border-radius: 50%;
-  box-shadow: 0 0 15px #c5a059;
   z-index: 2;
 }
 
@@ -145,7 +143,6 @@
   font-weight: 800;
   color: #fbbf24;
   margin-bottom: 4px;
-  text-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
 }
 
 .premium-hero-stats p {

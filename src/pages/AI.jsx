@@ -34,15 +34,77 @@ function AI() {
   const [activeTab, setActiveTab] = useState('chat');
   const [sessions, setSessions] = useState([]);
   const [image, setImage] = useState(null);
+  
+  const [isCameraActive, setIsCameraActive] = useState(false);
 
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
-  const cameraInputRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('ajwaHub_currentUser');
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
+
+  useEffect(() => {
+    return () => {
+      // Clean up camera stream on unmount
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+      }
+    };
+  }, []);
+
+  const startCamera = async () => {
+    setIsCameraActive(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' },
+        audio: false
+      });
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play().catch(e => console.error("Video play error:", e));
+        }
+      }, 300);
+    } catch (err) {
+      console.error("Camera access error:", err);
+      alert("Camera permission denied or camera not available.");
+      setIsCameraActive(false);
+    }
+  };
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    setIsCameraActive(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth || 640;
+      canvas.height = videoRef.current.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+      
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], "camera_capture.jpg", { type: "image/jpeg" });
+          setImage(file);
+        }
+      }, 'image/jpeg', 0.95);
+      
+      stopCamera();
+    }
+  };
 
 
   // Save current chat to localStorage whenever messages change
@@ -184,6 +246,27 @@ function AI() {
         </div>
       </div>
       <Navbar />
+
+      {/* Real Live Camera Scanner overlay inside page */}
+      {isCameraActive && (
+        <div className="ai-camera-modal-overlay">
+          <div className="ai-camera-modal">
+            <div className="ai-camera-modal-header">
+              <h3>📸 Live Item Scanner</h3>
+              <button className="ai-camera-close-btn" onClick={stopCamera}>×</button>
+            </div>
+            <div className="ai-camera-video-container">
+              <video ref={videoRef} autoPlay playsInline muted />
+            </div>
+            <div className="ai-camera-actions">
+              <button className="ai-camera-capture-btn" onClick={capturePhoto} title="Capture Snapshot">
+                <div className="ai-camera-capture-btn-inner" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="ai-wrapper">
 
         <div className="ai-header">
@@ -259,10 +342,9 @@ function AI() {
                     <FaImage />
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
-                  <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={() => cameraInputRef.current.click()}>
+                  <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
                     <FaCamera />
                   </button>
-                  <input type="file" hidden ref={cameraInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" capture="environment" />
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />
