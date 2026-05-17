@@ -10,7 +10,8 @@
 
 /* HERO */
 .premium-hero {
-  padding: 80px 5% 60px;
+  padding: 40px 5% 20px !important;
+  /* Compact premium hero padding */
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -26,10 +27,11 @@
   -webkit-backdrop-filter: blur(40px);
   border: 2px solid rgba(197, 160, 89, 0.5);
   border-radius: 24px;
-  padding: 35px 60px;
+  padding: 22px 40px !important;
+  /* Sleek compact padding inside box */
   max-width: 1200px;
   margin: 0 auto;
-  box-shadow: 
+  box-shadow:
     0 40px 100px -20px rgba(0, 0, 0, 0.9),
     inset 0 0 60px rgba(197, 160, 89, 0.15);
   animation: heroBoxFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -72,7 +74,8 @@
   border-radius: 50px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 12px !important;
+  /* Compact badge margin */
   box-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
 }
 
@@ -100,8 +103,10 @@
   display: flex;
   justify-content: center;
   gap: 60px;
-  margin-top: 35px;
-  padding-top: 45px;
+  margin-top: 20px !important;
+  /* Shrunk top margin */
+  padding-top: 25px !important;
+  /* Compact stats padding */
   position: relative;
 }
 
@@ -338,28 +343,30 @@
 }
 
 .premium-card {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(197, 160, 89, 0.08));
-  backdrop-filter: blur(20px);
-  border: 2px solid #d4af37;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+  background: #23201a !important; /* Premium smoked dark gold-charcoal from your image */
+  border: 1.5px solid rgba(197, 160, 89, 0.5) !important; /* Bronze/Gold border */
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
 }
 
 .premium-card:hover {
-  border-color: #f9d71c;
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.3);
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(197, 160, 89, 0.15));
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3) !important;
+  border-color: #ffd700 !important;
+  background: #23201a !important;
 }
 
 .premium-card-img {
   position: relative;
-  height: 160px;
+  height: 200px !important; /* Premium tall image style */
   overflow: hidden;
-  background: #000;
+  background: #14120e !important; /* Deep charcoal-black backdrop matching Products.css */
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important;
+  margin: 5px;
+  border-radius: 24px 24px 0 0;
 }
 
 .premium-card-img img {
@@ -415,19 +422,19 @@
 }
 
 .premium-card-body h4 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, #fb923c, #fbbf24, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-family: 'Inter', sans-serif;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #ffd700 !important; /* Glowing gold titles */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  margin: 0 !important;
+  text-transform: none !important; /* Normal casing like Products.jsx */
+  letter-spacing: normal !important;
+  font-family: 'Playfair Display', serif !important; /* Matches Products.jsx Playfair serif font! */
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
 }
 
 .premium-arabic {
@@ -483,27 +490,23 @@
 
 /* ADD BTN */
 .premium-view-btn {
-  width: auto;
-  min-width: 140px;
-  background: transparent;
-  color: #c5a059;
-  border: 1px solid rgba(197, 160, 89, 0.5);
-  padding: 8px 24px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-  letter-spacing: 0.5px;
+  width: 140px !important;
+  padding: 8px 15px !important;
+  background: transparent !important;
+  border: 1.5px solid #c5a059 !important;
+  border-radius: 50px !important;
+  color: #c5a059 !important; /* Gold outline styling matching boutique btn */
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin-top: 15px !important;
 }
 
 .premium-view-btn:hover {
-  background: rgba(197, 160, 89, 0.1);
-  border-color: #fbbf24;
-  color: #fbbf24;
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+  background: #c5a059 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3) !important;
 }
 
 .premium-add-btn:hover:not(:disabled) {

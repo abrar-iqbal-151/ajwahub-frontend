@@ -797,42 +797,39 @@ body {
 }
 
 .product-card {
-  background: #ffffff;
-  /* Clean White */
-  border: 1px solid #c5a059;
-  /* Bronze/Gold border */
-  color: #1a1a1a;
-  border-radius: 28px;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  height: 380px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  padding: 6px;
+  background: #23201a !important; /* Premium smoked dark gold-charcoal from your image */
+  border: 1.5px solid rgba(197, 160, 89, 0.5) !important; /* Bronze/Gold border */
+  color: #f5f0f0 !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  height: 380px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+  padding: 6px !important;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.2);
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3) !important;
+  border-color: #ffd700 !important;
 }
 
 .product-image {
   position: relative;
-  height: 220px;
-  /* Reduced height to give more room for info */
-  overflow: hidden;
-  border-radius: 20px;
-  cursor: pointer;
-  flex-shrink: 0;
-  background: #f9f9f9;
-  /* Modern light gray background */
-  border: 1px solid #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
+  height: 220px !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  background: #14120e !important; /* Elegant deep velvet black image frame */
+  border: 1px solid rgba(197, 160, 89, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 5px !important;
 }
 
 .product-image img {
@@ -928,12 +925,11 @@ body {
 }
 
 .product-info h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #5c4b37;
-  /* Dark bronze text */
-  margin: 0;
-  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #ffd700 !important; /* Elegant glowing gold titles */
+  margin: 0 !important;
+  font-family: 'Playfair Display', serif !important;
 }
 
 .product-arabic-name {
