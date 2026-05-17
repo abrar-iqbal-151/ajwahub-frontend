@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Navbar from './Navbar';
 import '../css/Premium.css';
 import '../css/Products.css';
@@ -9,6 +10,7 @@ const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
 function Premium() {
   const navigate = useNavigate();
+  const [wishlist, setWishlist] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
@@ -28,6 +30,7 @@ function Premium() {
       .then(r => r.json())
       .then(d => {
         const processed = (d.products || []).map(p => {
+          p.id = p._id; // Normalize id to _id so wishlist matches index schema perfectly!
           if (!p.weightOptions || p.weightOptions.length === 0) {
             const base = p.price;
             p.weightOptions = [
@@ -48,6 +51,21 @@ function Premium() {
       .then(r => r.json())
       .then(d => { if (d.settings) setSettings(s => ({ ...s, ...d.settings })); })
       .catch(() => { });
+
+    // Fetch Wishlist Items
+    const currentUser = JSON.parse(localStorage.getItem('ajwaHub_currentUser') || 'null');
+    if (currentUser?.email) {
+      fetch(`${API}/wishlist/${currentUser.email}`)
+        .then(r => r.json())
+        .then(d => {
+          setWishlist((d.products || []).map(p => p.id));
+          localStorage.setItem('ajwaHub_wishlist', JSON.stringify(d.products || []));
+        })
+        .catch(() => {
+          const saved = JSON.parse(localStorage.getItem('ajwaHub_wishlist') || '[]');
+          setWishlist(saved.map(p => p.id));
+        });
+    }
   }, []);
 
   const addToCart = (product, weightData = null) => {
@@ -78,6 +96,29 @@ function Premium() {
     const updated = cart.filter(i => i.id !== id);
     setCart(updated);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updated));
+  };
+
+  const toggleWishlist = (productId) => {
+    if (!user) { setShowLoginModal(true); return; }
+    const product = products.find(p => p.id === productId || p._id === productId);
+    const savedWishlist = JSON.parse(localStorage.getItem('ajwaHub_wishlist') || '[]');
+    let updatedWishlist, updatedWishlistProducts;
+    if (wishlist.includes(productId)) {
+      updatedWishlist = wishlist.filter(id => id !== productId);
+      updatedWishlistProducts = savedWishlist.filter(item => item.id !== productId);
+    } else {
+      updatedWishlist = [...wishlist, productId];
+      updatedWishlistProducts = [...savedWishlist, product];
+    }
+    setWishlist(updatedWishlist);
+    localStorage.setItem('ajwaHub_wishlist', JSON.stringify(updatedWishlistProducts));
+    if (user?.email) {
+      fetch(`${API}/wishlist/${user.email}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ products: updatedWishlistProducts })
+      }).catch(() => { });
+    }
   };
 
   const filtered = products.filter(p =>
@@ -190,6 +231,37 @@ function Premium() {
                   <img src={p.image} alt={p.name} onError={e => e.target.style.display = 'none'} />
                   <span className="premium-card-badge">{p.badge}</span>
                   {!p.stock && <div className="premium-out-overlay">Out of Stock</div>}
+                  
+                  <button
+                    className={`wishlist-icon ${wishlist.includes(p.id) ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleWishlist(p.id);
+                    }}
+                    title="Add to Wishlist"
+                    style={{
+                      position: 'absolute',
+                      top: '12px',
+                      right: '12px',
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'rgba(0,0,0,0.65)',
+                      border: '1px solid rgba(197, 160, 89, 0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      zIndex: '10',
+                      transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    {wishlist.includes(p.id) ? (
+                      <FaHeart color="#dc2626" size={16} />
+                    ) : (
+                      <FaRegHeart color="#c5a059" size={16} />
+                    )}
+                  </button>
                 </div>
                 <div className="premium-card-body">
                   <div className="premium-card-header">

@@ -19,7 +19,7 @@
   background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(15, 10, 5, 0.98));
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border: 2px solid rgba(197, 160, 89, 0.5);
+  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
   border-radius: 24px;
   padding: 35px 60px;
   display: flex;
@@ -27,9 +27,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
-  box-shadow:
-    0 40px 100px -20px rgba(0, 0, 0, 0.9),
-    inset 0 0 60px rgba(197, 160, 89, 0.12);
+  box-shadow: inset 0 0 60px rgba(197, 160, 89, 0.12) !important; /* Premium inner gold glow, zero black drop shadow */
   animation: giftHeroIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -122,7 +120,7 @@
 /* ── CARD ── */
 .gift-card {
   background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(40, 30, 10, 0.98));
-  border: 2px solid rgba(197, 160, 89, 0.6);
+  border: 2px solid #c5a059 !important; /* Premium Golden Frame */
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -134,8 +132,8 @@
 
 .gift-card:hover {
   transform: translateY(-8px);
-  border-color: #c5a059;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 160, 89, 0.25);
+  border-color: #ffd700 !important; /* Glowing gold on hover */
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 160, 89, 0.45) !important;
 }
 
 
@@ -207,7 +205,7 @@
   display: inline-block;
   background: rgba(197, 160, 89, 0.12);
   border: 1px solid rgba(197, 160, 89, 0.45);
-  color: #c5a059;
+  color: #ffffff !important; /* Premium White text color */
   padding: 5px 16px;
   border-radius: 20px;
   font-size: 12px;
@@ -289,11 +287,11 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #9ca3af;
-  width: 32px;
-  height: 32px;
+  background: rgba(0, 0, 0, 0.65) !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 13px;
@@ -305,15 +303,16 @@
 }
 
 .gift-modal-close:hover {
-  background: rgba(197, 160, 89, 0.3);
-  color: #fff;
-  border-color: rgba(197, 160, 89, 0.5);
+  color: #dc2626 !important; /* Crimson red highlight */
+  transform: rotate(90deg);
+  border-color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.1) !important;
 }
 
 /* ── CUSTOMIZE MODAL ── */
 .gift-customize-modal {
-  background: linear-gradient(145deg, rgba(20, 14, 6, 0.99), rgba(30, 20, 8, 0.99));
-  border: 2px solid rgba(197, 160, 89, 0.4);
+  background: linear-gradient(145deg, rgba(20, 14, 6, 0.99), rgba(30, 20, 8, 0.99)) !important;
+  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
   border-radius: 24px;
   width: 100%;
   max-width: 860px;
@@ -322,7 +321,7 @@
   overflow: hidden;
   position: relative;
   animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(197, 160, 89, 0.1);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(197, 160, 89, 0.2) !important;
 }
 
 @keyframes modalIn {
@@ -567,7 +566,7 @@
   align-items: center;
   gap: 10px;
   background: #ffffff !important; /* Pure white background */
-  border: 1.5px solid rgba(197, 160, 89, 0.4) !important;
+  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
   border-radius: 10px;
   padding: 9px 14px;
   flex-shrink: 0;
@@ -576,8 +575,8 @@
 }
 
 .gcm-search:focus-within {
-  border-color: #c5a059 !important;
-  box-shadow: 0 0 12px rgba(197, 160, 89, 0.2);
+  border-color: #ffd700 !important;
+  box-shadow: 0 0 12px rgba(197, 160, 89, 0.4) !important;
 }
 
 .gcm-search span {

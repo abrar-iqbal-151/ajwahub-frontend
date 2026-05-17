@@ -31,9 +31,7 @@
   /* Sleek compact padding inside box */
   max-width: 1200px;
   margin: 0 auto;
-  box-shadow:
-    0 40px 100px -20px rgba(0, 0, 0, 0.9),
-    inset 0 0 60px rgba(197, 160, 89, 0.15);
+  box-shadow: inset 0 0 60px rgba(197, 160, 89, 0.15) !important; /* Premium inner gold glow, zero black drop shadow */
   animation: heroBoxFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -973,4 +971,16 @@
     width: 100%;
     text-align: center;
   }
+}
+
+/* Wishlist Icon Hover Micro-animations */
+.premium-card-img .wishlist-icon:hover {
+  transform: scale(1.18) !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-color: #ffd700 !important; /* Glowing gold rim */
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3) !important;
+}
+
+.premium-card-img .wishlist-icon:active {
+  transform: scale(0.9) !important;
 }

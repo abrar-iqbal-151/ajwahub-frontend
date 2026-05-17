@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import '../css/Wishlist.css';
 import '../css/Products.css';
 import Navbar from './Navbar';
@@ -132,11 +133,6 @@ function Wishlist() {
       <div className="products-container">
         <div className="wishlist-hero">
           <div className="wishlist-hero-content-box">
-            {/* Floating Decorative Elements */}
-            <div className="hero-decor-heart hd1">❤️</div>
-            <div className="hero-decor-heart hd2">✨</div>
-            <div className="hero-decor-heart hd3">❤️</div>
-
             <div className="wishlist-hero-content">
               <span className="wishlist-hero-badge">
                 <span className="pulse-dot"></span> Your Personal Collection
@@ -238,7 +234,9 @@ function Wishlist() {
 
         {filteredProducts.length === 0 ? (
           <div className="empty-wishlist">
-            <div className="empty-wishlist-icon"></div>
+            <div className="empty-wishlist-icon">
+              <FaRegHeart />
+            </div>
             <h2 className="empty-wishlist-title">Your Wishlist is Empty</h2>
             <p className="empty-wishlist-text">Discover amazing products and add them to your wishlist</p>
             <button className="continue-shopping-btn" onClick={() => navigate('/products')}>🛍️ Start Shopping</button>
@@ -259,9 +257,7 @@ function Wishlist() {
                     onClick={(e) => { e.stopPropagation(); setDeleteConfirm(product.id); }}
                     title="Remove from Wishlist"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
+                    <FaHeart color="#dc2626" size={18} />
                   </button>
                 </div>
                 <div className="product-info">
