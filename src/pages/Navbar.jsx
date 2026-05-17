@@ -2,18 +2,18 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'Home',       path: '/home',     icon: '🏠' },
-  { label: 'Products',   path: '/products', icon: '🛍️' },
-  { label: 'Premium',    path: '/premium',  icon: '👑' },
-  { label: 'AI',         path: '/ai',       icon: '🤖' },
-  { label: 'Gifting',    path: '/gifting',  icon: '🎁' },
-  { label: 'Wishlist',   path: '/wishlist', icon: '❤️' },
-  { label: 'GymAI',      path: '/gymai',    icon: '💪' },
-  { label: 'Tracking',   path: '/tracking', icon: '📦' },
-  { label: 'Orders',     path: '/orders',   icon: '🧾' },
-  { label: 'Payment',    path: '/payment',  icon: '💳' },
-  { label: 'Contact',    path: '/contact',  icon: '📧' },
-  { label: 'Settings',   path: '/settings', icon: '⚙️' },
+  { label: 'Home', path: '/home', icon: '🏠' },
+  { label: 'Products', path: '/products', icon: '🛍️' },
+  { label: 'Premium', path: '/premium', icon: '👑' },
+  { label: 'AI', path: '/ai', icon: '🤖' },
+  { label: 'Gifting', path: '/gifting', icon: '🎁' },
+  { label: 'Wishlist', path: '/wishlist', icon: '❤️' },
+  { label: 'GymAI', path: '/gymai', icon: '💪' },
+  { label: 'Tracking', path: '/tracking', icon: '📦' },
+  { label: 'Orders', path: '/orders', icon: '🧾' },
+  { label: 'Payment', path: '/payment', icon: '💳' },
+  { label: 'Settings', path: '/settings', icon: '⚙️' },
+  { label: 'Contact', path: '/contact', icon: '📞' },
 ];
 
 function Navbar({ extraLeft }) {
@@ -132,7 +132,6 @@ function Navbar({ extraLeft }) {
               </div>
               {showProfileMenu && (
                 <div className="profile-dropdown">
-                  <button className="dropdown-item" onClick={() => { setShowProfileMenu(false); navigate('/contact'); }}>📧 Contact</button>
                   <button className="dropdown-item" onClick={() => { setShowProfileMenu(false); navigate('/settings'); }}>⚙️ Settings</button>
                   <button className="dropdown-item logout" onClick={() => { setShowProfileMenu(false); handleLogout(); }}>🚪 Logout</button>
                 </div>
@@ -198,15 +197,15 @@ function Navbar({ extraLeft }) {
       </div>
       {/* Login Required Modal */}
       {showLoginModal && (
-        <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.8)', backdropFilter:'blur(8px)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:9999 }} onClick={() => setShowLoginModal(false)}>
-          <div style={{ background:'linear-gradient(135deg,rgba(26,26,46,0.97),rgba(15,15,30,0.97))', border:'2px solid rgba(251,146,60,0.3)', borderRadius:'20px', padding:'30px', maxWidth:'380px', width:'90%', textAlign:'center', boxShadow:'0 30px 60px rgba(0,0,0,0.8)' }} onClick={e => e.stopPropagation()}>
-            <h3 style={{ fontSize:'1.4rem', fontWeight:800, color:'#fb923c', marginBottom:'10px' }}>Login Required</h3>
-            <p style={{ color:'rgba(255,255,255,0.7)', fontSize:'0.95rem', marginBottom:'20px' }}>Please login or sign up to access this page</p>
-            <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
-              <button onClick={() => { setShowLoginModal(false); navigate('/login'); }} style={{ width:'100%', padding:'12px', borderRadius:'12px', fontWeight:700, fontSize:'1rem', cursor:'pointer', border:'none', background:'linear-gradient(135deg,#fb923c,#ea580c)', color:'white' }}>Login</button>
-              <button onClick={() => { setShowLoginModal(false); navigate('/signup'); }} style={{ width:'100%', padding:'12px', borderRadius:'12px', fontWeight:700, fontSize:'1rem', cursor:'pointer', background:'transparent', color:'#22d3ee', border:'2px solid #22d3ee' }}>Sign Up</button>
-              <button onClick={() => setShowLoginModal(false)} style={{ background:'transparent', color:'rgba(255,255,255,0.5)', border:'1px solid rgba(255,255,255,0.15)', padding:'10px', borderRadius:'8px', fontSize:'0.9rem', cursor:'pointer' }}>Cancel</button>
-              <button onClick={() => { setShowLoginModal(false); navigate(-1); }} style={{ background:'transparent', color:'rgba(255,255,255,0.5)', border:'1px solid rgba(255,255,255,0.15)', padding:'10px', borderRadius:'8px', fontSize:'0.9rem', cursor:'pointer' }}>← Go Back</button>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }} onClick={() => setShowLoginModal(false)}>
+          <div style={{ background: 'linear-gradient(135deg,rgba(26,26,46,0.97),rgba(15,15,30,0.97))', border: '2px solid rgba(251,146,60,0.3)', borderRadius: '20px', padding: '30px', maxWidth: '380px', width: '90%', textAlign: 'center', boxShadow: '0 30px 60px rgba(0,0,0,0.8)' }} onClick={e => e.stopPropagation()}>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fb923c', marginBottom: '10px' }}>Login Required</h3>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', marginBottom: '20px' }}>Please login or sign up to access this page</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <button onClick={() => { setShowLoginModal(false); navigate('/login'); }} style={{ width: '100%', padding: '12px', borderRadius: '12px', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', border: 'none', background: 'linear-gradient(135deg,#fb923c,#ea580c)', color: 'white' }}>Login</button>
+              <button onClick={() => { setShowLoginModal(false); navigate('/signup'); }} style={{ width: '100%', padding: '12px', borderRadius: '12px', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', background: 'transparent', color: '#22d3ee', border: '2px solid #22d3ee' }}>Sign Up</button>
+              <button onClick={() => setShowLoginModal(false)} style={{ background: 'transparent', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.15)', padding: '10px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }}>Cancel</button>
+              <button onClick={() => { setShowLoginModal(false); navigate(-1); }} style={{ background: 'transparent', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.15)', padding: '10px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }}>← Go Back</button>
             </div>
           </div>
         </div>

@@ -14,13 +14,13 @@ import Wishlist from './pages/Wishlist'
 import GymAI from './pages/GymAI'
 import Tracking from './pages/Tracking'
 import Payment from './pages/Payment'
-import Contact from './pages/Contact'
 import Warehouse from './pages/Warehouse'
 import Shipping from './pages/Shipping'
 import Delivered from './pages/Delivered'
 import Terms from './pages/Terms'
 import AboutUs from './pages/AboutUs'
 import OrderHistory from './pages/OrderHistory'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -39,7 +39,6 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/delivered" element={<Delivered />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -50,7 +49,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/orders" element={<OrderHistory />} />
-
+        <Route path="/contact" element={<Contact />} />
 
       </Routes>
     </div>
