@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaTrash } from 'react-icons/fa';
 import Navbar from './Navbar';
 import '../css/Premium.css';
 import '../css/Products.css';
@@ -205,7 +205,7 @@ function Premium() {
                         <h5>{item.name}</h5>
                         <p>PKR {item.price?.toLocaleString()} x {item.quantity}</p>
                       </div>
-                      <button className="remove-item-btn" onClick={() => removeFromCart(item.id)}>🗑️</button>
+                      <button className="remove-item-btn" onClick={() => removeFromCart(item.id)}><FaTrash /></button>
                     </div>
                   ))}
                 </div>

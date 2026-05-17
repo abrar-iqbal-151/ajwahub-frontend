@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaTrash, FaShoppingCart, FaMapMarkerAlt, FaCreditCard, FaCheckCircle } from 'react-icons/fa';
 import '../css/Payment.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
@@ -248,7 +249,12 @@ function Payment() {
       <Navbar />
       <div className="payment-container">
         <div className="progress-steps">
-          {[{ key: 'review', label: 'Review', icon: '🛒' }, { key: 'shipping', label: 'Shipping', icon: '📍' }, { key: 'payment', label: 'Payment', icon: '💳' }, { key: 'confirmation', label: 'Done', icon: '✅' }].map((s, i) => {
+          {[
+            { key: 'review', label: 'Review', icon: <FaShoppingCart /> },
+            { key: 'shipping', label: 'Shipping', icon: <FaMapMarkerAlt /> },
+            { key: 'payment', label: 'Payment', icon: <FaCreditCard /> },
+            { key: 'confirmation', label: 'Done', icon: <FaCheckCircle /> }
+          ].map((s, i) => {
             const steps = ['review', 'shipping', 'payment', 'confirmation'];
             return (
               <div key={s.key} className={`ps-step ${step === s.key ? 'active' : ''} ${steps.indexOf(step) > i ? 'completed' : ''}`} onClick={() => { if (s.key !== 'confirmation') { setError(''); setStep(s.key); } }} style={{ cursor: s.key === 'confirmation' ? 'default' : 'pointer' }}>
@@ -274,7 +280,7 @@ function Payment() {
                 ) : (
                   cartItems.map(item => (
                     <div key={item.id} className="review-item">
-                      <button className="top-delete-btn" onClick={() => setDeleteConfirm(item.id)}>🗑️</button>
+                      <button className="top-delete-btn" onClick={() => setDeleteConfirm(item.id)}><FaTrash /></button>
                       <img src={item.image} alt={item.name} className="item-image" />
                       <div className="item-info"><h4>{item.name}</h4><p>{item.weight}</p></div>
                       <div className="quantity-controls">
