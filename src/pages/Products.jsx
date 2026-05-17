@@ -198,8 +198,8 @@ function Products() {
                         <h5>{item.name}</h5>
                         <p>PKR {item.price.toLocaleString()} x {item.quantity}</p>
                       </div>
-                      <button 
-                        className="remove-item-btn" 
+                      <button
+                        className="remove-item-btn"
                         onClick={() => setDeleteConfirm(item.id)}
                         title="Remove item"
                       >

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 import '../css/Contact.css';
 
 function Contact() {

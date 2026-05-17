@@ -416,7 +416,7 @@ body {
   top: calc(100% + 8px);
   right: 0;
   background: rgba(30, 5, 5, 0.98);
-  border: 1px solid rgba(251, 146, 60, 0.3);
+  border: 1.5px solid #c5a059 !important; /* Royal Golden Frame */
   border-radius: 16px;
   width: 300px;
   max-height: 420px;
@@ -798,7 +798,7 @@ body {
 
 .product-card {
   background: #23201a !important; /* Premium smoked dark gold-charcoal from your image */
-  border: 1.5px solid rgba(197, 160, 89, 0.5) !important; /* Bronze/Gold border */
+  border: 2px solid #c5a059 !important; /* Premium Golden Frame */
   color: #f5f0f0 !important;
   border-radius: 28px !important;
   overflow: hidden !important;
@@ -813,8 +813,8 @@ body {
 
 .product-card:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3) !important;
-  border-color: #ffd700 !important;
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.45) !important;
+  border-color: #ffd700 !important; /* Glowing gold on hover */
 }
 
 .product-image {
@@ -1006,15 +1006,16 @@ body {
 }
 
 .product-details-modal {
-  background: #ffffff;
-  border-radius: 12px;
+  background: #191410 !important; /* Premium chocolate wood backdrop */
+  border: 2px solid #c5a059 !important; /* Royal Gold Frame */
+  border-radius: 24px !important;
   max-width: 960px;
   width: 100%;
   max-height: 95vh;
   overflow: visible;
   position: relative;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  color: #1a1a1a;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+  color: #f5f0f0 !important;
 }
 
 .close-btn {
@@ -1024,7 +1025,7 @@ body {
   background: transparent;
   border: none;
   font-size: 24px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.6) !important;
   cursor: pointer;
   z-index: 10;
   width: 40px;
@@ -1036,7 +1037,7 @@ body {
 }
 
 .close-btn:hover {
-  color: #000;
+  color: #dc2626 !important; /* Premium crimson indicator for close */
   transform: rotate(90deg);
 }
 
@@ -1054,13 +1055,12 @@ body {
 
 .pd-left {
   flex: 1.1;
-  background: #fdfaf3;
-  /* Boutique Light Cream */
+  background: #110e0b !important; /* Boutique Dark Luxury Backdrop */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 30px;
-  border-right: 1px solid rgba(197, 160, 89, 0.2);
+  border-right: 1px solid rgba(197, 160, 89, 0.25) !important;
 }
 
 .pd-image-wrapper {
@@ -1070,11 +1070,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: #191410 !important; /* Premium matching background */
   border-radius: 30px;
   padding: 20px;
-  border: 1px solid rgba(197, 160, 89, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid rgba(197, 160, 89, 0.4) !important; /* Premium Gold Frame */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
 }
@@ -1086,7 +1086,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at center, rgba(197, 160, 89, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(197, 160, 89, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -1094,7 +1094,7 @@ body {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3));
   transition: transform 0.5s ease;
 }
 
@@ -1119,9 +1119,9 @@ body {
 
 .pd-title {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
-  color: #1a1a1a;
+  color: #ffffff !important; /* Pristine white */
   font-family: 'Playfair Display', serif;
   flex: 1;
 }
@@ -1149,15 +1149,15 @@ body {
 
 .pd-price {
   font-size: 1.8rem;
-  font-weight: 400;
-  color: #1a1a1a;
+  font-weight: 700;
+  color: #ffd700 !important; /* Pure gold */
   margin-top: -10px;
 }
 
 .pd-storage-note {
   font-size: 0.95rem;
   line-height: 1.5;
-  color: #4b5563;
+  color: rgba(255, 255, 255, 0.65) !important; /* Premium grey-cream for dark contrast */
 }
 
 .pd-view-details-link {
@@ -1211,11 +1211,11 @@ body {
   min-width: 140px;
   text-align: center;
   padding: 10px 15px;
-  background: #fdfdfd;
-  border: 1px solid #e5e7eb;
+  background: #110e0b !important; /* Premium dark background */
+  border: 1px solid rgba(197, 160, 89, 0.3) !important; /* Elegant gold boundary */
   border-radius: 6px;
   font-size: 0.9rem;
-  color: #1a1a1a;
+  color: #ffffff !important;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -1239,41 +1239,40 @@ body {
 
 .weight-opt span {
   font-size: 0.85rem;
-  color: #6b7280;
+  color: #c5a059 !important; /* Gold savings text */
   margin-left: 10px;
 }
 
 .weight-opt:hover {
-  border-color: #c5a059;
-  background: #fdfaf3;
+  border-color: #ffd700 !important;
+  background: rgba(197, 160, 89, 0.15) !important;
 }
 
 .weight-opt.active {
-  background: #3e2723;
-  /* Dark brown from screenshot */
-  color: #ffffff;
-  border-color: #3e2723;
+  background: #c5a059 !important; /* Classic gold active */
+  color: #ffffff !important;
+  border-color: #ffd700 !important;
 }
 
 .weight-opt.active span {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .pd-add-to-cart-btn {
   margin-top: 20px;
   padding: 15px;
-  background: #1a1a1a;
-  color: white;
+  background: linear-gradient(135deg, #c5a059, #aa771c) !important; /* Royal Gold gradient */
+  color: white !important;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .pd-add-to-cart-btn:hover {
-  background: #333;
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important; /* Glowing gold-bronze on hover */
   transform: translateY(-2px);
 }
 

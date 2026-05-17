@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/Gifting.css';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 import Navbar from './Navbar';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;

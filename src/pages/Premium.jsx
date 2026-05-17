@@ -52,7 +52,7 @@ function Premium() {
 
   const addToCart = (product, weightData = null) => {
     if (!user) { setShowLoginModal(true); return; }
-    
+
     const price = weightData ? weightData.price : product.price;
     const weight = weightData ? weightData.label : product.weight;
     const cartId = weightData ? `${product._id}-${weightData.label}` : product._id;
@@ -60,15 +60,15 @@ function Premium() {
     const existing = cart.find(i => i.id === cartId);
     const updated = existing
       ? cart.map(i => i.id === cartId ? { ...i, quantity: i.quantity + 1 } : i)
-      : [...cart, { 
-          id: cartId, 
-          productId: product._id,
-          name: product.name, 
-          price: price, 
-          image: product.image, 
-          weight: weight, 
-          quantity: 1 
-        }];
+      : [...cart, {
+        id: cartId,
+        productId: product._id,
+        name: product.name,
+        price: price,
+        image: product.image,
+        weight: weight,
+        quantity: 1
+      }];
     setCart(updated);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updated));
     setShowCartDropdown(true);
@@ -196,12 +196,12 @@ function Premium() {
                     <h4>{p.name?.substring(0, 15)}</h4>
                     {p.arabicName && <h4 className="premium-arabic">{p.arabicName}</h4>}
                   </div>
-                  
-                  <button className="premium-view-btn" onClick={(e) => { 
-                    e.stopPropagation(); 
-                    setSelected(p); 
+
+                  <button className="premium-view-btn" onClick={(e) => {
+                    e.stopPropagation();
+                    setSelected(p);
                     setSelectedWeight(p.weightOptions?.[0] || null);
-                    setShowModal(true); 
+                    setShowModal(true);
                   }}>
                     View Details
                   </button>
@@ -233,7 +233,7 @@ function Premium() {
                 </div>
 
                 <p className="pm-desc">{selected.description}</p>
-                
+
                 <div className="pm-stock-status">
                   <span className={`status-dot ${selected.stock ? 'status-green' : 'status-red'}`}></span>
                   {selected.stock ? 'In Stock' : 'Out of Stock'}
@@ -242,12 +242,12 @@ function Premium() {
                 {selected.weightOptions && selected.weightOptions.length > 0 && (
                   <div className="pm-weight-section">
                     <label>Weight: <span>{selectedWeight?.label || selected.weight}</span></label>
-                    
+
                     {/* Top Pills for first 2 options */}
                     <div className="weight-pills-row">
                       {selected.weightOptions.slice(0, 2).map((opt, idx) => (
-                        <div 
-                          key={idx} 
+                        <div
+                          key={idx}
                           className={`weight-pill ${selectedWeight?.label === opt.label ? 'active' : ''}`}
                           onClick={() => setSelectedWeight(opt)}
                         >
@@ -260,8 +260,8 @@ function Premium() {
                     {selected.weightOptions.length > 2 && (
                       <div className="weight-list-vertical">
                         {selected.weightOptions.slice(2).map((opt, idx) => (
-                          <div 
-                            key={idx} 
+                          <div
+                            key={idx}
                             className={`weight-list-item ${selectedWeight?.label === opt.label ? 'active' : ''}`}
                             onClick={() => setSelectedWeight(opt)}
                           >
@@ -277,9 +277,9 @@ function Premium() {
                   </div>
                 )}
 
-                <button 
+                <button
                   className="pm-add-btn"
-                  disabled={!selected.stock} 
+                  disabled={!selected.stock}
                   onClick={() => { setShowModal(false); addToCart(selected, selectedWeight); }}
                 >
                   Add to Cart

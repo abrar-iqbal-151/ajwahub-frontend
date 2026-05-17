@@ -311,7 +311,13 @@ function AI() {
                   {messages.map((msg, index) => (
                     <div key={index} className={`ai-msg ${msg.role}`}>
                       <div className={`ai-${msg.role}-avatar`}>
-                        {msg.role === 'model' ? <FaRobot /> : <FaUser />}
+                        {msg.role === 'model' ? (
+                          <FaRobot />
+                        ) : user && user.profilePicture ? (
+                          <img src={user.profilePicture} alt="User Profile" />
+                        ) : (
+                          <FaUser />
+                        )}
                       </div>
                       <div className="ai-msg-bubble">
                         {msg.image && (

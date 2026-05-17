@@ -341,7 +341,7 @@
 
 .premium-card {
   background: #23201a !important; /* Premium smoked dark gold-charcoal from your image */
-  border: 1.5px solid rgba(197, 160, 89, 0.5) !important; /* Bronze/Gold border */
+  border: 2px solid #c5a059 !important; /* Premium Golden Frame */
   border-radius: 28px !important;
   overflow: hidden !important;
   cursor: pointer !important;
@@ -351,8 +351,8 @@
 
 .premium-card:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3) !important;
-  border-color: #ffd700 !important;
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.45) !important;
+  border-color: #ffd700 !important; /* Glowing gold on hover */
   background: #23201a !important;
 }
 
@@ -531,22 +531,22 @@
 
 /* MODERN MODAL STYLES */
 .premium-modal {
-  background: #ffffff;
-  border: none;
-  border-radius: 24px;
+  background: #191410 !important; /* Premium chocolate wood backdrop */
+  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  border-radius: 24px !important;
   max-width: 1000px;
   width: 95%;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
-  color: #1a1a1a;
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8) !important;
+  color: #f5f0f0 !important;
 }
 
 .premium-modal-img {
   width: 45%;
   min-width: 400px;
-  background: #f8f8f8;
-  border-right: 1px solid #eeeeee;
+  background: #110e0b !important;
+  border-right: 2px solid rgba(197, 160, 89, 0.25) !important;
   position: relative;
 }
 
@@ -587,30 +587,30 @@
 }
 
 .pm-header h2 {
-  font-family: 'Amiri', serif;
+  font-family: 'Playfair Display', serif !important;
   font-size: 2.2rem;
   font-weight: 800;
-  color: #000000 !important;
-  -webkit-text-fill-color: #000000 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   margin: 0;
 }
 
 .pm-arabic {
   font-size: 1.4rem !important;
-  color: #666666 !important;
+  color: #c5a059 !important;
   margin-top: 5px !important;
 }
 
 .pm-price-display {
   font-size: 1.8rem;
-  font-weight: 400;
-  color: #1a1a1a;
+  font-weight: 700;
+  color: #ffd700 !important; /* Pure gold display */
   margin: 15px 0 25px;
 }
 
 .pm-desc {
   font-size: 0.95rem;
-  color: #666666;
+  color: rgba(255, 255, 255, 0.65) !important;
   line-height: 1.6;
   margin-bottom: 25px;
 }
@@ -622,21 +622,21 @@
   margin-bottom: 30px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #00b087;
+  color: #059669; /* Premium Green */
 }
 
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #00b087;
+  background: #059669;
 }
 
 .pm-weight-section label {
   display: block;
   font-size: 1rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #ffffff !important;
   margin-bottom: 12px;
 }
 
@@ -651,20 +651,25 @@
   width: 100%;
   padding: 14px;
   text-align: center;
-  background: #ffffff;
-  border: 1px solid #eeeeee;
+  background: #110e0b !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 400;
-  color: #1a1a1a;
+  color: #ffffff !important;
   transition: all 0.2s ease;
 }
 
 .weight-pill.active {
-  background: #3c2a21;
-  border-color: #3c2a21;
-  color: #ffffff;
+  background: #c5a059 !important;
+  border-color: #ffd700 !important;
+  color: #ffffff !important;
+}
+
+.weight-pill:hover {
+  border-color: #ffd700 !important;
+  background: rgba(197, 160, 89, 0.15) !important;
 }
 
 .weight-list-item {
@@ -672,37 +677,49 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
-  background: #ffffff;
-  border: 1px solid #eeeeee;
+  background: #110e0b !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.weight-list-item:hover {
+  border-color: #ffd700 !important;
+  background: rgba(197, 160, 89, 0.15) !important;
 }
 
 .weight-list-item.active {
-  border-color: #3c2a21;
-  background: rgba(60, 42, 33, 0.05);
+  border-color: #ffd700 !important;
+  background: rgba(197, 160, 89, 0.25) !important;
+}
+
+.weight-list-item.active .wli-label,
+.weight-list-item.active .wli-price {
+  color: #ffd700 !important;
 }
 
 .wli-label {
-  font-weight: 400;
-  color: #1a1a1a;
+  font-weight: 600;
+  color: #ffffff !important;
 }
 
 .wli-savings {
   font-size: 0.85rem;
-  color: #888888;
+  color: #c5a059 !important;
+  margin-left: 10px;
 }
 
 .wli-price {
-  font-weight: 400;
-  color: #1a1a1a;
+  font-weight: 600;
+  color: #ffffff !important;
 }
 
 .pm-add-btn {
   width: 100%;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: linear-gradient(135deg, #c5a059, #aa771c) !important;
+  color: #ffffff !important;
   border: none;
   padding: 16px;
   border-radius: 8px;
@@ -714,9 +731,9 @@
 }
 
 .pm-add-btn:hover {
-  background: #000000;
-  transform: none;
-  box-shadow: none;
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
 }
 
 @keyframes modalIn {
@@ -735,15 +752,24 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: none;
-  color: #9ca3af;
-  width: 32px;
-  height: 32px;
+  background: rgba(0, 0, 0, 0.65) !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 14px;
-  z-index: 1;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.premium-modal-close:hover {
+  color: #dc2626 !important;
+  transform: rotate(90deg);
 }
 
 .premium-modal-content {
