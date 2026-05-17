@@ -368,7 +368,7 @@
 @media (max-width: 768px) {
   .contact-wrapper {
     grid-template-columns: 1fr !important;
-    padding: 90px 14px 40px !important;
+    padding: 10px 14px 40px !important; /* Reduced top padding from 90px to 10px */
     gap: 24px !important;
     min-height: auto !important;
   }

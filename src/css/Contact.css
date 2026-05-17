@@ -8,7 +8,7 @@
   font-family: 'Inter', -apple-system, sans-serif;
   position: relative;
   overflow-x: hidden;
-  padding-top: 90px; /* Perfect snug spacing below sticky Navbar */
+  padding-top: 10px !important; /* Extremely tight premium layout gap under Navbar */
 }
 
 .contact-page > *:not(.global-bg-3d):not(.desc-bg-3d) {
@@ -18,8 +18,9 @@
 
 .contact-wrapper {
   max-width: 1200px;
-  margin: 10px auto 60px !important;
+  margin: 0 auto 60px !important; /* Zero margin top */
   padding: 0 24px;
+  padding-top: 0 !important; /* Remove any default global padding-top */
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 50px;
@@ -592,7 +593,7 @@
 
 @media (max-width: 768px) {
   .contact-page {
-    padding-top: 80px !important;
+    padding-top: 10px !important; /* Elegant snug mobile offset under Navbar */
   }
 
   .contact-wrapper {
@@ -608,7 +609,7 @@
 
 @media (max-width: 480px) {
   .contact-page {
-    padding-top: 75px !important;
+    padding-top: 10px !important; /* Extremely tight snug gap on smaller screens */
   }
 
   .contact-main-title {
