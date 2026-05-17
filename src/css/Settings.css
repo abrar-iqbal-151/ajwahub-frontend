@@ -48,58 +48,50 @@ body {
 
 .settings-tabs {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   margin-bottom: 2rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 5px;
+  background: rgba(10, 10, 15, 0.6) !important;
+  border: 2px solid #c5a059 !important;
+  border-radius: 50px;
+  padding: 8px;
   overflow-x: auto;
   scrollbar-width: none;
+  backdrop-filter: blur(10px);
   -webkit-overflow-scrolling: touch;
+  box-shadow: none !important;
 }
 .settings-tabs::-webkit-scrollbar { display: none; }
 
 .tab-btn {
   flex: 1;
-  padding: 10px 16px;
+  padding: 12px 24px;
   background: transparent;
   border: none;
-  color: #ffffff;
-  font-size: 13px;
+  color: #ffffff !important;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-  border-radius: 10px;
+  transition: all 0.3s ease;
+  border-radius: 40px;
   white-space: nowrap;
   flex-shrink: 0;
-  letter-spacing: 0.3px;
-  margin-bottom: 0;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .tab-btn:hover:not(.active) {
-  color: #ffffff;
-  background: rgba(255,255,255,0.08);
+  color: #c5a059 !important;
+  background: rgba(197, 160, 89, 0.05);
 }
 
 .tab-btn.active {
-  background: linear-gradient(135deg, #c5a059, #b08d4b);
-  color: #1a120b;
-  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
+  background: linear-gradient(135deg, #c5a059, #b8860b) !important;
+  color: #111 !important;
+  box-shadow: none !important;
   border-bottom: none;
-}
-
-.tab-btn:hover {
-  color: #ffd700;
-}
-
-.tab-btn.active {
-  color: #1a120b;
-  border-bottom-color: transparent;
 }
 
 .settings-card {
@@ -115,10 +107,14 @@ body {
 }
 
 .settings-card h2 {
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-  color: #ffffff;
+  font-size: 28px;
+  font-weight: 800;
   font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, #fff, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
 }
 
 .security-card {
@@ -180,20 +176,23 @@ body {
 }
 
 .upload-btn {
-  padding: 0.8rem 1.8rem;
-  background: rgba(197, 160, 89, 0.1);
-  color: #ffd700;
-  border: 1px solid rgba(197, 160, 89, 0.4);
-  border-radius: 30px;
-  font-weight: 700;
+  padding: 12px 24px;
+  background: rgba(0,0,0,0.45);
+  color: rgba(255,255,255,0.8);
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
 }
 
 .upload-btn:hover {
-  background: rgba(197, 160, 89, 0.2);
+  border-color: #c5a059;
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2);
+  background: rgba(197, 160, 89, 0.1);
 }
 
 .upload-btn input {
@@ -209,65 +208,75 @@ body {
 
 .form-group {
   margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.6rem;
-  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0;
+  color: #c5a059;
   font-weight: 800;
-  font-size: 0.75rem;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 1rem 1.2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  padding: 14px 18px;
+  background: #0d0c0a;
+  border: 1.5px solid rgba(197, 160, 89, 0.25);
+  border-radius: 16px;
   color: #ffffff;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: rgba(197, 160, 89, 0.5);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.15);
+  border-color: #ffd700;
+  background: rgba(197, 160, 89, 0.05);
+  box-shadow: none;
 }
 
 .form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .form-group input:disabled {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.4);
   cursor: not-allowed;
-  border-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(197, 160, 89, 0.1);
 }
 
 .save-btn {
   width: 100%;
-  padding: 1.2rem;
-  background: linear-gradient(135deg, #c5a059, #b08d4b);
-  color: #1a120b;
-  border: none;
-  border-radius: 50px;
+  padding: 18px;
+  background: linear-gradient(135deg, #c5a059, #b8860b);
+  color: #fff;
+  border: 2px solid #ffd700;
+  border-radius: 18px;
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin-top: 1.5rem;
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.25);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .save-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(197, 160, 89, 0.4);
+  transform: translateY(-4px) scale(1.02);
+  background: linear-gradient(135deg, #ffd700, #c5a059);
+  border-color: #ffffff;
+  box-shadow: none;
 }
 
 .toggle-section {

@@ -43,7 +43,6 @@ function Footer() {
             <Link to="/about">About Us</Link>
             <Link to="/products">Our Products</Link>
             <Link to="/gifting">Gift Boxes</Link>
-            <Link to="/contact">Contact Support</Link>
           </div>
         </div>
         <div>

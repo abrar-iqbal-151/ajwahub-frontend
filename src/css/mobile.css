@@ -364,18 +364,6 @@
   .confirmation-card h1 { font-size: 1.4rem !important; }
 }
 
-/* ── CONTACT PAGE ── */
-@media (max-width: 768px) {
-  .contact-wrapper {
-    grid-template-columns: 1fr !important;
-    padding: 10px 14px 40px !important; /* Reduced top padding from 90px to 10px */
-    gap: 24px !important;
-    min-height: auto !important;
-  }
-  .contact-info h1 { font-size: 28px !important; }
-  .cf-row { grid-template-columns: 1fr !important; }
-  .contact-form-box { padding: 18px !important; }
-}
 
 /* ── ORDER HISTORY PAGE ── */
 @media (max-width: 768px) {

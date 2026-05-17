@@ -13,7 +13,6 @@ function Footer() {
           <a href="#">About Us</a>
           <a href="#" onClick={e => { e.preventDefault(); navigate('/terms'); }}>Privacy Policy</a>
           <a href="#" onClick={e => { e.preventDefault(); navigate('/terms'); }}>Terms &amp; Conditions</a>
-          <a href="#" onClick={e => { e.preventDefault(); navigate('/contact'); }}>Contact</a>
         </div>
         <div className="footer-social">
           <a href="#" aria-label="Facebook">
