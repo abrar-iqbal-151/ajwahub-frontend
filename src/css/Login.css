@@ -18,7 +18,7 @@ body {
   position: relative;
 }
 
-.login-page > *:not(.desc-bg-3d) {
+.login-page>*:not(.desc-bg-3d) {
   position: relative;
   z-index: 1;
 }
@@ -30,10 +30,10 @@ body {
   transform: translateX(-50%) !important;
   width: 88% !important;
   max-width: 1200px !important;
-  background: rgba(255,255,255,0.05) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 100px !important;
   z-index: 1000 !important;
   padding: 12px 35px !important;
@@ -52,6 +52,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -137,7 +138,7 @@ body {
   padding: 3rem 2.5rem;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   margin: 0 auto 2rem auto;
   position: relative;
   z-index: 10;
@@ -149,6 +150,7 @@ body {
     opacity: 0;
     transform: translateY(40px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -186,8 +188,17 @@ body {
 }
 
 @keyframes lineGlow {
-  0%, 100% { opacity: 0.5; width: 80px; }
-  50% { opacity: 1; width: 120px; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+    width: 80px;
+  }
+
+  50% {
+    opacity: 1;
+    width: 120px;
+  }
 }
 
 .login-subtitle {
@@ -224,8 +235,17 @@ body {
 }
 
 @keyframes headerLine {
-  0%, 100% { opacity: 0.5; width: 100px; }
-  50% { opacity: 1; width: 150px; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+    width: 100px;
+  }
+
+  50% {
+    opacity: 1;
+    width: 150px;
+  }
 }
 
 .login-subtitle {
@@ -263,7 +283,7 @@ body {
 .form-input:focus {
   outline: none;
   border-color: rgba(251, 146, 60, 0.8);
-  box-shadow: 
+  box-shadow:
     0 0 0 4px rgba(251, 146, 60, 0.1),
     0 0 25px rgba(251, 146, 60, 0.3),
     inset 0 1px 2px rgba(255, 255, 255, 0.1);
@@ -287,8 +307,8 @@ body {
 .form-input:focus {
   outline: none;
   border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 
-              0 0 30px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 0 30px rgba(59, 130, 246, 0.2);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -356,6 +376,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -378,7 +399,7 @@ body {
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     0 10px 35px rgba(251, 146, 60, 0.35),
     inset 0 1px 2px rgba(255, 255, 255, 0.2);
   letter-spacing: 0.5px;
@@ -402,7 +423,7 @@ body {
 
 .login-btn:hover:not(:disabled) {
   transform: translateY(-4px);
-  box-shadow: 
+  box-shadow:
     0 15px 45px rgba(251, 146, 60, 0.5),
     inset 0 1px 2px rgba(255, 255, 255, 0.3);
   background: linear-gradient(135deg, #f97316, #ea580c, #dc2626);
@@ -429,8 +450,13 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .signup-link {
@@ -511,7 +537,14 @@ body {
   cursor: not-allowed;
 }
 
-.field-error { color: #f87171; font-size: 12px; margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+.field-error {
+  color: #f87171;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
 /* Forgot Password Modal */
 .forgot-password-modal {
@@ -523,7 +556,7 @@ body {
   width: 90%;
   position: relative;
   animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 
+  box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.5),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
   max-height: 90vh;
@@ -574,8 +607,15 @@ body {
 }
 
 @keyframes iconFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .modal-header h3 {
@@ -694,11 +734,14 @@ body {
 }
 
 @keyframes iconPulse {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
   }
-  50% { 
+
+  50% {
     transform: scale(1.05);
     box-shadow: 0 0 30px rgba(251, 146, 60, 0.5);
   }
@@ -709,8 +752,15 @@ body {
 }
 
 @keyframes iconFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 .step-info h4 {
@@ -753,8 +803,15 @@ body {
 }
 
 @keyframes borderGlow {
-  0%, 100% { transform: translateX(-100%); }
-  50% { transform: translateX(100%); }
+
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
 }
 
 .modern-btn {
@@ -805,8 +862,15 @@ body {
 }
 
 @keyframes iconBounce {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-2px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 .modern-cancel {
@@ -1088,20 +1152,41 @@ body {
     padding: 10px 16px !important;
     background: rgba(26, 26, 46, 0.9) !important;
     backdrop-filter: blur(30px) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     position: fixed !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
   }
 
-  .nav-logo { gap: 8px; }
-  .nav-logo-icon { width: 30px !important; height: 30px !important; }
-  .nav-logo-text { font-size: 1.1rem !important; }
-  .nav-buttons { margin-left: 0; gap: 6px; }
-  .nav-right { margin-left: 0; }
-  .btn { padding: 6px 12px !important; font-size: 11px !important; border-radius: 50px !important; }
+  .nav-logo {
+    gap: 8px;
+  }
+
+  .nav-logo-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .nav-logo-text {
+    font-size: 1.1rem !important;
+  }
+
+  .nav-buttons {
+    margin-left: 0;
+    gap: 6px;
+  }
+
+  .nav-right {
+    margin-left: 0;
+  }
+
+  .btn {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    border-radius: 50px !important;
+  }
 
   .login-container {
     padding: 2rem 1.4rem;
@@ -1110,14 +1195,29 @@ body {
     border-radius: 2rem;
   }
 
-  .login-title { font-size: 2rem; }
-  .login-subtitle { font-size: 0.95rem; }
-  .form-input { padding: 1rem; font-size: 1rem; }
-  .login-btn { padding: 1.1rem; font-size: 1rem; }
+  .login-title {
+    font-size: 2rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .form-input {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .login-btn {
+    padding: 1.1rem;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .login-page { padding: 0; }
+  .login-page {
+    padding: 0;
+  }
 
   .login-container {
     padding: 1.6rem 1.2rem;
@@ -1125,12 +1225,29 @@ body {
     border-radius: 1.6rem;
   }
 
-  .login-title { font-size: 1.7rem; }
-  .login-subtitle { font-size: 0.88rem; }
-  .login-header { margin-bottom: 1.2rem; }
-  .form-input { padding: 0.9rem 1rem; font-size: 0.95rem; }
-  .login-btn { padding: 1rem; font-size: 0.95rem; }
+  .login-title {
+    font-size: 1.7rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .login-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-input {
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .login-btn {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
 }
+
 /* Modern Login Footer */
 .login-footer {
   background: rgba(255, 255, 255, 0.04);
@@ -1159,7 +1276,7 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .login-footer-name {
@@ -1196,8 +1313,8 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -1207,8 +1324,8 @@ body {
 }
 
 .login-footer-social a:hover {
-  background: rgba(255,255,255,0.18);
-  border-color: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
 }
 
@@ -1216,16 +1333,28 @@ body {
   max-width: 1100px;
   margin: 20px auto 0;
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.45);
   font-size: 12px;
   text-align: center;
 }
 
 @media (max-width: 768px) {
-  .login-footer { padding: 24px 5% 16px; }
-  .login-footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
-  .login-footer-links { justify-content: center; gap: 16px; }
+  .login-footer {
+    padding: 24px 5% 16px;
+  }
+
+  .login-footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .login-footer-links {
+    justify-content: center;
+    gap: 16px;
+  }
 }
 
 /* 2FA Modal */
@@ -1383,10 +1512,263 @@ body {
     transform: translateY(50px) scale(0.95);
     opacity: 0;
   }
+
   to {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
+/* ========================================================
+   BOUTIQUE ROYAL BLACK & GOLD LOGIN PAGE OVERRIDES 
+   ======================================================== */
 
+/* 1. Login Main Container Box (Lighter Smoked Charcoal Black & Champagne Gold Lightway) */
+.login-page .login-container {
+  background: linear-gradient(135deg, #24211e, #161413) !important; /* Elegant Lighter Smoked Charcoal Black */
+  border: 1.5px solid rgba(223, 193, 93, 0.55) !important; /* Lighter Champagne Gold Border */
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.55), 
+    0 0 20px rgba(223, 193, 93, 0.15) !important; /* Soft royal gold outer glow aura */
+  border-radius: 2.5rem !important;
+}
+
+.login-page .login-container::before {
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important; /* Lighter champagne gold header sweep line */
+}
+
+/* 2. Login Form Title & Subtitle */
+.login-page .login-title {
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Signature brand gradient to match logo */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.login-page .login-header::before {
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important; /* Lighter champagne gold underline */
+}
+
+.login-page .login-subtitle {
+  color: #dfc15d !important; /* Light champagne gold subtitle text */
+  font-weight: 500 !important;
+}
+
+/* 3. Inputs: Velvet Black with Gold border on focus */
+/* 3. Inputs: Smoked Glassmorphic Dark Capsule with White Text & Gold Focus Highlights (Exact Match to Screenshot!) */
+.login-page .form-input {
+  background: rgba(255, 255, 255, 0.05) !important; /* Premium smoked glass capsule background */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Clean subtle boundary border */
+  color: #ffffff !important; /* Crisp white typed text */
+  font-weight: 500 !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
+  padding: 0.85rem 1.2rem !important;
+}
+
+.login-page .form-input:focus {
+  border-color: #ffd700 !important; /* Shining Gold border highlight on focus */
+  background: rgba(0, 0, 0, 0.45) !important; /* Deeper smoked backdrop on focus */
+  color: #ffffff !important;
+  box-shadow: 
+    0 0 0 4px rgba(255, 215, 0, 0.15),
+    0 0 20px rgba(255, 215, 0, 0.4) !important; /* Active glowing gold aura */
+}
+
+.login-page .form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important; /* Clear silver/grey placeholder, matching screenshot */
+  font-weight: 400 !important;
+}
+
+/* 4. Password Visibility Eye Toggle Icon (Adapted for Smoked Dark Capsule) */
+.login-page .password-toggle svg {
+  stroke: #ffffff !important; /* Pure white eye icon, perfectly visible and matching screenshot */
+}
+
+.login-page .password-toggle:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 5. Quick links (Forgot & Signup) styled in Shining Gold */
+.login-page .forgot-link {
+  color: #ffd700 !important;
+  /* Shining Gold */
+  transition: all 0.3s ease !important;
+}
+
+.login-page .forgot-link::after {
+  background: #ffd700 !important;
+}
+
+.login-page .forgot-link:hover:not(:disabled) {
+  color: #ffffff !important;
+}
+
+.login-page .signup-link {
+  color: #ffffff !important;
+}
+
+.login-page .signup-link span {
+  color: #ffd700 !important;
+  /* Shining Gold */
+  transition: all 0.3s ease !important;
+}
+
+.login-page .signup-link span::after {
+  background: #ffd700 !important;
+}
+
+.login-page .signup-link span:hover {
+  color: #ffffff !important;
+}
+
+/* 6. Signature Premium Golden Satin Button */
+.login-page .login-btn {
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b) !important;
+  /* Rich shimmering gold gradient */
+  color: #000000 !important;
+  /* High contrast solid black text */
+  font-weight: 800 !important;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3) !important;
+  /* Gold shadow glow */
+  border-radius: 14px !important;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.login-page .login-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ffffff, #ffd700, #c5a059) !important;
+  /* White gold hover shimmer */
+  color: #000000 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 15px 45px rgba(212, 175, 55, 0.5) !important;
+}
+
+/* 7. Forgot Password Modal Overrides (Lighter Smoked Charcoal Black & Champagne Gold Lightway) */
+.login-page .forgot-password-modal {
+  background: linear-gradient(135deg, #24211e, #161413) !important; /* Elegant Lighter Smoked Charcoal Black */
+  border: 1.5px solid rgba(223, 193, 93, 0.55) !important; /* Lighter Champagne Gold Border */
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.55), 
+    0 0 20px rgba(223, 193, 93, 0.15) !important; /* Soft royal gold outer glow aura */
+}
+
+.login-page .forgot-password-modal::before {
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important;
+}
+
+.login-page .progress-step.active .step-number {
+  background: linear-gradient(135deg, #ffd700, #b8860b) !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4) !important;
+}
+
+.login-page .progress-step.active .step-label {
+  color: #ffd700 !important;
+}
+
+.login-page .progress-line.completed {
+  background: linear-gradient(90deg, #ffd700, #22c55e) !important;
+}
+
+.login-page .modern-btn {
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b) !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3) !important;
+}
+
+.login-page .modern-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ffffff, #ffd700, #c5a059) !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* 8. Royal Velvet Black & Gold Capsule Navbar Overrides (For High Contrast on Light/Dark) */
+.login-page .login-navbar {
+  background: rgba(0, 0, 0, 0.9) !important;
+  /* Elegant Midnight Velvet Black with 90% opacity */
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  border: 1px solid rgba(255, 215, 0, 0.35) !important;
+  /* Outstanding Gold Highlight outline border */
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.65),
+    0 0 15px rgba(212, 175, 55, 0.15) !important;
+  /* Soft gold outer glow aura */
+  border-radius: 100px !important;
+}
+
+.login-page .login-navbar .nav-logo-text {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important;
+  /* Vibrant signature gradient */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.login-page .login-navbar .btn-secondary {
+  color: #ffd700 !important;
+  /* Golden Back Button text */
+  border: 1.5px solid rgba(255, 215, 0, 0.6) !important;
+  /* Gold border */
+  background: transparent !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  text-shadow: none !important;
+}
+
+.login-page .login-navbar .btn-secondary:hover {
+  background: rgba(255, 215, 0, 0.15) !important;
+  /* Soft gold wash on hover */
+  border-color: #ffd700 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25) !important;
+}
+
+.login-page .login-navbar .btn-primary {
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b) !important;
+  /* Shimmering gold satin button */
+  color: #000000 !important;
+  /* Solid high-contrast black text */
+  font-weight: 800 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.35) !important;
+  transition: all 0.3s ease !important;
+}
+
+.login-page .login-navbar .btn-primary:hover {
+  background: linear-gradient(135deg, #ffffff, #ffd700, #c5a059) !important;
+  /* Shimmering white-gold hover */
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5) !important;
+}
+
+.login-page .login-navbar .theme-toggle-btn {
+  color: #ffd700 !important;
+  /* Golden icon for theme toggle */
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.login-page .login-navbar .theme-toggle-btn:hover {
+  background: rgba(255, 215, 0, 0.15) !important;
+  border-color: #ffd700 !important;
+}
+
+/* Ensure mobile layout doesn't break and retains high contrast black glass look */
+@media (max-width: 768px) {
+  .login-page .login-navbar {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  }
+}

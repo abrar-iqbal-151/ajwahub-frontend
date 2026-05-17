@@ -3409,7 +3409,7 @@ html {
   background-clip: text !important;
   font-weight: 900 !important;
   text-shadow: none !important; /* Clear shadow for clean gradient clip */
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)) !important; /* Soft backdrop shadow for perfect visibility */
+  filter: none !important; /* Completely flat, clean solid gradient fill */
 }
 
 .description-page .login-footer-tagline {
@@ -3463,7 +3463,7 @@ html {
   background-clip: text !important;
   font-weight: 800 !important;
   text-shadow: none !important;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)) !important;
+  filter: none !important;
 }
 
 /* ========================================================
