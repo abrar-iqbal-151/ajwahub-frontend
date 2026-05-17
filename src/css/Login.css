@@ -1525,21 +1525,26 @@ body {
 
 /* 1. Login Main Container Box (Lighter Smoked Charcoal Black & Champagne Gold Lightway) */
 .login-page .login-container {
-  background: linear-gradient(135deg, #24211e, #161413) !important; /* Elegant Lighter Smoked Charcoal Black */
-  border: 1.5px solid rgba(223, 193, 93, 0.55) !important; /* Lighter Champagne Gold Border */
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.55), 
-    0 0 20px rgba(223, 193, 93, 0.15) !important; /* Soft royal gold outer glow aura */
+  background: linear-gradient(135deg, #24211e, #161413) !important;
+  /* Elegant Lighter Smoked Charcoal Black */
+  border: 1.5px solid rgba(223, 193, 93, 0.55) !important;
+  /* Lighter Champagne Gold Border */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(223, 193, 93, 0.15) !important;
+  /* Soft royal gold outer glow aura */
   border-radius: 2.5rem !important;
 }
 
 .login-page .login-container::before {
-  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important; /* Lighter champagne gold header sweep line */
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important;
+  /* Lighter champagne gold header sweep line */
 }
 
 /* 2. Login Form Title & Subtitle */
 .login-page .login-title {
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Signature brand gradient to match logo */
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important;
+  /* Signature brand gradient to match logo */
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -1548,20 +1553,25 @@ body {
 }
 
 .login-page .login-header::before {
-  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important; /* Lighter champagne gold underline */
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important;
+  /* Lighter champagne gold underline */
 }
 
 .login-page .login-subtitle {
-  color: #dfc15d !important; /* Light champagne gold subtitle text */
+  color: #dfc15d !important;
+  /* Light champagne gold subtitle text */
   font-weight: 500 !important;
 }
 
 /* 3. Inputs: Velvet Black with Gold border on focus */
 /* 3. Inputs: Smoked Glassmorphic Dark Capsule with White Text & Gold Focus Highlights (Exact Match to Screenshot!) */
 .login-page .form-input {
-  background: rgba(255, 255, 255, 0.05) !important; /* Premium smoked glass capsule background */
-  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Clean subtle boundary border */
-  color: #ffffff !important; /* Crisp white typed text */
+  background: rgba(255, 255, 255, 0.05) !important;
+  /* Premium smoked glass capsule background */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  /* Clean subtle boundary border */
+  color: #ffffff !important;
+  /* Crisp white typed text */
   font-weight: 500 !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
@@ -1570,22 +1580,27 @@ body {
 }
 
 .login-page .form-input:focus {
-  border-color: #ffd700 !important; /* Shining Gold border highlight on focus */
-  background: rgba(0, 0, 0, 0.45) !important; /* Deeper smoked backdrop on focus */
+  border-color: #ffd700 !important;
+  /* Shining Gold border highlight on focus */
+  background: rgba(0, 0, 0, 0.45) !important;
+  /* Deeper smoked backdrop on focus */
   color: #ffffff !important;
-  box-shadow: 
+  box-shadow:
     0 0 0 4px rgba(255, 215, 0, 0.15),
-    0 0 20px rgba(255, 215, 0, 0.4) !important; /* Active glowing gold aura */
+    0 0 20px rgba(255, 215, 0, 0.4) !important;
+  /* Active glowing gold aura */
 }
 
 .login-page .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important; /* Clear silver/grey placeholder, matching screenshot */
+  color: rgba(255, 255, 255, 0.4) !important;
+  /* Clear silver/grey placeholder, matching screenshot */
   font-weight: 400 !important;
 }
 
 /* 4. Password Visibility Eye Toggle Icon (Adapted for Smoked Dark Capsule) */
 .login-page .password-toggle svg {
-  stroke: #ffffff !important; /* Pure white eye icon, perfectly visible and matching screenshot */
+  stroke: #ffffff !important;
+  /* Pure white eye icon, perfectly visible and matching screenshot */
 }
 
 .login-page .password-toggle:hover {
@@ -1648,11 +1663,14 @@ body {
 
 /* 7. Forgot Password Modal Overrides (Lighter Smoked Charcoal Black & Champagne Gold Lightway) */
 .login-page .forgot-password-modal {
-  background: linear-gradient(135deg, #24211e, #161413) !important; /* Elegant Lighter Smoked Charcoal Black */
-  border: 1.5px solid rgba(223, 193, 93, 0.55) !important; /* Lighter Champagne Gold Border */
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.55), 
-    0 0 20px rgba(223, 193, 93, 0.15) !important; /* Soft royal gold outer glow aura */
+  background: linear-gradient(135deg, #24211e, #161413) !important;
+  /* Elegant Lighter Smoked Charcoal Black */
+  border: 1.5px solid rgba(223, 193, 93, 0.55) !important;
+  /* Lighter Champagne Gold Border */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(223, 193, 93, 0.15) !important;
+  /* Soft royal gold outer glow aura */
 }
 
 .login-page .forgot-password-modal::before {

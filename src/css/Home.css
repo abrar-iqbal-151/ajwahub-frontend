@@ -54,12 +54,15 @@ body {
   margin: 0 auto;
   border-radius: 3rem;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(251, 146, 60, 0.2), 0 8px 25px rgba(0, 0, 0, 0.3);
   position: relative;
   height: 600px;
-  border: 1px solid rgba(251, 146, 60, 0.15);
+  border: 4px solid #d4af37;
+  /* Thick premium golden frame */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  /* Clean dark drop shadow */
   backdrop-filter: blur(8px);
   background: linear-gradient(135deg, rgba(251, 146, 60, 0.03), rgba(34, 211, 238, 0.03));
+  transition: all 0.3s ease;
 }
 
 .slides-wrapper {
@@ -126,6 +129,31 @@ body {
   margin-bottom: 2rem;
 }
 
+.pack-title-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.8rem;
+  background: #000000;
+  /* Solid premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.55);
+  /* Elegant gold/bronze border matching branding */
+  border-radius: 50px;
+  /* High quality pill frame shape */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  /* Clean dark drop shadow */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1rem;
+}
+
+.pack-title-frame:hover {
+  transform: scale(1.03) translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.9);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+}
+
 .pack-section-title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -133,6 +161,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin: 0;
 }
 
 .pack-grid {
@@ -144,18 +173,32 @@ body {
 }
 
 .pack-card {
-  background: transparent;
-  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  /* Translucent premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Soft glowing gold border */
+  border-radius: 1.8rem;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
+  padding: 12px;
+  /* Inner padding inside the card frame */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.pack-card.featured {
+  border-color: rgba(212, 175, 55, 0.6);
+  /* Pre-lit luxury gold border for featured card */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 .pack-card:hover {
-  transform: translateY(-5px) scale(1.05);
-  border-color: transparent;
-  box-shadow: none;
+  transform: translateY(-8px) scale(1.03);
+  border-color: #d4af37;
+  /* Luxe golden border on hover */
+  background: rgba(0, 0, 0, 0.85);
+  /* Slightly darker focus */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .pack-image {
@@ -163,12 +206,14 @@ body {
   height: 200px;
   object-fit: cover;
   background: transparent;
-  border-radius: 1rem;
-  transition: all 0.3s ease;
+  border-radius: 1.3rem;
+  /* Fits beautifully inside padded frame */
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pack-card:hover .pack-image {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  /* Zoom inside the card */
 }
 
 .pack-title {
@@ -195,6 +240,9 @@ body {
     height: 200px;
     border-radius: 1rem;
     overflow: hidden;
+    border-width: 2.5px;
+    /* Thinner elegant golden frame on tablet sizes */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
   }
 
   .slides-wrapper {
@@ -226,8 +274,15 @@ body {
     padding: 1rem 0.75rem;
   }
 
+  .pack-title-frame {
+    padding: 0.5rem 1.6rem;
+    border-radius: 30px;
+    border-width: 1.5px;
+    margin-bottom: 0.5rem;
+  }
+
   .pack-section-title {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .pack-grid {
@@ -235,9 +290,22 @@ body {
     gap: 0.75rem;
   }
 
+  .pack-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 1.2rem;
+    padding: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .pack-card.featured {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  }
+
   .pack-image {
     height: 120px;
-    border-radius: 0.75rem;
+    border-radius: 0.8rem;
   }
 
   .pack-title {
@@ -260,12 +328,19 @@ body {
   }
 
   .premium-product-card {
-    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
     border-radius: 1.2rem;
+    padding: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   }
 
   .premium-product-name {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Discount */
@@ -298,15 +373,24 @@ body {
   }
 
   .stat-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 1.2rem;
     padding: 1.2rem !important;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   }
 
   .stat-number {
     font-size: 1.8rem !important;
+    background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .stat-label {
     font-size: 0.85rem;
+    color: #ffffff;
   }
 
   /* Reviews */
@@ -314,8 +398,15 @@ body {
     padding: 1rem 0.75rem;
   }
 
+  .section-title-frame {
+    padding: 0.5rem 1.6rem;
+    border-radius: 30px;
+    border-width: 1.5px;
+    margin-bottom: 0.5rem;
+  }
+
   .section-title {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .reviews-grid {
@@ -351,6 +442,10 @@ body {
 
   .feature-card {
     padding: 1.2rem !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+    border-radius: 1.2rem !important;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4) !important;
   }
 
   .feature-icon {
@@ -360,10 +455,15 @@ body {
 
   .feature-card h3 {
     font-size: 0.9rem !important;
+    background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
   }
 
   .feature-card p {
     font-size: 0.78rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
 
   /* Section headers */
@@ -415,6 +515,9 @@ body {
     height: 170px;
     border-radius: 0.8rem;
     overflow: hidden;
+    border-width: 2px;
+    /* Sleek golden frame on mobile sizes */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   }
 
   .slides-wrapper {
@@ -498,32 +601,41 @@ body {
 }
 
 .stat-card {
-  background: #fcfaf5;
-  border: 1px solid #e5e0d8;
-  border-radius: 2rem 0.5rem 2rem 0.5rem;
-  padding: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  /* Premium translucent dark glass background */
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Sleek glowing gold border */
+  border-radius: 1.8rem;
+  /* Smooth modern pill shape */
+  padding: 2.5rem 2rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .stat-card:hover {
-  background: #ffffff;
-  border-color: #d7ccc8;
-  border-radius: 0.5rem 2rem 0.5rem 2rem;
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.85);
+  /* Slightly darker focus */
+  border-color: #d4af37;
+  /* Luxe golden border on hover */
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .stat-number {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 900;
-  color: #5a0000;
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b);
+  /* Beautiful Luxury Gold text gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
-  color: #7f1d1d;
+  color: #ffffff;
+  /* Clean white label text for extreme contrast */
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -549,20 +661,24 @@ body {
 .review-slide-card {
   min-width: calc(var(--slide-width) - 1rem);
   margin: 0 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 2rem 0.5rem 2rem 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  /* Translucent premium black background */
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Soft glowing gold border */
+  border-radius: 1.8rem;
+  /* Smooth modern curves */
   padding: 1.8rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .review-slide-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  border-radius: 0.5rem 2rem 0.5rem 2rem;
-  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+  border-color: #d4af37;
+  /* Royal gold border on focus */
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .reviews-dots {
@@ -584,6 +700,10 @@ body {
   .review-slide-card {
     padding: 1.2rem;
     min-width: calc(100% - 1rem);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 1.2rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -593,6 +713,31 @@ body {
   background: transparent;
 }
 
+.section-title-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.8rem;
+  background: #000000;
+  /* Solid premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.55);
+  /* Elegant gold/bronze border matching branding */
+  border-radius: 50px;
+  /* High quality pill frame shape */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  /* Clean dark drop shadow */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1rem;
+}
+
+.section-title-frame:hover {
+  transform: scale(1.03) translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.9);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+}
+
 .section-title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -600,6 +745,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin: 0;
 }
 
 .reviews-grid {
@@ -612,18 +758,22 @@ body {
 }
 
 .review-card {
-  background: #3a0808;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 1.2rem;
+  background: rgba(0, 0, 0, 0.7);
+  /* Translucent premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Subtle gold border */
+  border-radius: 1.8rem;
   padding: 1.8rem;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .review-card:hover {
-  border-color: rgba(251, 146, 60, 0.5);
-  box-shadow: 0 20px 50px rgba(251, 146, 60, 0.15);
-  transform: translateY(-8px);
+  border-color: #d4af37;
+  /* Luxe golden border on hover */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .review-header {
@@ -643,17 +793,21 @@ body {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #fb923c, #fbbf24);
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b);
+  /* Luxury Royal Gold Avatar */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #000000;
+  /* Contrast black initial */
   font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .reviewer-name {
-  color: #fb923c;
+  color: #ffffff;
+  /* Contrast white name */
   font-size: 1rem;
   font-weight: 800;
   margin: 0;
@@ -695,37 +849,54 @@ body {
 }
 
 .feature-card {
-  background: #3a0808;
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  border-radius: 1.2rem;
+  background: rgba(0, 0, 0, 0.7);
+  /* Translucent premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Subtle gold border */
+  border-radius: 1.8rem;
+  /* Smooth modern curves */
   padding: 2rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .feature-card:hover {
-  background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(34, 211, 238, 0.2));
-  border-color: rgba(251, 146, 60, 0.5);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(251, 146, 60, 0.15);
+  background: rgba(0, 0, 0, 0.85);
+  /* Slightly darker focus */
+  border-color: #d4af37;
+  /* Luxe golden border on hover */
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
+  font-size: 3.2rem;
+  margin-bottom: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
 
 .feature-card h3 {
-  color: #fb923c;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 800;
+  background: linear-gradient(135deg, #ffd700, #c5a059, #b8860b);
+  /* Luxury Gold Gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
 }
 
 .feature-card p {
-  color: #d4cccc;
+  color: rgba(255, 255, 255, 0.8);
+  /* Crisp soft white description */
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 0;
@@ -898,7 +1069,6 @@ body {
 .footer-links a:hover {
   color: #c5a059;
   transform: translateY(-2px);
-  text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
 }
 
 .footer-social {
@@ -921,7 +1091,7 @@ body {
   color: #ffd700;
   background: rgba(197, 160, 89, 0.15);
   transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .footer-social svg {
@@ -1068,25 +1238,6 @@ body {
   align-items: center;
 }
 
-.premium-products-section .section-header {
-  display: inline-block;
-  text-align: center;
-  padding: 12px 36px;
-  background: linear-gradient(135deg, #1c1917, #0a0a0a); /* Luxurious Midnight Black 3D capsule background */
-  border: 2px solid #d4af37; /* Elegant Gold border outline for 3D depth framing */
-  border-radius: 50px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.05); /* Strong 3D shadows */
-  margin-bottom: 2.5rem;
-}
-
-.premium-products-section .section-title {
-  font-size: 2rem !important;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #dfc15d; /* Beautiful flat solid luxury gold color - stands out magnificently */
-  margin: 0 !important;
-}
 
 .premium-products-grid {
   width: 100%;
@@ -1099,56 +1250,55 @@ body {
 }
 
 .premium-product-card {
-  background: #f8f9fa;
-  /* Pristine solid Light Ice-White base - stands out with maximum brightness on both Red & Black backgrounds! */
-  border: 2px solid #d4af37;
-  /* Elegant, strong gold boundary line for 100% clear framing */
-  border-radius: 3.5rem 1.2rem 3.5rem 1.2rem;
-  /* Modern Asymmetric Organic Smooth Wave */
+  background: rgba(0, 0, 0, 0.7);
+  /* Translucent premium black background */
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  /* Soft glowing gold border to match brand */
+  border-radius: 1.8rem;
+  /* Smooth modern pill/card shape */
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  text-align: center;
+  cursor: pointer;
   padding: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  /* Clean, high-contrast dark shadow */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .premium-product-card:hover {
-  background: #ffffff;
-  /* Pure white on hover */
-  border-color: #b8860b;
-  /* Rich deep gold border outline on hover */
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-  /* Rich, deep dark shadow */
-  transform: translateY(-8px);
-  /* Clean upward float */
-  border-radius: 3.5rem 1.2rem 3.5rem 1.2rem;
+  transform: translateY(-8px) scale(1.03);
+  border-color: #d4af37;
+  /* Luxe golden border on hover */
+  background: rgba(0, 0, 0, 0.85);
+  /* Slightly darker focus */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .premium-product-image {
   width: 100%;
   height: 220px;
   object-fit: contain;
-  border-radius: 3.5rem 1.2rem 3.5rem 1.2rem;
-  /* Exact 1:1 match with card */
+  border-radius: 1.3rem;
+  /* Perfectly matches our card curves */
   margin-bottom: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  /* Transparent subtle glass look */
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .premium-product-card:hover .premium-product-image {
   transform: scale(1.05);
-  border-radius: 3.5rem 1.2rem 3.5rem 1.2rem;
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* Zoom inside the card */
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
 .premium-product-name {
-  color: #1a1a1a;
-  /* Slate black for perfect legibility on light background */
   font-size: 1.2rem;
   font-weight: 800;
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 12px 0 4px 0;
   letter-spacing: 0.5px;
   transition: transform 0.4s ease;
@@ -1172,31 +1322,39 @@ body {
 
 /* DARK THEME PRODUCTS UPGRADE (Black Boxes on White Page Background) */
 body.dark-theme .premium-product-card {
-  background: linear-gradient(135deg, #1c1917, #0a0a0a) !important; /* Midnight Black cards in dark mode! */
-  border-color: #d4af37 !important; /* Gold borders */
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important; /* Deep contrast shadow */
+  background: rgba(0, 0, 0, 0.75) !important;
+  /* Elegant dark transparent background */
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  /* Elegant gold border */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6) !important;
 }
 
 body.dark-theme .premium-product-card:hover {
-  background: #000000 !important;
+  background: rgba(0, 0, 0, 0.9) !important;
   border-color: #ffd700 !important;
-  box-shadow: 0 18px 40px rgba(212, 175, 55, 0.15) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6) !important;
 }
 
 body.dark-theme .premium-product-card .premium-product-name {
-  color: #dfc15d !important; /* Gold title for high contrast on black card */
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
 body.dark-theme .premium-product-card .premium-product-weight {
-  color: #e5e7eb !important; /* Light white weight text */
+  color: #e5e7eb !important;
+  /* Light white weight text */
 }
 
 body.dark-theme .premium-product-card .premium-product-price {
-  color: #ffffff !important; /* White price text */
+  color: #ffffff !important;
+  /* White price text */
 }
 
 body.dark-theme .premium-product-card .premium-add-btn {
-  background: linear-gradient(135deg, #ffd700, #c5a059) !important; /* Golden add button */
+  background: linear-gradient(135deg, #ffd700, #c5a059) !important;
+  /* Golden add button */
   color: #111111 !important;
   font-weight: 700 !important;
 }
@@ -1207,6 +1365,7 @@ body.dark-theme .premium-product-card .premium-add-btn:hover {
 }
 
 body.dark-theme .premium-product-card .premium-product-image {
-  background: #111111 !important; /* Smoked black inner container */
+  background: #111111 !important;
+  /* Smoked black inner container */
   border-color: rgba(212, 175, 55, 0.25) !important;
 }

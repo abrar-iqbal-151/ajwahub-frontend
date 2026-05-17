@@ -809,8 +809,13 @@ body {
 }
 
 @media (max-width: 480px) {
-  .signup-center-wrap { padding: 90px 10px 20px; }
-  .signup-title { font-size: 1.6rem; }
+  .signup-center-wrap {
+    padding: 90px 10px 20px;
+  }
+
+  .signup-title {
+    font-size: 1.6rem;
+  }
 }
 
 /* ========================================================
@@ -819,11 +824,14 @@ body {
 
 /* 1. Signup Main Container Box (Lighter Smoked Charcoal Black & Champagne Gold Lightway) */
 .signup-page .signup-container {
-  background: linear-gradient(135deg, #24211e, #161413) !important; /* Elegant Lighter Smoked Charcoal Black */
-  border: 1.5px solid rgba(223, 193, 93, 0.55) !important; /* Lighter Champagne Gold Border */
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.55), 
-    0 0 20px rgba(223, 193, 93, 0.15) !important; /* Soft royal gold outer glow aura */
+  background: linear-gradient(135deg, #24211e, #161413) !important;
+  /* Elegant Lighter Smoked Charcoal Black */
+  border: 1.5px solid rgba(223, 193, 93, 0.55) !important;
+  /* Lighter Champagne Gold Border */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(223, 193, 93, 0.15) !important;
+  /* Soft royal gold outer glow aura */
   border-radius: 2.5rem !important;
 }
 
@@ -834,13 +842,15 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important; /* Lighter champagne gold header sweep line */
+  background: linear-gradient(90deg, transparent, #dfc15d, transparent) !important;
+  /* Lighter champagne gold header sweep line */
   border-radius: 100% 100% 0 0;
 }
 
 /* 2. Signup Form Title & Subtitle (Crisp and Glow-Free) */
 .signup-page .signup-title {
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Signature brand gradient */
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important;
+  /* Signature brand gradient */
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -850,7 +860,8 @@ body {
 }
 
 .signup-page .signup-subtitle {
-  color: #dfc15d !important; /* Light champagne gold subtitle text */
+  color: #dfc15d !important;
+  /* Light champagne gold subtitle text */
   font-weight: 500 !important;
   text-shadow: none !important;
   filter: none !important;
@@ -859,9 +870,12 @@ body {
 /* 3. Inputs: Solid White Typing Fields with Black Text & Champagne Gold highlights on focus */
 /* 3. Inputs: Smoked Glassmorphic Dark Capsule with White Text & Gold Focus Highlights (Exact Match to Screenshot!) */
 .signup-page .form-input {
-  background: rgba(255, 255, 255, 0.05) !important; /* Premium smoked glass capsule background */
-  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Clean subtle boundary border */
-  color: #ffffff !important; /* Crisp white typed text */
+  background: rgba(255, 255, 255, 0.05) !important;
+  /* Premium smoked glass capsule background */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  /* Clean subtle boundary border */
+  color: #ffffff !important;
+  /* Crisp white typed text */
   font-weight: 500 !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
@@ -870,27 +884,33 @@ body {
 }
 
 .signup-page .form-input:focus {
-  border-color: #ffd700 !important; /* Shining Gold border highlight on focus, identical to Login page */
-  background: rgba(0, 0, 0, 0.45) !important; /* Deeper smoked backdrop on focus */
+  border-color: #ffd700 !important;
+  /* Shining Gold border highlight on focus, identical to Login page */
+  background: rgba(0, 0, 0, 0.45) !important;
+  /* Deeper smoked backdrop on focus */
   color: #ffffff !important;
-  box-shadow: 
+  box-shadow:
     0 0 0 4px rgba(255, 215, 0, 0.15),
-    0 0 20px rgba(255, 215, 0, 0.4) !important; /* Active glowing gold aura */
+    0 0 20px rgba(255, 215, 0, 0.4) !important;
+  /* Active glowing gold aura */
 }
 
 .signup-page .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4) !important; /* Clear silver/grey placeholder, matching screenshot */
+  color: rgba(255, 255, 255, 0.4) !important;
+  /* Clear silver/grey placeholder, matching screenshot */
   font-weight: 400 !important;
 }
 
 /* 4. Checkbox & Terms Highlights */
-.signup-page .checkbox-container input:checked + .checkmark {
-  background: #dfc15d !important; /* Light champagne gold active checkbox */
+.signup-page .checkbox-container input:checked+.checkmark {
+  background: #dfc15d !important;
+  /* Light champagne gold active checkbox */
   border-color: #dfc15d !important;
 }
 
 .signup-page .terms-link {
-  color: #dfc15d !important; /* Champagne gold link */
+  color: #dfc15d !important;
+  /* Champagne gold link */
   transition: all 0.3s ease !important;
 }
 
@@ -900,7 +920,8 @@ body {
 
 /* 5. Password Visibility Eye Toggle Icon (Adapted for Smoked Dark Capsule) */
 .signup-page .password-toggle svg {
-  stroke: #ffffff !important; /* Pure white eye icon, perfectly visible and matching screenshot */
+  stroke: #ffffff !important;
+  /* Pure white eye icon, perfectly visible and matching screenshot */
 }
 
 .signup-page .password-toggle:hover {
@@ -913,7 +934,8 @@ body {
 }
 
 .signup-page .signup-footer .login-link {
-  color: #dfc15d !important; /* Light Champagne Gold */
+  color: #dfc15d !important;
+  /* Light Champagne Gold */
   transition: all 0.3s ease !important;
 }
 
@@ -923,15 +945,18 @@ body {
 
 /* 7. Alt Sign-in Buttons styling (Sign up with Contact styled in solid white to match Gmail) */
 .signup-page .alt-btn-phone {
-  background: #ffffff !important; /* Solid high-contrast white */
-  color: #1f2937 !important; /* Rich dark grey text */
+  background: #ffffff !important;
+  /* Solid high-contrast white */
+  color: #1f2937 !important;
+  /* Rich dark grey text */
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
 }
 
 .signup-page .alt-btn-phone:hover {
-  background: #f3f4f6 !important; /* Gentle hover grey */
+  background: #f3f4f6 !important;
+  /* Gentle hover grey */
   border-color: rgba(0, 0, 0, 0.2) !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
@@ -939,16 +964,20 @@ body {
 
 /* 8. Signature Premium Champagne Golden Satin Submit Button */
 .signup-page .signup-btn {
-  background: linear-gradient(135deg, #dfc15d, #c5a059, #b8860b) !important; /* Rich champagne gold gradient */
-  color: #000000 !important; /* High contrast solid black text */
+  background: linear-gradient(135deg, #dfc15d, #c5a059, #b8860b) !important;
+  /* Rich champagne gold gradient */
+  color: #000000 !important;
+  /* High contrast solid black text */
   font-weight: 800 !important;
-  box-shadow: 0 10px 30px rgba(223, 193, 93, 0.25) !important; /* Light Gold shadow glow */
+  box-shadow: 0 10px 30px rgba(223, 193, 93, 0.25) !important;
+  /* Light Gold shadow glow */
   border-radius: 12px !important;
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
 .signup-page .signup-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #ffffff, #dfc15d, #c5a059) !important; /* White gold hover shimmer */
+  background: linear-gradient(135deg, #ffffff, #dfc15d, #c5a059) !important;
+  /* White gold hover shimmer */
   color: #000000 !important;
   transform: translateY(-4px) !important;
   box-shadow: 0 15px 45px rgba(223, 193, 93, 0.4) !important;
@@ -956,19 +985,23 @@ body {
 
 /* 9. Royal Velvet Black & Gold Capsule Navbar Overrides */
 .signup-page .login-navbar {
-  background: rgba(0, 0, 0, 0.9) !important; /* Elegant Midnight Velvet Black with 90% opacity */
+  background: rgba(0, 0, 0, 0.9) !important;
+  /* Elegant Midnight Velvet Black with 90% opacity */
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
-  border: 1px solid rgba(223, 193, 93, 0.35) !important; /* Outstanding Gold Highlight outline border */
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.65), 
-    0 0 15px rgba(223, 193, 93, 0.15) !important; /* Soft gold outer glow aura */
+  border: 1px solid rgba(223, 193, 93, 0.35) !important;
+  /* Outstanding Gold Highlight outline border */
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.65),
+    0 0 15px rgba(223, 193, 93, 0.15) !important;
+  /* Soft gold outer glow aura */
   border-radius: 100px !important;
 }
 
 .signup-page .login-navbar .nav-logo-text {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important; /* Vibrant signature gradient */
+  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important;
+  /* Vibrant signature gradient */
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -978,8 +1011,10 @@ body {
 }
 
 .signup-page .login-navbar .btn-secondary {
-  color: #dfc15d !important; /* Golden Back Button text */
-  border: 1.5px solid rgba(223, 193, 93, 0.6) !important; /* Champagne Gold border */
+  color: #dfc15d !important;
+  /* Golden Back Button text */
+  border: 1.5px solid rgba(223, 193, 93, 0.6) !important;
+  /* Champagne Gold border */
   background: transparent !important;
   font-weight: 700 !important;
   transition: all 0.3s ease !important;
@@ -987,14 +1022,16 @@ body {
 }
 
 .signup-page .login-navbar .btn-secondary:hover {
-  background: rgba(223, 193, 93, 0.15) !important; /* Soft gold wash on hover */
+  background: rgba(223, 193, 93, 0.15) !important;
+  /* Soft gold wash on hover */
   border-color: #dfc15d !important;
   color: #ffffff !important;
   box-shadow: 0 4px 15px rgba(223, 193, 93, 0.25) !important;
 }
 
 .signup-page .login-navbar .theme-toggle-btn {
-  color: #dfc15d !important; /* Golden icon for theme toggle */
+  color: #dfc15d !important;
+  /* Golden icon for theme toggle */
   border: 1px solid rgba(223, 193, 93, 0.3) !important;
   background: rgba(255, 255, 255, 0.05) !important;
   transition: all 0.3s ease !important;

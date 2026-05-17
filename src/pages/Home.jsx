@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaLeaf, FaAward, FaShippingFast, FaShieldAlt } from 'react-icons/fa';
 import '../css/Home.css';
 import Navbar from './Navbar';
 import Footer from '../components/Footer';
@@ -16,7 +17,13 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [reviewSlide, setReviewSlide] = useState(0);
   const [homeContent, setHomeContent] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    { name: 'Ahmed Khan', rating: 5, text: 'Best quality dates! Fresh and delivered on time.' },
+    { name: 'Fatima Ali', rating: 5, text: 'Amazing packaging and premium quality. Highly recommended!' },
+    { name: 'Muhammad Hassan', rating: 5, text: 'Excellent service and authentic products. Very helpful team.' },
+    { name: 'Sara Ahmed', rating: 4.8, text: 'Perfect taste and freshness. Will order again!' },
+    { name: 'hafiz Abrar', rating: 5, text: 'Nice And Epic Seller Plateform Website' }
+  ]);
   const [paymentIcons, setPaymentIcons] = useState([]);
 
   useEffect(() => {
@@ -26,7 +33,14 @@ function Home() {
 
   useEffect(() => {
     fetch(`${API}/home-content`).then(r => r.json()).then(d => setHomeContent(d.content)).catch(() => { });
-    fetch(`${API}/content/reviews`).then(r => r.json()).then(d => setReviews(d.reviews || [])).catch(() => { });
+    fetch(`${API}/content/reviews`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.reviews && d.reviews.length > 0) {
+          setReviews(d.reviews);
+        }
+      })
+      .catch(() => { });
     fetch(`${API}/content/payment-icons`).then(r => r.json()).then(d => setPaymentIcons(d.icons || [])).catch(() => { });
   }, []);
 
@@ -98,7 +112,9 @@ function Home() {
       {/* PACK IMAGES */}
       <div className="pack-images">
         <div className="section-header">
-          <h2 className="pack-section-title">🌴 Our Premium Date Collections</h2>
+          <div className="pack-title-frame">
+            <h2 className="pack-section-title">🌴 Our Premium Date Collections</h2>
+          </div>
         </div>
         <div className="pack-grid">
           <div className="pack-card featured" onClick={() => navigate('/products')}><img src="/Pack 1.jpg" alt="Premium Ajwa Dates" className="pack-image" /><h3 className="pack-title">Premium Ajwa Dates</h3></div>
@@ -113,7 +129,9 @@ function Home() {
         <div key={section.key} className={`premium-products-section section-${section.key}`}>
 
           <div className="section-header">
-            <h2 className="section-title">{section.title}</h2>
+            <div className="section-title-frame">
+              <h2 className="section-title">{section.title}</h2>
+            </div>
           </div>
 
           {/* DESKTOP GRID */}
@@ -186,10 +204,14 @@ function Home() {
 
       {/* REVIEWS */}
       <div className="reviews-section">
-        <div className="section-header"><h2 className="section-title">⭐ Customer Reviews</h2></div>
+        <div className="section-header">
+          <div className="section-title-frame">
+            <h2 className="section-title">⭐ Customer Reviews</h2>
+          </div>
+        </div>
         <div className="reviews-slider-wrap">
           <div className="reviews-slider-inner" style={{ transform: `translateX(calc(-${reviewSlide} * var(--slide-width, 100%)))` }}>
-            {reviews.map((r, i) => (
+            {(reviews.length > 3 ? [...reviews, ...reviews.slice(0, 2)] : reviews).map((r, i) => (
               <div key={i} className="review-slide-card">
                 <div className="review-header">
                   <div className="reviewer-info">
@@ -212,13 +234,17 @@ function Home() {
 
       {/* FEATURES */}
       <div className="features-section">
-        <div className="section-header"><h2 className="section-title">✨ Why Choose AjwaHub?</h2></div>
+        <div className="section-header">
+          <div className="section-title-frame">
+            <h2 className="section-title">✨ Why Choose AjwaHub?</h2>
+          </div>
+        </div>
         <div className="features-grid">
           {[
-            { icon: '🌿', title: '100% Natural', desc: 'No artificial additives or preservatives' },
-            { icon: '🏆', title: 'Premium Quality', desc: 'Handpicked and quality tested' },
-            { icon: '🚚', title: 'Fast Delivery', desc: 'Free shipping on orders above PKR 2000' },
-            { icon: '💯', title: 'Money Back Guarantee', desc: '30-day return policy, no questions asked' }
+            { icon: <FaLeaf />, title: '100% Natural', desc: 'No artificial additives or preservatives' },
+            { icon: <FaAward />, title: 'Premium Quality', desc: 'Handpicked and quality tested' },
+            { icon: <FaShippingFast />, title: 'Fast Delivery', desc: 'Free shipping on orders above PKR 2000' },
+            { icon: <FaShieldAlt />, title: 'Money Back Guarantee', desc: '5-day return policy, no questions asked' }
           ].map((f, i) => (
             <div key={i} className="feature-card">
               <div className="feature-icon">{f.icon}</div>
