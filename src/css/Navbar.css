@@ -1,20 +1,20 @@
-﻿/* UNIFIED NAVBAR STYLES */
+/* UNIFIED NAVBAR STYLES */
 .navbar {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10, 10, 20, 0.85);
+  background: rgba(18, 14, 10, 0.75) !important; /* Premium gold-tinted translucent black glass */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(251, 146, 60, 0.12);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.45) !important; /* Beautiful gold border */
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   height: 64px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 30px rgba(212, 175, 55, 0.18) !important; /* Soft golden bottom aura glow */
 }
 
 .nav-left-group {
@@ -74,14 +74,14 @@
 }
 
 .nav-item:hover {
-  color: #fb923c;
-  background: rgba(251,146,60,0.08);
+  color: #ffd700 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
 }
 
 .nav-item.active {
-  color: #fb923c;
-  background: rgba(251,146,60,0.12);
-  border: 1px solid rgba(251,146,60,0.2);
+  color: #ffd700 !important;
+  background: rgba(212, 175, 55, 0.15) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
 }
 
 .nav-right {
@@ -443,13 +443,13 @@
 }
 
 .nav-item:hover {
-  color: #fb923c;
-  background: rgba(251, 146, 60, 0.1);
+  color: #ffd700 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
 }
 
 .nav-item.active {
-  color: #fb923c;
-  background: rgba(251, 146, 60, 0.15);
+  color: #ffd700 !important;
+  background: rgba(212, 175, 55, 0.15) !important;
 }
 
 .nav-item.premium {
