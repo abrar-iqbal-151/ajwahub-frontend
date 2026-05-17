@@ -100,7 +100,7 @@ function Footer() {
             )}
           </div>
         </div>
-        <div style={{ color: '#9ca3af', fontSize: '13px' }}>
+        <div style={{ color: '#ffffff', fontSize: '13px', fontWeight: '600' }}>
           Proudly Made within Pakistan 🇵🇰
         </div>
       </div>

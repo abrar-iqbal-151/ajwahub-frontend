@@ -453,10 +453,9 @@ html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffd700 !important; /* Premium Solid Gold */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
   letter-spacing: -0.5px;
 }
 
@@ -1204,11 +1203,11 @@ html {
 /* Footer */
 .login-footer {
   margin-top: 60px;
-  padding: 40px 0 0;
-  background: rgba(197, 160, 89, 0.06);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(197, 160, 89, 0.25);
+  padding: 3rem 5% 1.5rem !important;
+  background: rgba(0, 0, 0, 0.7) !important; /* Elegant dark transparent glass background */
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-top: 2px solid rgba(212, 175, 55, 0.3) !important; /* Refined gold border */
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -1221,138 +1220,131 @@ html {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #c5a059, #ffd700, #c5a059, transparent);
+  background: linear-gradient(90deg, transparent, #c5a059, #ffd700, #c5a059, transparent) !important;
 }
 
 .login-footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 5% 30px;
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr 1fr;
-  gap: 40px;
-  align-items: start;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 2rem !important;
+  padding: 0 !important;
 }
 
 .login-footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 260px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.8rem !important;
+  max-width: 320px !important;
 }
 
 .login-footer-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
 }
 
 .login-footer-logo {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: 1px solid rgba(251, 146, 60, 0.3);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.4) !important; /* Refined gold border around logo */
 }
 
 .login-footer-name {
-  font-size: 1.2rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fb923c, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+  color: #ffd700 !important; /* Premium Solid Gold to prevent browser rendering failure */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  letter-spacing: -0.3px !important;
 }
 
 .login-footer-tagline {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.login-footer-links-wrap {
-  display: flex;
-  gap: 50px;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  margin: 0.5rem 0 0 0 !important;
 }
 
 .login-footer-col-title {
-  color: #c5a059;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #ffd700 !important; /* Subtle gold header */
+  margin: 0 0 1.2rem 0 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: none !important;
 }
 
 .login-footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.8rem !important;
 }
 
 .login-footer-links a {
-  color: rgba(197, 160, 89, 0.6);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-decoration: none !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .login-footer-links a::before {
-  content: '';
-  width: 0;
-  height: 1px;
-  background: #fb923c;
-  transition: width 0.3s ease;
-  display: inline-block;
+  display: none !important; /* Remove orange bullet sweep on hover */
 }
 
 .login-footer-links a:hover {
-  color: #ffd700;
-  gap: 8px;
-}
-
-.login-footer-links a:hover::before {
-  width: 10px;
+  color: #ffd700 !important; /* Soft gold on hover */
+  transform: translateX(4px) !important;
+  gap: 0px !important;
 }
 
 .login-footer-social {
-  display: flex;
-  gap: 8px;
+  display: flex !important;
+  gap: 12px !important;
+  margin-top: 0.8rem !important;
 }
 
 .login-footer-social a {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(197, 160, 89, 0.08);
-  border: 1px solid rgba(197, 160, 89, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(197, 160, 89, 0.6);
-  transition: all 0.3s ease;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.25) !important;
+  color: #ffd700 !important; /* Gold social icons */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease !important;
+  text-decoration: none !important;
 }
 
 .login-footer-social a:hover {
-  background: rgba(197, 160, 89, 0.2);
-  border-color: rgba(197, 160, 89, 0.45);
-  color: #ffd700;
-  transform: translateY(-3px);
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-color: #ffd700 !important;
+  color: #ffffff !important;
+  transform: translateY(-3px) !important;
 }
 
 .login-footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 5%;
-  border-top: 1px solid rgba(197, 160, 89, 0.12);
-  color: rgba(197, 160, 89, 0.4);
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  flex-wrap: wrap;
-  gap: 10px;
+  max-width: 1200px !important;
+  margin: 2rem auto 0 !important;
+  padding: 1.5rem 0 0 0 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important; /* Light golden divider */
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 13px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1.5rem !important;
 }
 
 .login-footer-payments {
@@ -3430,11 +3422,11 @@ html {
    DESCRIPTION PAGE FOOTER GOLDEN OVERRIDES 
    ========================================== */
 .description-page .login-footer {
-  background: linear-gradient(135deg, #24211e 0%, #302b26 40%, #f7dc6f 100%) !important;
-  /* Premium Smoked Light Black to Lighter Champagne Gold gradient */
-  border-top: 2px solid #ffd700 !important;
-  /* Bright gold border framing */
-  padding: 40px 5% 24px !important;
+  background: rgba(0, 0, 0, 0.7) !important; /* Elegant dark transparent glass background, exactly matching Home.jsx */
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-top: 2px solid rgba(212, 175, 55, 0.3) !important; /* Refined gold border matching Home.jsx */
+  padding: 3rem 5% 1.5rem !important;
   color: #ffffff !important;
   /* Premium high contrast white text */
 }
@@ -3513,11 +3505,9 @@ html {
 
 .description-page .login-footer-bottom-brand {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee) !important;
-  /* Signature Navbar gradient */
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  color: #ffd700 !important; /* Premium Solid Gold to prevent browser rendering failure */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
   font-weight: 800 !important;
   text-shadow: none !important;
   filter: none !important;

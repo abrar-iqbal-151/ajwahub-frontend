@@ -42,10 +42,9 @@
 .nav-logo-text {
   font-size: 1.1rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #fb923c, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffd700 !important; /* Premium Solid Gold */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
   letter-spacing: -0.3px;
 }
 
@@ -413,10 +412,9 @@
 .nav-logo-text {
   font-size: 1.2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffd700 !important; /* Premium Solid Gold */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
   letter-spacing: -0.5px;
 }
 
@@ -754,10 +752,9 @@
 .drawer-logo-text {
   font-size: 1.2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffd700 !important; /* Premium Solid Gold */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
 }
 
 .drawer-close {

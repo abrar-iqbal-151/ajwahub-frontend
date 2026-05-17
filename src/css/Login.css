@@ -1250,7 +1250,7 @@ body {
 
 /* Modern Login Footer */
 .login-footer {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.7) !important; /* Elegant dark transparent glass background */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 32px 5% 20px;
   margin-top: 10px;
