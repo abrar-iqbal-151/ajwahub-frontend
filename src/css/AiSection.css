@@ -160,7 +160,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  animation: textPulse 3s ease-in-out infinite;
 }
 
 @keyframes textPulse {

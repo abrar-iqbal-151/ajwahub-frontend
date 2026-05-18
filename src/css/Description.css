@@ -3265,7 +3265,6 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  animation: giftingTitlePulse 4s ease-in-out infinite;
 }
 
 @keyframes giftingTitlePulse {
