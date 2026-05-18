@@ -30,39 +30,64 @@ function Contact() {
     e.preventDefault();
     setStatus({ loading: true, success: false, error: null });
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStatus({ loading: false, success: true, error: null });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
+      const res = await fetch(`${API}/api/messages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setStatus({ loading: false, success: true, error: null });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
+      } else {
+        throw new Error(data.error || 'Failed to send message.');
+      }
     } catch (err) {
-      setStatus({ loading: false, success: false, error: 'Failed to send message. Please try again.' });
+      setStatus({ loading: false, success: false, error: err.message || 'Failed to send message. Please try again.' });
     }
   };
 
-  const handleRatingSubmit = (e) => {
+  const handleRatingSubmit = async (e) => {
     e.preventDefault();
     if (rating === 0) return alert('Please select a star rating.');
     
     setRatingStatus({ loading: true, success: false });
-    setTimeout(() => {
+    try {
       if (activeForm === 'product') {
-        const storedRatings = JSON.parse(localStorage.getItem('ajwa_product_ratings') || '[]');
-        storedRatings.push({ 
-          id: Date.now(),
-          productId: selectedProductOption,
-          rating: rating, 
-          reviewText: reviewText, 
-          date: new Date().toISOString() 
+        const res = await fetch(`${API}/api/ratings`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            productId: 'General',
+            productName: 'General',
+            rating: rating,
+            reviewText: reviewText
+          })
         });
-        localStorage.setItem('ajwa_product_ratings', JSON.stringify(storedRatings));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to submit rating.');
+      } else if (activeForm === 'website') {
+        const res = await fetch(`${API}/api/website-reviews`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            rating: rating,
+            reviewText: reviewText
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to submit feedback.');
       }
 
       setRatingStatus({ loading: false, success: true });
       setRating(0);
       setReviewText('');
-      if (activeForm === 'product') setSelectedProductOption('');
       setTimeout(() => setRatingStatus({ loading: false, success: false }), 5000);
-    }, 1500);
+    } catch (err) {
+      alert(err.message || 'Something went wrong.');
+      setRatingStatus({ loading: false, success: false });
+    }
   };
 
   return (
