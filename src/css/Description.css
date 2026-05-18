@@ -686,18 +686,18 @@ html {
 
 
 .section-title {
-  font-family: 'Impact', sans-serif;
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 3.5rem;
   text-align: center;
   background: linear-gradient(135deg, #fb923c, #fbbf24, #22d3ee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 50px;
   text-shadow: none;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .section-header {
