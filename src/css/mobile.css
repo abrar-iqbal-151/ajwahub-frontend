@@ -962,3 +962,51 @@
     object-fit: cover !important;
   }
 }
+
+/* ── REMOVE ALL MOBILE GLOW EFFECTS ── */
+@media (max-width: 768px) {
+  /* Hide background glowing gradient radial meshes */
+  .desc-ai-frame-glow,
+  .desc-gifting-frame-glow,
+  .desc-ai-section::before,
+  .desc-gifting-section::before {
+    display: none !important;
+    background: none !important;
+    filter: none !important;
+  }
+
+  /* Remove glowing shadows from media/video/image frames */
+  .desc-ai-video-frame,
+  .desc-gifting-frame {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(212, 175, 55, 0.25) !important;
+  }
+
+  /* Remove glowing icon background shadows */
+  .description-page .desc-ai-icon-glow,
+  .description-page .floating-card-icon,
+  .description-page .desc-gifting-icon-glow,
+  .desc-ai-icon-glow,
+  .desc-gifting-icon-glow {
+    box-shadow: none !important;
+    border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  }
+
+  /* Remove status pulse shadow glows */
+  .ai-status-pulse,
+  .gifting-status-pulse {
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  /* Remove any heading drop-shadow or text-shadow filters */
+  .section-title,
+  .desc-feature-title span,
+  .desc-ai-title span,
+  .desc-gifting-title span,
+  .reset-title {
+    text-shadow: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}
