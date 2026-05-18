@@ -380,10 +380,31 @@
   border: 1px solid rgba(251,146,60,0.18);
 }
 
-.drawer-link-icon { font-size: 1rem; width: 1.4rem; text-align: center; flex-shrink: 0; }
-.drawer-link-label { font-size: 0.88rem; font-weight: 600; color: #94a3b8; flex: 1; }
-.drawer-link.active .drawer-link-label { color: #fb923c; }
-.drawer-active-dot { width: 5px; height: 5px; border-radius: 50%; background: #fb923c; flex-shrink: 0; }
+.drawer-link-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.1rem !important;
+  height: 2.1rem !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0 !important;
+  margin-right: 12px !important;
+}
+.drawer-link:hover .drawer-link-icon {
+  background: rgba(251, 146, 60, 0.08) !important;
+  border-color: rgba(251, 146, 60, 0.18) !important;
+  transform: translateY(-1px) !important;
+}
+.drawer-link.active .drawer-link-icon {
+  background: rgba(251, 146, 60, 0.14) !important;
+  border-color: rgba(251, 146, 60, 0.28) !important;
+}
+.drawer-link-label { font-size: 0.88rem; font-weight: 600; color: #94a3b8; flex: 1; transition: color 0.3s; }
+.drawer-link.active .drawer-link-label { color: #fb923c; font-weight: 700; }
+.drawer-active-dot { width: 6px; height: 6px; border-radius: 50%; background: #fb923c; flex-shrink: 0; box-shadow: 0 0 8px #fb923c; }
 
 .drawer-footer {
   padding: 0.9rem 1.2rem;

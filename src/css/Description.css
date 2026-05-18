@@ -2666,8 +2666,12 @@ html {
   }
 
   .desc-map-image {
-    width: calc(100% + 8%);
-    margin: 0 -4%;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+    border-top: none !important;
+    border-radius: 12px !important;
   }
 }
 

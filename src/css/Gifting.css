@@ -217,7 +217,7 @@
 .gift-btn {
   width: 100%;
   background: linear-gradient(135deg, #c5a059, #b8860b);
-  color: #fff;
+  color: #ffffff !important; /* Force high-contrast white text! */
   border: none;
   padding: 11px 20px;
   border-radius: 12px;
@@ -235,7 +235,8 @@
 }
 
 .gift-btn:disabled {
-  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.8) !important; /* Clear high-contrast white text when disabled! */
+  opacity: 0.5 !important;
   cursor: not-allowed;
 }
 
@@ -482,11 +483,11 @@
 
 .gcm-price-row span {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff !important; /* Clear pristine white title! */
 }
 
 .gcm-price-val {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: #ffffff !important; /* Clear pristine white value! */
   font-weight: 600;
 }
 
@@ -505,7 +506,7 @@
 .gcm-price-total span {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(197, 160, 89, 0.8);
+  color: #ffffff !important; /* Clear pristine white total text! */
 }
 
 .gcm-price-total strong {
@@ -672,7 +673,7 @@
 
 .gcm-add-btn {
   background: rgba(197, 160, 89, 0.12);
-  color: #c5a059;
+  color: #ffffff !important; /* Pristine white '+' sign! */
   border: 1px solid rgba(197, 160, 89, 0.3);
   width: 28px;
   height: 28px;
@@ -689,12 +690,13 @@
 }
 
 .gcm-add-btn:hover:not(:disabled) {
-  background: rgba(197, 160, 89, 0.3);
-  color: #ffd700;
+  background: #c5a059 !important; /* Premium gold background on hover */
+  color: #ffffff !important; /* Stays crisp white */
   transform: scale(1.1);
 }
 
 .gcm-add-btn:disabled {
+  color: rgba(255, 255, 255, 0.3) !important; /* Faded white '+' when disabled */
   opacity: 0.3;
   cursor: not-allowed;
 }

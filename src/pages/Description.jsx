@@ -2,8 +2,78 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Description.css';
 import '../css/AiSection.css';
+import { 
+  FaCheckCircle, 
+  FaBoxOpen, 
+  FaShippingFast, 
+  FaAward, 
+  FaFire, 
+  FaGift, 
+  FaHeart, 
+  FaCrown, 
+  FaTrophy, 
+  FaStar, 
+  FaMapMarkedAlt,
+  FaBolt,
+  FaRobot,
+  FaComments
+} from 'react-icons/fa';
 
 import Footer from '../components/Footer';
+
+const renderRealIcon = (iconName) => {
+  if (!iconName) return null;
+  const name = typeof iconName === 'string' ? iconName.trim() : '';
+  
+  switch(name) {
+    case '✅':
+    case 'check':
+    case 'FaCheckCircle':
+      return <FaCheckCircle style={{ color: '#10b981', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '📦':
+    case 'box':
+    case 'FaBoxOpen':
+      return <FaBoxOpen style={{ color: '#c5a059', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '🚚':
+    case 'truck':
+    case 'FaShippingFast':
+      return <FaShippingFast style={{ color: '#c5a059', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '⭐':
+    case 'star':
+    case 'FaStar':
+      return <FaStar style={{ color: '#fbbf24', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '🔥':
+    case 'fire':
+      return <FaFire style={{ color: '#ef4444', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '🎁':
+    case 'gift':
+      return <FaGift style={{ color: '#c5a059', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '💝':
+    case 'heart':
+      return <FaHeart style={{ color: '#ec4899', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '✨':
+    case 'sparkles':
+    case 'crown':
+      return <FaCrown style={{ color: '#dfc15d', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '🏆':
+    case 'trophy':
+      return <FaTrophy style={{ color: '#fbbf24', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '⚡':
+    case 'bolt':
+    case 'FaBolt':
+      return <FaBolt style={{ color: '#fbbf24', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '🤖':
+    case 'robot':
+    case 'FaRobot':
+      return <FaRobot style={{ color: '#c5a059', display: 'inline-block', verticalAlign: 'middle' }} />;
+    case '💬':
+    case 'chat':
+    case 'FaComments':
+      return <FaComments style={{ color: '#c5a059', display: 'inline-block', verticalAlign: 'middle' }} />;
+    default:
+      return <span>{iconName}</span>;
+  }
+};
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -22,6 +92,7 @@ function Description() {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [productSlide, setProductSlide] = useState(0);
   const [reviewSlide, setReviewSlide] = useState(0);
+  const [mobileReviewSlide, setMobileReviewSlide] = useState(0);
 
   const [heroes, setHeroes] = useState([]);
   const [products, setProducts] = useState([]);
@@ -97,6 +168,15 @@ function Description() {
     }, 2500);
     return () => clearInterval(timer);
   }, [about]);
+
+  useEffect(() => {
+    if (reviews.length > 0) {
+      const timer = setInterval(() => {
+        setMobileReviewSlide(prev => (prev + 1) % reviews.length);
+      }, 3500);
+      return () => clearInterval(timer);
+    }
+  }, [reviews]);
 
   useEffect(() => {
     Promise.all([
@@ -212,11 +292,11 @@ function Description() {
         )}
         {hero2 && (
           <div className="hero-offer-strip">
-            <span className="hero-offer-flash">🔥</span>
+            <span className="hero-offer-flash">{renderRealIcon('🔥')}</span>
             <span className="hero-offer-text">EXCLUSIVE DEAL</span>
             <span className="hero-offer-badge">50% OFF</span>
             <span className="hero-offer-text">FREE DELIVERY ABOVE PKR 2000</span>
-            <span className="hero-offer-flash">🔥</span>
+            <span className="hero-offer-flash">{renderRealIcon('🔥')}</span>
           </div>
         )}
       </main>
@@ -247,13 +327,13 @@ function Description() {
           <p className="desc-feature-text">{feature ? feature.description : 'We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.'}</p>
           <div className="desc-feature-list">
             {feature && feature.features ? feature.features.map((item, i) => (
-              <div key={i} className="desc-feature-item"><span>{item.icon}</span><p>{item.text}</p></div>
+              <div key={i} className="desc-feature-item"><span>{renderRealIcon(item.icon)}</span><p>{item.text}</p></div>
             )) : (
               <>
-                <div className="desc-feature-item"><span>✅</span><p>100% Natural & Pure</p></div>
-                <div className="desc-feature-item"><span>📦</span><p>Premium Packaging</p></div>
-                <div className="desc-feature-item"><span>🚚</span><p>Fast Delivery Across Pakistan</p></div>
-                <div className="desc-feature-item"><span>⭐</span><p>Trusted by 50,000+ Customers</p></div>
+                <div className="desc-feature-item"><span>{renderRealIcon('✅')}</span><p>100% Natural & Pure</p></div>
+                <div className="desc-feature-item"><span>{renderRealIcon('📦')}</span><p>Premium Packaging</p></div>
+                <div className="desc-feature-item"><span>{renderRealIcon('🚚')}</span><p>Fast Delivery Across Pakistan</p></div>
+                <div className="desc-feature-item"><span>{renderRealIcon('⭐')}</span><p>Trusted by 50,000+ Customers</p></div>
               </>
             )}
           </div>
@@ -271,7 +351,7 @@ function Description() {
             <div className="desc-ai-list">
               {aiSection.features.map((f, i) => (
                 <div key={i} className="desc-ai-item">
-                  <span className="desc-ai-icon-glow">{f.icon}</span>
+                  <span className="desc-ai-icon-glow">{renderRealIcon(f.icon)}</span>
                   <div className="desc-ai-item-text">
                     <h4>{f.title}</h4>
                     <p>{f.text}</p>
@@ -374,7 +454,7 @@ function Description() {
           </div>
           {/* Layered Floating Mini-Card for Extra Premium Look */}
           <div className="gifting-floating-card">
-            <span className="floating-card-icon">🎁</span>
+            <span className="floating-card-icon">{renderRealIcon('🎁')}</span>
             <div className="floating-card-details">
               <h4>Special Edition</h4>
               <p>Royal Gift Boxes</p>
@@ -383,7 +463,7 @@ function Description() {
         </div>
 
         <div className="desc-gifting-content">
-          <div className="desc-gifting-badge">💝 ELEGANT GIFTING</div>
+          <div className="desc-gifting-badge">{renderRealIcon('💝')} ELEGANT GIFTING</div>
           <h2 className="desc-gifting-title">
             Share Health & Purity With <span>Our Gift Collections</span>
           </h2>
@@ -392,14 +472,14 @@ function Description() {
           </p>
           <div className="desc-gifting-features">
             <div className="desc-gifting-feat-item">
-              <span className="desc-gifting-icon-glow">✨</span>
+              <span className="desc-gifting-icon-glow">{renderRealIcon('✨')}</span>
               <div className="desc-gifting-item-text">
                 <h4>Customized Luxury Packaging</h4>
                 <p>Sophisticated premium boxes, briefcases, and custom wooden cases with personalized gift tags.</p>
               </div>
             </div>
             <div className="desc-gifting-feat-item">
-              <span className="desc-gifting-icon-glow">🏆</span>
+              <span className="desc-gifting-icon-glow">{renderRealIcon('🏆')}</span>
               <div className="desc-gifting-item-text">
                 <h4>100% Handpicked Quality</h4>
                 <p>Sourced directly from selected farms, sorted, and packed to pristine hygiene standards.</p>
@@ -416,7 +496,7 @@ function Description() {
         <section className="reviews-carousel-section">
           <div className="reviews-carousel-inner">
             <div className="section-header">
-              <h3 className="section-title">⭐ Customer Reviews</h3>
+              <h3 className="section-title">{renderRealIcon('⭐')} Customer Reviews</h3>
               <div className="section-divider" />
             </div>
             {/* Desktop carousel */}
@@ -435,13 +515,24 @@ function Description() {
             </div>
             {/* Mobile scroll */}
             <div className="desc-mob-reviews">
-              {reviews.map((review, i) => (
-                <div key={i} className="desc-mob-review-card">
-                  <div className="desc-mob-stars">{renderStars(review.rating)}</div>
-                  <p>"{review.text}"</p>
-                  <h4>{review.name}</h4>
+              {reviews.length > 0 && (
+                <div className="desc-mob-review-card">
+                  <div className="desc-mob-stars">{renderStars(reviews[mobileReviewSlide]?.rating || 5)}</div>
+                  <p>"{reviews[mobileReviewSlide]?.text}"</p>
+                  <h4>{reviews[mobileReviewSlide]?.name}</h4>
+                  
+                  {/* Miniature dots indicator for premium look */}
+                  <div className="desc-mob-review-dots">
+                    {reviews.map((_, idx) => (
+                      <span 
+                        key={idx} 
+                        className={`desc-mob-review-dot ${mobileReviewSlide === idx ? 'active' : ''}`}
+                        onClick={() => setMobileReviewSlide(idx)}
+                      />
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -555,7 +646,7 @@ function Description() {
                       </span>
                       <div style={{ height: '18px', display: 'flex', alignItems: 'center' }}>
                         {modalRatingStatus === 'success' && (
-                          <span style={{ color: '#10b981', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '700', animation: 'fadeIn 0.3s ease' }}>⭐ Rated!</span>
+                          <span style={{ color: '#10b981', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '700', animation: 'fadeIn 0.3s ease' }}>{renderRealIcon('⭐')} Rated!</span>
                         )}
                         {modalRatingStatus === 'submitting' && (
                           <span style={{ color: '#c5a059', fontSize: '0.75rem', marginLeft: '5px' }}>Saving...</span>
@@ -618,7 +709,7 @@ function Description() {
       <div className="float-ai-btn" onClick={() => setShowLoginModal(true)}>
         <div className="float-ai-ring" />
         <div className="float-ai-ring float-ai-ring2" />
-        <span className="float-ai-icon">🤖</span>
+        <span className="float-ai-icon">{renderRealIcon('🤖')}</span>
         <span className="float-ai-label">AI</span>
       </div>
 

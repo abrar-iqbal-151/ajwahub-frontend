@@ -324,17 +324,18 @@
 .w-stat h3 {
   font-size: 34px;
   font-weight: 900;
-  color: #c5a059;
+  color: #ffffff !important; /* Pristine white numbers! */
   margin: 0;
 }
 
 .w-stat p {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: #ffffff !important; /* Pristine white text/labels! */
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-top: 5px;
   font-weight: 700;
+  opacity: 0.85; /* Softened elegant white opacity for readability */
 }
 
 .w-stat-divider {
@@ -800,6 +801,48 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .wishlist-hero {
+    padding: 0 10px !important;
+    margin-top: 0 !important;
+  }
+
+  .wishlist-hero-content-box {
+    flex-direction: column !important; /* Stack vertically on mobile to prevent clipping! */
+    align-items: flex-start !important;
+    padding: 30px 20px !important; /* Comfortable mobile padding */
+    gap: 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .wishlist-hero-content h1 {
+    font-size: 2.2rem !important; /* Perfectly proportional font */
+    line-height: 1.2 !important;
+  }
+
+  .wishlist-hero-content p {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    max-width: 100% !important;
+  }
+
+  .wishlist-hero-stats {
+    width: 100% !important; /* Take full container width */
+    box-sizing: border-box !important;
+    padding: 15px 10px !important;
+    gap: 0 !important;
+    justify-content: space-around !important; /* Align stats perfectly side-by-side */
+    border-radius: 16px !important;
+  }
+
+  .w-stat h3 {
+    font-size: 26px !important;
+  }
+
+  .w-stat p {
+    font-size: 9px !important;
+    letter-spacing: 1px !important;
+  }
+
   .wishlist-title {
     font-size: 2.2rem;
   }

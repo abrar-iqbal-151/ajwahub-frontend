@@ -1046,5 +1046,56 @@ body {
   .signup-page .login-navbar {
     background: rgba(0, 0, 0, 0.95) !important;
     border: 1px solid rgba(223, 193, 93, 0.3) !important;
+    width: 94% !important;
+    padding: 8px 14px !important;
+    top: 10px !important;
+  }
+
+  .signup-page .login-navbar .nav-logo-icon {
+    width: 1.85rem !important;
+    height: 1.85rem !important;
+  }
+
+  .signup-page .login-navbar .nav-logo-text {
+    font-size: 1.25rem !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  .signup-page .login-navbar .nav-buttons {
+    margin-left: auto !important;
+    gap: 8px !important;
+  }
+
+  .signup-page .login-navbar .btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+    border-radius: 80px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .signup-page .login-navbar .theme-toggle-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .signup-page .login-navbar {
+    padding: 8px 10px !important;
+  }
+  
+  .signup-page .login-navbar .nav-logo-text {
+    display: none !important;
+  }
+  
+  .signup-page .login-navbar .nav-buttons {
+    gap: 6px !important;
   }
 }
