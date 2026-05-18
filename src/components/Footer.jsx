@@ -41,6 +41,7 @@ function Footer() {
           <p className="login-footer-col-title">Quick Links</p>
           <div className="login-footer-links">
             <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact Us</Link>
             <Link to="/products">Our Products</Link>
             <Link to="/gifting">Gift Boxes</Link>
           </div>

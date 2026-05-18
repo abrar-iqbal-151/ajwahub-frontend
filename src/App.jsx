@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import TwoFactorAuth from './pages/TwoFactorAuth'
 import ResetPassword from './pages/ResetPassword'
 import Products from './pages/Products'
+import Contact from './pages/Contact'
 import AI from './pages/AI'
 import Gifting from './pages/Gifting'
 import Wishlist from './pages/Wishlist'
@@ -48,6 +49,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/orders" element={<OrderHistory />} />
+        <Route path="/contact" element={<Contact />} />
 
       </Routes>
     </div>
