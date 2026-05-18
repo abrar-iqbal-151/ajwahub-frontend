@@ -1013,6 +1013,12 @@ body {
   position: relative;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
   color: #f5f0f0 !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.product-details-modal::-webkit-scrollbar {
+  display: none !important;
 }
 
 .close-btn {

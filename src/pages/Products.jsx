@@ -363,32 +363,35 @@ function Products() {
                   </div>
 
                   <div className="pd-rating-stock-row" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-                    <div className="pd-rating" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                      <div style={{ color: '#fbbf24', fontSize: '1.3rem', letterSpacing: '2px', display: 'flex', cursor: 'pointer' }} title="Click to rate this product">
+                    <div className="pd-rating" style={{ display: 'flex', alignItems: 'center', gap: '5px', userSelect: 'none' }}>
+                      <div style={{ color: '#fbbf24', fontSize: '1.3rem', letterSpacing: '2px', display: 'flex', cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }} title="Click to rate this product">
                         {[1, 2, 3, 4, 5].map(star => (
                           <span 
                             key={star} 
                             style={{ 
                               color: star <= (modalHoverStar || Math.round(productRatings.average)) ? '#fbbf24' : '#e5e7eb',
                               transition: 'color 0.2s, transform 0.2s',
-                              transform: star <= modalHoverStar ? 'scale(1.15)' : 'scale(1)'
+                              transform: star <= modalHoverStar ? 'scale(1.15)' : 'scale(1)',
+                              display: 'inline-block'
                             }}
                             onMouseEnter={() => setModalHoverStar(star)}
                             onMouseLeave={() => setModalHoverStar(0)}
-                            onClick={() => handleModalRate(star)}
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleModalRate(star); }}
                           >★</span>
                         ))}
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ color: '#666', fontSize: '0.85rem', marginLeft: '5px', fontWeight: '500' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', minWidth: '130px' }}>
+                        <span style={{ color: '#666', fontSize: '0.85rem', marginLeft: '5px', fontWeight: '500', whiteSpace: 'nowrap' }}>
                           {productRatings.average} ({productRatings.total}+ Reviews)
                         </span>
-                        {modalRatingStatus === 'success' && (
-                          <span style={{ color: '#10b981', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '700', animation: 'fadeIn 0.3s ease' }}>⭐ Rated!</span>
-                        )}
-                        {modalRatingStatus === 'submitting' && (
-                          <span style={{ color: '#c5a059', fontSize: '0.75rem', marginLeft: '5px' }}>Saving...</span>
-                        )}
+                        <div style={{ height: '18px', display: 'flex', alignItems: 'center' }}>
+                          {modalRatingStatus === 'success' && (
+                            <span style={{ color: '#10b981', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '700', animation: 'fadeIn 0.3s ease' }}>⭐ Rated!</span>
+                          )}
+                          {modalRatingStatus === 'submitting' && (
+                            <span style={{ color: '#c5a059', fontSize: '0.75rem', marginLeft: '5px' }}>Saving...</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div className="pd-stock-status" style={{ margin: 0 }}>
