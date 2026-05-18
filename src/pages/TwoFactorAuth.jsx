@@ -105,7 +105,10 @@ function TwoFactorAuth() {
 <nav className="navbar">
         <div className="nav-logo" onClick={() => navigate('/')}>
           <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
-          <span className="nav-logo-text">AjwaHub</span>
+          <span className="nav-logo-text">
+            <span className="logo-ajwa">Ajwa</span>
+            <span className="logo-hub">Hub</span>
+          </span>
         </div>
         <div className="nav-right">
           <button className="login-btn" onClick={() => navigate('/login')}>

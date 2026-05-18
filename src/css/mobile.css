@@ -1401,3 +1401,13 @@
     animation: none !important;
   }
 }
+
+/* ── MOBILE FOOTER COLOR OVERRIDE ── */
+@media (max-width: 768px) {
+  .footer {
+    background: #090807 !important; /* Premium deep carbon black matte background */
+    border-top: 1.5px solid rgba(212, 175, 55, 0.25) !important; /* Elegant thin luxury gold border */
+    padding: 2.5rem 1.2rem 1.5rem !important; /* Cozy padding optimized for mobile screens */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6) !important; /* Soft backdrop depth shadow */
+  }
+}

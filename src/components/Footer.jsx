@@ -28,7 +28,10 @@ function Footer() {
         <div className="login-footer-brand">
           <div className="login-footer-brand-row">
             <img src="/LOGO.jpeg" alt="AjwaHub" className="login-footer-logo" />
-            <span className="login-footer-name">AjwaHub</span>
+            <span className="login-footer-name">
+              <span className="logo-ajwa">Ajwa</span>
+              <span className="logo-hub">Hub</span>
+            </span>
           </div>
           <p className="login-footer-tagline">Premium dates & dry fruits, handpicked from the finest farms. Delivered fresh across Pakistan.</p>
           <div className="login-footer-social">
@@ -77,7 +80,10 @@ function Footer() {
       </div>
       <div className="login-footer-bottom">
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span className="login-footer-bottom-brand" style={{ fontWeight: '700' }}>AjwaHub</span>
+          <span className="login-footer-bottom-brand" style={{ fontWeight: '700' }}>
+            <span className="logo-ajwa">Ajwa</span>
+            <span className="logo-hub">Hub</span>
+          </span>
           <span>&copy; {new Date().getFullYear()}. All rights reserved.</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

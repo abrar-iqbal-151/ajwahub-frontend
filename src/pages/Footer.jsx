@@ -7,7 +7,10 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-logo">
           <img src="/LOGO.jpeg" alt="AjwaHub" className="footer-logo-img" />
-          <span>AjwaHub</span>
+          <span className="footer-logo-text">
+            <span className="logo-ajwa">Ajwa</span>
+            <span className="logo-hub">Hub</span>
+          </span>
         </div>
         <div className="footer-links">
           <a href="#">About Us</a>

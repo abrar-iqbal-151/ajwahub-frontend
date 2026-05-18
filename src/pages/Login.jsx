@@ -140,7 +140,10 @@ function Login() {
         <div className="nav-inner">
           <div className="nav-logo" onClick={() => navigate('/')} style={{cursor:'pointer'}}>
             <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
-            <span className="nav-logo-text">AjwaHub</span>
+            <span className="nav-logo-text">
+              <span className="logo-ajwa">Ajwa</span>
+              <span className="logo-hub">Hub</span>
+            </span>
           </div>
           <div className="nav-buttons">
             <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">

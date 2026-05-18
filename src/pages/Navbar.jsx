@@ -225,7 +225,10 @@ function Navbar({ extraLeft }) {
 
           <div className="nav-logo" onClick={() => navigate('/home')}>
             <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
-            <span className="nav-logo-text">AjwaHub</span>
+            <span className="nav-logo-text">
+              <span className="logo-ajwa">Ajwa</span>
+              <span className="logo-hub">Hub</span>
+            </span>
           </div>
 
           {extraLeft}
@@ -292,7 +295,10 @@ function Navbar({ extraLeft }) {
         <div className="drawer-header">
           <div className="drawer-logo">
             <img src="/LOGO.jpeg" alt="AjwaHub" className="drawer-logo-img" />
-            <span className="drawer-logo-text">AjwaHub</span>
+            <span className="drawer-logo-text">
+              <span className="logo-ajwa">Ajwa</span>
+              <span className="logo-hub">Hub</span>
+            </span>
           </div>
           <button className="drawer-close" onClick={() => setDrawerOpen(false)}>✕</button>
         </div>

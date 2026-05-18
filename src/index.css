@@ -199,3 +199,34 @@ body.dark-theme .desc-orb1 {
 body.dark-theme .desc-orb2 {
   background: radial-gradient(circle, rgba(197, 160, 89, 0.12), transparent 70%) !important; /* Gold glow */
 }
+
+/* ── AJWAHUB GLOBAL GRADIENT LOGO STYLING ── */
+.nav-logo-text,
+.drawer-logo-text,
+.footer-logo span,
+.footer-logo-text,
+.login-footer-name,
+.login-footer-bottom-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0px !important;
+  font-weight: 900 !important;
+  font-family: 'Outfit', 'Inter', sans-serif !important;
+}
+
+.logo-ajwa {
+  color: #fb923c !important; /* Gold / Orange solid brand color */
+  background: linear-gradient(135deg, #ffb300, #fb923c) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+  display: inline-block !important;
+}
+
+.logo-hub {
+  background: linear-gradient(135deg, #09f5ba, #00c6ff) !important; /* Premium turquoise/teal to sky blue/cyan gradient */
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+  display: inline-block !important;
+}

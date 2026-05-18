@@ -216,7 +216,10 @@ function Payment() {
         <nav className="navbar">
           <div className="nav-logo" onClick={() => navigate('/home')}>
             <img src="/LOGO.jpeg" alt="AjwaHub Logo" className="nav-logo-icon" />
-            <span className="nav-logo-text">AjwaHub</span>
+            <span className="nav-logo-text">
+              <span className="logo-ajwa">Ajwa</span>
+              <span className="logo-hub">Hub</span>
+            </span>
           </div>
         </nav>
         <div className="confirmation-container">
