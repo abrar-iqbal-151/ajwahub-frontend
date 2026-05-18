@@ -223,7 +223,7 @@ function Description() {
 
       {/* FEATURE SECTION */}
       <section className="desc-feature-section">
-        <h3 className="section-title" style={{ gridColumn: '1/-1', textAlign: 'center', marginBottom: '0' }}>Our Premium AjwaHub</h3>
+        <h3 className="section-title" style={{ gridColumn: '1/-1', textAlign: 'center' }}>Our Premium AjwaHub</h3>
         <div className="desc-feature-img-wrap">
           <div className="desc-float-single">
             {feature && feature.images && feature.images.length > 0 ? (
