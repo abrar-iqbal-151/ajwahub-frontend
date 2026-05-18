@@ -9,6 +9,7 @@ import TwoFactorAuth from './pages/TwoFactorAuth'
 import ResetPassword from './pages/ResetPassword'
 import Products from './pages/Products'
 import Contact from './pages/Contact'
+import Rating from './pages/Rating'
 import AI from './pages/AI'
 import Gifting from './pages/Gifting'
 import Wishlist from './pages/Wishlist'
@@ -33,8 +34,11 @@ function App() {
         <Route path="/ai" element={<AI />} />
         <Route path="/gifting" element={<Gifting />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/rating" element={<Rating />} />
         <Route path="/gymai" element={<GymAI />} />
         <Route path="/tracking" element={<Tracking />} />
+        <Route path="/checkout" element={<Tracking />} />
         <Route path="/warehouse" element={<Warehouse />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/delivered" element={<Delivered />} />

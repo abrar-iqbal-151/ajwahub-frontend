@@ -543,8 +543,8 @@
 .premium-modal-img {
   width: 45%;
   min-width: 400px;
-  background: #110e0b !important;
-  border-right: 2px solid rgba(197, 160, 89, 0.25) !important;
+  background: transparent !important;
+  border-right: 1px solid rgba(197, 160, 89, 0.25) !important;
   position: relative;
 }
 
@@ -781,6 +781,7 @@
   position: relative;
   border-radius: 20px 0 0 20px;
   overflow: hidden;
+  background: transparent !important;
 }
 
 .premium-modal-img img {

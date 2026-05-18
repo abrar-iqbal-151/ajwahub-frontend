@@ -1052,7 +1052,7 @@ body {
 
 .pd-left {
   flex: 1.1;
-  background: #110e0b !important; /* Boutique Dark Luxury Backdrop */
+  background: transparent !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1067,10 +1067,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #191410 !important; /* Premium matching background */
+  background: transparent !important;
   border-radius: 30px;
-  padding: 20px;
-  border: 1.5px solid rgba(197, 160, 89, 0.4) !important; /* Premium Gold Frame */
+  padding: 0;
+  border: none !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;

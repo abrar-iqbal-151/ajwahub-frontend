@@ -24,6 +24,55 @@ function Premium() {
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const cartQuantity = cart.reduce((t, i) => t + i.quantity, 0);
   const user = JSON.parse(localStorage.getItem('ajwaHub_currentUser') || 'null');
+  
+  const [productRatings, setProductRatings] = useState({ average: 4.9, total: 120 });
+  const [modalHoverStar, setModalHoverStar] = useState(0);
+  const [modalRatingStatus, setModalRatingStatus] = useState(null);
+
+  const handleModalRate = async (star) => {
+    if (modalRatingStatus === 'success') return;
+    setModalRatingStatus('submitting');
+    
+    try {
+      await fetch(`${API}/ratings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: selected?.id || selected?._id || 'unknown',
+          productName: selected?.name || 'Unknown Product',
+          rating: star,
+          reviewText: ''
+        })
+      });
+
+      const stored = JSON.parse(localStorage.getItem('ajwa_product_ratings') || '[]');
+      stored.push({ id: Date.now(), productId: selected?.id || selected?._id || 'unknown', rating: star, reviewText: '', date: new Date().toISOString() });
+      localStorage.setItem('ajwa_product_ratings', JSON.stringify(stored));
+      
+      const sum = stored.reduce((acc, curr) => acc + curr.rating, 0);
+      const baseScore = 4.9 * 120;
+      const newScore = ((baseScore + sum) / (120 + stored.length)).toFixed(1);
+      setProductRatings({ average: newScore, total: 120 + stored.length });
+      
+      setModalRatingStatus('success');
+      setTimeout(() => setModalRatingStatus(null), 3000);
+    } catch (err) {
+      console.error(err);
+      setModalRatingStatus(null);
+    }
+  };
+
+  useEffect(() => {
+    if (selected) {
+      const stored = JSON.parse(localStorage.getItem('ajwa_product_ratings') || '[]');
+      if (stored.length > 0) {
+        const sum = stored.reduce((acc, curr) => acc + curr.rating, 0);
+        const baseScore = 4.9 * 120;
+        const newScore = ((baseScore + sum) / (120 + stored.length)).toFixed(1);
+        setProductRatings({ average: newScore, total: 120 + stored.length });
+      }
+    }
+  }, [selected]);
 
   useEffect(() => {
     fetch(`${API}/premium-products`)
@@ -286,71 +335,82 @@ function Premium() {
 
       {/* PRODUCT MODAL */}
       {showModal && selected && (
-        <div className="premium-modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="premium-modal" onClick={e => e.stopPropagation()}>
-            <button className="premium-modal-close" onClick={() => setShowModal(false)}>✕</button>
-            <div className="premium-modal-content">
-              <div className="premium-modal-img">
-                <img src={selected.image} alt={selected.name} onError={e => e.target.style.display = 'none'} />
-                <span className="premium-card-badge">{selected.badge}</span>
+        <div className="product-details-overlay" onClick={() => setShowModal(false)}>
+          <div className="product-details-modal" onClick={e => e.stopPropagation()}>
+            <button className="close-btn" onClick={() => setShowModal(false)}>✕</button>
+            <div className="product-details-content">
+              <div className="pd-left">
+                <div className="pd-image-wrapper">
+                  <img src={selected.image} alt={selected.name} onError={e => e.target.style.display = 'none'} />
+                </div>
               </div>
-              <div className="premium-modal-info">
-                <div className="pm-header">
-                  <h2>{selected.name}</h2>
-                  {selected.arabicName && <h2 className="pm-arabic">{selected.arabicName}</h2>}
+              <div className="pd-right">
+                <div className="pd-header-row">
+                  <h2 className="pd-title">{selected.name}</h2>
+                  {selected.arabicName && <h2 className="pd-arabic">{selected.arabicName}</h2>}
                 </div>
 
-                <div className="pm-price-display">
+                <div className="pd-price">
                   PKR {(selectedWeight ? selectedWeight.price : selected.price)?.toLocaleString()}
                 </div>
 
-                <p className="pm-desc">{selected.description}</p>
+                <div className="pd-storage-note">
+                  {selected.description}
+                </div>
 
-                <div className="pm-stock-status">
-                  <span className={`status-dot ${selected.stock ? 'status-green' : 'status-red'}`}></span>
-                  {selected.stock ? 'In Stock' : 'Out of Stock'}
+                <div className="pd-rating-stock-row" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                  <div className="pd-rating" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <div style={{ color: '#fbbf24', fontSize: '1.3rem', letterSpacing: '2px', display: 'flex', cursor: 'pointer' }} title="Click to rate this product">
+                      {[1, 2, 3, 4, 5].map(star => (
+                        <span 
+                          key={star} 
+                          style={{ 
+                            color: star <= (modalHoverStar || Math.round(productRatings.average)) ? '#fbbf24' : '#e5e7eb',
+                            transition: 'color 0.2s, transform 0.2s',
+                            transform: star <= modalHoverStar ? 'scale(1.15)' : 'scale(1)'
+                          }}
+                          onMouseEnter={() => setModalHoverStar(star)}
+                          onMouseLeave={() => setModalHoverStar(0)}
+                          onClick={() => handleModalRate(star)}
+                        >★</span>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ color: '#666', fontSize: '0.85rem', marginLeft: '5px', fontWeight: '500' }}>
+                        {productRatings.average} ({productRatings.total}+ Reviews)
+                      </span>
+                      {modalRatingStatus === 'success' && (
+                        <span style={{ color: '#10b981', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '700', animation: 'fadeIn 0.3s ease' }}>⭐ Rated!</span>
+                      )}
+                      {modalRatingStatus === 'submitting' && (
+                        <span style={{ color: '#c5a059', fontSize: '0.75rem', marginLeft: '5px' }}>Saving...</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="pd-stock-status" style={{ margin: 0 }}>
+                    <span className="stock-dot"></span> {selected.stock ? 'In Stock' : 'Out of Stock'}
+                  </div>
                 </div>
 
                 {selected.weightOptions && selected.weightOptions.length > 0 && (
-                  <div className="pm-weight-section">
-                    <label>Weight: <span>{selectedWeight?.label || selected.weight}</span></label>
-
-                    {/* Top Pills for first 2 options */}
-                    <div className="weight-pills-row">
-                      {selected.weightOptions.slice(0, 2).map((opt, idx) => (
-                        <div
+                  <div className="pd-weight-selection">
+                    <p className="weight-label">Weight: <span>{selectedWeight?.label || selected.weight}</span></p>
+                    <div className="weight-options">
+                      {selected.weightOptions.map((opt, idx) => (
+                        <button
                           key={idx}
-                          className={`weight-pill ${selectedWeight?.label === opt.label ? 'active' : ''}`}
+                          className={`weight-opt ${selectedWeight?.label === opt.label ? 'active' : ''}`}
                           onClick={() => setSelectedWeight(opt)}
                         >
-                          {opt.label}
-                        </div>
+                          {opt.label} {opt.savings > 0 && <span>(Save PKR {opt.savings})</span>}
+                        </button>
                       ))}
                     </div>
-
-                    {/* Vertical list for rest */}
-                    {selected.weightOptions.length > 2 && (
-                      <div className="weight-list-vertical">
-                        {selected.weightOptions.slice(2).map((opt, idx) => (
-                          <div
-                            key={idx}
-                            className={`weight-list-item ${selectedWeight?.label === opt.label ? 'active' : ''}`}
-                            onClick={() => setSelectedWeight(opt)}
-                          >
-                            <div className="wli-left">
-                              <span className="wli-label">{opt.label}</span>
-                              {opt.savings > 0 && <span className="wli-savings">(Save PKR {opt.savings})</span>}
-                            </div>
-                            <span className="wli-price">PKR {opt.price?.toLocaleString()}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 )}
 
                 <button
-                  className="pm-add-btn"
+                  className="pd-add-to-cart-btn"
                   disabled={!selected.stock}
                   onClick={() => { setShowModal(false); addToCart(selected, selectedWeight); }}
                 >
