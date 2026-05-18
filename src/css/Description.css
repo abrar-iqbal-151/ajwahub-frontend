@@ -586,21 +586,35 @@ html {
 
 @media (max-width: 768px) {
   .hero-offer-strip {
-    gap: 8px;
-    padding: 10px 12px;
-    border-radius: 0 0 14px 14px;
-    width: 94%;
-    margin: 0 3% 16px;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    padding: 8px 8px !important;
+    border-radius: 0 0 14px 14px !important;
+    width: 94% !important;
+    margin: 0 3% 16px !important;
+    overflow: hidden !important;
   }
 
   .hero-offer-text {
-    font-size: 0.65rem;
-    letter-spacing: 1px;
+    font-size: 0.58rem !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    flex-shrink: 1 !important;
   }
 
   .hero-offer-badge {
-    font-size: 0.8rem;
-    padding: 4px 12px;
+    font-size: 0.65rem !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.5px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .hero-offer-flash {
+    font-size: 0.75rem !important;
+    flex-shrink: 0 !important;
   }
 }
 
