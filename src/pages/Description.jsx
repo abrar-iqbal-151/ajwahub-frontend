@@ -104,7 +104,7 @@ function Description() {
   const [paymentIcons, setPaymentIcons] = useState([]);
   const [aiSection, setAiSection] = useState(null);
 
-  const [selectedWeight, setSelectedWeight] = useState('1kg Special Box');
+  const [selectedWeight, setSelectedWeight] = useState(null);
   const [productRatings, setProductRatings] = useState({ average: 4.9, total: 120 });
   const [modalHoverStar, setModalHoverStar] = useState(0);
   const [modalRatingStatus, setModalRatingStatus] = useState(null);
@@ -155,11 +155,38 @@ function Description() {
   }, [selectedProduct]);
 
   const getPriceForWeight = (basePrice, weight) => {
-    if (weight.includes('500g')) return Math.round(basePrice * 0.55);
-    if (weight.includes('2kg')) return basePrice * 2 - 500;
-    if (weight.includes('3kg')) return basePrice * 3 - 700;
-    if (weight.includes('5kg')) return basePrice * 5 - 1500;
+    if (!weight) return basePrice;
+    const w = weight.toLowerCase().replace(/\s+/g, '');
+    if (w.includes('500g')) {
+      if (basePrice === 4300) return 2300;
+      return Math.round(basePrice * 0.535);
+    }
+    if (w.includes('2kg')) {
+      if (basePrice === 4300) return 8400;
+      return basePrice * 2 - 200;
+    }
+    if (w.includes('3kg')) {
+      if (basePrice === 4300) return 12200;
+      return basePrice * 3 - 700;
+    }
+    if (w.includes('5kg')) {
+      if (basePrice === 4300) return 21000;
+      return basePrice * 5 - 500;
+    }
     return basePrice;
+  };
+
+  const getDisplayPrice = (product, weightLabel) => {
+    if (!weightLabel) return null;
+    const opt = (product.weights || []).find(w => w.label === weightLabel);
+    if (opt && opt.savings) {
+      const cleanSavings = opt.savings.replace(/,/g, '');
+      const match = cleanSavings.match(/\d+/);
+      if (match) {
+        return parseInt(match[0], 10);
+      }
+    }
+    return getPriceForWeight(product.price, weightLabel);
   };
 
   useEffect(() => {
@@ -203,14 +230,14 @@ function Description() {
   }, []);
 
   const handleProductClick = (product) => {
-    setSelectedWeight('1kg Special Box');
+    setSelectedWeight(null);
     setSelectedProduct(product);
     setShowProductDetails(true);
   };
   const closeProductDetails = () => {
     setShowProductDetails(false);
     setSelectedProduct(null);
-    setSelectedWeight('1kg Special Box');
+    setSelectedWeight(null);
   };
 
   const renderStars = (rating) =>
@@ -619,7 +646,11 @@ function Description() {
                   <h2 className="pd-title">{selectedProduct.name}</h2>
                   {selectedProduct.arabicName && <h2 className="pd-arabic">{selectedProduct.arabicName}</h2>}
                 </div>
-                <div className="pd-price">Rs.{getPriceForWeight(selectedProduct.price, selectedWeight).toLocaleString()}.00</div>
+                {selectedWeight ? (
+                  <div className="pd-price">Rs.{getDisplayPrice(selectedProduct, selectedWeight).toLocaleString()}.00</div>
+                ) : (
+                  <div className="pd-price" style={{ opacity: 0, height: '32px' }}>&nbsp;</div>
+                )}
 
                 <div className="pd-storage-note">
                   {selectedProduct.storageNote || 'Storage Note: To maintain freshness and softness, store dates in the refrigerator after receiving the parcel....'}
@@ -662,28 +693,48 @@ function Description() {
                   </div>
                 </div>
 
-                <div className="pd-weight-selection">
-                  <p className="weight-label">Weight: <span>{selectedWeight}</span></p>
+                 <div className="pd-weight-selection">
+                  <p className="weight-label">Weight: <span>{selectedWeight || 'Select an option'}</span></p>
                   <div className="weight-options">
-                    {(selectedProduct.weights && selectedProduct.weights.length > 0 ? selectedProduct.weights : [
-                      { label: '1kg Special Box', savings: '' },
-                      { label: '500g Mini Box', savings: '' },
-                      { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
-                      { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
-                      { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
-                    ]).map((w, idx) => (
-                      <button
-                        key={idx}
-                        className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
-                        onClick={() => setSelectedWeight(w.label)}
-                      >
-                        {w.label} {w.savings && <span>{w.savings}</span>}
-                      </button>
-                    ))}
+                    {(() => {
+                      const dbWeights = selectedProduct.weights && selectedProduct.weights.length > 0
+                        ? selectedProduct.weights
+                        : [
+                            { label: '1kg Special Box', savings: '' },
+                            { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                            { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                            { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                          ];
+                      // Check if 500g is already in the list
+                      const has500g = dbWeights.some(w => w.label.toLowerCase().replace(/\s+/g, '').includes('500g'));
+                      const finalWeights = has500g
+                        ? dbWeights
+                        : [{ label: '500g Mini Box', savings: '' }, ...dbWeights];
+
+                      return finalWeights.map((w, idx) => (
+                        <button
+                          key={idx}
+                          className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
+                          onClick={() => setSelectedWeight(w.label)}
+                        >
+                          {w.label} {w.savings && <span>{w.savings}</span>}
+                        </button>
+                      ));
+                    })()}
                   </div>
                 </div>
 
-                <button className="pd-add-to-cart-btn" onClick={() => { closeProductDetails(); setShowLoginModal(true); }}>
+                <button 
+                  className="pd-add-to-cart-btn" 
+                  onClick={() => {
+                    if (!selectedWeight) {
+                      alert('Please select a box size first.');
+                      return;
+                    }
+                    closeProductDetails(); 
+                    setShowLoginModal(true);
+                  }}
+                >
                   Add to Cart
                 </button>
               </div>
