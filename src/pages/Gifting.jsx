@@ -34,6 +34,13 @@ function Gifting() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
   const [showMobileProducts, setShowMobileProducts] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
@@ -205,29 +212,31 @@ function Gifting() {
             </div>
 
             {/* Desktop right panel (hidden on mobile) */}
-            <div className="gcm-right desktop-only">
-              <h4>Choose Products</h4>
-              <div className="gcm-search">
-                <span>🔍</span>
-                <input placeholder="Search products..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
-              </div>
-              <div className="gcm-products">
-                {filteredProducts.map(product => (
-                  <div
-                    key={product.id}
-                    className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
-                    onClick={() => addItem(product)}
-                  >
-                    <img src={product.image} alt={product.name} onError={e => e.target.style.display = 'none'} />
-                    <div>
-                      <h5>{product.name}</h5>
-                      <span>PKR {product.price.toLocaleString()}</span>
+            {!isMobile && (
+              <div className="gcm-right desktop-only">
+                <h4>Choose Products</h4>
+                <div className="gcm-search">
+                  <span>🔍</span>
+                  <input placeholder="Search products..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
+                </div>
+                <div className="gcm-products">
+                  {filteredProducts.map(product => (
+                    <div
+                      key={product.id}
+                      className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
+                      onClick={() => addItem(product)}
+                    >
+                      <img src={product.image} alt={product.name} onError={e => e.target.style.display = 'none'} />
+                      <div>
+                        <h5>{product.name}</h5>
+                        <span>PKR {product.price.toLocaleString()}</span>
+                      </div>
+                      <button className="gcm-add-btn" disabled={selectedItems.length >= selectedBox.maxItems}>+</button>
                     </div>
-                    <button className="gcm-add-btn" disabled={selectedItems.length >= selectedBox.maxItems}>+</button>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
