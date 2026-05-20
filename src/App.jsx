@@ -1,5 +1,6 @@
 import Premium from './pages/Premium'
 import { Routes, Route } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
 import Description from './pages/Description'
 import Home from './pages/Home'
 import Settings from './pages/Settings'
@@ -26,6 +27,7 @@ import OrderHistory from './pages/OrderHistory'
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Description />} />
         <Route path="/description" element={<Description />} />
