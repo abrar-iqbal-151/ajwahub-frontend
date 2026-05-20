@@ -95,8 +95,8 @@ function Description() {
   const [mobileReviewSlide, setMobileReviewSlide] = useState(0);
 
   const defaultHeroes = [
-    { key: 'hero1', title: 'Premium Ajwa Dates', text: 'Fresh from Madinah, directly to your doorstep.', video: 'video(1).mp4' },
-    { key: 'hero2', title: 'Luxury Gift Boxes', text: 'Perfect for every occasion and corporate gifting.', video: 'video(3).mp4' }
+    { key: 'hero1', title: 'Premium Ajwa Dates', text: 'Fresh from Madinah, directly to your doorstep.', video: '' },
+    { key: 'hero2', title: 'Luxury Gift Boxes', text: 'Perfect for every occasion and corporate gifting.', video: '' }
   ];
 
   const [heroes, setHeroes] = useState(defaultHeroes);
