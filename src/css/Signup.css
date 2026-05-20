@@ -769,52 +769,86 @@ body {
   }
 
   .signup-center-wrap {
-    padding: 100px 16px 30px;
+    padding: 80px 12px 20px; /* Reduced top padding */
   }
 
   .signup-container {
-    border-radius: 2rem;
+    border-radius: 1.5rem;
+    padding: 1rem 1.2rem; /* Reduced inner padding */
+    margin: auto 0;
   }
 
   .signup-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem; /* Smaller title */
+    margin-bottom: 0.2rem;
   }
 
   .signup-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.75rem; /* Smaller subtitle */
+    margin-bottom: 0.3rem;
   }
 
   .form-row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+    grid-template-columns: 1fr 1fr; /* Keep 2 columns on mobile to save vertical space */
+    gap: 0.4rem;
   }
 
   .signup-form {
-    gap: 0.6rem;
+    gap: 0.4rem; /* Reduced gap between form fields */
   }
 
   .form-input {
-    padding: 0.85rem 1rem;
-    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem; /* Smaller input padding */
+    font-size: 0.8rem;
+    border-radius: 8px;
   }
 
   .signup-btn {
-    padding: 1rem;
-    font-size: 0.95rem;
+    padding: 0.7rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
   }
 
   .terms-text {
-    font-size: 0.78rem;
+    font-size: 0.65rem;
+  }
+
+  .terms-checkbox {
+    margin: 0.2rem 0;
+  }
+
+  .alt-btn {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .signup-alt-btns {
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .signup-footer {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .password-strength {
+    margin-bottom: 0.2rem;
+  }
+
+  .strength-bar {
+    margin-bottom: 0.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .signup-center-wrap {
-    padding: 90px 10px 20px;
+    padding: 70px 8px 10px; /* Ultra compact for small phones */
   }
 
   .signup-title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 }
 
