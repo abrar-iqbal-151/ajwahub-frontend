@@ -1839,4 +1839,385 @@ select.ship-input option {
 .addr-selected-badge {
   color: #fb923c !important;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   STRIPE CHECKOUT — PREMIUM CARD UI
+═══════════════════════════════════════════════════════════ */
+
+/* Wrapper form */
+.sco-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+/* ── Card Visual Preview ── */
+.sco-card-visual {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 200px;
+  margin: 0 auto 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1a120b 0%, #2d1f0e 40%, #1a0d00 100%);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(197, 160, 89, 0.15) inset;
+  overflow: hidden;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* shimmer overlay */
+.sco-card-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(197, 160, 89, 0.07) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: sco-shimmer 3s infinite linear;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@keyframes sco-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* EMV Chip */
+.sco-card-chip {
+  width: 40px;
+  height: 30px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #c9b85c, #8a6e2a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sco-chip-inner {
+  width: 28px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #e6c96a, #b08d40);
+}
+
+.sco-chip-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%);
+}
+
+/* Mastercard-style logo circles */
+.sco-card-brand {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  display: flex;
+}
+
+.sco-brand-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.sco-brand-circle-l {
+  background: #eb001b;
+  z-index: 1;
+}
+
+.sco-brand-circle-r {
+  background: #f79e1b;
+  margin-left: -12px;
+  z-index: 0;
+}
+
+/* Card number row */
+.sco-card-number-preview {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Bottom row */
+.sco-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sco-card-meta-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(197, 160, 89, 0.6);
+}
+
+.sco-card-meta-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1e8d0;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  min-width: 140px;
+}
+
+.sco-card-logo {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: rgba(197, 160, 89, 0.5);
+}
+
+/* ── Fields Container ── */
+.sco-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Individual field */
+.sco-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sco-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c5a059;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.sco-label-icon {
+  font-size: 13px;
+}
+
+/* Input wrapper — holds both native inputs AND Stripe iframes */
+.sco-input-wrap {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(197, 160, 89, 0.25);
+  border-radius: 12px;
+  padding: 13px 16px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  display: flex;
+  align-items: center;
+}
+
+.sco-input-wrap:focus-within {
+  border-color: #c9b85c;
+  box-shadow: 0 0 0 3px rgba(201, 184, 92, 0.12);
+}
+
+.sco-input-wrap.sco-invalid {
+  border-color: rgba(248, 113, 113, 0.6);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.08);
+}
+
+/* Native text input (cardholder name) */
+.sco-text-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e2e8f0;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.sco-text-input::placeholder {
+  color: #4b5563;
+}
+
+/* Stripe iframe element */
+.sco-stripe-el {
+  width: 100%;
+}
+
+/* Error text */
+.sco-field-error {
+  font-size: 11px;
+  color: #f87171;
+  margin: 0;
+  padding-left: 2px;
+}
+
+/* ── Expiry + CVC row ── */
+.sco-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Test hint ── */
+.sco-test-hint {
+  font-size: 11px;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 9px 12px;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.sco-test-hint strong {
+  color: #9ca3af;
+}
+
+/* ── Secure badges ── */
+.sco-secure-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sco-secure-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 5px 12px;
+  letter-spacing: 0.4px;
+}
+
+/* ── Pay Button ── */
+.sco-pay-btn {
+  width: 100%;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #c5a059 0%, #b08d4b 50%, #8a6e2a 100%);
+  color: #1a0d00;
+  letter-spacing: 0.3px;
+  box-shadow:
+    0 6px 20px rgba(197, 160, 89, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  margin-top: 4px;
+}
+
+.sco-pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 32px rgba(197, 160, 89, 0.45),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #d4b06a 0%, #c5a059 50%, #b08d4b 100%);
+}
+
+.sco-pay-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.sco-pay-btn--loading,
+.sco-pay-btn:disabled {
+  background: rgba(100, 116, 139, 0.4);
+  color: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sco-pay-icon {
+  font-size: 16px;
+}
+
+/* spinner reuse */
+.sco-pay-btn .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Minimum Amount Warning Banner ── */
+.sco-min-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid rgba(251, 146, 60, 0.4);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  animation: slideUp 0.3s ease;
+}
+
+.sco-min-warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sco-min-warning strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fb923c;
+  margin-bottom: 4px;
+}
+
+.sco-min-warning p {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sco-min-warning p strong {
+  display: inline;
+  color: #fdba74;
+}
+
+/* Dimmed card preview when disabled */
+.sco-card-visual--disabled {
+  opacity: 0.4;
+  filter: grayscale(60%);
+  pointer-events: none;
+}
 

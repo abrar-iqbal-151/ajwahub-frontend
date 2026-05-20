@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaTrash, FaShoppingCart, FaMapMarkerAlt, FaCreditCard, FaCheckCircle } from 'react-icons/fa';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import StripeCheckout from './StripeCheckout';
 import '../css/Payment.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 import Footer from '../components/Footer';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 function Payment() {
   const navigate = useNavigate();
@@ -12,12 +17,14 @@ function Payment() {
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [step, setStep] = useState('review');
-  const [selectedPayment, setSelectedPayment] = useState('card');
+  const [selectedPayment, setSelectedPayment] = useState('stripe');
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
+  const [stripeSuccess, setStripeSuccess] = useState(false);
+  const [stripePIId, setStripePIId] = useState('');
   const [shippingAddress, setShippingAddress] = useState({ fullName: '', phone: '', address: '', city: '', zipCode: '' });
   const [fieldErrors, setFieldErrors] = useState({});
   const [touched, setTouched] = useState({});
-  const [paymentForm, setPaymentForm] = useState({ cardNumber: '', cardHolder: '', expiryDate: '', cvv: '' });
+  const [paymentForm] = useState({ cardNumber: '', cardHolder: '', expiryDate: '', cvv: '' }); // kept for legacy order reference
   const [orderId, setOrderId] = useState('');
   const [orderStatus, setOrderStatus] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -163,6 +170,7 @@ function Payment() {
   const proceedToPayment = () => { if (validateShipping()) setStep('payment'); };
 
   const validatePayment = () => {
+    if (selectedPayment === 'stripe') return true; // Stripe handles its own validation
     if (selectedPayment === 'card' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     if (selectedPayment === 'easypaisa' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     if (selectedPayment === 'jazzcash' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
@@ -173,6 +181,8 @@ function Payment() {
     if (cartItems.length === 0) { setError('Your cart is empty.'); return; }
     if (!isShippingValid()) { setError('Please fill in your shipping details first.'); setStep('shipping'); return; }
     if (!validatePayment()) return;
+    // Stripe payments are handled by StripeCheckout's submit — skip here
+    if (selectedPayment === 'stripe') return;
     setProcessing(true); setError('');
     let screenshotPath = null;
     if (paymentScreenshot) {
@@ -184,19 +194,33 @@ function Payment() {
         if (upRes.ok) screenshotPath = upData.path;
       } catch { }
     }
+    await placeOrder({ status: 'Pending Approval', screenshotPath });
+  };
+
+  const placeOrder = async ({ status = 'Pending Approval', screenshotPath = null, stripePaymentId = null } = {}) => {
     const newOrderId = 'ORD' + Date.now();
     setOrderId(newOrderId);
-    const order = { orderId: newOrderId, items: cartItems, subtotal, discount, shipping, tax, total, paymentMethod: selectedPayment, status: 'Pending Approval', paymentScreenshot: screenshotPath, cardNumber: selectedPayment === 'card' ? paymentForm.cardNumber : undefined, cardHolder: selectedPayment === 'card' ? paymentForm.cardHolder : undefined, expiryDate: selectedPayment === 'card' ? paymentForm.expiryDate : undefined, shippingAddress, timestamp: new Date().toISOString(), userEmail: user?.email };
+    const order = { orderId: newOrderId, items: cartItems, subtotal, discount, shipping, tax, total, paymentMethod: selectedPayment, status, paymentScreenshot: screenshotPath, stripePaymentId, shippingAddress, timestamp: new Date().toISOString(), userEmail: user?.email };
     const orders = JSON.parse(localStorage.getItem('ajwaHub_orders') || '[]');
     orders.push(order);
     localStorage.setItem('ajwaHub_orders', JSON.stringify(orders));
     try { await fetch(`${API}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...order, trackingStatus: 'warehouse' }) }); } catch { }
     localStorage.removeItem('ajwaHub_cart');
     setCartItems([]);
-    setOrderStatus('Pending Approval');
+    setOrderStatus(status);
     setStep('confirmation');
     setProcessing(false);
     setTimeout(() => { navigate('/tracking'); }, 3000);
+  };
+
+  const handleStripeSuccess = async (paymentIntentId) => {
+    setStripePIId(paymentIntentId);
+    setStripeSuccess(true);
+    await placeOrder({ status: 'Paid', stripePaymentId: paymentIntentId });
+  };
+
+  const handleStripeError = (msg) => {
+    setError(msg);
   };
 
   if (step === 'confirmation') {
@@ -462,10 +486,32 @@ function Payment() {
 
               <div className="pay-methods">
                 <h4 className="pay-section-title">💳 Select Payment</h4>
+                {/* ── STRIPE CARD ── */}
+                <label className={`pay-option ${selectedPayment === 'stripe' ? 'active' : ''}`}>
+                  <input type="radio" name="payment" value="stripe" checked={selectedPayment === 'stripe'} onChange={e => setSelectedPayment(e.target.value)} />
+                  <span className="pay-opt-icon">🔐</span>
+                  <div><h5>Pay by Card (Stripe)</h5><p>Visa · Mastercard · 3D Secure</p></div>
+                </label>
+                {selectedPayment === 'stripe' && (
+                  <div className="pay-mobile-box">
+                    <Elements stripe={stripePromise}>
+                      <StripeCheckout
+                        total={total}
+                        userEmail={user?.email}
+                        orderId={`ORD${Date.now()}`}
+                        onSuccess={handleStripeSuccess}
+                        onError={handleStripeError}
+                        API={API}
+                      />
+                    </Elements>
+                  </div>
+                )}
+
+                {/* ── MANUAL BANK CARD ── */}
                 <label className={`pay-option ${selectedPayment === 'card' ? 'active' : ''}`}>
                   <input type="radio" name="payment" value="card" checked={selectedPayment === 'card'} onChange={e => setSelectedPayment(e.target.value)} />
                   <span className="pay-opt-icon">💳</span>
-                  <div><h5>Visa / Debit Card</h5><p>Direct bank transfer</p></div>
+                  <div><h5>Bank Transfer (Card)</h5><p>Manual transfer + screenshot</p></div>
                 </label>
                 {selectedPayment === 'card' && (
                   <div className="pay-mobile-box">
@@ -554,9 +600,11 @@ function Payment() {
             </div>
             <div className="button-group">
               <button className="back-btn" onClick={() => setStep('shipping')}>← Back</button>
-              <button className={`pay-btn ${processing || cartItems.length === 0 ? 'processing' : ''}`} onClick={processPayment} disabled={processing || cartItems.length === 0}>
-                {processing ? <><span className="spinner"></span>Processing...</> : cartItems.length === 0 ? '🛒 Cart is Empty' : `Pay PKR ${total.toLocaleString()}`}
-              </button>
+              {selectedPayment !== 'stripe' && (
+                <button className={`pay-btn ${processing || cartItems.length === 0 ? 'processing' : ''}`} onClick={processPayment} disabled={processing || cartItems.length === 0}>
+                  {processing ? <><span className="spinner"></span>Processing...</> : cartItems.length === 0 ? '🛒 Cart is Empty' : `Pay PKR ${total.toLocaleString()}`}
+                </button>
+              )}
             </div>
           </div>
         )}
