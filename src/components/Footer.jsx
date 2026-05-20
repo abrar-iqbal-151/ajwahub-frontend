@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import '../css/Login.css';
 function Footer() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
