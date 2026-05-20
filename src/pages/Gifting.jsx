@@ -197,9 +197,11 @@ function Gifting() {
                 </div>
               </div>
 
-              <button className="mobile-select-items-btn" onClick={() => setShowMobileProducts(true)}>
-                + Select Items
-              </button>
+              {isMobile && (
+                <button className="mobile-select-items-btn" onClick={() => setShowMobileProducts(true)}>
+                  + Select Items
+                </button>
+              )}
 
               <button
                 className="gift-btn order-gift-btn"
