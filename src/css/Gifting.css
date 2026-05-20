@@ -942,7 +942,8 @@
   }
 
   .gift-customize-modal {
-    height: 95vh;
+    height: auto;
+    max-height: 95vh;
   }
 
   .gcm-left {
