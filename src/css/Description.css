@@ -1609,22 +1609,23 @@ html {
     font-size: 0.8rem !important; /* Added to make icon smaller */
   }
 
-  /* Show both buttons, make them very compact */
+  /* Show ONLY Login button, make it look primary-like on mobile */
   .btn-secondary {
     display: inline-block !important;
-    padding: 4px 8px !important; /* Reduced padding */
-    font-size: 9px !important; /* Reduced font size */
+    padding: 6px 14px !important; 
+    font-size: 11px !important;
+    background: linear-gradient(135deg, #fb923c, #ea580c) !important;
+    border: none !important;
+    color: white !important;
   }
 
   .btn {
-    padding: 4px 8px !important; /* Reduced padding */
-    font-size: 9px !important; /* Reduced font size */
     white-space: nowrap !important;
   }
 
+  /* Hide Sign Up button on mobile */
   .btn-primary {
-    padding: 4px 8px !important; /* Reduced padding */
-    font-size: 9px !important; /* Reduced font size */
+    display: none !important;
   }
 
   /* nav-buttons */
