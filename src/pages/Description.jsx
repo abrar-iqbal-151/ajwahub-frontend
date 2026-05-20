@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Description.css';
 import '../css/AiSection.css';
-import { 
-  FaCheckCircle, 
-  FaBoxOpen, 
-  FaShippingFast, 
-  FaAward, 
-  FaFire, 
-  FaGift, 
-  FaHeart, 
-  FaCrown, 
-  FaTrophy, 
-  FaStar, 
+import {
+  FaCheckCircle,
+  FaBoxOpen,
+  FaShippingFast,
+  FaAward,
+  FaFire,
+  FaGift,
+  FaHeart,
+  FaCrown,
+  FaTrophy,
+  FaStar,
   FaMapMarkedAlt,
   FaBolt,
   FaRobot,
@@ -24,8 +24,8 @@ import Footer from '../components/Footer';
 const renderRealIcon = (iconName) => {
   if (!iconName) return null;
   const name = typeof iconName === 'string' ? iconName.trim() : '';
-  
-  switch(name) {
+
+  switch (name) {
     case '✅':
     case 'check':
     case 'FaCheckCircle':
@@ -95,10 +95,10 @@ function Description() {
   const [mobileReviewSlide, setMobileReviewSlide] = useState(0);
 
   const defaultHeroes = [
-    { key: 'hero1', title: 'Premium Ajwa Dates', text: 'Fresh from Madinah, directly to your doorstep.', video: '/home vedio 1.mp4' },
-    { key: 'hero2', title: 'Luxury Gift Boxes', text: 'Perfect for every occasion and corporate gifting.', video: '/home vedio 2.mp4' }
+    { key: 'hero1', title: 'Premium Ajwa Dates', text: 'Fresh from Madinah, directly to your doorstep.', video: 'video(1).mp4' },
+    { key: 'hero2', title: 'Luxury Gift Boxes', text: 'Perfect for every occasion and corporate gifting.', video: 'video(3).mp4' }
   ];
-  
+
   const [heroes, setHeroes] = useState(defaultHeroes);
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -117,7 +117,7 @@ function Description() {
   const handleModalRate = async (star) => {
     if (modalRatingStatus === 'success') return;
     setModalRatingStatus('submitting');
-    
+
     try {
       await fetch(`${API}/ratings`, {
         method: 'POST',
@@ -133,12 +133,12 @@ function Description() {
       const stored = JSON.parse(localStorage.getItem('ajwa_product_ratings') || '[]');
       stored.push({ id: Date.now(), productId: selectedProduct?.id || 'unknown', rating: star, reviewText: '', date: new Date().toISOString() });
       localStorage.setItem('ajwa_product_ratings', JSON.stringify(stored));
-      
+
       const sum = stored.reduce((acc, curr) => acc + curr.rating, 0);
       const baseScore = 4.9 * 120;
       const newScore = ((baseScore + sum) / (120 + stored.length)).toFixed(1);
       setProductRatings({ average: newScore, total: 120 + stored.length });
-      
+
       setModalRatingStatus('success');
       setTimeout(() => setModalRatingStatus(null), 3000);
     } catch (err) {
@@ -211,42 +211,42 @@ function Description() {
   }, [reviews]);
 
   useEffect(() => {
-  const defaultProducts = [
-    { id: 1, name: 'Premium Ajwa Dates', image: '/product Ajwa 01.jpg', price: 4300, stock: true, weights: [{label: '1kg Special Box', savings: ''}, {label: '500g Mini Box', savings: ''}] },
-    { id: 2, name: 'Royal Medjool Dates', image: '/Product 2.png', price: 3500, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
-    { id: 3, name: 'Mabroom Premium', image: '/Product 3.png', price: 2800, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
-    { id: 4, name: 'Safawi Dates', image: '/Product 4.png', price: 2500, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
-    { id: 5, name: 'Kalmi Dates', image: '/Product 5.png', price: 2000, stock: true, weights: [{label: '1kg Special Box', savings: ''}] }
-  ];
+    const defaultProducts = [
+      { id: 1, name: 'Premium Ajwa Dates', image: '/product Ajwa 01.jpg', price: 4300, stock: true, weights: [{ label: '1kg Special Box', savings: '' }, { label: '500g Mini Box', savings: '' }] },
+      { id: 2, name: 'Royal Medjool Dates', image: '/Product 2.png', price: 3500, stock: true, weights: [{ label: '1kg Special Box', savings: '' }] },
+      { id: 3, name: 'Mabroom Premium', image: '/Product 3.png', price: 2800, stock: true, weights: [{ label: '1kg Special Box', savings: '' }] },
+      { id: 4, name: 'Safawi Dates', image: '/Product 4.png', price: 2500, stock: true, weights: [{ label: '1kg Special Box', savings: '' }] },
+      { id: 5, name: 'Kalmi Dates', image: '/Product 5.png', price: 2000, stock: true, weights: [{ label: '1kg Special Box', savings: '' }] }
+    ];
 
-  const defaultReviews = [
-    { name: 'Ahmed Khan', rating: 5, text: 'Best quality dates! Fresh and delivered on time.' },
-    { name: 'Fatima Ali', rating: 5, text: 'Amazing packaging and premium quality. Highly recommended!' },
-    { name: 'Muhammad Hassan', rating: 5, text: 'Excellent service and authentic products. Very helpful team.' }
-  ];
+    const defaultReviews = [
+      { name: 'Ahmed Khan', rating: 5, text: 'Best quality dates! Fresh and delivered on time.' },
+      { name: 'Fatima Ali', rating: 5, text: 'Amazing packaging and premium quality. Highly recommended!' },
+      { name: 'Muhammad Hassan', rating: 5, text: 'Excellent service and authentic products. Very helpful team.' }
+    ];
 
-  const defaultAiSection = {
-    badge: '🤖 AI ASSISTANT',
-    title: 'Meet Your Personal AjwaHub AI',
-    description: 'Experience smart shopping with our interactive AI assistant. Get personalized recommendations, track your calories, and find the perfect gift instantly.',
-    video: '/video(3).mp4',
-    features: [
-      { icon: '🤖', title: 'Smart Recommendations', text: 'AI suggests the best dates based on your health goals.' },
-      { icon: '💬', title: '24/7 Instant Support', text: 'Chat with our AI bot anytime for queries and guidance.' }
-    ]
-  };
+    const defaultAiSection = {
+      badge: '🤖 AI ASSISTANT',
+      title: 'Meet Your Personal AjwaHub AI',
+      description: 'Experience smart shopping with our interactive AI assistant. Get personalized recommendations, track your calories, and find the perfect gift instantly.',
+      video: '/video(3).mp4',
+      features: [
+        { icon: '🤖', title: 'Smart Recommendations', text: 'AI suggests the best dates based on your health goals.' },
+        { icon: '💬', title: '24/7 Instant Support', text: 'Chat with our AI bot anytime for queries and guidance.' }
+      ]
+    };
 
-  const defaultFeature = {
-    title: 'Why Choose AjwaHub?',
-    description: 'We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.',
-    features: [
-      { icon: '✅', text: '100% Natural & Pure' },
-      { icon: '📦', text: 'Premium Packaging' },
-      { icon: '🚚', text: 'Fast Delivery Across Pakistan' },
-      { icon: '⭐', text: 'Trusted by 50,000+ Customers' }
-    ],
-    images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png']
-  };
+    const defaultFeature = {
+      title: 'Why Choose AjwaHub?',
+      description: 'We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.',
+      features: [
+        { icon: '✅', text: '100% Natural & Pure' },
+        { icon: '📦', text: 'Premium Packaging' },
+        { icon: '🚚', text: 'Fast Delivery Across Pakistan' },
+        { icon: '⭐', text: 'Trusted by 50,000+ Customers' }
+      ],
+      images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png']
+    };
 
     Promise.all([
       fetch(`${API}/content/heroes`).then(r => r.json()),
@@ -267,7 +267,7 @@ function Description() {
       setAbout(a.about || { title: 'How Our Dates Are Grown', paragraphs: ['Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations.'], images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png'] });
       setPaymentIcons(pi.icons || []);
       setAiSection(ai.aiSection || defaultAiSection);
-    }).catch(() => { 
+    }).catch(() => {
       // Fallbacks if backend is fully offline
       setHeroes(defaultHeroes);
       setProducts(defaultProducts);
@@ -421,7 +421,7 @@ function Description() {
           <button className="desc-feature-btn" onClick={() => navigate('/signup')}>Shop Now →</button>
         </div>
       </section>
-      
+
       {/* AI SECTION */}
       {aiSection && (
         <section className="desc-ai-section">
@@ -445,12 +445,12 @@ function Description() {
 
           <div className="desc-ai-img-wrap">
             <div className="desc-ai-video-frame">
-              <video 
-                src={aiSection.video} 
-                className="desc-ai-video" 
-                autoPlay 
-                muted 
-                loop 
+              <video
+                src={aiSection.video}
+                className="desc-ai-video"
+                autoPlay
+                muted
+                loop
                 playsInline
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -601,12 +601,12 @@ function Description() {
                   <div className="desc-mob-stars">{renderStars(reviews[mobileReviewSlide]?.rating || 5)}</div>
                   <p>"{reviews[mobileReviewSlide]?.text}"</p>
                   <h4>{reviews[mobileReviewSlide]?.name}</h4>
-                  
+
                   {/* Miniature dots indicator for premium look */}
                   <div className="desc-mob-review-dots">
                     {reviews.map((_, idx) => (
-                      <span 
-                        key={idx} 
+                      <span
+                        key={idx}
                         className={`desc-mob-review-dot ${mobileReviewSlide === idx ? 'active' : ''}`}
                         onClick={() => setMobileReviewSlide(idx)}
                       />
@@ -711,9 +711,9 @@ function Description() {
                   <div className="pd-rating" style={{ display: 'flex', alignItems: 'center', gap: '5px', userSelect: 'none' }}>
                     <div style={{ color: '#fbbf24', fontSize: '1.3rem', letterSpacing: '2px', display: 'flex', cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }} title="Click to rate this product">
                       {[1, 2, 3, 4, 5].map(star => (
-                        <span 
-                          key={star} 
-                          style={{ 
+                        <span
+                          key={star}
+                          style={{
                             color: star <= (modalHoverStar || Math.round(productRatings.average)) ? '#fbbf24' : '#e5e7eb',
                             transition: 'color 0.2s, transform 0.2s',
                             transform: star <= modalHoverStar ? 'scale(1.15)' : 'scale(1)',
@@ -744,18 +744,18 @@ function Description() {
                   </div>
                 </div>
 
-                 <div className="pd-weight-selection">
+                <div className="pd-weight-selection">
                   <p className="weight-label">Weight: <span>{selectedWeight || 'Select an option'}</span></p>
                   <div className="weight-options">
                     {(() => {
                       const dbWeights = selectedProduct.weights && selectedProduct.weights.length > 0
                         ? selectedProduct.weights
                         : [
-                            { label: '1kg Special Box', savings: '' },
-                            { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
-                            { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
-                            { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
-                          ];
+                          { label: '1kg Special Box', savings: '' },
+                          { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                          { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                          { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                        ];
                       // Check if 500g is already in the list
                       const has500g = dbWeights.some(w => w.label.toLowerCase().replace(/\s+/g, '').includes('500g'));
                       const finalWeights = has500g
@@ -775,14 +775,14 @@ function Description() {
                   </div>
                 </div>
 
-                <button 
-                  className="pd-add-to-cart-btn" 
+                <button
+                  className="pd-add-to-cart-btn"
                   onClick={() => {
                     if (!selectedWeight) {
                       alert('Please select a box size first.');
                       return;
                     }
-                    closeProductDetails(); 
+                    closeProductDetails();
                     setShowLoginModal(true);
                   }}
                 >
