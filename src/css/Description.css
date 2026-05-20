@@ -1,4 +1,4 @@
-﻿.description-page>*:not(.desc-bg-3d) {
+.description-page>*:not(.desc-bg-3d) {
   position: relative;
   z-index: 1;
 }
@@ -1566,28 +1566,65 @@ html {
   /* Navbar */
   .navbar {
     width: 94% !important;
-    padding: 10px 16px !important;
+    padding: 8px 14px !important;
     top: 10px !important;
     border-radius: 60px !important;
   }
 
+  .nav-inner {
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+  }
+
+  .nav-logo {
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
   .nav-logo-text {
-    font-size: 1.2rem !important;
+    font-size: 1rem !important;
   }
 
   .nav-logo-icon {
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 8px !important;
-  }
-
-  .btn {
-    padding: 7px 14px !important;
-    font-size: 12px !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
   }
 
   .nav-buttons {
-    gap: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .theme-toggle-btn {
+    width: 28px !important;
+    height: 28px !important;
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Login button mobile pe hide karo, sirf Sign Up dikhao */
+  .btn-secondary {
+    display: none !important;
+  }
+
+  .btn {
+    padding: 6px 14px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  .btn-primary {
+    padding: 6px 14px !important;
+    font-size: 11px !important;
+  }
+
+  /* nav-buttons */
+  .nav-buttons {
+    gap: 6px !important;
   }
 
   /* Hero */
