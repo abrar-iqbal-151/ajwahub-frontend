@@ -1606,20 +1606,22 @@ html {
     flex-shrink: 0 !important;
   }
 
-  /* Login button mobile pe hide karo, sirf Sign Up dikhao */
+  /* Show both buttons, make them very compact */
   .btn-secondary {
-    display: none !important;
+    display: inline-block !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
   }
 
   .btn {
-    padding: 6px 14px !important;
-    font-size: 11px !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
     white-space: nowrap !important;
   }
 
   .btn-primary {
-    padding: 6px 14px !important;
-    font-size: 11px !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
   }
 
   /* nav-buttons */
