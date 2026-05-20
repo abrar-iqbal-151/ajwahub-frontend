@@ -776,7 +776,7 @@
   .gift-customize-modal {
     flex-direction: column;
     height: auto;
-    max-height: 90vh;
+    max-height: 100vh;
     border-radius: 16px;
     overflow-y: auto;
   }
