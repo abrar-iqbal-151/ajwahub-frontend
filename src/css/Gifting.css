@@ -821,7 +821,8 @@
     gap: 6px;
   }
 
-  .desktop-only {
+  .desktop-only,
+  .gcm-right {
     display: none !important;
   }
 
@@ -946,10 +947,6 @@
 
   .gcm-left {
     padding: 12px 12px 24px 12px;
-  }
-
-  .gcm-right {
-    padding: 12px;
   }
 
   .gcm-products {
