@@ -381,6 +381,7 @@
 
 .ai-input-row input {
   flex: 1;
+  min-width: 0; /* IMPORTANT: Allows input to shrink below placeholder width on mobile */
   background: #ffffff !important; /* Pure white background */
   border: 1.5px solid rgba(197, 160, 89, 0.4) !important;
   border-radius: 24px !important;
