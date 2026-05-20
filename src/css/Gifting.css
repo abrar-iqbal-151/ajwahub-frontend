@@ -783,10 +783,11 @@
   .gcm-left {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 2px dashed rgba(197, 160, 89, 0.3); /* Modern gold dashed divider */
+    margin-bottom: 16px; /* Gap between top and bottom boxes */
+    padding: 14px 14px 24px 14px; /* Extra padding at bottom for breathing room */
     max-height: none;
-    padding: 14px;
-    overflow-y: auto;
+    overflow-y: visible;
   }
 
   .gcm-left>img {
@@ -855,7 +856,7 @@
   }
 
   .gcm-left {
-    padding: 12px;
+    padding: 12px 12px 24px 12px;
   }
 
   .gcm-right {
