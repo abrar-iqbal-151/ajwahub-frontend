@@ -32,7 +32,29 @@ function Home() {
   }, [location.key]);
 
   useEffect(() => {
-    fetch(`${API}/home-content`).then(r => r.json()).then(d => setHomeContent(d.content)).catch(() => { });
+    const defaultHomeContent = {
+      sliderImages: ['/home mock 1.png', '/home mock 2.png', '/home mock 3.png'],
+      discountTitle: '🎉 50% OFF',
+      discountText: '✨ Limited Time Offer on Premium Products! ✨',
+      stats: [
+        { number: '50K+', label: 'Happy Customers' },
+        { number: '100%', label: 'Authentic Products' },
+        { number: '24/7', label: 'Customer Support' },
+        { number: '4.9★', label: 'Average Rating' }
+      ],
+      sections: [
+        { key: 'premium', title: 'Premium Collection', items: [
+          { name: 'Premium Ajwa', image: '/product Ajwa 01.jpg' },
+          { name: 'Royal Medjool', image: '/Product 2.png' }
+        ]}
+      ]
+    };
+    
+    fetch(`${API}/home-content`)
+      .then(r => r.json())
+      .then(d => setHomeContent(d.content || defaultHomeContent))
+      .catch(() => setHomeContent(defaultHomeContent));
+      
     fetch(`${API}/content/reviews`)
       .then(r => r.json())
       .then(d => {

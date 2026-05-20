@@ -211,6 +211,43 @@ function Description() {
   }, [reviews]);
 
   useEffect(() => {
+  const defaultProducts = [
+    { id: 1, name: 'Premium Ajwa Dates', image: '/product Ajwa 01.jpg', price: 4300, stock: true, weights: [{label: '1kg Special Box', savings: ''}, {label: '500g Mini Box', savings: ''}] },
+    { id: 2, name: 'Royal Medjool Dates', image: '/Product 2.png', price: 3500, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
+    { id: 3, name: 'Mabroom Premium', image: '/Product 3.png', price: 2800, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
+    { id: 4, name: 'Safawi Dates', image: '/Product 4.png', price: 2500, stock: true, weights: [{label: '1kg Special Box', savings: ''}] },
+    { id: 5, name: 'Kalmi Dates', image: '/Product 5.png', price: 2000, stock: true, weights: [{label: '1kg Special Box', savings: ''}] }
+  ];
+
+  const defaultReviews = [
+    { name: 'Ahmed Khan', rating: 5, text: 'Best quality dates! Fresh and delivered on time.' },
+    { name: 'Fatima Ali', rating: 5, text: 'Amazing packaging and premium quality. Highly recommended!' },
+    { name: 'Muhammad Hassan', rating: 5, text: 'Excellent service and authentic products. Very helpful team.' }
+  ];
+
+  const defaultAiSection = {
+    badge: '🤖 AI ASSISTANT',
+    title: 'Meet Your Personal AjwaHub AI',
+    description: 'Experience smart shopping with our interactive AI assistant. Get personalized recommendations, track your calories, and find the perfect gift instantly.',
+    video: '/video(3).mp4',
+    features: [
+      { icon: '🤖', title: 'Smart Recommendations', text: 'AI suggests the best dates based on your health goals.' },
+      { icon: '💬', title: '24/7 Instant Support', text: 'Chat with our AI bot anytime for queries and guidance.' }
+    ]
+  };
+
+  const defaultFeature = {
+    title: 'Why Choose AjwaHub?',
+    description: 'We bring you the finest handpicked dates and dry fruits straight from the source. Every product is carefully selected for freshness, taste, and nutritional value.',
+    features: [
+      { icon: '✅', text: '100% Natural & Pure' },
+      { icon: '📦', text: 'Premium Packaging' },
+      { icon: '🚚', text: 'Fast Delivery Across Pakistan' },
+      { icon: '⭐', text: 'Trusted by 50,000+ Customers' }
+    ],
+    images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png']
+  };
+
     Promise.all([
       fetch(`${API}/content/heroes`).then(r => r.json()),
       fetch(`${API}/content/products`).then(r => r.json()),
@@ -223,15 +260,22 @@ function Description() {
     ]).then(([h, p, r, f, d, a, pi, ai]) => {
 
       setHeroes(h.heroes?.length ? h.heroes : defaultHeroes);
-      setProducts(p.products || []);
-      setReviews(r.reviews || []);
-      setFeature(f.feature || null);
-      setDeliveryMap(d.deliveryMap || null);
-      setAbout(a.about || null);
+      setProducts(p.products?.length ? p.products : defaultProducts);
+      setReviews(r.reviews?.length ? r.reviews : defaultReviews);
+      setFeature(f.feature || defaultFeature);
+      setDeliveryMap(d.deliveryMap || { title: 'Nationwide Delivery', mapImage: '/map.png' });
+      setAbout(a.about || { title: 'How Our Dates Are Grown', paragraphs: ['Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations.'], images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png'] });
       setPaymentIcons(pi.icons || []);
-      setAiSection(ai.aiSection || null);
+      setAiSection(ai.aiSection || defaultAiSection);
     }).catch(() => { 
-      // Keep defaults on fetch error
+      // Fallbacks if backend is fully offline
+      setHeroes(defaultHeroes);
+      setProducts(defaultProducts);
+      setReviews(defaultReviews);
+      setFeature(defaultFeature);
+      setAiSection(defaultAiSection);
+      setDeliveryMap({ title: 'Nationwide Delivery', mapImage: '/map.png' });
+      setAbout({ title: 'How Our Dates Are Grown', paragraphs: ['Our premium dates are cultivated by skilled farmers who have perfected the art of date farming over generations.'], images: ['/Product 1.png', '/Product 2.png', '/Product 3.png', '/Product 4.png'] });
     });
 
   }, []);
