@@ -94,7 +94,12 @@ function Description() {
   const [reviewSlide, setReviewSlide] = useState(0);
   const [mobileReviewSlide, setMobileReviewSlide] = useState(0);
 
-  const [heroes, setHeroes] = useState([]);
+  const defaultHeroes = [
+    { key: 'hero1', title: 'Premium Ajwa Dates', text: 'Fresh from Madinah, directly to your doorstep.', video: '/Hero.mp4' },
+    { key: 'hero2', title: 'Luxury Gift Boxes', text: 'Perfect for every occasion and corporate gifting.', video: '/Hero 2.mp4' }
+  ];
+  
+  const [heroes, setHeroes] = useState(defaultHeroes);
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [feature, setFeature] = useState(null);
@@ -217,7 +222,7 @@ function Description() {
       fetch(`${API}/content/ai-section`).then(r => r.json()),
     ]).then(([h, p, r, f, d, a, pi, ai]) => {
 
-      setHeroes(h.heroes || []);
+      setHeroes(h.heroes?.length ? h.heroes : defaultHeroes);
       setProducts(p.products || []);
       setReviews(r.reviews || []);
       setFeature(f.feature || null);
@@ -225,7 +230,9 @@ function Description() {
       setAbout(a.about || null);
       setPaymentIcons(pi.icons || []);
       setAiSection(ai.aiSection || null);
-    }).catch(() => { });
+    }).catch(() => { 
+      // Keep defaults on fetch error
+    });
 
   }, []);
 
