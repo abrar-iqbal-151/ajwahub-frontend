@@ -33,7 +33,7 @@ function Home() {
 
   useEffect(() => {
     const defaultHomeContent = {
-      sliderImages: ['/home mock 1.png', '/home mock 2.png', '/home mock 3.png'],
+      sliderImages: ['/home mock 1.png', '/home mock 2.png.png', '/home mock 3.png'],
       discountTitle: '🎉 50% OFF',
       discountText: '✨ Limited Time Offer on Premium Products! ✨',
       stats: [
