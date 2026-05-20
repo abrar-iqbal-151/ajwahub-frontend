@@ -339,8 +339,9 @@ function Description() {
       <main className="container">
         {hero1 && (
           <section className="hero">
-            <video className="hero-video" autoPlay muted loop playsInline>
+            <video key={hero1.video} className="hero-video" autoPlay muted loop playsInline>
               <source src={hero1.video} type="video/mp4" />
+              <source src={hero1.video} />
             </video>
             <div className="hero-gradient" />
             <div className="hero-content">
@@ -361,8 +362,9 @@ function Description() {
 
         {hero2 && (
           <section className="hero hero--right">
-            <video className="hero-video" autoPlay muted loop playsInline>
+            <video key={hero2.video} className="hero-video" autoPlay muted loop playsInline>
               <source src={hero2.video} type="video/mp4" />
+              <source src={hero2.video} />
             </video>
             <div className="hero-gradient hero-gradient--right" />
             <div className="hero-content hero-content--right">
@@ -446,7 +448,7 @@ function Description() {
           <div className="desc-ai-img-wrap">
             <div className="desc-ai-video-frame">
               <video
-                src={aiSection.video}
+                key={aiSection.video}
                 className="desc-ai-video"
                 autoPlay
                 muted
@@ -456,7 +458,10 @@ function Description() {
                   e.target.style.display = 'none';
                   e.target.parentElement.classList.add('video-placeholder');
                 }}
-              />
+              >
+                <source src={aiSection.video} type="video/mp4" />
+                <source src={aiSection.video} />
+              </video>
               <div className="desc-ai-video-overlay">
                 <div className="scan-line" />
                 <div className="ai-status-pulse" />
