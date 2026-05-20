@@ -1574,6 +1574,8 @@ html {
   .nav-inner {
     flex-wrap: nowrap !important;
     gap: 8px !important;
+    padding: 0 !important; /* Fixed: remove 2rem padding from DescriptionNavbar.css */
+    width: 100% !important;
   }
 
   .nav-logo {
