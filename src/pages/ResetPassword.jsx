@@ -211,7 +211,7 @@ function ResetPassword() {
                 <input type="email" placeholder="Enter your email address"
                   className={`form-input ${error ? 'error' : ''}`}
                   value={email} onChange={e => { setEmail(e.target.value); setError(''); }}
-                  disabled={loading || !!localStorage.getItem('ajwaHub_currentUser')}
+                  disabled={loading}
                   required autoFocus />
               </div>
               <button type="submit" className={`reset-btn ${loading ? 'loading' : ''}`} disabled={loading || !email}>
