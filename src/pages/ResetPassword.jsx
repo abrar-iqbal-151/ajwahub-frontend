@@ -10,7 +10,7 @@ function ResetPassword() {
   const [step, setStep] = useState('email');
   const [email, setEmail] = useState(() => {
     const u = localStorage.getItem('ajwaHub_currentUser');
-    return u ? JSON.parse(u).email || '' : '';
+    return '';
   });
   const [verifyMethod, setVerifyMethod] = useState(''); // '2fa' or 'email'
   const [authCode, setAuthCode] = useState('');
