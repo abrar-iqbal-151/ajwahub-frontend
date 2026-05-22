@@ -347,16 +347,30 @@ function Products() {
 
 
 
-                <button
-                  className="boutique-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleProductClick(product);
-                  }}
-                  disabled={!product.stock}
-                >
-                  View Details
-                </button>
+                <div style={{ display: 'flex', gap: '10px', width: '100%', marginTop: '10px' }}>
+                  <button
+                    className="boutique-btn"
+                    style={{ flex: 1, padding: '10px 5px', fontSize: '0.9rem' }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProductClick(product);
+                    }}
+                    disabled={!product.stock}
+                  >
+                    View Details
+                  </button>
+                  <button
+                    className="boutique-btn"
+                    style={{ flex: 1, padding: '10px 5px', fontSize: '0.9rem', backgroundColor: '#c5a059', color: 'black' }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart({ ...product, price: product.price, weight: '1kg Special Box' });
+                    }}
+                    disabled={!product.stock}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           ))}
