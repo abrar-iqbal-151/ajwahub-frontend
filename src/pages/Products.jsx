@@ -308,7 +308,7 @@ function Products() {
         <div className="products-grid">
           {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
-              <div className="product-image" onClick={() => handleProductClick(product)}>
+              <div className="product-image" onClick={() => addToCart({ ...product, price: product.price, weight: '1kg Special Box' })}>
                 <img
                   src={product.image}
                   alt={product.name}
@@ -347,30 +347,17 @@ function Products() {
 
 
 
-                <div style={{ display: 'flex', gap: '10px', width: '100%', marginTop: '10px' }}>
-                  <button
-                    className="boutique-btn"
-                    style={{ flex: 1, padding: '10px 5px', fontSize: '0.9rem' }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleProductClick(product);
-                    }}
-                    disabled={!product.stock}
-                  >
-                    View Details
-                  </button>
-                  <button
-                    className="boutique-btn"
-                    style={{ flex: 1, padding: '10px 5px', fontSize: '0.9rem', backgroundColor: '#c5a059', color: 'black' }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      addToCart({ ...product, price: product.price, weight: '1kg Special Box' });
-                    }}
-                    disabled={!product.stock}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
+                <button
+                  className="boutique-btn"
+                  style={{ width: '100%', marginTop: '10px', backgroundColor: '#c5a059', color: 'black' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart({ ...product, price: product.price, weight: '1kg Special Box' });
+                  }}
+                  disabled={!product.stock}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           ))}
