@@ -226,17 +226,7 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
           </StripeField>
         </div>
 
-        {/* Test card hint */}
-        <div className="sco-test-hint">
-          🧪 <strong>Test card:</strong> 4242 4242 4242 4242 · Any future date · Any 3-digit CVC
-        </div>
 
-        {/* Secure badge */}
-        <div className="sco-secure-row">
-          <span className="sco-secure-badge">🔒 256-bit SSL</span>
-          <span className="sco-secure-badge">🛡️ 3D Secure</span>
-          <span className="sco-secure-badge">✅ PCI DSS</span>
-        </div>
 
         {/* Pay Button */}
         <button
@@ -250,8 +240,8 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
             <>⚠ Minimum PKR {STRIPE_MIN_PKR} required</>
           ) : (
             <>
-              <span className="sco-pay-icon">🔐</span>
-              Pay PKR {total.toLocaleString()} Securely
+              <span className="sco-pay-icon">💳</span>
+              Pay Now (PKR {total.toLocaleString()})
             </>
           )}
         </button>

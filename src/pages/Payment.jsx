@@ -489,8 +489,8 @@ function Payment() {
                 {/* ── STRIPE CARD ── */}
                 <label className={`pay-option ${selectedPayment === 'stripe' ? 'active' : ''}`}>
                   <input type="radio" name="payment" value="stripe" checked={selectedPayment === 'stripe'} onChange={e => setSelectedPayment(e.target.value)} />
-                  <span className="pay-opt-icon">🔐</span>
-                  <div><h5>Pay by Card (Stripe)</h5><p>Visa · Mastercard · 3D Secure</p></div>
+                  <span className="pay-opt-icon">💳</span>
+                  <div><h5>Pay by Card</h5></div>
                 </label>
                 {selectedPayment === 'stripe' && (
                   <div className="pay-mobile-box">
