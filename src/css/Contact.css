@@ -351,6 +351,10 @@
 }
 
 @media (max-width: 768px) {
+  .contact-container {
+    padding: 0 1rem 3rem;
+  }
+
   .contact-header h1 {
     font-size: 2.5rem;
   }
@@ -365,6 +369,27 @@
   
   .contact-info-cards {
     flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info-cards {
+    padding: 1.5rem 1rem;
+    border-radius: 24px;
+    align-items: center;
+  }
+  
+  .contact-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+    min-width: unset;
+    width: 100%;
+  }
+  
+  .contact-card-content {
+    align-items: center;
   }
 }
 
