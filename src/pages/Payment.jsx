@@ -17,7 +17,7 @@ function Payment() {
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [step, setStep] = useState('review');
-  const [selectedPayment, setSelectedPayment] = useState('stripe');
+  const [selectedPayment, setSelectedPayment] = useState('');
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
   const [stripeSuccess, setStripeSuccess] = useState(false);
   const [stripePIId, setStripePIId] = useState('');
@@ -170,8 +170,8 @@ function Payment() {
   const proceedToPayment = () => { if (validateShipping()) setStep('payment'); };
 
   const validatePayment = () => {
+    if (!selectedPayment) { setError('Please select a payment method.'); return false; }
     if (selectedPayment === 'stripe') return true; // Stripe handles its own validation
-    if (selectedPayment === 'card' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     if (selectedPayment === 'easypaisa' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     if (selectedPayment === 'jazzcash' && !paymentScreenshot) { setError('Please upload payment screenshot'); return false; }
     setError(''); return true;
