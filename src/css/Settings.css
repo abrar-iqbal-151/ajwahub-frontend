@@ -676,8 +676,8 @@ input:checked + .slider:before {
   .profile-preview { width: 90px; height: 90px; }
   .avatar-placeholder { font-size: 2.2rem; }
   .form-groups-container { grid-template-columns: 1fr; gap: 1rem; }
-  .settings-tabs { gap: 0; }
-  .tab-btn { flex: 1; padding: 0.75rem 0.5rem; font-size: 0.85rem; text-align: center; }
+  .settings-tabs { gap: 4px; padding: 6px; border-radius: 30px; }
+  .tab-btn { flex: 1; padding: 0.75rem 0.2rem; font-size: 0.8rem; text-align: center; border-radius: 24px; }
   .two-fa-header { flex-direction: column; gap: 1rem; }
   .session-item { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   .session-actions { width: 100%; justify-content: space-between; }
@@ -696,7 +696,7 @@ input:checked + .slider:before {
 @media (max-width: 480px) {
   .settings-container { padding: 1rem 0.75rem; }
   .settings-card { padding: 1rem; border-radius: 1rem; }
-  .tab-btn { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
+  .tab-btn { padding: 0.6rem 0.2rem; font-size: 0.75rem; border-radius: 20px; }
   .two-fa-header { flex-direction: column; gap: 1rem; }
   .qr-code-image { width: 160px; height: 160px; }
   .address-card { padding: 1rem; }
