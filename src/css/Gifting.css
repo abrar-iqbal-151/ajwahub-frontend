@@ -19,7 +19,7 @@
   background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(15, 10, 5, 0.98));
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  border: 2px solid rgba(197, 160, 89, 0.5);
   border-radius: 24px;
   padding: 35px 60px;
   display: flex;
@@ -27,7 +27,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
-  box-shadow: inset 0 0 60px rgba(197, 160, 89, 0.12) !important; /* Premium inner gold glow, zero black drop shadow */
+  box-shadow:
+    0 40px 100px -20px rgba(0, 0, 0, 0.9),
+    inset 0 0 60px rgba(197, 160, 89, 0.12);
   animation: giftHeroIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -120,7 +122,7 @@
 /* ── CARD ── */
 .gift-card {
   background: linear-gradient(145deg, rgba(28, 20, 12, 0.98), rgba(40, 30, 10, 0.98));
-  border: 2px solid #c5a059 !important; /* Premium Golden Frame */
+  border: 2px solid rgba(197, 160, 89, 0.6);
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -132,8 +134,8 @@
 
 .gift-card:hover {
   transform: translateY(-8px);
-  border-color: #ffd700 !important; /* Glowing gold on hover */
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 160, 89, 0.45) !important;
+  border-color: #c5a059;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 160, 89, 0.25);
 }
 
 
@@ -205,7 +207,7 @@
   display: inline-block;
   background: rgba(197, 160, 89, 0.12);
   border: 1px solid rgba(197, 160, 89, 0.45);
-  color: #ffffff !important; /* Premium White text color */
+  color: #c5a059;
   padding: 5px 16px;
   border-radius: 20px;
   font-size: 12px;
@@ -217,7 +219,7 @@
 .gift-btn {
   width: 100%;
   background: linear-gradient(135deg, #c5a059, #b8860b);
-  color: #ffffff !important; /* Force high-contrast white text! */
+  color: #fff;
   border: none;
   padding: 11px 20px;
   border-radius: 12px;
@@ -235,8 +237,7 @@
 }
 
 .gift-btn:disabled {
-  color: rgba(255, 255, 255, 0.8) !important; /* Clear high-contrast white text when disabled! */
-  opacity: 0.5 !important;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -288,11 +289,11 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  background: rgba(0, 0, 0, 0.65) !important;
-  border: 1px solid rgba(197, 160, 89, 0.4) !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  width: 34px;
-  height: 34px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 13px;
@@ -304,16 +305,15 @@
 }
 
 .gift-modal-close:hover {
-  color: #dc2626 !important; /* Crimson red highlight */
-  transform: rotate(90deg);
-  border-color: #dc2626 !important;
-  background: rgba(220, 38, 38, 0.1) !important;
+  background: rgba(197, 160, 89, 0.3);
+  color: #fff;
+  border-color: rgba(197, 160, 89, 0.5);
 }
 
 /* ── CUSTOMIZE MODAL ── */
 .gift-customize-modal {
-  background: linear-gradient(145deg, rgba(20, 14, 6, 0.99), rgba(30, 20, 8, 0.99)) !important;
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  background: linear-gradient(145deg, rgba(20, 14, 6, 0.99), rgba(30, 20, 8, 0.99));
+  border: 2px solid rgba(197, 160, 89, 0.4);
   border-radius: 24px;
   width: 100%;
   max-width: 860px;
@@ -322,7 +322,7 @@
   overflow: hidden;
   position: relative;
   animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(197, 160, 89, 0.2) !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(197, 160, 89, 0.1);
 }
 
 @keyframes modalIn {
@@ -483,11 +483,11 @@
 
 .gcm-price-row span {
   font-size: 12px;
-  color: #ffffff !important; /* Clear pristine white title! */
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .gcm-price-val {
-  color: #ffffff !important; /* Clear pristine white value! */
+  color: rgba(255, 255, 255, 0.7) !important;
   font-weight: 600;
 }
 
@@ -506,7 +506,7 @@
 .gcm-price-total span {
   font-size: 13px;
   font-weight: 700;
-  color: #ffffff !important; /* Clear pristine white total text! */
+  color: rgba(197, 160, 89, 0.8);
 }
 
 .gcm-price-total strong {
@@ -567,7 +567,7 @@
   align-items: center;
   gap: 10px;
   background: #ffffff !important; /* Pure white background */
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  border: 1.5px solid rgba(197, 160, 89, 0.4) !important;
   border-radius: 10px;
   padding: 9px 14px;
   flex-shrink: 0;
@@ -576,8 +576,8 @@
 }
 
 .gcm-search:focus-within {
-  border-color: #ffd700 !important;
-  box-shadow: 0 0 12px rgba(197, 160, 89, 0.4) !important;
+  border-color: #c5a059 !important;
+  box-shadow: 0 0 12px rgba(197, 160, 89, 0.2);
 }
 
 .gcm-search span {
@@ -673,7 +673,7 @@
 
 .gcm-add-btn {
   background: rgba(197, 160, 89, 0.12);
-  color: #ffffff !important; /* Pristine white '+' sign! */
+  color: #c5a059;
   border: 1px solid rgba(197, 160, 89, 0.3);
   width: 28px;
   height: 28px;
@@ -690,13 +690,12 @@
 }
 
 .gcm-add-btn:hover:not(:disabled) {
-  background: #c5a059 !important; /* Premium gold background on hover */
-  color: #ffffff !important; /* Stays crisp white */
+  background: rgba(197, 160, 89, 0.3);
+  color: #ffd700;
   transform: scale(1.1);
 }
 
 .gcm-add-btn:disabled {
-  color: rgba(255, 255, 255, 0.3) !important; /* Faded white '+' when disabled */
   opacity: 0.3;
   cursor: not-allowed;
 }
@@ -768,52 +767,29 @@
 
   /* Modal mobile */
   .gift-modal-overlay {
-    padding: 16px !important;
-    align-items: center !important;
-    justify-content: center !important;
+    padding: 10px;
+    padding-top: 70px;
+    align-items: flex-start;
   }
 
   .gift-customize-modal {
-    flex-direction: column !important;
-    height: auto !important;
-    max-height: 90vh !important;
-    border-radius: 16px !important;
-    overflow-y: auto !important;
-    display: block !important; /* Remove flex so it doesn't stretch */
+    flex-direction: column;
+    height: 90vh;
+    border-radius: 16px;
+    overflow-y: auto;
   }
 
   .gcm-left {
     width: 100%;
     border-right: none;
-    border-bottom: none;
-    margin-bottom: 0;
-    padding: 14px 14px 24px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     max-height: none;
-    overflow-y: visible;
+    padding: 14px;
+    overflow-y: auto;
   }
 
   .gcm-left>img {
     height: 120px;
-  }
-
-  .mobile-select-items-btn {
-    display: block;
-    width: 100%;
-    background: rgba(197, 160, 89, 0.15);
-    border: 1px dashed rgba(197, 160, 89, 0.6);
-    color: #c5a059;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    margin-top: 10px;
-    cursor: pointer;
-    text-align: center;
-  }
-
-  .order-gift-btn {
-    margin-top: 0;
   }
 
   .gcm-slots-list {
@@ -822,85 +798,16 @@
     gap: 6px;
   }
 
-  .desktop-only,
   .gcm-right {
-    display: none !important;
-  }
-
-  /* Completely distinct mobile overlay */
-  .mobile-products-overlay-wrapper {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: flex-end; /* Slide up from bottom */
-  }
-
-  .mobile-products-overlay {
-    width: 100%;
-    height: 85vh;
-    background: linear-gradient(145deg, rgba(20, 14, 6, 0.99), rgba(30, 20, 8, 0.99));
-    border-radius: 24px 24px 0 0;
-    padding: 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-top: 2px solid #c5a059;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-
-  .mpo-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .mpo-header h4 {
-    font-size: 16px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #fff, #c5a059);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .mpo-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(197, 160, 89, 0.3);
-    color: #fff;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-
-  .mpo-products {
     flex: 1;
+    padding: 14px;
+    min-height: 300px;
     overflow-y: auto;
-    padding-bottom: 20px;
   }
 
-  .mpo-done-btn {
-    display: block;
-    width: 100%;
-    background: linear-gradient(135deg, #c5a059, #b8860b);
-    color: #fff;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    flex-shrink: 0;
+  .gcm-products {
+    max-height: 260px;
+    overflow-y: auto;
   }
 }
 
@@ -943,12 +850,15 @@
   }
 
   .gift-customize-modal {
-    height: auto;
-    max-height: 95vh;
+    height: 95vh;
   }
 
   .gcm-left {
-    padding: 12px 12px 24px 12px;
+    padding: 12px;
+  }
+
+  .gcm-right {
+    padding: 12px;
   }
 
   .gcm-products {
