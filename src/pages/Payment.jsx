@@ -487,11 +487,14 @@ function Payment() {
               <div className="pay-methods">
                 <h4 className="pay-section-title">💳 Select Payment</h4>
                 {/* ── STRIPE CARD ── */}
-                <label className={`pay-option ${selectedPayment === 'stripe' ? 'active' : ''}`}>
-                  <input type="radio" name="payment" value="stripe" checked={selectedPayment === 'stripe'} onChange={e => setSelectedPayment(e.target.value)} />
-                  <span className="pay-opt-icon">💳</span>
-                  <div><h5>Pay by Card</h5></div>
-                </label>
+                <button 
+                  type="button"
+                  className="pay-btn" 
+                  onClick={() => setSelectedPayment('stripe')}
+                  style={{ width: '100%', justifyContent: 'center', marginBottom: selectedPayment === 'stripe' ? '12px' : '0' }}
+                >
+                  💳 Pay by Card
+                </button>
                 {selectedPayment === 'stripe' && (
                   <div className="pay-mobile-box">
                     <Elements stripe={stripePromise}>
