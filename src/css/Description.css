@@ -3012,24 +3012,28 @@ html {
 }
 
 @media (max-width: 768px) {
-  .desc-float-item1 {
-    height: 90px;
+  .desc-float-single {
+    gap: 8px;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    margin: 0 auto;
   }
 
-  .desc-float-item2 {
-    height: 120px;
+  .desc-float-item {
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(197, 160, 89, 0.1);
   }
 
-  .desc-float-item3 {
-    height: 160px;
-  }
-
-  .desc-float-item4 {
-    height: 200px;
-  }
+  .desc-float-item1 { height: 100px; animation: floatImg 4s ease-in-out infinite; }
+  .desc-float-item2 { height: 140px; animation: floatImg 4s ease-in-out infinite 0.5s; }
+  .desc-float-item3 { height: 180px; animation: floatImg 4s ease-in-out infinite 1s; }
+  .desc-float-item4 { height: 230px; animation: floatImg 4s ease-in-out infinite 1.5s; }
 
   .desc-feature-img-wrap {
-    height: 220px;
+    height: 250px;
+    width: 100%;
+    overflow: visible;
   }
 }
 
