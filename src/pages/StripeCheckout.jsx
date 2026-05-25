@@ -239,9 +239,8 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
           ) : belowMinimum ? (
             <>⚠ Minimum PKR {STRIPE_MIN_PKR} required</>
           ) : (
-            <>
               <span className="sco-pay-icon">💳</span>
-              Pay Now (PKR {total.toLocaleString()})
+              Pay Now
             </>
           )}
         </button>
