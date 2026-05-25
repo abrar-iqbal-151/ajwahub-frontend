@@ -96,7 +96,7 @@ function Tracking() {
             {/* Tracking Detail Master Box */}
             {activeOrder && (
               <div className="trk-detail">
-                <div className="trk-master-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div className="trk-master-header">
                   <div>
                     <h3>Order Details</h3>
                     <p>Comprehensive tracking information</p>

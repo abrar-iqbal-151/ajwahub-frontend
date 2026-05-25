@@ -121,7 +121,7 @@
   flex-direction: column;
 }
 
-.trk-master-header { margin-bottom: 16px; }
+.trk-master-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
 .trk-master-header h3 { font-size: 22px; font-weight: 800; color: #ffd700; font-family: 'Playfair Display', serif; margin-bottom: 4px; }
 .trk-master-header p { font-size: 13px; color: rgba(197, 160, 89, 0.7); }
 
@@ -219,7 +219,7 @@
 
 @media (max-width: 768px) {
   .trk-container { padding: 24px 16px 40px; }
-  .trk-layout { grid-template-columns: 1fr; gap: 16px; }
+  .trk-master-grid { grid-template-columns: 1fr; gap: 24px; }
   .trk-info-bar { grid-template-columns: 1fr 1fr; gap: 12px; }
   .trk-header h1 { font-size: 28px; }
   .trk-addr-grid { grid-template-columns: 1fr; }
@@ -261,9 +261,9 @@
   .trk-header h1 { font-size: 24px; }
   .trk-header p { font-size: 13px; }
 
-  /* Full-width order cards on small screens */
-  .trk-orders { flex-direction: column; overflow-x: unset; }
-  .trk-order-card { min-width: unset; }
+  /* Keep order cards scrolling horizontally on small screens too */
+  .trk-orders-top { flex-direction: row; overflow-x: auto; align-items: center; }
+  .trk-order-card { min-width: 200px; }
 
   /* Compact info bar — 2 cols */
   .trk-info-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
