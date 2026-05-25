@@ -768,16 +768,18 @@
 
   /* Modal mobile */
   .gift-modal-overlay {
-    padding: 16px;
-    align-items: center;
+    padding: 16px !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .gift-customize-modal {
-    flex-direction: column;
-    height: fit-content !important;
-    max-height: 90vh;
-    border-radius: 16px;
-    overflow-y: auto;
+    flex-direction: column !important;
+    height: auto !important;
+    max-height: 90vh !important;
+    border-radius: 16px !important;
+    overflow-y: auto !important;
+    display: block !important; /* Remove flex so it doesn't stretch */
   }
 
   .gcm-left {
