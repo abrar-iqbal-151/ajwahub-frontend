@@ -308,7 +308,7 @@ function Products() {
         <div className="products-grid">
           {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
-              <div className="product-image" onClick={() => addToCart({ ...product, price: product.price, weight: '1kg Special Box' })}>
+              <div className="product-image" onClick={() => handleProductClick(product)}>
                 <img
                   src={product.image}
                   alt={product.name}
@@ -349,14 +349,13 @@ function Products() {
 
                 <button
                   className="boutique-btn"
-                  style={{ width: '100%', marginTop: '10px', backgroundColor: '#c5a059', color: 'black' }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    addToCart({ ...product, price: product.price, weight: '1kg Special Box' });
+                    handleProductClick(product);
                   }}
                   disabled={!product.stock}
                 >
-                  Add to Cart
+                  View Details
                 </button>
               </div>
             </div>
