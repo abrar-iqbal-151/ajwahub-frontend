@@ -602,7 +602,7 @@ function Payment() {
               <button className="back-btn" onClick={() => setStep('shipping')}>← Back</button>
               {selectedPayment !== 'stripe' && (
                 <button className={`pay-btn ${processing || cartItems.length === 0 ? 'processing' : ''}`} onClick={processPayment} disabled={processing || cartItems.length === 0}>
-                  {processing ? <><span className="spinner"></span>Processing...</> : cartItems.length === 0 ? '🛒 Cart is Empty' : `Pay PKR ${total.toLocaleString()}`}
+                  {processing ? <><span className="spinner"></span>Processing...</> : cartItems.length === 0 ? '🛒 Cart is Empty' : 'Pay Now'}
                 </button>
               )}
             </div>
