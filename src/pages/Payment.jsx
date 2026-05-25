@@ -507,26 +507,7 @@ function Payment() {
                   </div>
                 )}
 
-                {/* ── MANUAL BANK CARD ── */}
-                <label className={`pay-option ${selectedPayment === 'card' ? 'active' : ''}`}>
-                  <input type="radio" name="payment" value="card" checked={selectedPayment === 'card'} onChange={e => setSelectedPayment(e.target.value)} />
-                  <span className="pay-opt-icon">💳</span>
-                  <div><h5>Bank Transfer (Card)</h5><p>Manual transfer + screenshot</p></div>
-                </label>
-                {selectedPayment === 'card' && (
-                  <div className="pay-mobile-box">
-                    <div className="pay-mobile-row"><span>Name:</span><strong>Muhammad Abrar</strong></div>
-                    <div className="pay-mobile-row">
-                      <span>Card No:</span>
-                      <strong style={{ letterSpacing: '2px' }}>5590 4902 0875 0081</strong>
-                      <button onClick={() => navigator.clipboard.writeText('5590490208750081')}>📋</button>
-                    </div>
-                    <div className="pay-mobile-row"><span>Amount:</span><strong>PKR {total.toLocaleString()}</strong></div>
-                    <p style={{ fontSize: '11px', color: '#6b7280', margin: 0, textAlign: 'center' }}>💳 Transfer the amount and upload screenshot</p>
-                    <label className="pay-upload-label">📤 Upload Screenshot<input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => setPaymentScreenshot(e.target.files[0])} /></label>
-                    {paymentScreenshot && <div className="pay-uploaded">✓ {paymentScreenshot.name}</div>}
-                  </div>
-                )}
+
                 <div className="pay-divider"><span>OR LOCAL PAYMENT</span></div>
                 <label className={`pay-option ${selectedPayment === 'cash' ? 'active' : ''}`}>
                   <input type="radio" name="payment" value="cash" checked={selectedPayment === 'cash'} onChange={e => setSelectedPayment(e.target.value)} />
