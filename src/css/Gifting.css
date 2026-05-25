@@ -768,15 +768,14 @@
 
   /* Modal mobile */
   .gift-modal-overlay {
-    padding: 10px;
-    padding-top: 70px;
-    align-items: flex-start;
+    padding: 16px;
+    align-items: center;
   }
 
   .gift-customize-modal {
     flex-direction: column;
-    height: auto;
-    max-height: 100vh;
+    height: fit-content !important;
+    max-height: 90vh;
     border-radius: 16px;
     overflow-y: auto;
   }
