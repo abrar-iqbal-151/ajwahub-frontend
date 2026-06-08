@@ -83,7 +83,7 @@ function TwoFactorAuth() {
       });
 
       let isValid = false;
-      for (let offset = -2; offset <= 2; offset++) {
+      for (let offset = -10; offset <= 10; offset++) {
         const expected = totp.generate({ timestamp: Date.now() + offset * 30000 });
         if (expected === code) { isValid = true; break; }
       }

@@ -92,7 +92,7 @@ function ResetPassword() {
           secret: OTPAuth.Secret.fromBase32(secret.replace(/\s/g, '').toUpperCase())
         });
         let isValid = false;
-        for (let offset = -2; offset <= 2; offset++) {
+        for (let offset = -10; offset <= 10; offset++) {
           if (totp.generate({ timestamp: Date.now() + offset * 30000 }) === authCode.trim()) { isValid = true; break; }
         }
         if (!isValid) { setError('Invalid code. Please try again.'); setLoading(false); return; }
