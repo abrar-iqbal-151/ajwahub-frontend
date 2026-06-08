@@ -56,6 +56,23 @@ function TwoFactorAuth() {
     }
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    if (!pasteData) return;
+    
+    const newCode = [...verificationCode];
+    for (let i = 0; i < pasteData.length; i++) {
+      newCode[i] = pasteData[i];
+    }
+    setVerificationCode(newCode);
+    
+    // Focus the next appropriate input
+    const nextIndex = Math.min(pasteData.length, 5);
+    const nextInput = document.getElementById(`code-${nextIndex}`);
+    if (nextInput) nextInput.focus();
+  };
+
   const handleVerification = async (e) => {
     e.preventDefault();
     const code = verificationCode.join('');
@@ -180,6 +197,7 @@ function TwoFactorAuth() {
                 value={digit}
                 onChange={(e) => handleCodeChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
+                onPaste={handlePaste}
                 maxLength="1"
                 disabled={loading}
                 autoComplete="off"
