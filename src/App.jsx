@@ -48,14 +48,29 @@ function App() {
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden || document.visibilityState === 'hidden') {
+        handleInactivity();
+      }
+    };
+
+    const handleBlur = () => {
+      handleInactivity();
+    };
+
     const events = ['mousemove', 'keydown', 'mousedown', 'scroll', 'touchstart'];
     events.forEach(event => window.addEventListener(event, resetTimer));
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
 
     resetTimer();
 
     return () => {
       clearTimeout(timeoutId);
       events.forEach(event => window.removeEventListener(event, resetTimer));
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
     };
   }, [navigate]);
 
