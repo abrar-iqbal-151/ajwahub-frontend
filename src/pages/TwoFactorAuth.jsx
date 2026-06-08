@@ -131,9 +131,13 @@ function TwoFactorAuth() {
       <div className="two-factor-container">
         <form className="two-factor-form" onSubmit={handleVerification}>
           <div className="two-factor-header">
-            <h1>🔑 Enter Your Authentication Code</h1>
-            <p>Two-Factor Authentication is enabled on your account.</p>
-            <p>Please enter the 6-digit code from your Google Authenticator app to continue.</p>
+            <div className="security-badge">
+              <div className="pulse-ring"></div>
+              <span className="shield-icon">🛡️</span>
+            </div>
+            <h1>Two-Factor Auth</h1>
+            <p className="auth-subtitle">Secure Verification</p>
+            <p className="auth-description">Enter the 6-digit code from your authenticator app to continue.</p>
           </div>
 
           {error && (
