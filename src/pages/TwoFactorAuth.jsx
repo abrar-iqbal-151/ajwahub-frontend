@@ -198,7 +198,7 @@ function TwoFactorAuth() {
                 onChange={(e) => handleCodeChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={handlePaste}
-                maxLength="1"
+                maxLength="6"
                 disabled={loading}
                 autoComplete="off"
               />
