@@ -30,7 +30,6 @@ function App() {
 
   useEffect(() => {
     let timeoutId;
-    let shortTimeoutId;
 
     const handleInactivity = () => {
       const user = localStorage.getItem('ajwaHub_currentUser');
@@ -43,47 +42,20 @@ function App() {
 
     const resetTimer = () => {
       clearTimeout(timeoutId);
-      clearTimeout(shortTimeoutId);
       const user = localStorage.getItem('ajwaHub_currentUser');
       if (user) {
-        timeoutId = setTimeout(handleInactivity, 5 * 60 * 1000); // 5 minutes
+        timeoutId = setTimeout(handleInactivity, 5 * 60 * 1000); // 5 minutes of no mouse/keyboard activity
       }
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden || document.visibilityState === 'hidden') {
-        clearTimeout(timeoutId);
-        shortTimeoutId = setTimeout(handleInactivity, 30000); // 30 seconds grace period for file pickers
-      } else {
-        resetTimer();
-      }
-    };
-
-    const handleBlur = () => {
-      clearTimeout(timeoutId);
-      shortTimeoutId = setTimeout(handleInactivity, 30000); // 30 seconds grace period
-    };
-
-    const handleFocus = () => {
-      resetTimer();
     };
 
     const events = ['mousemove', 'keydown', 'mousedown', 'scroll', 'touchstart'];
     events.forEach(event => window.addEventListener(event, resetTimer));
     
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', handleBlur);
-    window.addEventListener('focus', handleFocus);
-
     resetTimer();
 
     return () => {
       clearTimeout(timeoutId);
-      clearTimeout(shortTimeoutId);
       events.forEach(event => window.removeEventListener(event, resetTimer));
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleBlur);
-      window.removeEventListener('focus', handleFocus);
     };
   }, [navigate]);
 
