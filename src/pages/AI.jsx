@@ -22,7 +22,13 @@ function AI() {
 
   const [messages, setMessages] = useState(() => {
     try {
-      const saved = localStorage.getItem(CHAT_STORAGE_KEY);
+      const storedUser = localStorage.getItem('ajwaHub_currentUser');
+      let userId = 'guest';
+      if (storedUser) {
+        const u = JSON.parse(storedUser);
+        userId = u._id || u.email || 'guest';
+      }
+      const saved = localStorage.getItem(`${CHAT_STORAGE_KEY}_${userId}`);
       return saved ? JSON.parse(saved) : [INITIAL_MESSAGE];
     } catch {
       return [INITIAL_MESSAGE];
@@ -110,10 +116,11 @@ function AI() {
   // Save current chat to localStorage whenever messages change
   useEffect(() => {
     try {
+      const uid = user?._id || user?.email || 'guest';
       const toSave = messages.map(m => ({ role: m.role, text: m.text }));
-      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(toSave));
+      localStorage.setItem(`${CHAT_STORAGE_KEY}_${uid}`, JSON.stringify(toSave));
     } catch {}
-  }, [messages]);
+  }, [messages, user]);
 
   // Auto-scroll
   useEffect(() => {
@@ -152,7 +159,8 @@ function AI() {
       } catch {}
     }
     setMessages([INITIAL_MESSAGE]);
-    localStorage.removeItem(CHAT_STORAGE_KEY);
+    const uid = user?._id || user?.email || 'guest';
+    localStorage.removeItem(`${CHAT_STORAGE_KEY}_${uid}`);
     setActiveTab('chat');
   };
 
@@ -176,7 +184,8 @@ function AI() {
   // Resume a past session
   const resumeSession = (session) => {
     setMessages(session.messages);
-    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(session.messages));
+    const uid = user?._id || user?.email || 'guest';
+    localStorage.setItem(`${CHAT_STORAGE_KEY}_${uid}`, JSON.stringify(session.messages));
     setActiveTab('chat');
   };
 
