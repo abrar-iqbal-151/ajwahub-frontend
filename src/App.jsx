@@ -1,5 +1,6 @@
 import Premium from './pages/Premium'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import ScrollToTop from './components/ScrollToTop'
 import Description from './pages/Description'
 import Home from './pages/Home'
@@ -25,6 +26,39 @@ import AboutUs from './pages/AboutUs'
 import OrderHistory from './pages/OrderHistory'
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let timeoutId;
+
+    const handleInactivity = () => {
+      const user = localStorage.getItem('ajwaHub_currentUser');
+      if (user) {
+        localStorage.removeItem('ajwaHub_currentUser');
+        localStorage.removeItem('ajwaHub_sessions');
+        navigate('/description');
+      }
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      const user = localStorage.getItem('ajwaHub_currentUser');
+      if (user) {
+        timeoutId = setTimeout(handleInactivity, 5 * 60 * 1000); // 5 minutes
+      }
+    };
+
+    const events = ['mousemove', 'keydown', 'mousedown', 'scroll', 'touchstart'];
+    events.forEach(event => window.addEventListener(event, resetTimer));
+
+    resetTimer();
+
+    return () => {
+      clearTimeout(timeoutId);
+      events.forEach(event => window.removeEventListener(event, resetTimer));
+    };
+  }, [navigate]);
+
   return (
     <div className="App">
       <ScrollToTop />
