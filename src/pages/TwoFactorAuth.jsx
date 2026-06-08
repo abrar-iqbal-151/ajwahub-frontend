@@ -84,6 +84,17 @@ function TwoFactorAuth() {
     try {
       console.log('Verifying code:', code, 'for email:', userEmail);
       const res = await fetch(`${API}/api/users/profile/${userEmail}`);
+      
+      // Get the exact time from the server to bypass PC clock errors!
+      const dateHeader = res.headers.get('Date');
+      let serverTimestamp = Date.now();
+      if (dateHeader) {
+        serverTimestamp = new Date(dateHeader).getTime();
+        console.log('Using exact Server Time:', new Date(serverTimestamp).toLocaleString());
+      } else {
+        console.log('Falling back to local time:', new Date(serverTimestamp).toLocaleString());
+      }
+
       if (!res.ok) { setError('User not found'); setLoading(false); return; }
       const data = await res.json();
       
@@ -104,20 +115,16 @@ function TwoFactorAuth() {
         secret: OTPAuth.Secret.fromBase32(cleanSecret)
       });
 
-      // Check current and +/- 40 periods (20 minutes drift)
+      // Check current and +/- 10 periods (5 minutes drift around SERVER time)
       let isValid = false;
-      for (let offset = -40; offset <= 40; offset++) {
-        const expected = totp.generate({ timestamp: Date.now() + offset * 30000 });
+      for (let offset = -10; offset <= 10; offset++) {
+        const expected = totp.generate({ timestamp: serverTimestamp + offset * 30000 });
         if (expected === code) { 
           isValid = true; 
-          console.log(`Matched! Offset was ${offset} periods (${offset * 30} seconds)`);
+          console.log(`Matched! Offset was ${offset} periods from Server Time`);
           break; 
         }
       }
-
-      // Built-in validation check as well
-      const delta = totp.validate({ token: code, window: 40 });
-      if (delta !== null) isValid = true;
 
       // Temporary Bypass for testing and recovery
       if (code === '112233') isValid = true; 
