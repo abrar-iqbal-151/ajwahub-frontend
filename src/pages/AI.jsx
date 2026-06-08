@@ -153,6 +153,7 @@ function AI() {
     }
     setMessages([INITIAL_MESSAGE]);
     localStorage.removeItem(CHAT_STORAGE_KEY);
+    setActiveTab('chat');
   };
 
   // Delete ALL sessions from MongoDB
