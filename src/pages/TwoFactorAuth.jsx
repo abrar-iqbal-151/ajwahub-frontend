@@ -79,14 +79,11 @@ function TwoFactorAuth() {
         algorithm: 'SHA1',
         digits: 6,
         period: 30,
-        secret: OTPAuth.Secret.fromBase32(secret.replace(/\s/g, '').toUpperCase())
+        secret: OTPAuth.Secret.fromBase32(secret.replace(/[\s=]/g, '').toUpperCase())
       });
 
-      let isValid = false;
-      for (let offset = -10; offset <= 10; offset++) {
-        const expected = totp.generate({ timestamp: Date.now() + offset * 30000 });
-        if (expected === code) { isValid = true; break; }
-      }
+      const delta = totp.validate({ token: code, window: 15 });
+      const isValid = delta !== null;
 
       if (!isValid) { setError('Invalid authentication code. Please try again.'); setLoading(false); return; }
 
