@@ -453,7 +453,8 @@ html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ffd700 !important; /* Premium Solid Gold */
+  color: #ffd700 !important;
+  /* Premium Solid Gold */
   background: none !important;
   -webkit-text-fill-color: initial !important;
   letter-spacing: -0.5px;
@@ -1216,10 +1217,12 @@ html {
 .login-footer {
   margin-top: 60px;
   padding: 3rem 5% 1.5rem !important;
-  background: rgba(0, 0, 0, 0.7) !important; /* Elegant dark transparent glass background */
+  background: rgba(0, 0, 0, 0.7) !important;
+  /* Elegant dark transparent glass background */
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
-  border-top: 2px solid rgba(212, 175, 55, 0.3) !important; /* Refined gold border */
+  border-top: 2px solid rgba(212, 175, 55, 0.3) !important;
+  /* Refined gold border */
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -1264,13 +1267,15 @@ html {
   width: 40px !important;
   height: 40px !important;
   border-radius: 10px !important;
-  border: 1.5px solid rgba(212, 175, 55, 0.4) !important; /* Refined gold border around logo */
+  border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+  /* Refined gold border around logo */
 }
 
 .login-footer-name {
   font-size: 1.3rem !important;
   font-weight: 800 !important;
-  color: #ffd700 !important; /* Premium Solid Gold to prevent browser rendering failure */
+  color: #ffd700 !important;
+  /* Premium Solid Gold to prevent browser rendering failure */
   background: none !important;
   -webkit-text-fill-color: initial !important;
   letter-spacing: -0.3px !important;
@@ -1286,7 +1291,8 @@ html {
 .login-footer-col-title {
   font-size: 1rem !important;
   font-weight: 700 !important;
-  color: #ffd700 !important; /* Subtle gold header */
+  color: #ffd700 !important;
+  /* Subtle gold header */
   margin: 0 0 1.2rem 0 !important;
   letter-spacing: 0.5px !important;
   text-transform: none !important;
@@ -1309,11 +1315,13 @@ html {
 }
 
 .login-footer-links a::before {
-  display: none !important; /* Remove orange bullet sweep on hover */
+  display: none !important;
+  /* Remove orange bullet sweep on hover */
 }
 
 .login-footer-links a:hover {
-  color: #ffd700 !important; /* Soft gold on hover */
+  color: #ffd700 !important;
+  /* Soft gold on hover */
   transform: translateX(4px) !important;
   gap: 0px !important;
 }
@@ -1330,7 +1338,8 @@ html {
   border-radius: 50% !important;
   background: rgba(255, 255, 255, 0.05) !important;
   border: 1.5px solid rgba(212, 175, 55, 0.25) !important;
-  color: #ffd700 !important; /* Gold social icons */
+  color: #ffd700 !important;
+  /* Gold social icons */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1349,7 +1358,8 @@ html {
   max-width: 1200px !important;
   margin: 2rem auto 0 !important;
   padding: 1.5rem 0 0 0 !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.15) !important; /* Light golden divider */
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  /* Light golden divider */
   color: rgba(255, 255, 255, 0.6) !important;
   font-size: 13px !important;
   display: flex !important;
@@ -1574,7 +1584,8 @@ html {
   .nav-inner {
     flex-wrap: nowrap !important;
     gap: 8px !important;
-    padding: 0 !important; /* Fixed: remove 2rem padding from DescriptionNavbar.css */
+    padding: 0 !important;
+    /* Fixed: remove 2rem padding from DescriptionNavbar.css */
     width: 100% !important;
   }
 
@@ -1584,35 +1595,42 @@ html {
   }
 
   .nav-logo-text {
-    font-size: 0.8rem !important; /* Made smaller */
+    font-size: 0.8rem !important;
+    /* Made smaller */
   }
 
   .nav-logo-icon {
-    width: 24px !important; /* Made smaller */
-    height: 24px !important; /* Made smaller */
+    width: 24px !important;
+    /* Made smaller */
+    height: 24px !important;
+    /* Made smaller */
     border-radius: 4px !important;
   }
 
   .nav-buttons {
     display: flex !important;
     align-items: center !important;
-    gap: 4px !important; /* Reduced gap */
+    gap: 4px !important;
+    /* Reduced gap */
     flex-shrink: 0 !important;
     flex-wrap: nowrap !important;
   }
 
   .theme-toggle-btn {
-    width: 24px !important; /* Made smaller */
-    height: 24px !important; /* Made smaller */
+    width: 24px !important;
+    /* Made smaller */
+    height: 24px !important;
+    /* Made smaller */
     margin-right: 0 !important;
     flex-shrink: 0 !important;
-    font-size: 0.8rem !important; /* Added to make icon smaller */
+    font-size: 0.8rem !important;
+    /* Added to make icon smaller */
   }
 
   /* Show ONLY Login button, make it look primary-like on mobile */
   .btn-secondary {
     display: inline-block !important;
-    padding: 6px 14px !important; 
+    padding: 6px 14px !important;
     font-size: 11px !important;
     background: linear-gradient(135deg, #fb923c, #ea580c) !important;
     border: none !important;
@@ -3025,10 +3043,25 @@ html {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(197, 160, 89, 0.1);
   }
 
-  .desc-float-item1 { height: 100px; animation: floatImg 4s ease-in-out infinite; }
-  .desc-float-item2 { height: 140px; animation: floatImg 4s ease-in-out infinite 0.5s; }
-  .desc-float-item3 { height: 180px; animation: floatImg 4s ease-in-out infinite 1s; }
-  .desc-float-item4 { height: 230px; animation: floatImg 4s ease-in-out infinite 1.5s; }
+  .desc-float-item1 {
+    height: 100px;
+    animation: floatImg 4s ease-in-out infinite;
+  }
+
+  .desc-float-item2 {
+    height: 140px;
+    animation: floatImg 4s ease-in-out infinite 0.5s;
+  }
+
+  .desc-float-item3 {
+    height: 180px;
+    animation: floatImg 4s ease-in-out infinite 1s;
+  }
+
+  .desc-float-item4 {
+    height: 230px;
+    animation: floatImg 4s ease-in-out infinite 1.5s;
+  }
 
   .desc-feature-img-wrap {
     height: 250px;
@@ -3490,10 +3523,12 @@ html {
    DESCRIPTION PAGE FOOTER GOLDEN OVERRIDES 
    ========================================== */
 .description-page .login-footer {
-  background: rgba(0, 0, 0, 0.7) !important; /* Elegant dark transparent glass background, exactly matching Home.jsx */
+  background: rgba(0, 0, 0, 0.7) !important;
+  /* Elegant dark transparent glass background, exactly matching Home.jsx */
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border-top: 2px solid rgba(212, 175, 55, 0.3) !important; /* Refined gold border matching Home.jsx */
+  border-top: 2px solid rgba(212, 175, 55, 0.3) !important;
+  /* Refined gold border matching Home.jsx */
   padding: 3rem 5% 1.5rem !important;
   color: #ffffff !important;
   /* Premium high contrast white text */
@@ -3573,7 +3608,8 @@ html {
 
 .description-page .login-footer-bottom-brand {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  color: #ffd700 !important; /* Premium Solid Gold to prevent browser rendering failure */
+  color: #ffd700 !important;
+  /* Premium Solid Gold to prevent browser rendering failure */
   background: none !important;
   -webkit-text-fill-color: initial !important;
   font-weight: 800 !important;

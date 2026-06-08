@@ -21,21 +21,32 @@ function TwoFactorAuth() {
     }
   }, [userEmail, navigate]);
 
-//yai cheack kerta hai mai sirf no hi count karai?
   const handleCodeChange = (index, value) => {
-    const digit = value.replace(/\D/g, '').slice(-1);  
+    const digits = value.replace(/\D/g, '');
+    
+    // Handle paste of multiple digits
+    if (digits.length > 1) {
+      const newCode = [...verificationCode];
+      for (let i = 0; i < digits.length && index + i < 6; i++) {
+        newCode[index + i] = digits[i];
+      }
+      setVerificationCode(newCode);
+      
+      const nextIndex = Math.min(index + digits.length, 5);
+      const nextInput = document.getElementById(`code-${nextIndex}`);
+      if (nextInput) nextInput.focus();
+      return;
+    }
+
+    // Handle single digit
+    const digit = digits.slice(-1);  
     const newCode = [...verificationCode];
     newCode[index] = digit;
     setVerificationCode(newCode);
     
-    console.log('Code updated:', newCode.join(''));
-    
-    // Auto-focus next input
     if (digit && index < 5) {
       const nextInput = document.getElementById(`code-${index + 1}`);
-      if (nextInput) {
-        nextInput.focus();
-      }
+      if (nextInput) nextInput.focus();
     }
   };
 

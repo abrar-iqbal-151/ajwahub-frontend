@@ -244,13 +244,17 @@ function ResetPassword() {
                       value={authCode[i] || ''}
                       onChange={e => {
                         const val = e.target.value.replace(/\D/g, '');
-                        if (val.length <= 1) {
-                          const arr = authCode.split('');
-                          arr[i] = val;
-                          setAuthCode(arr.join('').substring(0, 6));
-                          setError('');
-                          if (val && i < 5) document.querySelector(`input[data-index="${i+1}"]`)?.focus();
+                        if (val.length > 1) {
+                          setAuthCode(val.substring(0, 6));
+                          const nextIndex = Math.min(i + val.length, 5);
+                          document.querySelector(`input[data-index="${nextIndex}"]`)?.focus();
+                          return;
                         }
+                        const arr = (authCode + '      ').split('');
+                        arr[i] = val || ' ';
+                        setAuthCode(arr.join('').substring(0, 6).trimEnd());
+                        setError('');
+                        if (val && i < 5) document.querySelector(`input[data-index="${i+1}"]`)?.focus();
                       }}
                       onKeyDown={e => { if (e.key === 'Backspace' && !authCode[i] && i > 0) document.querySelector(`input[data-index="${i-1}"]`)?.focus(); }}
                       disabled={loading} maxLength="1" inputMode="numeric" autoFocus={i === 0}
