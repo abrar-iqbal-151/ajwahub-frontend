@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaRobot, FaUser, FaHistory, FaPaperPlane, FaImage, FaSearch, FaPlus, FaTrash, FaCrown, FaCode, FaGlobe, FaCamera } from 'react-icons/fa';
+import { FaRobot, FaUser, FaHistory, FaPaperPlane, FaImage, FaSearch, FaPlus, FaTrash, FaCrown, FaCode, FaGlobe, FaCamera, FaBalanceScale, FaUpload } from 'react-icons/fa';
 import Navbar from './Navbar';
 import Footer from '../components/Footer';
 import '../css/AI.css';
@@ -42,10 +42,16 @@ function AI() {
   const [image, setImage] = useState(null);
   
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const [compareImage1, setCompareImage1] = useState(null);
+  const [compareImage2, setCompareImage2] = useState(null);
+  const [compareResult, setCompareResult] = useState('');
+  const [comparing, setComparing] = useState(false);
 
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const videoRef = useRef(null);
+  const file1Ref = useRef(null);
+  const file2Ref = useRef(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('ajwaHub_currentUser');
@@ -242,6 +248,39 @@ function AI() {
     };
   };
 
+  const handleCompare = async () => {
+    if (!compareImage1 || !compareImage2) return;
+    setComparing(true);
+    setCompareResult('');
+
+    const toBase64 = (file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    });
+
+    try {
+      const [base64_1, base64_2] = await Promise.all([toBase64(compareImage1), toBase64(compareImage2)]);
+      
+      const res = await fetch(`${API_URL}/api/ai/compare-images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image1Base64: base64_1,
+          mimeType1: compareImage1.type,
+          image2Base64: base64_2,
+          mimeType2: compareImage2.type
+        })
+      });
+      const data = await res.json();
+      setCompareResult(formatText(data?.response || 'Comparison nahi ho saki.'));
+    } catch {
+      setCompareResult('Error during comparison. Please try again.');
+    } finally {
+      setComparing(false);
+    }
+  };
+
   return (
     <div className="ai-page">
       {/* 3D Background */}
@@ -305,6 +344,11 @@ function AI() {
             <button className={`ai-tab ${activeTab === 'chat' ? 'active' : ''}`} onClick={() => setActiveTab('chat')}>
               <FaRobot className="ai-tab-icon" />
               <span>AI Chat</span>
+            </button>
+
+            <button className={`ai-tab ${activeTab === 'compare' ? 'active' : ''}`} onClick={() => setActiveTab('compare')}>
+              <FaBalanceScale className="ai-tab-icon" />
+              <span>Quality Scanner</span>
             </button>
 
             <button className={`ai-tab ${activeTab === 'history' ? 'active' : ''}`} onClick={() => setActiveTab('history')}>
@@ -382,6 +426,72 @@ function AI() {
                   <FaCrown style={{ color: '#d4af37', fontSize: '10px' }} />
                   <span>Built by <strong>Abrar</strong> &mdash; CEO &amp; Founder, AjwaHub</span>
                 </div>
+              </div>
+            ) : activeTab === 'compare' ? (
+              <div className="ai-compare-layout">
+                <div className="ai-compare-header">
+                  <h2>Date Quality Scanner</h2>
+                  <p>Upload two pictures of dates to compare their quality, appearance, and freshness using AI.</p>
+                </div>
+                
+                <div className="ai-compare-cards">
+                  <div className="ai-compare-card">
+                    <h3>Date Image 1</h3>
+                    <div className="ai-compare-upload" onClick={() => file1Ref.current.click()}>
+                      {compareImage1 ? (
+                        <img src={URL.createObjectURL(compareImage1)} alt="Date 1" />
+                      ) : (
+                        <div className="ai-compare-placeholder">
+                          <FaUpload />
+                          <span>Upload Image 1</span>
+                        </div>
+                      )}
+                    </div>
+                    <input type="file" hidden ref={file1Ref} onChange={(e) => setCompareImage1(e.target.files[0])} accept="image/*" />
+                    {compareImage1 && (
+                      <button className="ai-compare-remove-btn" onClick={() => setCompareImage1(null)}>✕ Remove</button>
+                    )}
+                  </div>
+
+                  <div className="ai-compare-card">
+                    <h3>Date Image 2</h3>
+                    <div className="ai-compare-upload" onClick={() => file2Ref.current.click()}>
+                      {compareImage2 ? (
+                        <img src={URL.createObjectURL(compareImage2)} alt="Date 2" />
+                      ) : (
+                        <div className="ai-compare-placeholder">
+                          <FaUpload />
+                          <span>Upload Image 2</span>
+                        </div>
+                      )}
+                    </div>
+                    <input type="file" hidden ref={file2Ref} onChange={(e) => setCompareImage2(e.target.files[0])} accept="image/*" />
+                    {compareImage2 && (
+                      <button className="ai-compare-remove-btn" onClick={() => setCompareImage2(null)}>✕ Remove</button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="ai-compare-action">
+                  <button 
+                    className="ai-compare-btn" 
+                    disabled={!compareImage1 || !compareImage2 || comparing}
+                    onClick={handleCompare}
+                  >
+                    {comparing ? 'Scanning with AI...' : 'Compare & Analyze Quality'}
+                  </button>
+                </div>
+
+                {compareResult && (
+                  <div className="ai-compare-result">
+                    <div className="ai-compare-result-header">
+                      <FaRobot /> AI Analysis Result
+                    </div>
+                    <div className="ai-compare-result-body" style={{ whiteSpace: 'pre-wrap' }}>
+                      {compareResult}
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="ai-history-layout">
