@@ -50,9 +50,7 @@ function AI() {
 
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
-  const videoRef = useRef(null);
-  const file1Ref = useRef(null);
-  const file2Ref = useRef(null);
+  const nativeCameraRef = useRef(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('ajwaHub_currentUser');
@@ -70,63 +68,31 @@ function AI() {
     };
   }, []);
 
-  const startCamera = async () => {
-    setIsCameraActive(true);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
-        audio: false
-      });
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play().catch(e => console.error("Video play error:", e));
-        }
-      }, 300);
-    } catch (err) {
-      console.error("Camera access error:", err);
-      alert("Camera permission denied or camera not available.");
-      setIsCameraActive(false);
+  const startCamera = () => {
+    if (nativeCameraRef.current) {
+      nativeCameraRef.current.click();
     }
   };
 
-  const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject;
-      const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop());
-      videoRef.current.srcObject = null;
+  const handleNativeCameraCapture = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (autoScanMode) {
+         setAutoScanMode(false);
+         setActiveTab('chat');
+         setLoading(true);
+         const question = "Mera yeh sawal hai: In dono Ajwa khajooron ko check karo. Kaun si achi hai aur kaun si kharab? Kya farq hai dono ki quality aur appearance mein? Roman Urdu mein clearly jawab do.";
+         setMessages(prev => [...prev, { role: 'user', text: question, image: file }]);
+         await handleImageUpload(file, question);
+         setLoading(false);
+      } else {
+         setImage(file);
+      }
+    } else {
+      setAutoScanMode(false);
     }
-    setIsCameraActive(false);
-  };
-
-  const capturePhoto = () => {
-    if (videoRef.current) {
-      const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current.videoWidth || 640;
-      canvas.height = videoRef.current.videoHeight || 480;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-      
-      canvas.toBlob(async (blob) => {
-        if (blob) {
-          const file = new File([blob], "camera_capture.jpg", { type: "image/jpeg" });
-          stopCamera();
-          
-          if (autoScanMode) {
-             setAutoScanMode(false);
-             setActiveTab('chat');
-             setLoading(true);
-             const question = "Mera yeh sawal hai: In dono Ajwa khajooron ko check karo. Kaun si achi hai aur kaun si kharab? Kya farq hai dono ki quality aur appearance mein? Roman Urdu mein clearly jawab do.";
-             setMessages(prev => [...prev, { role: 'user', text: question, image: file }]);
-             await handleImageUpload(file, question);
-             setLoading(false);
-          } else {
-             setImage(file);
-          }
-        }
-      }, 'image/jpeg', 0.95);
-    }
+    // reset input so the same file could be selected again if needed
+    e.target.value = '';
   };
 
 
@@ -307,25 +273,7 @@ function AI() {
       </div>
       <Navbar />
 
-      {/* Real Live Camera Scanner overlay inside page */}
-      {isCameraActive && (
-        <div className="ai-camera-modal-overlay">
-          <div className="ai-camera-modal">
-            <div className="ai-camera-modal-header">
-              <h3>📸 Live Item Scanner</h3>
-              <button className="ai-camera-close-btn" onClick={stopCamera}>×</button>
-            </div>
-            <div className="ai-camera-video-container">
-              <video ref={videoRef} autoPlay playsInline muted />
-            </div>
-            <div className="ai-camera-actions">
-              <button className="ai-camera-capture-btn" onClick={capturePhoto} title="Capture Snapshot">
-                <div className="ai-camera-capture-btn-inner" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
 
       <div className="ai-wrapper">
 
@@ -434,6 +382,10 @@ function AI() {
                     <FaImage />
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
+                  
+                  {/* Native Camera Capture Input */}
+                  <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
+
                   <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
                     <FaCamera />
                   </button>
