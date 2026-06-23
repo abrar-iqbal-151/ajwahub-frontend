@@ -77,17 +77,9 @@ function AI() {
   const handleNativeCameraCapture = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (autoScanMode) {
-         setAutoScanMode(false);
-         setActiveTab('chat');
-         setLoading(true);
-         const question = "Mera yeh sawal hai: In dono Ajwa khajooron ko check karo. Kaun si achi hai aur kaun si kharab? Kya farq hai dono ki quality aur appearance mein? Roman Urdu mein clearly jawab do.";
-         setMessages(prev => [...prev, { role: 'user', text: question, image: file }]);
-         await handleImageUpload(file, question);
-         setLoading(false);
-      } else {
-         setImage(file);
-      }
+      setAutoScanMode(false);
+      setActiveTab('chat');
+      setImage(file);
     } else {
       setAutoScanMode(false);
     }
