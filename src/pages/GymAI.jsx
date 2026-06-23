@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/GymAI.css';
 import Navbar from './Navbar';
@@ -14,20 +14,51 @@ const formatText = (text) => text
   .trim();
 
 const GOALS = [
-  { value: 'weight-loss', label: 'Weight Loss' },
-  { value: 'muscle-gain', label: 'Muscle Gain' },
-  { value: 'maintain', label: 'Maintain' },
-  { value: 'energy-boost', label: 'Energy Boost' },
-  { value: 'immunity', label: 'Immunity' },
+  { value: 'weight-loss',  label: 'Weight Loss',   emoji: '🔥' },
+  { value: 'muscle-gain',  label: 'Muscle Gain',   emoji: '💪' },
+  { value: 'maintain',     label: 'Maintain',      emoji: '⚖️' },
+  { value: 'energy-boost', label: 'Energy Boost',  emoji: '⚡' },
+  { value: 'immunity',     label: 'Immunity',      emoji: '🛡️' },
 ];
 
 const ACTIVITY = [
-  { value: 'sedentary', label: 'Sedentary' },
-  { value: 'light', label: 'Light (1-3 days/week)' },
-  { value: 'moderate', label: 'Moderate (3-5 days/week)' },
-  { value: 'active', label: 'Active (6-7 days/week)' },
-  { value: 'very-active', label: 'Very Active' },
+  { value: 'sedentary',   label: 'Sedentary',              sub: 'Desk job, no exercise' },
+  { value: 'light',       label: 'Light',                  sub: '1-3 days/week' },
+  { value: 'moderate',    label: 'Moderate',               sub: '3-5 days/week' },
+  { value: 'active',      label: 'Active',                 sub: '6-7 days/week' },
+  { value: 'very-active', label: 'Very Active',            sub: 'Athlete level' },
 ];
+
+function getBMI(weight, height) {
+  const h = height / 100;
+  if (!weight || !h) return null;
+  return (weight / (h * h)).toFixed(1);
+}
+
+function getBMICategory(bmi) {
+  if (bmi < 18.5) return { label: 'Underweight', color: '#60a5fa' };
+  if (bmi < 25)   return { label: 'Normal',      color: '#34d399' };
+  if (bmi < 30)   return { label: 'Overweight',  color: '#fbbf24' };
+  return            { label: 'Obese',           color: '#f87171' };
+}
+
+// Countdown timer hook
+function useCountdown(target) {
+  const [timeLeft, setTimeLeft] = useState({ h: 0, m: 0, s: 0 });
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const end = new Date(now); end.setHours(target, 0, 0, 0);
+      if (end <= now) end.setDate(end.getDate() + 1);
+      const diff = Math.floor((end - now) / 1000);
+      setTimeLeft({ h: Math.floor(diff / 3600), m: Math.floor((diff % 3600) / 60), s: diff % 60 });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [target]);
+  return timeLeft;
+}
 
 function GymAI() {
   const navigate = useNavigate();
@@ -36,6 +67,8 @@ function GymAI() {
   const [videos, setVideos] = useState([]);
   const [loadingVideos, setLoadingVideos] = useState(true);
 
+  // Multi-step diet form
+  const [step, setStep] = useState(1); // 1=body, 2=goal, 3=activity
   const [dietForm, setDietForm] = useState({ weight: '', height: '', age: '', goal: 'weight-loss', activity: 'moderate' });
   const [dietResult, setDietResult] = useState('');
   const [dietLoading, setDietLoading] = useState(false);
@@ -48,6 +81,24 @@ function GymAI() {
 
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
+  const [videoSearch, setVideoSearch] = useState('');
+  const [videoCategory, setVideoCategory] = useState('All Videos');
+
+  // Meal reminders countdown
+  const breakfast = useCountdown(8);
+  const lunch = useCountdown(13);
+  const dinner = useCountdown(20);
+
+  const bmi = getBMI(Number(dietForm.weight), Number(dietForm.height));
+  const bmiCat = bmi ? getBMICategory(Number(bmi)) : null;
+  const bmiPercent = bmi ? Math.min(100, Math.max(0, ((Number(bmi) - 10) / 30) * 100)) : 0;
+
+  const filteredVideos = videos.filter(v => {
+    const s = videoSearch.toLowerCase();
+    const matchSearch = v.title.toLowerCase().includes(s) || (v.description && v.description.toLowerCase().includes(s));
+    const matchCat = videoCategory === 'All Videos' || v.category === videoCategory;
+    return matchSearch && matchCat;
+  });
 
   const fetchHistory = async (userId) => {
     setLoadingHistory(true);
@@ -55,7 +106,7 @@ function GymAI() {
       const res = await fetch(`${API}/api/gymai/history/${userId}`);
       const data = await res.json();
       setHistory(data.history || []);
-    } catch (e) { console.error('Failed to fetch history', e); }
+    } catch {}
     setLoadingHistory(false);
   };
 
@@ -71,25 +122,15 @@ function GymAI() {
       });
       const data = await res.json();
       if (res.ok) setHistory(prev => [data.history, ...prev]);
-    } catch (e) { console.error('Failed to save history', e); }
+    } catch {}
   };
 
   const deleteHistory = async (id) => {
     try {
       const res = await fetch(`${API}/api/gymai/history/${id}`, { method: 'DELETE' });
       if (res.ok) setHistory(prev => prev.filter(h => h._id !== id));
-    } catch (e) { console.error('Failed to delete history', e); }
+    } catch {}
   };
-
-  const [videoSearch, setVideoSearch] = useState('');
-  const [videoCategory, setVideoCategory] = useState('All Videos');
-
-  const filteredVideos = videos.filter(v => {
-    const s = videoSearch.toLowerCase();
-    const matchSearch = v.title.toLowerCase().includes(s) || (v.description && v.description.toLowerCase().includes(s));
-    const matchCat = videoCategory === 'All Videos' || v.category === videoCategory;
-    return matchSearch && matchCat;
-  });
 
   useEffect(() => {
     const u = localStorage.getItem('ajwaHub_currentUser');
@@ -141,34 +182,27 @@ function GymAI() {
     setRecipeLoading(false);
   };
 
+  const pad = (n) => String(n).padStart(2, '0');
+
   return (
     <div className="gymai-page">
-      {/* 3D Background */}
       <div className="desc-bg-3d">
         <div className="desc-bg-grid" />
-        <div className="desc-orb desc-orb1" />
-        <div className="desc-orb desc-orb2" />
-        <div className="desc-orb desc-orb3" />
-        <div className="desc-orb desc-orb4" />
+        <div className="desc-orb desc-orb1" /><div className="desc-orb desc-orb2" />
+        <div className="desc-orb desc-orb3" /><div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
-          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay: `${i*0.4}s`}} />)}
+          {[...Array(6)].map((_,i) => <div key={i} className="desc-bg-line" style={{animationDelay:`${i*0.4}s`}} />)}
         </div>
       </div>
-
       <Navbar />
 
-      {/* Hero — Products-style gold glass frame */}
       <div className="gymai-hero-wrapper">
         <div className="gymai-hero">
           <div className="gymai-hero-inner">
-            <span className="gymai-hero-badge">
-              <span className="gymai-pulse-dot"></span> Health &amp; Nutrition AI
-            </span>
+            <span className="gymai-hero-badge"><span className="gymai-pulse-dot"></span> Health &amp; Nutrition AI</span>
             <h1>Your Personal <span>Health AI</span></h1>
             <div className="gymai-hero-divider">
-              <span className="gymai-divider-line"></span>
-              <span className="gymai-divider-dot"></span>
-              <span className="gymai-divider-line"></span>
+              <span className="gymai-divider-line"></span><span className="gymai-divider-dot"></span><span className="gymai-divider-line"></span>
             </div>
             <p>AI-powered diet plans, healthy recipes &amp; expert videos — featuring premium Ajwa dates &amp; dry fruits</p>
             <div className="gymai-hero-btns">
@@ -180,63 +214,168 @@ function GymAI() {
         </div>
       </div>
 
+      {/* MEAL TIMER STRIP */}
+      <div className="gymai-meal-timers">
+        {[
+          { label: '🌅 Breakfast', t: breakfast, time: '8:00 AM' },
+          { label: '☀️ Lunch',     t: lunch,     time: '1:00 PM' },
+          { label: '🌙 Dinner',    t: dinner,    time: '8:00 PM' },
+        ].map(({ label, t, time }) => (
+          <div key={label} className="gymai-timer-card">
+            <div className="gymai-timer-label">{label}</div>
+            <div className="gymai-timer-time-target">{time}</div>
+            <div className="gymai-timer-countdown">
+              <span>{pad(t.h)}<small>h</small></span>
+              <span className="gymai-timer-sep">:</span>
+              <span>{pad(t.m)}<small>m</small></span>
+              <span className="gymai-timer-sep">:</span>
+              <span>{pad(t.s)}<small>s</small></span>
+            </div>
+            <div className="gymai-timer-sub">until meal time</div>
+          </div>
+        ))}
+      </div>
+
       <div className="gymai-container">
         <div className="gymai-tabs">
-          {[['diet', 'Diet Plan'], ['recipes', 'Recipes'], ['videos', 'Videos'], ['history', 'History']].map(([val, label]) => (
-            <button key={val} className={`gymai-tab ${activeTab === val ? 'active' : ''}`} onClick={() => setActiveTab(val)}>
-              {label}
-            </button>
+          {[['diet','🥗 Diet Plan'],['recipes','👨‍🍳 Recipes'],['videos','🎬 Videos'],['history','📋 History']].map(([val, label]) => (
+            <button key={val} className={`gymai-tab ${activeTab === val ? 'active' : ''}`} onClick={() => setActiveTab(val)}>{label}</button>
           ))}
         </div>
 
-        {/* DIET TAB */}
+        {/* ─── DIET TAB ─── */}
         {activeTab === 'diet' && (
           <div className="gymai-tab-content">
-            <div className="diet-form-card">
-              <div className="diet-form-header">
-                <h3>Your Body Stats</h3>
-                <p>Fill in your details to get a personalized 7-day diet plan</p>
-              </div>
-              <div className="diet-form-grid">
-                {[['weight','Weight (kg)','70'],['height','Height (cm)','175'],['age','Age','25']].map(([key,label,ph]) => (
-                  <div key={key} className="diet-field">
-                    <label>{label}</label>
-                    <input type="number" placeholder={ph} value={dietForm[key]}
-                      onChange={e => setDietForm(p => ({ ...p, [key]: e.target.value }))} />
+            <div className="diet-wizard-wrapper">
+
+              {/* Progress Steps */}
+              <div className="diet-wizard-steps">
+                {['Body Stats', 'Your Goal', 'Activity'].map((s, i) => (
+                  <div key={s} className={`diet-wizard-step ${step > i+1 ? 'done' : step === i+1 ? 'active' : ''}`} onClick={() => step > i+1 && setStep(i+1)}>
+                    <div className="diet-wizard-step-circle">{step > i+1 ? '✓' : i+1}</div>
+                    <span>{s}</span>
                   </div>
                 ))}
               </div>
-              <div className="diet-field">
-                <label>Your Goal</label>
-                <div className="diet-options">
-                  {GOALS.map(g => (
-                    <button key={g.value} className={`diet-option-btn ${dietForm.goal === g.value ? 'active' : ''}`}
-                      onClick={() => setDietForm(p => ({ ...p, goal: g.value }))}>
-                      {g.label}
-                    </button>
-                  ))}
+
+              {/* STEP 1 — Body Stats */}
+              {step === 1 && (
+                <div className="diet-step-card">
+                  <h3>📊 Your Body Stats</h3>
+                  <p>Enter your measurements to calculate your BMI and personalize your plan</p>
+
+                  <div className="diet-form-grid">
+                    {[
+                      { key:'weight', label:'Weight', unit:'kg', ph:'70', icon:'⚖️' },
+                      { key:'height', label:'Height', unit:'cm', ph:'175', icon:'📏' },
+                      { key:'age',    label:'Age',    unit:'yrs', ph:'25', icon:'🎂' },
+                    ].map(({ key, label, unit, ph, icon }) => (
+                      <div key={key} className="diet-input-box">
+                        <div className="diet-input-icon">{icon}</div>
+                        <label>{label}</label>
+                        <div className="diet-input-with-unit">
+                          <input type="number" placeholder={ph} value={dietForm[key]}
+                            onChange={e => setDietForm(p => ({ ...p, [key]: e.target.value }))} />
+                          <span className="diet-unit">{unit}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Live BMI Gauge */}
+                  {bmi && (
+                    <div className="diet-bmi-card">
+                      <div className="diet-bmi-header">
+                        <span>Your BMI</span>
+                        <span className="diet-bmi-value" style={{ color: bmiCat.color }}>{bmi}</span>
+                        <span className="diet-bmi-cat" style={{ color: bmiCat.color }}>{bmiCat.label}</span>
+                      </div>
+                      <div className="diet-bmi-bar-wrap">
+                        <div className="diet-bmi-bar">
+                          <div className="diet-bmi-fill" style={{ width: `${bmiPercent}%`, background: bmiCat.color }} />
+                          <div className="diet-bmi-pointer" style={{ left: `${bmiPercent}%` }} />
+                        </div>
+                        <div className="diet-bmi-labels">
+                          <span style={{color:'#60a5fa'}}>Under</span>
+                          <span style={{color:'#34d399'}}>Normal</span>
+                          <span style={{color:'#fbbf24'}}>Over</span>
+                          <span style={{color:'#f87171'}}>Obese</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <button className="diet-next-btn" onClick={() => {
+                    if (!dietForm.weight || !dietForm.height || !dietForm.age) { setDietError('Sab fields fill karein'); return; }
+                    setDietError(''); setStep(2);
+                  }}>
+                    Next: Choose Your Goal →
+                  </button>
+                  {dietError && <div className="diet-error">{dietError}</div>}
                 </div>
-              </div>
-              <div className="diet-field">
-                <label>Activity Level</label>
-                <select value={dietForm.activity} onChange={e => setDietForm(p => ({ ...p, activity: e.target.value }))}>
-                  {ACTIVITY.map(a => <option key={a.value} value={a.value}>{a.label}</option>)}
-                </select>
-              </div>
-              {dietError && <div className="diet-error">{dietError}</div>}
-              <button className="diet-generate-btn" onClick={generateDiet} disabled={dietLoading}>
-                {dietLoading ? <><span className="gymai-spinner" /> Generating Plan...</> : 'Generate My Diet Plan'}
-              </button>
+              )}
+
+              {/* STEP 2 — Goal */}
+              {step === 2 && (
+                <div className="diet-step-card">
+                  <h3>🎯 What's Your Goal?</h3>
+                  <p>Select your primary health objective</p>
+                  <div className="diet-goal-grid">
+                    {GOALS.map(g => (
+                      <button key={g.value}
+                        className={`diet-goal-card ${dietForm.goal === g.value ? 'active' : ''}`}
+                        onClick={() => setDietForm(p => ({ ...p, goal: g.value }))}>
+                        <span className="diet-goal-emoji">{g.emoji}</span>
+                        <span>{g.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="diet-step-nav">
+                    <button className="diet-back-btn" onClick={() => setStep(1)}>← Back</button>
+                    <button className="diet-next-btn" onClick={() => setStep(3)}>Next: Activity Level →</button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3 — Activity */}
+              {step === 3 && (
+                <div className="diet-step-card">
+                  <h3>🏃 Activity Level</h3>
+                  <p>How active are you on a weekly basis?</p>
+                  <div className="diet-activity-list">
+                    {ACTIVITY.map((a, i) => (
+                      <div key={a.value}
+                        className={`diet-activity-row ${dietForm.activity === a.value ? 'active' : ''}`}
+                        onClick={() => setDietForm(p => ({ ...p, activity: a.value }))}>
+                        <div className="diet-activity-bar-fill" style={{ width: `${(i+1)*20}%` }} />
+                        <div className="diet-activity-info">
+                          <strong>{a.label}</strong>
+                          <span>{a.sub}</span>
+                        </div>
+                        <div className={`diet-activity-check ${dietForm.activity === a.value ? 'on' : ''}`}>✓</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="diet-step-nav">
+                    <button className="diet-back-btn" onClick={() => setStep(2)}>← Back</button>
+                    <button className="diet-generate-btn" onClick={generateDiet} disabled={dietLoading}>
+                      {dietLoading ? <><span className="gymai-spinner" /> Generating Plan...</> : '🚀 Generate My 7-Day Plan'}
+                    </button>
+                  </div>
+                  {dietError && <div className="diet-error">{dietError}</div>}
+                </div>
+              )}
+
             </div>
           </div>
         )}
 
-        {/* RECIPES TAB */}
+        {/* ─── RECIPES TAB ─── */}
         {activeTab === 'recipes' && (
           <div className="gymai-tab-content">
             <div className="diet-form-card">
               <div className="diet-form-header">
-                <h3>AI Recipe Generator</h3>
+                <h3>👨‍🍳 AI Recipe Generator</h3>
                 <p>Enter your ingredients — AI will create a healthy recipe with Ajwa dates &amp; dry fruits!</p>
               </div>
               <div className="diet-field">
@@ -253,7 +392,7 @@ function GymAI() {
           </div>
         )}
 
-        {/* VIDEOS TAB */}
+        {/* ─── VIDEOS TAB ─── */}
         {activeTab === 'videos' && (
           <div className="gymai-tab-content">
             <div className="gymai-video-filters">
@@ -269,16 +408,12 @@ function GymAI() {
                 <option value="Workout">Workout</option>
               </select>
             </div>
-
             {loadingVideos ? (
               <div className="gymai-loading"><span className="gymai-spinner" style={{width:32,height:32,borderWidth:3}} /></div>
             ) : filteredVideos.length === 0 ? (
               <div className="gymai-empty">
-                <div className="gymai-empty-icon">
-                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" style={{color:'#4b5563'}}><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-                </div>
-                <h3>No Videos Found</h3>
-                <p>Try adjusting your search or category filter</p>
+                <div className="gymai-empty-icon">🎬</div>
+                <h3>No Videos Found</h3><p>Try adjusting your search or category filter</p>
               </div>
             ) : (
               <div className="gymai-videos-grid">
@@ -287,8 +422,7 @@ function GymAI() {
                     {video.thumbnail && <img src={video.thumbnail} alt={video.title} onError={e => e.target.style.display='none'} />}
                     <div className="gymai-video-info">
                       <span className="gymai-video-cat">{video.category}</span>
-                      <h4>{video.title}</h4>
-                      <p>{video.description}</p>
+                      <h4>{video.title}</h4><p>{video.description}</p>
                       <a href={video.url} target="_blank" rel="noopener noreferrer" className="gymai-watch-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         Watch Video
@@ -301,108 +435,54 @@ function GymAI() {
           </div>
         )}
 
-        {/* HISTORY TAB */}
+        {/* ─── HISTORY TAB ─── */}
         {activeTab === 'history' && (
           <div className="gymai-tab-content">
             <div className="gymai-history-master-box">
-
-              {/* Header inside the box */}
               <div className="gymai-history-master-header">
                 <div className="gymai-history-master-icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
-                <div>
-                  <h2>Your AI History</h2>
-                  <p>Click any entry to view full result · Delete to remove permanently</p>
+                <div><h2>Your AI History</h2><p>Click any entry to view full result · Delete to remove permanently</p></div>
+              </div>
+              <div className="gymai-history-master-divider" />
+              {['diet','recipe'].map(type => (
+                <div key={type} className="gymai-history-section">
+                  <h4 className="gymai-history-title">{type === 'diet' ? '🥗 Diet Plans' : '👨‍🍳 Recipes'}</h4>
+                  {loadingHistory ? (
+                    <div className="gymai-loading"><span className="gymai-spinner" style={{width:28,height:28,borderWidth:2}} /></div>
+                  ) : history.filter(h => h.type === type).length === 0 ? (
+                    <div className="gymai-history-empty-box">
+                      <p>No {type === 'diet' ? 'diet plans' : 'recipes'} generated yet.</p>
+                      <button onClick={() => setActiveTab(type === 'diet' ? 'diet' : 'recipes')}>Generate {type === 'diet' ? 'Diet Plan' : 'Recipe'} →</button>
+                    </div>
+                  ) : (
+                    <div className="gymai-history-list">
+                      {history.filter(h => h.type === type).map(h => (
+                        <div key={h._id} className="gymai-history-card">
+                          <div className="history-info" onClick={() => type === 'diet' ? setDietResult(h.result) : setRecipeResult(h.result)}>
+                            <div><strong>{h.promptData}</strong><span>{new Date(h.createdAt).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })}</span></div>
+                          </div>
+                          <button className="history-delete-btn" onClick={() => deleteHistory(h._id)}>🗑</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="gymai-history-master-divider" />
                 </div>
-              </div>
-
-              <div className="gymai-history-master-divider" />
-
-              {/* DIET PLANS */}
-              <div className="gymai-history-section">
-                <h4 className="gymai-history-title">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                  Diet Plans
-                </h4>
-                {loadingHistory ? (
-                  <div className="gymai-loading"><span className="gymai-spinner" style={{width:28,height:28,borderWidth:2}} /></div>
-                ) : history.filter(h => h.type === 'diet').length === 0 ? (
-                  <div className="gymai-history-empty-box">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    <p>No diet plans generated yet.</p>
-                    <button onClick={() => setActiveTab('diet')}>Generate Diet Plan →</button>
-                  </div>
-                ) : (
-                  <div className="gymai-history-list">
-                    {history.filter(h => h.type === 'diet').map(h => (
-                      <div key={h._id} className="gymai-history-card">
-                        <div className="history-info" onClick={() => setDietResult(h.result)}>
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                          <div>
-                            <strong>{h.promptData}</strong>
-                            <span>{new Date(h.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
-                          </div>
-                        </div>
-                        <button className="history-delete-btn" onClick={() => deleteHistory(h._id)}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="gymai-history-master-divider" />
-
-              {/* RECIPES */}
-              <div className="gymai-history-section">
-                <h4 className="gymai-history-title">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                  Recipes
-                </h4>
-                {loadingHistory ? (
-                  <div className="gymai-loading"><span className="gymai-spinner" style={{width:28,height:28,borderWidth:2}} /></div>
-                ) : history.filter(h => h.type === 'recipe').length === 0 ? (
-                  <div className="gymai-history-empty-box">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
-                    <p>No recipes generated yet.</p>
-                    <button onClick={() => setActiveTab('recipes')}>Generate Recipe →</button>
-                  </div>
-                ) : (
-                  <div className="gymai-history-list">
-                    {history.filter(h => h.type === 'recipe').map(h => (
-                      <div key={h._id} className="gymai-history-card">
-                        <div className="history-info" onClick={() => setRecipeResult(h.result)}>
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                          <div>
-                            <strong>{h.promptData}</strong>
-                            <span>{new Date(h.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
-                          </div>
-                        </div>
-                        <button className="history-delete-btn" onClick={() => deleteHistory(h._id)}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
+              ))}
             </div>
           </div>
         )}
       </div>
 
-      {/* AI RESULT MODAL OVERLAY */}
+      {/* RESULT MODAL */}
       {(dietResult || recipeResult) && (
         <div className="gymai-modal-overlay" onClick={() => { setDietResult(''); setRecipeResult(''); }}>
           <div className="gymai-modal-content diet-result" onClick={e => e.stopPropagation()}>
-            <button className="gymai-modal-close" onClick={() => { setDietResult(''); setRecipeResult(''); }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+            <button className="gymai-modal-close" onClick={() => { setDietResult(''); setRecipeResult(''); }}>×</button>
             <div className="diet-result-header">
-              <h3>{dietResult ? "Your 7-Day Diet Plan" : "Your AI Recipe"}</h3>
+              <h3>{dietResult ? '🥗 Your 7-Day Diet Plan' : '👨‍🍳 Your AI Recipe'}</h3>
               <span>Powered by Gemini AI</span>
             </div>
             <div className="diet-result-content">

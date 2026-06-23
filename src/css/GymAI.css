@@ -1138,3 +1138,353 @@
     margin-bottom: 8px !important;
   }
 }
+
+/* ══════════════════════════════════════════
+   MEAL COUNTDOWN TIMER STRIP
+══════════════════════════════════════════ */
+.gymai-meal-timers {
+  display: flex;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 60px;
+}
+
+.gymai-timer-card {
+  flex: 1;
+  background: linear-gradient(145deg, rgba(28, 20, 8, 0.95), rgba(12, 8, 2, 0.98));
+  border: 1.5px solid rgba(197, 160, 89, 0.4);
+  border-radius: 24px;
+  padding: 20px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+.gymai-timer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c5a059, transparent);
+}
+.gymai-timer-card:hover { transform: translateY(-4px); }
+
+.gymai-timer-label { font-size: 13px; font-weight: 700; color: #c5a059; margin-bottom: 4px; }
+.gymai-timer-time-target { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+.gymai-timer-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+.gymai-timer-countdown small {
+  font-size: 10px;
+  color: #c5a059;
+  font-weight: 700;
+  vertical-align: baseline;
+  letter-spacing: 0;
+  margin-left: 1px;
+}
+.gymai-timer-sep { color: #c5a059; margin: 0 2px; }
+.gymai-timer-sub { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+@media (max-width: 768px) {
+  .gymai-meal-timers { flex-direction: column; padding: 0 12px; }
+  .gymai-timer-countdown { font-size: 22px; }
+}
+
+/* ══════════════════════════════════════════
+   WIZARD STEPS
+══════════════════════════════════════════ */
+.diet-wizard-wrapper { max-width: 700px; margin: 0 auto; }
+
+.diet-wizard-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+
+.diet-wizard-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  flex: 1;
+  cursor: default;
+}
+.diet-wizard-step::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(197, 160, 89, 0.2);
+  z-index: 0;
+}
+.diet-wizard-step:last-child::after { display: none; }
+
+.diet-wizard-step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(197, 160, 89, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.diet-wizard-step.active .diet-wizard-step-circle {
+  border-color: #c5a059;
+  color: #ffd700;
+  background: rgba(197, 160, 89, 0.15);
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+}
+.diet-wizard-step.done .diet-wizard-step-circle {
+  border-color: #34d399;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+}
+.diet-wizard-step.done { cursor: pointer; }
+.diet-wizard-step span {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.diet-wizard-step.active span { color: #c5a059; }
+.diet-wizard-step.done span  { color: #34d399; }
+
+/* ══════════════════════════════════════════
+   DIET STEP CARD
+══════════════════════════════════════════ */
+.diet-step-card {
+  background: linear-gradient(145deg, #23201a, #161411);
+  border: 2px solid #c5a059;
+  border-radius: 32px;
+  padding: 40px;
+  animation: fadeIn 0.35s ease;
+}
+.diet-step-card h3 {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, #fff, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.diet-step-card > p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 28px;
+}
+
+/* ── INPUT BOXES ── */
+.diet-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.diet-input-box {
+  background: rgba(0,0,0,0.4);
+  border: 1.5px solid rgba(197, 160, 89, 0.25);
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s;
+}
+.diet-input-box:focus-within {
+  border-color: #c5a059;
+  background: rgba(197, 160, 89, 0.05);
+}
+.diet-input-icon { font-size: 22px; }
+.diet-input-box label { font-size: 11px; font-weight: 800; color: #c5a059; text-transform: uppercase; letter-spacing: 1px; }
+.diet-input-with-unit { display: flex; align-items: center; gap: 8px; }
+.diet-input-with-unit input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  width: 100%;
+}
+.diet-input-with-unit input::placeholder { color: rgba(255,255,255,0.2); font-size: 16px; font-weight: 400; }
+.diet-unit { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 600; }
+
+/* ── BMI GAUGE ── */
+.diet-bmi-card {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  animation: fadeIn 0.4s ease;
+}
+.diet-bmi-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.diet-bmi-header > span:first-child { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 600; }
+.diet-bmi-value { font-size: 28px; font-weight: 900; }
+.diet-bmi-cat { font-size: 13px; font-weight: 700; }
+
+.diet-bmi-bar-wrap { position: relative; }
+.diet-bmi-bar {
+  height: 10px;
+  background: linear-gradient(90deg, #60a5fa 0%, #34d399 30%, #fbbf24 65%, #f87171 100%);
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.diet-bmi-fill { display: none; }
+.diet-bmi-pointer {
+  position: absolute;
+  top: -4px;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 3px solid #c5a059;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(197, 160, 89, 0.6);
+  transition: left 0.5s ease;
+}
+.diet-bmi-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ── STEP NAV ── */
+.diet-step-nav { display: flex; gap: 12px; margin-top: 24px; }
+.diet-back-btn {
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.diet-back-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.diet-next-btn {
+  flex: 1;
+  padding: 16px;
+  background: linear-gradient(135deg, #c5a059, #b8860b);
+  border: 2px solid #ffd700;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+.diet-next-btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, #ffd700, #c5a059); }
+
+/* ── GOAL GRID ── */
+.diet-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.diet-goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid rgba(197, 160, 89, 0.2);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+}
+.diet-goal-card:hover { border-color: #c5a059; background: rgba(197, 160, 89, 0.08); color: #fff; transform: translateY(-2px); }
+.diet-goal-card.active {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.2), rgba(197, 160, 89, 0.05));
+  color: #ffd700;
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+}
+.diet-goal-emoji { font-size: 28px; }
+
+/* ── ACTIVITY LIST ── */
+.diet-activity-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+.diet-activity-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.4);
+  border: 1.5px solid rgba(197, 160, 89, 0.2);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.diet-activity-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: rgba(197, 160, 89, 0.06);
+  transition: width 0.3s;
+}
+.diet-activity-row.active { border-color: #c5a059; background: rgba(197, 160, 89, 0.08); }
+.diet-activity-row:hover { border-color: rgba(197, 160, 89, 0.5); }
+.diet-activity-info { flex: 1; position: relative; z-index: 1; }
+.diet-activity-info strong { display: block; font-size: 14px; color: #fff; font-weight: 700; margin-bottom: 2px; }
+.diet-activity-info span { font-size: 12px; color: rgba(255,255,255,0.45); }
+.diet-activity-check {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  color: transparent;
+  transition: all 0.25s;
+  flex-shrink: 0;
+  position: relative; z-index: 1;
+}
+.diet-activity-check.on { border-color: #34d399; background: rgba(52, 211, 153, 0.15); color: #34d399; }
+
+@media (max-width: 768px) {
+  .diet-form-grid { grid-template-columns: 1fr; }
+  .diet-goal-grid { grid-template-columns: repeat(2, 1fr); }
+  .diet-step-card { padding: 24px 20px; }
+  .diet-wizard-step span { display: none; }
+}
