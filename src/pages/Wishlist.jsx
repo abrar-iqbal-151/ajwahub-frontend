@@ -413,7 +413,7 @@ function Wishlist() {
                       </div>
                     </div>
                     <div className="pd-stock-status" style={{ margin: 0 }}>
-                      <span className="stock-dot"></span> In Stock
+                      <span className="stock-dot"></span> {selectedProduct.stock ? 'In Stock' : 'Out of Stock'}
                     </div>
                   </div>
 
@@ -449,6 +449,7 @@ function Wishlist() {
 
                   <button 
                     className="pd-add-to-cart-btn" 
+                    disabled={!selectedProduct.stock}
                     onClick={() => {
                       if (!selectedWeight) {
                         alert('Please select a box size first.');
