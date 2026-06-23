@@ -57,16 +57,7 @@ function AI() {
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  useEffect(() => {
-    return () => {
-      // Clean up camera stream on unmount
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject;
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-      }
-    };
-  }, []);
+
 
   const startCamera = () => {
     if (nativeCameraRef.current) {
@@ -377,15 +368,11 @@ function AI() {
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
                   
-                  {/* Native Camera Capture Input — Mobile Only */}
-                  {isMobile && (
-                    <>
-                      <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
-                      <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
-                        <FaCamera />
-                      </button>
-                    </>
-                  )}
+                  {/* Camera Capture Input */}
+                  <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
+                  <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
+                    <FaCamera />
+                  </button>
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />
