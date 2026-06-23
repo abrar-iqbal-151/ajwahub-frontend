@@ -823,12 +823,12 @@
     gap: 6px;
   }
 
-  .gcm-right {
-    display: none;
+  .gcm-right:not(.show-mobile) {
+    display: none !important;
   }
   
   .gcm-right.show-mobile {
-    display: flex;
+    display: flex !important;
     position: absolute;
     top: 0;
     left: 0;
