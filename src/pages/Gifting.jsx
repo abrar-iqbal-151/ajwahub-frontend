@@ -33,7 +33,6 @@ function Gifting() {
   const [giftBoxes, setGiftBoxes] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
-  const [showMobileSelector, setShowMobileSelector] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
@@ -166,7 +165,7 @@ function Gifting() {
                           <button onClick={() => removeItem(i)}>✕</button>
                         </>
                       ) : (
-                        <span className="gcm-slot-empty" onClick={() => setShowMobileSelector(true)}>+ Add Item</span>
+                        <span className="gcm-slot-empty">+ Add Item</span>
                       )}
                     </div>
                   ))}
@@ -189,13 +188,6 @@ function Gifting() {
                   <strong>PKR {totalPrice > 0 ? totalPrice.toLocaleString() : '0'}</strong>
                 </div>
               </div>
-              
-              <button 
-                className="gcm-mobile-choose-btn" 
-                onClick={() => setShowMobileSelector(true)}
-              >
-                🔍 Select Items to Add
-              </button>
 
               <button
                 className="gift-btn"
@@ -208,11 +200,8 @@ function Gifting() {
             </div>
 
 
-            <div className={`gcm-right ${showMobileSelector ? 'show-mobile' : ''}`}>
-              <div className="gcm-right-header">
-                <h4>Choose Products</h4>
-                <button className="gcm-close-mobile" onClick={() => setShowMobileSelector(false)}>✕</button>
-              </div>
+            <div className="gcm-right">
+              <h4>Choose Products</h4>
               <div className="gcm-search">
                 <span>🔍</span>
                 <input placeholder="Search products..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />

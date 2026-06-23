@@ -552,39 +552,14 @@
   background: rgba(15, 10, 4, 0.98);
 }
 
-.gcm-right-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-}
-
-.gcm-right-header h4 {
+.gcm-right h4 {
   font-size: 14px;
   font-weight: 800;
   background: linear-gradient(135deg, #fff, #c5a059);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
   letter-spacing: -0.2px;
-}
-
-.gcm-close-mobile {
-  display: none;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #9ca3af;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 12px;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.gcm-mobile-choose-btn {
-  display: none;
 }
 
 .gcm-search {
@@ -799,8 +774,7 @@
 
   .gift-customize-modal {
     flex-direction: column;
-    max-height: 90vh;
-    height: fit-content;
+    height: 90vh;
     border-radius: 16px;
     overflow-y: auto;
   }
@@ -824,46 +798,15 @@
     gap: 6px;
   }
 
-  .gcm-right:not(.show-mobile) {
-    display: none !important;
-  }
-  
-  .gcm-right.show-mobile {
-    display: flex !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 2000;
-    background: rgba(15, 10, 4, 0.98);
-    backdrop-filter: blur(10px);
-    border-radius: 0;
-    padding: 16px;
-    animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .gcm-close-mobile {
-    display: flex;
-  }
-
-  .gcm-mobile-choose-btn {
-    display: block;
-    width: 100%;
-    background: rgba(197, 160, 89, 0.15);
-    border: 1px solid rgba(197, 160, 89, 0.4);
-    color: #c5a059;
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    cursor: pointer;
-    text-align: center;
+  .gcm-right {
+    flex: 1;
+    padding: 14px;
+    min-height: 300px;
+    overflow-y: auto;
   }
 
   .gcm-products {
-    max-height: calc(100vh - 200px);
+    max-height: 260px;
     overflow-y: auto;
   }
 }
@@ -907,7 +850,7 @@
   }
 
   .gift-customize-modal {
-    max-height: 95vh;
+    height: 95vh;
   }
 
   .gcm-left {
