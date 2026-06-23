@@ -552,6 +552,23 @@
   }
 }
 
+/* ── CONFIRM DIALOG — always on top (all pages, all modals) ── */
+.confirm-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  background: rgba(0, 0, 0, 0.88) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.confirm-box {
+  position: relative !important;
+  z-index: 1000000 !important;
+}
+
 /* ── PRODUCTS STOREFRONT ── */
 @media (max-width: 768px) {
   .products-container {
