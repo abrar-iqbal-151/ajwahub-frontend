@@ -46,6 +46,7 @@ function AI() {
   const [compareImage2, setCompareImage2] = useState(null);
   const [compareResult, setCompareResult] = useState('');
   const [comparing, setComparing] = useState(false);
+  const [autoScanMode, setAutoScanMode] = useState(false);
 
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -107,14 +108,24 @@ function AI() {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       
-      canvas.toBlob((blob) => {
+      canvas.toBlob(async (blob) => {
         if (blob) {
           const file = new File([blob], "camera_capture.jpg", { type: "image/jpeg" });
-          setImage(file);
+          stopCamera();
+          
+          if (autoScanMode) {
+             setAutoScanMode(false);
+             setActiveTab('chat');
+             setLoading(true);
+             const question = "Mera yeh sawal hai: In dono Ajwa khajooron ko check karo. Kaun si achi hai aur kaun si kharab? Kya farq hai dono ki quality aur appearance mein? Roman Urdu mein clearly jawab do.";
+             setMessages(prev => [...prev, { role: 'user', text: question, image: file }]);
+             await handleImageUpload(file, question);
+             setLoading(false);
+          } else {
+             setImage(file);
+          }
         }
       }, 'image/jpeg', 0.95);
-      
-      stopCamera();
     }
   };
 
@@ -349,6 +360,11 @@ function AI() {
             <button className={`ai-tab ${activeTab === 'compare' ? 'active' : ''}`} onClick={() => setActiveTab('compare')}>
               <FaBalanceScale className="ai-tab-icon" />
               <span>Quality Scanner</span>
+            </button>
+
+            <button className="ai-tab" onClick={() => { setAutoScanMode(true); startCamera(); }}>
+              <FaCamera className="ai-tab-icon" />
+              <span>Product Scanner</span>
             </button>
 
             <button className={`ai-tab ${activeTab === 'history' ? 'active' : ''}`} onClick={() => setActiveTab('history')}>
