@@ -377,12 +377,15 @@ function AI() {
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
                   
-                  {/* Native Camera Capture Input */}
-                  <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
-
-                  <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
-                    <FaCamera />
-                  </button>
+                  {/* Native Camera Capture Input — Mobile Only */}
+                  {isMobile && (
+                    <>
+                      <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
+                      <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
+                        <FaCamera />
+                      </button>
+                    </>
+                  )}
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />
