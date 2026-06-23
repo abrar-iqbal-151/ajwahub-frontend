@@ -933,6 +933,9 @@
     flex: 1 !important;
     height: auto !important;
     padding: 16px 12px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
   }
 
   .ai-history-layout {
@@ -947,6 +950,9 @@
     flex: 1 !important;
     height: auto !important;
     padding: 12px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
   }
 
   .ai-compare-layout {

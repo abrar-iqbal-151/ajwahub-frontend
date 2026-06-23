@@ -145,6 +145,8 @@ function AI() {
     try {
       await fetch(`${API_URL}/api/ai/sessions/clear/${user._id}`, { method: 'DELETE' });
       setSessions([]);
+      setMessages([]);
+      localStorage.removeItem(`${CHAT_STORAGE_KEY}_${user._id}`);
     } catch {}
   };
 
