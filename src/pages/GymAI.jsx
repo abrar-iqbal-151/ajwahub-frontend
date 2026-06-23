@@ -232,25 +232,21 @@ function GymAI() {
       .finally(() => setLoadingVideos(false));
   }, []);
 
-  const callAI = async (message) => {
-    const u = localStorage.getItem('ajwaHub_currentUser');
-    const parsed = u ? JSON.parse(u) : null;
-    const userId = parsed?._id || parsed?.id || parsed?.email || '';
-    const res = await fetch(`${API}/api/ai/chat`, {
+  const callGymAI = async (prompt) => {
+    const res = await fetch(`${API}/api/ai/gymai/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, userId, userName: parsed?.name || '' })
+      body: JSON.stringify({ prompt })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'AI error');
     return formatText(data.response || '');
   };
-
   const generateDiet = async () => {
     if (!dietForm.weight || !dietForm.height || !dietForm.age) { setDietError('Sab fields fill karein'); return; }
     setDietLoading(true); setDietError(''); setDietResult('');
     try {
-      const result = await callAI(`Create a practical 7-day diet plan for: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}, Goal: ${dietForm.goal}, Activity: ${dietForm.activity}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`);
+      const result = await callGymAI(`Create a practical 7-day diet plan for: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}, Goal: ${dietForm.goal}, Activity: ${dietForm.activity}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`);
       setDietResult(result);
       saveHistory('diet', `${dietForm.weight}kg | ${dietForm.goal} | ${dietForm.activity}`, result);
     } catch { setDietError('AI se connect nahi ho saka. Dobara try karein.'); }
@@ -261,7 +257,7 @@ function GymAI() {
     if (!ingredients.trim()) { setRecipeError('Ingredients daalen'); return; }
     setRecipeLoading(true); setRecipeError(''); setRecipeResult('');
     try {
-      const result = await callAI(`Create a healthy recipe using: ${ingredients}. Must include Ajwa dates or dry fruits. Give recipe name, ingredients, steps, benefits.`);
+      const result = await callGymAI(`Create a healthy recipe using: ${ingredients}. Must include Ajwa dates or dry fruits. Give recipe name, ingredients, steps, benefits.`);
       setRecipeResult(result);
       saveHistory('recipe', ingredients, result);
     } catch { setRecipeError('AI se connect nahi ho saka. Dobara try karein.'); }
