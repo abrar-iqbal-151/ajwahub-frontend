@@ -51,6 +51,9 @@ function AI() {
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const nativeCameraRef = useRef(null);
+  const videoRef = useRef(null);
+
+  const isMobileDevice = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('ajwaHub_currentUser');
@@ -59,10 +62,51 @@ function AI() {
 
 
 
-  const startCamera = () => {
-    if (nativeCameraRef.current) {
-      nativeCameraRef.current.click();
+  const startCamera = async () => {
+    if (isMobileDevice()) {
+      // Mobile: open native camera app
+      if (nativeCameraRef.current) nativeCameraRef.current.click();
+    } else {
+      // Desktop: open webcam modal
+      setIsCameraActive(true);
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.play();
+          }
+        }, 200);
+      } catch (err) {
+        alert('Camera access denied. Please allow camera permission in your browser.');
+        setIsCameraActive(false);
+      }
     }
+  };
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      videoRef.current.srcObject.getTracks().forEach(t => t.stop());
+      videoRef.current.srcObject = null;
+    }
+    setIsCameraActive(false);
+  };
+
+  const captureFromWebcam = () => {
+    if (!videoRef.current) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = videoRef.current.videoWidth || 640;
+    canvas.height = videoRef.current.videoHeight || 480;
+    canvas.getContext('2d').drawImage(videoRef.current, 0, 0);
+    canvas.toBlob((blob) => {
+      if (blob) {
+        const file = new File([blob], 'webcam_capture.jpg', { type: 'image/jpeg' });
+        stopCamera();
+        setAutoScanMode(false);
+        setActiveTab('chat');
+        setImage(file);
+      }
+    }, 'image/jpeg', 0.95);
   };
 
   const handleNativeCameraCapture = async (e) => {
@@ -74,7 +118,6 @@ function AI() {
     } else {
       setAutoScanMode(false);
     }
-    // reset input so the same file could be selected again if needed
     e.target.value = '';
   };
 
@@ -254,6 +297,26 @@ function AI() {
         <div className="desc-orb desc-orb4" />
         <div className="desc-bg-lines">
           {[...Array(6)].map((_, i) => <div key={i} className="desc-bg-line" style={{ animationDelay: `${i * 0.4}s` }} />)}
+
+      {/* Desktop Webcam Modal */}
+      {isCameraActive && (
+        <div className="ai-camera-modal-overlay" onClick={stopCamera}>
+          <div className="ai-camera-modal" onClick={e => e.stopPropagation()}>
+            <div className="ai-camera-modal-header">
+              <h3>📸 Webcam Scanner</h3>
+              <button className="ai-camera-close-btn" onClick={stopCamera}>×</button>
+            </div>
+            <div className="ai-camera-video-container">
+              <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', borderRadius: '12px' }} />
+            </div>
+            <div className="ai-camera-actions">
+              <button className="ai-camera-capture-btn" onClick={captureFromWebcam} title="Capture Photo">
+                <div className="ai-camera-capture-btn-inner" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
       </div>
       <Navbar />
