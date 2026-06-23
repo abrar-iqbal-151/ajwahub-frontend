@@ -478,6 +478,7 @@ function Products() {
                         price: getDisplayPrice(selectedProduct, selectedWeight), 
                         weight: selectedWeight 
                       });
+                      setSelectedProduct(null);
                     }}
                   >
                     Add to Cart
