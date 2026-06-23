@@ -42,22 +42,107 @@ function getBMICategory(bmi) {
   return            { label: 'Obese',           color: '#f87171' };
 }
 
-// Countdown timer hook
-function useCountdown(target) {
+// Custom Meal Timer Component
+function MealTimerCard({ defaultLabel, defaultTimeStr }) {
+  const [timeStr, setTimeStr] = useState(defaultTimeStr);
+  const [durationStr, setDurationStr] = useState("1");
+  const [isEditing, setIsEditing] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ h: 0, m: 0, s: 0 });
+  const [isRinging, setIsRinging] = useState(false);
+  const audioRef = useRef(null);
+  const ringTimeoutRef = useRef(null);
+
   useEffect(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('https://assets.mixkit.co/active_storage/sfx/989/989-preview.mp3');
+      audioRef.current.loop = true;
+    }
     const tick = () => {
       const now = new Date();
-      const end = new Date(now); end.setHours(target, 0, 0, 0);
+      const [hh, mm] = timeStr.split(':').map(Number);
+      const end = new Date(now);
+      end.setHours(hh, mm, 0, 0);
       if (end <= now) end.setDate(end.getDate() + 1);
+      
       const diff = Math.floor((end - now) / 1000);
+      
+      // Ring the alarm exactly at 0!
+      if (diff === 0 && !isRinging) {
+        setIsRinging(true);
+        audioRef.current.play().catch(() => console.log('Audio autoplay blocked'));
+        if (ringTimeoutRef.current) clearTimeout(ringTimeoutRef.current);
+        ringTimeoutRef.current = setTimeout(() => {
+          stopRing();
+        }, Number(durationStr) * 60 * 1000);
+      }
+      
       setTimeLeft({ h: Math.floor(diff / 3600), m: Math.floor((diff % 3600) / 60), s: diff % 60 });
     };
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, [target]);
-  return timeLeft;
+  }, [timeStr, durationStr, isRinging]);
+
+  const stopRing = () => {
+    setIsRinging(false);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  };
+
+  const pad = (n) => String(n).padStart(2, '0');
+  const format12h = (t24) => {
+    let [h, m] = t24.split(':');
+    h = parseInt(h);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${h}:${m} ${ampm}`;
+  };
+
+  return (
+    <div className={`gymai-timer-card ${isRinging ? 'gymai-ringing' : ''}`}>
+      <div className="gymai-timer-label">
+        {defaultLabel}
+        <button className="gymai-timer-edit-btn" onClick={() => setIsEditing(!isEditing)} title="Edit Time">⚙️</button>
+      </div>
+      
+      {isEditing ? (
+        <div className="gymai-timer-edit-panel">
+          <input type="time" value={timeStr} onChange={e => setTimeStr(e.target.value)} />
+          <div className="gymai-timer-duration-box">
+            <label>Alarm Duration:</label>
+            <select value={durationStr} onChange={e => setDurationStr(e.target.value)}>
+              <option value="1">1 Minute</option>
+              <option value="2">2 Minutes</option>
+              <option value="3">3 Minutes</option>
+              <option value="5">5 Minutes</option>
+            </select>
+          </div>
+          <button className="gymai-timer-save-btn" onClick={() => setIsEditing(false)}>Save</button>
+        </div>
+      ) : (
+        <>
+          <div className="gymai-timer-time-target">{format12h(timeStr)} <span style={{opacity: 0.5}}>({durationStr}m alarm)</span></div>
+          {isRinging ? (
+            <div className="gymai-timer-ringing-ui">
+              <span className="ringing-bell">🔔</span>
+              <button onClick={stopRing}>Stop Alarm</button>
+            </div>
+          ) : (
+            <div className="gymai-timer-countdown">
+              <span>{pad(timeLeft.h)}<small>h</small></span>
+              <span className="gymai-timer-sep">:</span>
+              <span>{pad(timeLeft.m)}<small>m</small></span>
+              <span className="gymai-timer-sep">:</span>
+              <span>{pad(timeLeft.s)}<small>s</small></span>
+            </div>
+          )}
+          <div className="gymai-timer-sub">until meal time</div>
+        </>
+      )}
+    </div>
+  );
 }
 
 function GymAI() {
@@ -84,10 +169,6 @@ function GymAI() {
   const [videoSearch, setVideoSearch] = useState('');
   const [videoCategory, setVideoCategory] = useState('All Videos');
 
-  // Meal reminders countdown
-  const breakfast = useCountdown(8);
-  const lunch = useCountdown(13);
-  const dinner = useCountdown(20);
 
   const bmi = getBMI(Number(dietForm.weight), Number(dietForm.height));
   const bmiCat = bmi ? getBMICategory(Number(bmi)) : null;
@@ -216,24 +297,9 @@ function GymAI() {
 
       {/* MEAL TIMER STRIP */}
       <div className="gymai-meal-timers">
-        {[
-          { label: '🌅 Breakfast', t: breakfast, time: '8:00 AM' },
-          { label: '☀️ Lunch',     t: lunch,     time: '1:00 PM' },
-          { label: '🌙 Dinner',    t: dinner,    time: '8:00 PM' },
-        ].map(({ label, t, time }) => (
-          <div key={label} className="gymai-timer-card">
-            <div className="gymai-timer-label">{label}</div>
-            <div className="gymai-timer-time-target">{time}</div>
-            <div className="gymai-timer-countdown">
-              <span>{pad(t.h)}<small>h</small></span>
-              <span className="gymai-timer-sep">:</span>
-              <span>{pad(t.m)}<small>m</small></span>
-              <span className="gymai-timer-sep">:</span>
-              <span>{pad(t.s)}<small>s</small></span>
-            </div>
-            <div className="gymai-timer-sub">until meal time</div>
-          </div>
-        ))}
+        <MealTimerCard defaultLabel="🌅 Breakfast" defaultTimeStr="08:00" />
+        <MealTimerCard defaultLabel="☀️ Lunch" defaultTimeStr="13:00" />
+        <MealTimerCard defaultLabel="🌙 Dinner" defaultTimeStr="20:00" />
       </div>
 
       <div className="gymai-container">
