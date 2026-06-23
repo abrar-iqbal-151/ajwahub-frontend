@@ -32,7 +32,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px; /* Perfect modern separation between step cards */
+  gap: 12px;
+  /* Perfect modern separation between step cards */
   margin-bottom: 35px;
   flex-wrap: wrap;
 }
@@ -43,10 +44,14 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 10px 24px !important;
-  background: #000000 !important; /* Solid black background */
-  border: 2px solid rgba(197, 160, 89, 0.35) !important; /* Inactive Golden Frame */
-  border-radius: 14px !important; /* Elegant rounded corners */
-  color: #8b8070 !important; /* Muted gold/charcoal text for inactive states */
+  background: #000000 !important;
+  /* Solid black background */
+  border: 2px solid rgba(197, 160, 89, 0.35) !important;
+  /* Inactive Golden Frame */
+  border-radius: 14px !important;
+  /* Elegant rounded corners */
+  color: #8b8070 !important;
+  /* Muted gold/charcoal text for inactive states */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 140px;
   cursor: pointer;
@@ -60,21 +65,29 @@ body {
 }
 
 .ps-step.completed {
-  background: #000000 !important; /* Solid black background */
-  border-color: #ffd700 !important; /* Bright active Gold Frame */
-  color: #ffd700 !important; /* Metallic gold active text */
+  background: #000000 !important;
+  /* Solid black background */
+  border-color: #ffd700 !important;
+  /* Bright active Gold Frame */
+  color: #ffd700 !important;
+  /* Metallic gold active text */
 }
 
 .ps-step.active {
-  background: linear-gradient(135deg, #c5a059, #b08d4b) !important; /* Active gold background banner */
-  border-color: #ffffff !important; /* Premium active white boundary */
-  color: #000000 !important; /* Bold black text on active gold backdrop */
+  background: linear-gradient(135deg, #c5a059, #b08d4b) !important;
+  /* Active gold background banner */
+  border-color: #ffffff !important;
+  /* Premium active white boundary */
+  color: #000000 !important;
+  /* Bold black text on active gold backdrop */
   box-shadow: 0 8px 25px rgba(197, 160, 89, 0.25) !important;
   transform: translateY(-2px);
 }
 
-.ps-step.active .ps-icon, .ps-step.active .ps-label {
-  color: #000000 !important; /* High contrast black icon and label */
+.ps-step.active .ps-icon,
+.ps-step.active .ps-label {
+  color: #000000 !important;
+  /* High contrast black icon and label */
 }
 
 .ps-icon {
@@ -86,7 +99,8 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  color: #ffffff !important; /* Pristine high-contrast white text */
+  color: #ffffff !important;
+  /* Pristine high-contrast white text */
   text-transform: uppercase;
 }
 
@@ -221,15 +235,19 @@ body {
 .item-price {
   font-weight: 800;
   font-size: 14px;
-  color: #ffffff !important; /* Crisp high-contrast white price */
+  color: #ffffff !important;
+  /* Crisp high-contrast white price */
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .top-delete-btn {
-  background: rgba(255, 255, 255, 0.08) !important; /* Translucent white glass backdrop */
-  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Elegant boundary */
-  color: #ffffff !important; /* Crisp white icon */
+  background: rgba(255, 255, 255, 0.08) !important;
+  /* Translucent white glass backdrop */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  /* Elegant boundary */
+  color: #ffffff !important;
+  /* Crisp white icon */
   width: 28px;
   height: 28px;
   border-radius: 8px;
@@ -243,7 +261,8 @@ body {
 }
 
 .top-delete-btn:hover {
-  background: #ef4444 !important; /* Red background on hover */
+  background: #ef4444 !important;
+  /* Red background on hover */
   border-color: #ef4444 !important;
   color: #ffffff !important;
   transform: scale(1.08);
@@ -261,9 +280,11 @@ body {
 }
 
 .qty-btn {
-  background: rgba(255, 255, 255, 0.08) !important; /* Translucent white glass background */
+  background: rgba(255, 255, 255, 0.08) !important;
+  /* Translucent white glass background */
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important; /* Crisp white plus and minus symbols */
+  color: #ffffff !important;
+  /* Crisp white plus and minus symbols */
   width: 26px;
   height: 26px;
   border-radius: 6px;
@@ -277,7 +298,8 @@ body {
 }
 
 .qty-btn:hover {
-  background: rgba(255, 255, 255, 0.2) !important; /* White glass glow on hover */
+  background: rgba(255, 255, 255, 0.2) !important;
+  /* White glass glow on hover */
   border-color: rgba(255, 255, 255, 0.3) !important;
   color: #ffffff !important;
 }
@@ -1150,8 +1172,10 @@ body {
 .ship-phone-wrap {
   display: flex;
   align-items: center;
-  background: #000000 !important; /* Solid black background */
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  background: #000000 !important;
+  /* Solid black background */
+  border: 2px solid #c5a059 !important;
+  /* Royal Golden Frame */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -1159,9 +1183,12 @@ body {
 
 .ship-phone-code {
   padding: 11px 12px;
-  background: rgba(197, 160, 89, 0.12) !important; /* Soft transparent gold */
-  border-right: 2px solid #c5a059 !important; /* Gold divider border */
-  color: #ffd700 !important; /* Metallic gold prefix */
+  background: rgba(197, 160, 89, 0.12) !important;
+  /* Soft transparent gold */
+  border-right: 2px solid #c5a059 !important;
+  /* Gold divider border */
+  color: #ffd700 !important;
+  /* Metallic gold prefix */
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
@@ -1189,11 +1216,14 @@ body {
 
 .ship-input,
 select.ship-input {
-  background: #000000 !important; /* Solid black background */
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  background: #000000 !important;
+  /* Solid black background */
+  border: 2px solid #c5a059 !important;
+  /* Royal Golden Frame */
   border-radius: 12px !important;
   padding: 11px 14px;
-  color: #ffffff !important; /* Pristine solid white text */
+  color: #ffffff !important;
+  /* Pristine solid white text */
   font-size: 14px;
   outline: none;
   transition: all 0.25s ease;
@@ -1203,27 +1233,33 @@ select.ship-input {
 }
 
 select.ship-input option {
-  background: #000000 !important; /* Black background for dropdown items */
-  color: #ffffff !important; /* White text for dropdown options */
+  background: #000000 !important;
+  /* Black background for dropdown items */
+  color: #ffffff !important;
+  /* White text for dropdown options */
   font-weight: 600;
 }
 
 .ship-input::placeholder {
-  color: #777777 !important; /* Muted charcoal placeholder for premium clarity */
+  color: #777777 !important;
+  /* Muted charcoal placeholder for premium clarity */
 }
 
 .ship-input:focus {
-  border-color: #ffd700 !important; /* Glowing gold border on focus */
+  border-color: #ffd700 !important;
+  /* Glowing gold border on focus */
   box-shadow: 0 0 10px rgba(197, 160, 89, 0.25) !important;
 }
 
 .ship-input.err {
-  border-color: #ef4444 !important; /* Bold red for error boundary */
+  border-color: #ef4444 !important;
+  /* Bold red for error boundary */
   background: rgba(239, 68, 68, 0.04) !important;
 }
 
 .ship-input.ok {
-  border-color: #22c55e !important; /* Bold green for verified */
+  border-color: #22c55e !important;
+  /* Bold green for verified */
 }
 
 .ship-error {
@@ -1371,8 +1407,10 @@ select.ship-input option {
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  background: #000000 !important; /* Solid black background */
-  border: 2px solid rgba(197, 160, 89, 0.35) !important; /* Inactive Golden Frame */
+  background: #000000 !important;
+  /* Solid black background */
+  border: 2px solid rgba(197, 160, 89, 0.35) !important;
+  /* Inactive Golden Frame */
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -1384,8 +1422,10 @@ select.ship-input option {
 }
 
 .pay-option.active {
-  background: linear-gradient(145deg, rgba(197, 160, 89, 0.12), rgba(197, 160, 89, 0.03)) !important; /* Premium active gold tint background */
-  border-color: #ffd700 !important; /* Bright active gold frame border */
+  background: linear-gradient(145deg, rgba(197, 160, 89, 0.12), rgba(197, 160, 89, 0.03)) !important;
+  /* Premium active gold tint background */
+  border-color: #ffd700 !important;
+  /* Bright active gold frame border */
   box-shadow: 0 0 15px rgba(197, 160, 89, 0.2) !important;
 }
 
@@ -1404,13 +1444,15 @@ select.ship-input option {
 .pay-option h5 {
   font-size: 14px;
   font-weight: 700;
-  color: #ffffff !important; /* High-contrast white option header */
+  color: #ffffff !important;
+  /* High-contrast white option header */
   margin-bottom: 2px;
 }
 
 .pay-option p {
   font-size: 12px;
-  color: #c5a059 !important; /* Royal gold descriptor text */
+  color: #c5a059 !important;
+  /* Royal gold descriptor text */
   margin: 0;
 }
 
@@ -1426,20 +1468,24 @@ select.ship-input option {
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(197, 160, 89, 0.25) !important; /* Gold line divider */
+  background: rgba(197, 160, 89, 0.25) !important;
+  /* Gold line divider */
 }
 
 .pay-divider span {
   font-size: 10px;
-  color: #ffd700 !important; /* Bright gold label text */
+  color: #ffd700 !important;
+  /* Bright gold label text */
   font-weight: 800;
   letter-spacing: 1.5px;
   white-space: nowrap;
 }
 
 .pay-mobile-box {
-  background: #000000 !important; /* Solid black background for detail cards */
-  border: 2px solid #c5a059 !important; /* Signature solid Royal Golden Frame */
+  background: #000000 !important;
+  /* Solid black background for detail cards */
+  border: 2px solid #c5a059 !important;
+  /* Signature solid Royal Golden Frame */
   border-radius: 12px;
   padding: 16px 18px;
   display: flex;
@@ -1456,7 +1502,8 @@ select.ship-input option {
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #ffffff !important; /* White descriptor labels */
+  color: #ffffff !important;
+  /* White descriptor labels */
   flex-wrap: wrap;
   min-width: 0;
 }
@@ -1467,7 +1514,8 @@ select.ship-input option {
 }
 
 .pay-mobile-row strong {
-  color: #ffd700 !important; /* Glowing gold value text */
+  color: #ffd700 !important;
+  /* Glowing gold value text */
   font-weight: 700;
   flex: 1;
   min-width: 0;
@@ -1538,9 +1586,12 @@ select.ship-input option {
 }
 
 .pay-upload-label {
-  background: #000000 !important; /* Black background */
-  border: 2px dashed #c5a059 !important; /* Golden dashed frame boundary */
-  color: #ffd700 !important; /* Premium metallic gold text */
+  background: #000000 !important;
+  /* Black background */
+  border: 2px dashed #c5a059 !important;
+  /* Golden dashed frame boundary */
+  color: #ffd700 !important;
+  /* Premium metallic gold text */
   border-radius: 10px;
   padding: 12px 16px;
   text-align: center;
@@ -1560,7 +1611,8 @@ select.ship-input option {
 
 .pay-uploaded {
   font-size: 12px;
-  color: #22c55e !important; /* Vibrant green success message */
+  color: #22c55e !important;
+  /* Vibrant green success message */
   text-align: center;
   font-weight: 700;
 }
@@ -1569,18 +1621,22 @@ select.ship-input option {
 .pay-mobile-box input {
   width: 100%;
   box-sizing: border-box;
-  background: #000000 !important; /* Solid black background */
-  border: 2px solid #c5a059 !important; /* Royal Golden Frame */
+  background: #000000 !important;
+  /* Solid black background */
+  border: 2px solid #c5a059 !important;
+  /* Royal Golden Frame */
   border-radius: 10px !important;
   padding: 10px 12px;
-  color: #ffffff !important; /* Crisp white text inside inputs */
+  color: #ffffff !important;
+  /* Crisp white text inside inputs */
   font-size: 14px;
   outline: none;
   font-weight: 600;
 }
 
 .pay-mobile-box input::placeholder {
-  color: #777777 !important; /* Darker charcoal placeholder */
+  color: #777777 !important;
+  /* Darker charcoal placeholder */
 }
 
 .pay-mobile-box input:focus {
@@ -1877,12 +1933,10 @@ select.ship-input option {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 40%,
-    rgba(197, 160, 89, 0.07) 50%,
-    transparent 60%
-  );
+  background: linear-gradient(115deg,
+      transparent 40%,
+      rgba(197, 160, 89, 0.07) 50%,
+      transparent 60%);
   background-size: 200% 100%;
   animation: sco-shimmer 3s infinite linear;
   border-radius: inherit;
@@ -1890,8 +1944,13 @@ select.ship-input option {
 }
 
 @keyframes sco-shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* EMV Chip */
@@ -2220,4 +2279,3 @@ select.ship-input option {
   filter: grayscale(60%);
   pointer-events: none;
 }
-
