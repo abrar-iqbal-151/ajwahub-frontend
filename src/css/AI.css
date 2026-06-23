@@ -846,8 +846,9 @@
   /* Box 1: Independent Sidebar Menu Box ABOVE Main Chat Container */
   .ai-sidebar {
     width: 100% !important;
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
     gap: 8px !important;
     padding: 12px 10px !important;
     background: #191410 !important; /* Elegant separate dark chocolate background */
@@ -867,7 +868,9 @@
 
   .ai-new-chat-btn,
   .ai-tab {
-    width: 100% !important;
+    width: auto !important;
+    flex: 1 1 calc(33.333% - 8px) !important;
+    min-width: 110px !important;
     height: 42px !important;
     margin: 0 !important;
     padding: 0 !important;
