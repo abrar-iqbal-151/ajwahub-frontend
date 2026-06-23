@@ -3039,27 +3039,30 @@ html {
   }
 
   .desc-float-item {
-    border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(197, 160, 89, 0.1);
   }
 
   .desc-float-item1 {
     height: 100px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     animation: floatImg 4s ease-in-out infinite;
   }
 
   .desc-float-item2 {
     height: 140px;
+    border-radius: 100px 100px 15px 15px;
     animation: floatImg 4s ease-in-out infinite 0.5s;
   }
 
   .desc-float-item3 {
     height: 180px;
+    border-radius: 15px 100px 15px 100px;
     animation: floatImg 4s ease-in-out infinite 1s;
   }
 
   .desc-float-item4 {
     height: 230px;
+    border-radius: 100px 15px 100px 15px;
     animation: floatImg 4s ease-in-out infinite 1.5s;
   }
 
