@@ -246,7 +246,7 @@ function GymAI() {
     if (!dietForm.weight || !dietForm.height || !dietForm.age) { setDietError('Sab fields fill karein'); return; }
     setDietLoading(true); setDietError(''); setDietResult('');
     try {
-      const result = await callGymAI(`Create a practical 7-day diet plan for: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}, Goal: ${dietForm.goal}, Activity: ${dietForm.activity}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`);
+      const result = await callGymAI(`Create a highly tailored, practical diet plan explicitly focused on the goal: ${dietForm.goal}. Perfect match this to the user's activity level (${dietForm.activity}) and stats: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`);
       setDietResult(result);
       saveHistory('diet', `${dietForm.weight}kg | ${dietForm.goal} | ${dietForm.activity}`, result);
     } catch { setDietError('AI se connect nahi ho saka. Dobara try karein.'); }
@@ -426,7 +426,7 @@ function GymAI() {
                   <div className="diet-step-nav">
                     <button className="diet-back-btn" onClick={() => setStep(2)}>← Back</button>
                     <button className="diet-generate-btn" onClick={generateDiet} disabled={dietLoading}>
-                      {dietLoading ? <><span className="gymai-spinner" /> Generating Plan...</> : '🚀 Generate My 7-Day Plan'}
+                      {dietLoading ? <><span className="gymai-spinner" /> Generating Plan...</> : '🚀 Generate My Plan'}
                     </button>
                   </div>
                   {dietError && <div className="diet-error">{dietError}</div>}
