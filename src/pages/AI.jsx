@@ -375,6 +375,30 @@ function AI() {
 
           {/* CONTENT */}
           <div className="ai-content">
+            {/* MOBILE NAVBAR (Hidden on desktop) */}
+            <div className="ai-mobile-navbar">
+              <button className="ai-mob-nav-btn" onClick={handleNewChat}>
+                <FaPlus className="ai-mob-icon" />
+                <span>New</span>
+              </button>
+              <button className={`ai-mob-nav-btn ${activeTab === 'chat' ? 'active' : ''}`} onClick={() => setActiveTab('chat')}>
+                <FaRobot className="ai-mob-icon" />
+                <span>Chat</span>
+              </button>
+              <button className={`ai-mob-nav-btn ${activeTab === 'compare' ? 'active' : ''}`} onClick={() => setActiveTab('compare')}>
+                <FaBalanceScale className="ai-mob-icon" />
+                <span>Quality</span>
+              </button>
+              <button className="ai-mob-nav-btn" onClick={() => { setAutoScanMode(true); startCamera(); }}>
+                <FaCamera className="ai-mob-icon" />
+                <span>Scan</span>
+              </button>
+              <button className={`ai-mob-nav-btn ${activeTab === 'history' ? 'active' : ''}`} onClick={() => setActiveTab('history')}>
+                <FaHistory className="ai-mob-icon" />
+                <span>History</span>
+              </button>
+            </div>
+
             {activeTab === 'chat' ? (
               <div className="ai-chat-layout">
                 <div className="ai-messages">
