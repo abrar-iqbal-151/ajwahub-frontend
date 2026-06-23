@@ -799,7 +799,8 @@
 
   .gift-customize-modal {
     flex-direction: column;
-    height: 90vh;
+    max-height: 90vh;
+    height: fit-content;
     border-radius: 16px;
     overflow-y: auto;
   }
@@ -906,7 +907,7 @@
   }
 
   .gift-customize-modal {
-    height: 95vh;
+    max-height: 95vh;
   }
 
   .gcm-left {
