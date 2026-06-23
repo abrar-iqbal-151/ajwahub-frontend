@@ -104,7 +104,6 @@ function MealTimerCard({ defaultLabel, defaultTimeStr }) {
     <div className={`gymai-timer-card ${isRinging ? 'gymai-ringing' : ''}`}>
       <div className="gymai-timer-label">
         {defaultLabel}
-        <button className="gymai-timer-edit-btn" onClick={() => setIsEditing(!isEditing)} title="Edit Time">⚙️</button>
       </div>
       
       {isEditing ? (
@@ -130,15 +129,21 @@ function MealTimerCard({ defaultLabel, defaultTimeStr }) {
               <button onClick={stopRing}>Stop Alarm</button>
             </div>
           ) : (
-            <div className="gymai-timer-countdown">
-              <span>{pad(timeLeft.h)}<small>h</small></span>
-              <span className="gymai-timer-sep">:</span>
-              <span>{pad(timeLeft.m)}<small>m</small></span>
-              <span className="gymai-timer-sep">:</span>
-              <span>{pad(timeLeft.s)}<small>s</small></span>
+            <div className="gymai-timer-clickable-area" onClick={() => setIsEditing(true)}>
+              <div className="gymai-timer-countdown">
+                <span>{pad(timeLeft.h)}<small>h</small></span>
+                <span className="gymai-timer-sep">:</span>
+                <span>{pad(timeLeft.m)}<small>m</small></span>
+                <span className="gymai-timer-sep">:</span>
+                <span>{pad(timeLeft.s)}<small>s</small></span>
+              </div>
+              <div className="gymai-timer-sub">until meal time</div>
+              
+              <div className="gymai-timer-hover-edit">
+                <span>✏️ Click to set timer</span>
+              </div>
             </div>
           )}
-          <div className="gymai-timer-sub">until meal time</div>
         </>
       )}
     </div>
