@@ -357,10 +357,6 @@ function AI() {
               <span>AI Chat</span>
             </button>
 
-            <button className={`ai-tab ${activeTab === 'compare' ? 'active' : ''}`} onClick={() => setActiveTab('compare')}>
-              <FaBalanceScale className="ai-tab-icon" />
-              <span>Quality Scanner</span>
-            </button>
 
             <button className="ai-tab" onClick={() => { setAutoScanMode(true); startCamera(); }}>
               <FaCamera className="ai-tab-icon" />
@@ -384,10 +380,6 @@ function AI() {
               <button className={`ai-mob-nav-btn ${activeTab === 'chat' ? 'active' : ''}`} onClick={() => setActiveTab('chat')}>
                 <FaRobot className="ai-mob-icon" />
                 <span>Chat</span>
-              </button>
-              <button className={`ai-mob-nav-btn ${activeTab === 'compare' ? 'active' : ''}`} onClick={() => setActiveTab('compare')}>
-                <FaBalanceScale className="ai-mob-icon" />
-                <span>Quality</span>
               </button>
               <button className="ai-mob-nav-btn" onClick={() => { setAutoScanMode(true); startCamera(); }}>
                 <FaCamera className="ai-mob-icon" />
