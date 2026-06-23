@@ -212,6 +212,11 @@
   display: none;
 }
 
+/* Camera button — only shown on mobile */
+.ai-camera-btn {
+  display: none;
+}
+
 /* ─────────────────────────────────────────
    RIGHT CONTENT AREA
 ───────────────────────────────────────── */
@@ -919,6 +924,11 @@
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
+  }
+
+  /* Show camera button on mobile only */
+  .ai-camera-btn {
+    display: inline-flex !important;
   }
 
   .ai-chat-layout {
