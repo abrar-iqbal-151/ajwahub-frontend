@@ -6,6 +6,7 @@ import '../css/Products.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 import Footer from '../components/Footer';
+import { checkStockLimit, getUnitKg } from '../utils/stock';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -139,6 +140,9 @@ function Wishlist() {
   }, [cart]);
 
   const addToCart = (product) => {
+    const unitKg = getUnitKg(product.weight);
+    if (!checkStockLimit(product, unitKg, cart)) return;
+
     const existing = cart.find(i => i.id === product.id);
     const updatedCart = existing
       ? cart.map(i => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i)

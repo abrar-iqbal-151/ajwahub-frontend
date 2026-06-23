@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import '../css/Premium.css';
 import '../css/Products.css';
 import Footer from '../components/Footer';
+import { checkStockLimit, getUnitKg } from '../utils/stock';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -122,6 +123,10 @@ function Premium() {
 
     const price = weightData ? weightData.price : product.price;
     const weight = weightData ? weightData.label : product.weight;
+    
+    const unitKg = getUnitKg(weight);
+    if (!checkStockLimit(product, unitKg, cart)) return;
+
     const cartId = weightData ? `${product._id}-${weightData.label}` : product._id;
 
     const existing = cart.find(i => i.id === cartId);

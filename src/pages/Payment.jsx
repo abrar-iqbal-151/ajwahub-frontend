@@ -8,6 +8,7 @@ import '../css/Payment.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 import Footer from '../components/Footer';
+import { checkStockLimit, getUnitKg } from '../utils/stock';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -80,6 +81,15 @@ function Payment() {
 
   const updateQuantity = (itemId, newQuantity) => {
     if (newQuantity <= 0) { handleRemoveItem(itemId); return; }
+
+    const itemToUpdate = cartItems.find(item => item.id === itemId);
+    if (itemToUpdate && newQuantity > itemToUpdate.quantity) {
+      // Trying to increase quantity, validate stock
+      const unitKg = getUnitKg(itemToUpdate.weight);
+      // We pass 1 unit increment to checkStockLimit
+      if (!checkStockLimit(itemToUpdate, unitKg, cartItems)) return;
+    }
+
     const updatedCart = cartItems.map(item => item.id === itemId ? { ...item, quantity: newQuantity } : item);
     setCartItems(updatedCart);
     localStorage.setItem('ajwaHub_cart', JSON.stringify(updatedCart));

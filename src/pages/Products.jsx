@@ -5,6 +5,7 @@ import '../css/Products.css';
 import Navbar from './Navbar';
 import ConfirmDialog from './ConfirmDialog';
 import Footer from '../components/Footer';
+import { checkStockLimit, getUnitKg } from '../utils/stock';
 
 const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 
@@ -130,6 +131,9 @@ function Products() {
   const isActive = (path) => location.pathname === path;
 
   const addToCart = (product) => {
+    const unitKg = getUnitKg(product.weight);
+    if (!checkStockLimit(product, unitKg, cart)) return;
+
     const existingItem = cart.find(item => item.id === product.id);
     let updatedCart;
 
