@@ -1826,6 +1826,14 @@ body {
     align-items: center !important;
     justify-content: center !important;
   }
+
+  .login-center-wrap {
+    padding: 90px 15px 30px !important;
+  }
+
+  .login-container {
+    padding: 2rem 1.5rem !important;
+  }
 }
 
 @media (max-width: 380px) {
