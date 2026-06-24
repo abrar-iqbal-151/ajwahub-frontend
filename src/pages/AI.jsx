@@ -309,43 +309,6 @@ function AI() {
         </div>
       </div>
 
-      {/* Desktop Webcam Modal */}
-      {isCameraActive && (
-        <div className="ai-camera-modal-overlay" onClick={stopCamera}>
-          <div className="ai-camera-modal" onClick={e => e.stopPropagation()}>
-            <div className="ai-camera-modal-header">
-              <h3>📸 Webcam Scanner</h3>
-              <button className="ai-camera-close-btn" onClick={stopCamera}>×</button>
-            </div>
-            <div className="ai-camera-video-container">
-              <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', borderRadius: '12px' }} />
-            </div>
-            <div className="ai-camera-actions">
-              <button className="ai-camera-capture-btn" onClick={captureFromWebcam} title="Capture Photo">
-                <div className="ai-camera-capture-btn-inner" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Language Prompt Modal */}
-      {languagePrompt.show && (
-        <div className="ai-camera-modal-overlay" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>
-          <div className="ai-lang-prompt-modal" onClick={e => e.stopPropagation()}>
-            <div className="ai-lang-prompt-header">
-              <h3>🌐 Choose Answer Language</h3>
-              <button className="ai-camera-close-btn" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>×</button>
-            </div>
-            <p className="ai-lang-prompt-desc">In which language would you like the AI to reply?</p>
-            <div className="ai-lang-prompt-actions">
-              <button className="ai-lang-btn urdu" onClick={() => executeSend('Urdu')}>🇵🇰 Urdu (Pakistani)</button>
-              <button className="ai-lang-btn english" onClick={() => executeSend('English')}>🇬🇧 English</button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <Navbar />
 
 
@@ -597,6 +560,43 @@ function AI() {
         </div>
       </div>
       <Footer />
+
+      {/* Desktop Webcam Modal */}
+      {isCameraActive && (
+        <div className="ai-camera-modal-overlay" onClick={stopCamera}>
+          <div className="ai-camera-modal" onClick={e => e.stopPropagation()}>
+            <div className="ai-camera-modal-header">
+              <h3>📸 Webcam Scanner</h3>
+              <button className="ai-camera-close-btn" onClick={stopCamera}>×</button>
+            </div>
+            <div className="ai-camera-video-container">
+              <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', borderRadius: '12px' }} />
+            </div>
+            <div className="ai-camera-actions">
+              <button className="ai-camera-capture-btn" onClick={captureFromWebcam} title="Capture Photo">
+                <div className="ai-camera-capture-btn-inner" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Language Prompt Modal */}
+      {languagePrompt.show && (
+        <div className="ai-camera-modal-overlay" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>
+          <div className="ai-lang-prompt-modal" onClick={e => e.stopPropagation()}>
+            <div className="ai-lang-prompt-header">
+              <h3>🌐 Choose Answer Language</h3>
+              <button className="ai-camera-close-btn" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>×</button>
+            </div>
+            <p className="ai-lang-prompt-desc">In which language would you like the AI to reply?</p>
+            <div className="ai-lang-prompt-actions">
+              <button className="ai-lang-btn urdu" onClick={() => executeSend('Urdu')}>🇵🇰 Urdu (Pakistani)</button>
+              <button className="ai-lang-btn english" onClick={() => executeSend('English')}>🇬🇧 English</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
