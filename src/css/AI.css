@@ -443,6 +443,27 @@
   color: #ffffff !important;
 }
 
+/* Language select dropdown */
+.ai-lang-select {
+  background: #231c18 !important;
+  color: #c5a059 !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  border-radius: 11px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ai-lang-select:focus,
+.ai-lang-select:hover {
+  border-color: #ffd700 !important;
+  background: rgba(197, 160, 89, 0.1) !important;
+}
+
+
 
 
 /* Selected image preview */

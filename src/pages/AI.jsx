@@ -40,6 +40,8 @@ function AI() {
   const [activeTab, setActiveTab] = useState('chat');
   const [sessions, setSessions] = useState([]);
   const [image, setImage] = useState(null);
+  const [language, setLanguage] = useState('Urdu');
+
   
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [compareImage1, setCompareImage1] = useState(null);
@@ -220,7 +222,7 @@ function AI() {
       const res = await fetch(`${API_URL}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText, history: messages.slice(-10), userId: uid, userName: user?.name || '' })
+        body: JSON.stringify({ message: userText, history: messages.slice(-10), userId: uid, userName: user?.name || '', language })
       });
       const data = await res.json();
       const reply = data?.response || data?.message || 'Sorry, jawab nahi mila.';
@@ -243,7 +245,7 @@ function AI() {
         const res = await fetch(`${API_URL}/api/ai/image`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageBase64: base64, mimeType, question: userText, userId: uid, userName: user?.name || '' })
+          body: JSON.stringify({ imageBase64: base64, mimeType, question: userText, userId: uid, userName: user?.name || '', language })
         });
         const data = await res.json();
         setMessages(prev => [...prev, { role: 'model', text: formatText(data?.response || 'Image analyze nahi ho saki.') }]);
@@ -436,6 +438,15 @@ function AI() {
                   <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
                     <FaCamera />
                   </button>
+                  <select 
+                    className="ai-lang-select" 
+                    value={language} 
+                    onChange={(e) => setLanguage(e.target.value)}
+                    title="Select Language"
+                  >
+                    <option value="Urdu">Urdu</option>
+                    <option value="English">English</option>
+                  </select>
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />

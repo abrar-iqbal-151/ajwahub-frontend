@@ -173,6 +173,7 @@ function GymAI() {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [videoSearch, setVideoSearch] = useState('');
   const [videoCategory, setVideoCategory] = useState('All Videos');
+  const [language, setLanguage] = useState('Urdu');
 
 
   const bmi = getBMI(Number(dietForm.weight), Number(dietForm.height));
@@ -236,7 +237,7 @@ function GymAI() {
     const res = await fetch(`${API}/api/ai/gymai/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt })
+      body: JSON.stringify({ prompt, language })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'AI error');
@@ -308,6 +309,15 @@ function GymAI() {
           {[['diet','🥗 Diet Plan'],['recipes','👨‍🍳 Recipes'],['videos','🎬 Videos'],['history','📋 History']].map(([val, label]) => (
             <button key={val} className={`gymai-tab ${activeTab === val ? 'active' : ''}`} onClick={() => setActiveTab(val)}>{label}</button>
           ))}
+          <select 
+            className="gymai-lang-select" 
+            value={language} 
+            onChange={(e) => setLanguage(e.target.value)}
+            title="Select Language"
+          >
+            <option value="Urdu">Urdu</option>
+            <option value="English">English</option>
+          </select>
         </div>
 
         {/* ─── DIET TAB ─── */}
