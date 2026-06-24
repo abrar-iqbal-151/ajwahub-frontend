@@ -565,7 +565,7 @@ function GymAI() {
             <button className="gymai-modal-close" onClick={() => { setDietResult(''); setRecipeResult(''); }}>×</button>
             <div className="diet-result-header">
               <h3>{dietResult ? '🥗 Your 7-Day Diet Plan' : '👨‍🍳 Your AI Recipe'}</h3>
-              <span>Powered by Gemini AI</span>
+              <span>Powered by AjwaHub AI</span>
             </div>
             <div className="diet-result-content">
               {(dietResult || recipeResult).split('\n').map((line, i) => (
