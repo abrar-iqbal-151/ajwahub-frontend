@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { FaRobot, FaUser, FaHistory, FaPaperPlane, FaImage, FaSearch, FaPlus, FaTrash, FaCrown, FaCode, FaGlobe, FaCamera, FaBalanceScale, FaUpload } from 'react-icons/fa';
 import Navbar from './Navbar';
@@ -562,7 +563,7 @@ function AI() {
       <Footer />
 
       {/* Desktop Webcam Modal */}
-      {isCameraActive && (
+      {isCameraActive && createPortal(
         <div className="ai-camera-modal-overlay" onClick={stopCamera}>
           <div className="ai-camera-modal" onClick={e => e.stopPropagation()}>
             <div className="ai-camera-modal-header">
@@ -578,11 +579,12 @@ function AI() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Language Prompt Modal */}
-      {languagePrompt.show && (
+      {languagePrompt.show && createPortal(
         <div className="ai-camera-modal-overlay" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>
           <div className="ai-lang-prompt-modal" onClick={e => e.stopPropagation()}>
             <div className="ai-lang-prompt-header">
@@ -595,7 +597,8 @@ function AI() {
               <button className="ai-lang-btn english" onClick={() => executeSend('English')}>🇬🇧 English</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
