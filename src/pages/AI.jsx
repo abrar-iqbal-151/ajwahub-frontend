@@ -40,7 +40,7 @@ function AI() {
   const [activeTab, setActiveTab] = useState('chat');
   const [sessions, setSessions] = useState([]);
   const [image, setImage] = useState(null);
-  const [language, setLanguage] = useState('Urdu');
+  const [languagePrompt, setLanguagePrompt] = useState({ show: false, text: '', image: null });
 
   
   const [isCameraActive, setIsCameraActive] = useState(false);
@@ -202,17 +202,24 @@ function AI() {
     setActiveTab('chat');
   };
 
-  const handleSend = async () => {
+  const triggerSend = () => {
     if (!inputText.trim() && !image) return;
-    const userText = inputText;
-    const userImage = image;
+    setLanguagePrompt({ show: true, text: inputText, image: image });
+  };
+
+  const executeSend = async (lang) => {
+    const userText = languagePrompt.text;
+    const userImage = languagePrompt.image;
+    
     setInputText('');
     setImage(null);
+    setLanguagePrompt({ show: false, text: '', image: null });
     setLoading(true);
+
     setMessages(prev => [...prev, { role: 'user', text: userText, image: userImage }]);
 
     if (userImage) {
-      await handleImageUpload(userImage, userText);
+      await handleImageUpload(userImage, userText, lang);
       setLoading(false);
       return;
     }
@@ -222,7 +229,7 @@ function AI() {
       const res = await fetch(`${API_URL}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText, history: messages.slice(-10), userId: uid, userName: user?.name || '', language })
+        body: JSON.stringify({ message: userText, history: messages.slice(-10), userId: uid, userName: user?.name || '', language: lang })
       });
       const data = await res.json();
       const reply = data?.response || data?.message || 'Sorry, jawab nahi mila.';
@@ -234,7 +241,7 @@ function AI() {
     }
   };
 
-  const handleImageUpload = async (file, userText) => {
+  const handleImageUpload = async (file, userText, lang) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
@@ -245,7 +252,7 @@ function AI() {
         const res = await fetch(`${API_URL}/api/ai/image`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageBase64: base64, mimeType, question: userText, userId: uid, userName: user?.name || '', language })
+          body: JSON.stringify({ imageBase64: base64, mimeType, question: userText, userId: uid, userName: user?.name || '', language: lang })
         });
         const data = await res.json();
         setMessages(prev => [...prev, { role: 'model', text: formatText(data?.response || 'Image analyze nahi ho saki.') }]);
@@ -315,6 +322,23 @@ function AI() {
               <button className="ai-camera-capture-btn" onClick={captureFromWebcam} title="Capture Photo">
                 <div className="ai-camera-capture-btn-inner" />
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Language Prompt Modal */}
+      {languagePrompt.show && (
+        <div className="ai-camera-modal-overlay" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>
+          <div className="ai-lang-prompt-modal" onClick={e => e.stopPropagation()}>
+            <div className="ai-lang-prompt-header">
+              <h3>🌐 Choose Answer Language</h3>
+              <button className="ai-camera-close-btn" onClick={() => setLanguagePrompt({ show: false, text: '', image: null })}>×</button>
+            </div>
+            <p className="ai-lang-prompt-desc">In which language would you like the AI to reply?</p>
+            <div className="ai-lang-prompt-actions">
+              <button className="ai-lang-btn urdu" onClick={() => executeSend('Urdu')}>🇵🇰 Urdu (Pakistani)</button>
+              <button className="ai-lang-btn english" onClick={() => executeSend('English')}>🇬🇧 English</button>
             </div>
           </div>
         </div>
@@ -438,15 +462,6 @@ function AI() {
                   <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
                     <FaCamera />
                   </button>
-                  <select 
-                    className="ai-lang-select" 
-                    value={language} 
-                    onChange={(e) => setLanguage(e.target.value)}
-                    title="Select Language"
-                  >
-                    <option value="Urdu">Urdu</option>
-                    <option value="English">English</option>
-                  </select>
                   {image && (
                     <div className="ai-selected-image">
                       <img src={URL.createObjectURL(image)} alt="preview" />
@@ -458,9 +473,9 @@ function AI() {
                     placeholder="Koi bhi sawaal poochein..."
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                    onKeyPress={(e) => e.key === 'Enter' && triggerSend()}
                   />
-                  <button className="ai-send-btn" onClick={handleSend} disabled={loading}>
+                  <button className="ai-send-btn" onClick={triggerSend} disabled={loading}>
                     <FaPaperPlane />
                   </button>
                 </div>
