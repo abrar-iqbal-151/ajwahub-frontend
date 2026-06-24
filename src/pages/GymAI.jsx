@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import '../css/GymAI.css';
 import Navbar from './Navbar';
@@ -173,7 +174,7 @@ function GymAI() {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [videoSearch, setVideoSearch] = useState('');
   const [videoCategory, setVideoCategory] = useState('All Videos');
-  const [language, setLanguage] = useState('Urdu');
+  const [languagePrompt, setLanguagePrompt] = useState({ show: false, actionType: null });
 
 
   const bmi = getBMI(Number(dietForm.weight), Number(dietForm.height));
@@ -233,36 +234,49 @@ function GymAI() {
       .finally(() => setLoadingVideos(false));
   }, []);
 
-  const callGymAI = async (prompt) => {
+  const callGymAI = async (prompt, selectedLang) => {
     const res = await fetch(`${API}/api/ai/gymai/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, language })
+      body: JSON.stringify({ prompt, language: selectedLang })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'AI error');
     return formatText(data.response || '');
   };
-  const generateDiet = async () => {
+  const triggerGenerateDiet = () => {
     if (!dietForm.weight || !dietForm.height || !dietForm.age) { setDietError('Sab fields fill karein'); return; }
-    setDietLoading(true); setDietError(''); setDietResult('');
-    try {
-      const result = await callGymAI(`Create a highly tailored, practical diet plan explicitly focused on the goal: ${dietForm.goal}. Perfect match this to the user's activity level (${dietForm.activity}) and stats: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`);
-      setDietResult(result);
-      saveHistory('diet', `${dietForm.weight}kg | ${dietForm.goal} | ${dietForm.activity}`, result);
-    } catch { setDietError('AI se connect nahi ho saka. Dobara try karein.'); }
-    setDietLoading(false);
+    setDietError('');
+    setLanguagePrompt({ show: true, actionType: 'diet' });
   };
 
-  const generateRecipe = async () => {
+  const triggerGenerateRecipe = () => {
     if (!ingredients.trim()) { setRecipeError('Ingredients daalen'); return; }
-    setRecipeLoading(true); setRecipeError(''); setRecipeResult('');
-    try {
-      const result = await callGymAI(`Create a healthy recipe using: ${ingredients}. Must include Ajwa dates or dry fruits. Give recipe name, ingredients, steps, benefits.`);
-      setRecipeResult(result);
-      saveHistory('recipe', ingredients, result);
-    } catch { setRecipeError('AI se connect nahi ho saka. Dobara try karein.'); }
-    setRecipeLoading(false);
+    setRecipeError('');
+    setLanguagePrompt({ show: true, actionType: 'recipe' });
+  };
+
+  const executeGeneration = async (selectedLang) => {
+    const action = languagePrompt.actionType;
+    setLanguagePrompt({ show: false, actionType: null });
+    
+    if (action === 'diet') {
+      setDietLoading(true); setDietResult('');
+      try {
+        const result = await callGymAI(`Create a highly tailored, practical diet plan explicitly focused on the goal: ${dietForm.goal}. Perfect match this to the user's activity level (${dietForm.activity}) and stats: Weight ${dietForm.weight}kg, Height ${dietForm.height}cm, Age ${dietForm.age}. Include Ajwa dates and dry fruits. Give daily calorie target, breakfast/lunch/dinner/snacks.`, selectedLang);
+        setDietResult(result);
+        saveHistory('diet', `${dietForm.weight}kg | ${dietForm.goal} | ${dietForm.activity}`, result);
+      } catch { setDietError('AI se connect nahi ho saka. Dobara try karein.'); }
+      setDietLoading(false);
+    } else if (action === 'recipe') {
+      setRecipeLoading(true); setRecipeResult('');
+      try {
+        const result = await callGymAI(`Create a healthy recipe using: ${ingredients}. Must include Ajwa dates or dry fruits. Give recipe name, ingredients, steps, benefits.`, selectedLang);
+        setRecipeResult(result);
+        saveHistory('recipe', ingredients, result);
+      } catch { setRecipeError('AI se connect nahi ho saka. Dobara try karein.'); }
+      setRecipeLoading(false);
+    }
   };
 
   const pad = (n) => String(n).padStart(2, '0');
@@ -309,15 +323,6 @@ function GymAI() {
           {[['diet','🥗 Diet Plan'],['recipes','👨‍🍳 Recipes'],['videos','🎬 Videos'],['history','📋 History']].map(([val, label]) => (
             <button key={val} className={`gymai-tab ${activeTab === val ? 'active' : ''}`} onClick={() => setActiveTab(val)}>{label}</button>
           ))}
-          <select 
-            className="gymai-lang-select" 
-            value={language} 
-            onChange={(e) => setLanguage(e.target.value)}
-            title="Select Language"
-          >
-            <option value="Urdu">اردو (Urdu)</option>
-            <option value="English">English</option>
-          </select>
         </div>
 
         {/* ─── DIET TAB ─── */}
@@ -435,7 +440,7 @@ function GymAI() {
                   </div>
                   <div className="diet-step-nav">
                     <button className="diet-back-btn" onClick={() => setStep(2)}>← Back</button>
-                    <button className="diet-generate-btn" onClick={generateDiet} disabled={dietLoading}>
+                    <button className="diet-generate-btn" onClick={triggerGenerateDiet} disabled={dietLoading}>
                       {dietLoading ? <><span className="gymai-spinner" /> Generating Plan...</> : '🚀 Generate My Plan'}
                     </button>
                   </div>
@@ -462,7 +467,7 @@ function GymAI() {
                   className="gymai-textarea" />
               </div>
               {recipeError && <div className="diet-error">{recipeError}</div>}
-              <button className="diet-generate-btn" onClick={generateRecipe} disabled={recipeLoading}>
+              <button className="diet-generate-btn" onClick={triggerGenerateRecipe} disabled={recipeLoading}>
                 {recipeLoading ? <><span className="gymai-spinner" /> Generating Recipe...</> : 'Generate Recipe'}
               </button>
             </div>
@@ -572,6 +577,24 @@ function GymAI() {
       )}
 
       <Footer />
+
+      {/* Language Prompt Modal */}
+      {languagePrompt.show && createPortal(
+        <div className="ai-camera-modal-overlay" onClick={() => setLanguagePrompt({ show: false, actionType: null })}>
+          <div className="ai-lang-prompt-modal" onClick={e => e.stopPropagation()}>
+            <div className="ai-lang-prompt-header">
+              <h3>🌐 Choose Plan Language</h3>
+              <button className="ai-camera-close-btn" onClick={() => setLanguagePrompt({ show: false, actionType: null })}>×</button>
+            </div>
+            <p className="ai-lang-prompt-desc">In which language would you like your result?</p>
+            <div className="ai-lang-prompt-actions">
+              <button className="ai-lang-btn urdu" onClick={() => executeGeneration('Urdu')}>🇵🇰 اردو (Urdu)</button>
+              <button className="ai-lang-btn english" onClick={() => executeGeneration('English')}>🇬🇧 English</button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
