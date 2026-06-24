@@ -315,7 +315,7 @@ function GymAI() {
             onChange={(e) => setLanguage(e.target.value)}
             title="Select Language"
           >
-            <option value="Urdu">Urdu</option>
+            <option value="Urdu">اردو (Urdu)</option>
             <option value="English">English</option>
           </select>
         </div>

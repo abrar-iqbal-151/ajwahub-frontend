@@ -593,7 +593,7 @@ function AI() {
             </div>
             <p className="ai-lang-prompt-desc">In which language would you like the AI to reply?</p>
             <div className="ai-lang-prompt-actions">
-              <button className="ai-lang-btn urdu" onClick={() => executeSend('Urdu')}>🇵🇰 Urdu (Pakistani)</button>
+              <button className="ai-lang-btn urdu" onClick={() => executeSend('Urdu')}>🇵🇰 اردو (Urdu)</button>
               <button className="ai-lang-btn english" onClick={() => executeSend('English')}>🇬🇧 English</button>
             </div>
           </div>
