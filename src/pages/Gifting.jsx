@@ -51,7 +51,7 @@ function Gifting() {
   const removeItem = (index) => setSelectedItems(selectedItems.filter((_, i) => i !== index));
 
   const filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase()));
-  const itemsTotal = selectedItems.reduce((s, p) => s + p.price, 0);
+  const itemsTotal = selectedItems.reduce((s, p) => s + (p.price || 0), 0);
   const totalPrice = selectedBox && selectedItems.length > 0 ? selectedBox.price + itemsTotal : 0;
 
 
@@ -204,23 +204,27 @@ function Gifting() {
               <h4>Choose Products</h4>
               <div className="gcm-search">
                 <span>🔍</span>
-                <input placeholder="Search products..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
+                <input placeholder="Search items..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
               </div>
               <div className="gcm-products">
-                {filteredProducts.map(product => (
-                  <div
-                    key={product.id}
-                    className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
-                    onClick={() => addItem(product)}
-                  >
-                    <img src={product.image} alt={product.name} onError={e => e.target.style.display = 'none'} />
-                    <div>
-                      <h5>{product.name}</h5>
-                      <span>PKR {product.price.toLocaleString()}</span>
+                {selectedBox.products && selectedBox.products.length > 0 ? (
+                  selectedBox.products.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase())).map(product => (
+                    <div
+                      key={product.id || product._id}
+                      className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
+                      onClick={() => addItem(product)}
+                    >
+                      <img src={product.image?.startsWith('/') ? `http://localhost:5173${product.image}` : product.image} alt={product.name} onError={e => e.target.style.display = 'none'} />
+                      <div>
+                        <h5>{product.name}</h5>
+                        {product.price && <span>PKR {product.price.toLocaleString()}</span>}
+                      </div>
+                      <button className="gcm-add-btn" disabled={selectedItems.length >= selectedBox.maxItems}>+</button>
                     </div>
-                    <button className="gcm-add-btn" disabled={selectedItems.length >= selectedBox.maxItems}>+</button>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p style={{ color: '#6b7280', fontSize: '13px', textAlign: 'center', marginTop: '20px' }}>Items are being updated.</p>
+                )}
               </div>
             </div>
           </div>
