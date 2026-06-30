@@ -51,6 +51,7 @@ body {
 
 .slider-container {
   max-width: 1600px;
+  width: 100%;
   margin: 0 auto;
   border-radius: 3rem;
   overflow: hidden;
