@@ -55,7 +55,8 @@ body {
   border-radius: 3rem;
   overflow: hidden;
   position: relative;
-  height: 600px;
+  aspect-ratio: 1920 / 820;
+  height: auto;
   border: 4px solid #d4af37;
   /* Thick premium golden frame */
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
@@ -237,7 +238,8 @@ body {
   }
 
   .slider-container {
-    height: 200px;
+    aspect-ratio: 1920 / 820;
+    height: auto;
     border-radius: 1rem;
     overflow: hidden;
     border-width: 2.5px;
@@ -514,7 +516,8 @@ body {
   }
 
   .slider-container {
-    height: 170px;
+    aspect-ratio: 1920 / 820;
+    height: auto;
     border-radius: 0.8rem;
     overflow: hidden;
     border-width: 2px;
