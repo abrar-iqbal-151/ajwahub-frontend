@@ -346,7 +346,7 @@ function Products() {
               <div className="product-info">
                 <h3>{product.name.split(' ')[0]}</h3>
                 <div className="product-arabic-name">
-                  {Object.keys(arabicMap).find(k => product.name.includes(k)) ? arabicMap[Object.keys(arabicMap).find(k => product.name.includes(k))] : 'عجوة'}
+                  {product.arabicName ? product.arabicName : (Object.keys(arabicMap).find(k => product.name.includes(k)) ? arabicMap[Object.keys(arabicMap).find(k => product.name.includes(k))] : '')}
                 </div>
 
 
