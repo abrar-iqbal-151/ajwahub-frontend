@@ -33,11 +33,13 @@ function Gifting() {
   const [giftBoxes, setGiftBoxes] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
+  const [globalItems, setGlobalItems] = useState([]);
 
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
     if (userData) setUser(JSON.parse(userData));
     fetch(`${API}/shop-products`).then(r => r.json()).then(d => setProducts(d.products || [])).catch(() => {});
+    fetch(`${API}/gift-box-items`).then(r => r.json()).then(d => setGlobalItems(d.items || [])).catch(() => {});
     fetch(`${API}/gift-boxes`)
       .then(r => r.json())
       .then(d => setGiftBoxes(d.boxes?.length ? d.boxes : STATIC_GIFT_BOXES))
@@ -207,10 +209,10 @@ function Gifting() {
                 <input placeholder="Search items..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
               </div>
               <div className="gcm-products">
-                {selectedBox.products && selectedBox.products.length > 0 ? (
-                  selectedBox.products.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase())).map(product => (
+                {globalItems && globalItems.length > 0 ? (
+                  globalItems.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase())).map(product => (
                     <div
-                      key={product.id || product._id}
+                      key={product._id}
                       className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
                       onClick={() => addItem(product)}
                     >
