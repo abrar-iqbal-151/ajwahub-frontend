@@ -34,10 +34,12 @@ function Gifting() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
 
+  const [globalItems, setGlobalItems] = useState([]);
+
   useEffect(() => {
     const userData = localStorage.getItem('ajwaHub_currentUser');
     if (userData) setUser(JSON.parse(userData));
-    fetch(`${API}/shop-products`).then(r => r.json()).then(d => setProducts(d.products || [])).catch(() => {});
+    fetch(`${API}/gift-items`).then(r => r.json()).then(d => setGlobalItems(d.items || [])).catch(() => {});
     fetch(`${API}/gift-boxes`)
       .then(r => r.json())
       .then(d => setGiftBoxes(d.boxes?.length ? d.boxes : STATIC_GIFT_BOXES))
@@ -207,23 +209,22 @@ function Gifting() {
                 <input placeholder="Search items..." value={searchItem} onChange={e => setSearchItem(e.target.value)} />
               </div>
               <div className="gcm-products">
-                {selectedBox.products && selectedBox.products.length > 0 ? (
-                  selectedBox.products.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase())).map(product => (
+                {globalItems && globalItems.length > 0 ? (
+                  globalItems.filter(p => p.name.toLowerCase().includes(searchItem.toLowerCase())).map(product => (
                     <div
-                      key={product.id || product._id}
+                      key={product._id}
                       className={`gcm-product ${selectedItems.length >= selectedBox.maxItems ? 'disabled' : ''}`}
                       onClick={() => addItem(product)}
                     >
                       <img src={product.image?.startsWith('/') ? `http://localhost:5173${product.image}` : product.image} alt={product.name} onError={e => e.target.style.display = 'none'} />
                       <div>
                         <h5>{product.name}</h5>
-                        {product.price && <span>PKR {product.price.toLocaleString()}</span>}
                       </div>
                       <button className="gcm-add-btn" disabled={selectedItems.length >= selectedBox.maxItems}>+</button>
                     </div>
                   ))
                 ) : (
-                  <p style={{ color: '#6b7280', fontSize: '13px', textAlign: 'center', marginTop: '20px' }}>Items are being updated.</p>
+                  <p style={{ color: '#6b7280', fontSize: '13px', textAlign: 'center', marginTop: '20px' }}>Admin has not added any global items yet.</p>
                 )}
               </div>
             </div>
