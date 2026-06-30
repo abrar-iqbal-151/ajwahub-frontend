@@ -857,13 +857,13 @@
 }
 
 .gymai-video-card {
-  background: rgba(197, 160, 89, 0.05);
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  background: linear-gradient(145deg, #23201a, #161411);
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.25s;
 }
-.gymai-video-card:hover { border-color: rgba(197, 160, 89, 0.6); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.gymai-video-card:hover { border-color: #c5a059; transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 .gymai-video-card img { width: 100%; height: 180px; object-fit: cover; }
 .gymai-video-info { padding: 18px; }
 .gymai-video-cat {

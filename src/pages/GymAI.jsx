@@ -486,10 +486,12 @@ function GymAI() {
               </div>
               <select className="video-cat-select" value={videoCategory} onChange={e => setVideoCategory(e.target.value)}>
                 <option value="All Videos">All Videos</option>
-                <option value="Ajwa Dates">Ajwa Dates</option>
-                <option value="Dry Fruits">Dry Fruits</option>
-                <option value="Diet & Nutrition">Diet & Nutrition</option>
-                <option value="Workout">Workout</option>
+                <option value="health">Health</option>
+                <option value="diet">Diet</option>
+                <option value="fitness">Fitness</option>
+                <option value="dates">Dates</option>
+                <option value="dry-fruits">Dry Fruits</option>
+                <option value="recipes">Recipes</option>
               </select>
             </div>
             {loadingVideos ? (
