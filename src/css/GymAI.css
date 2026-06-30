@@ -857,13 +857,13 @@
 }
 
 .gymai-video-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(197, 160, 89, 0.05);
+  border: 1px solid rgba(197, 160, 89, 0.2);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.25s;
 }
-.gymai-video-card:hover { border-color: rgba(220,38,38,0.35); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.gymai-video-card:hover { border-color: rgba(197, 160, 89, 0.6); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 .gymai-video-card img { width: 100%; height: 180px; object-fit: cover; }
 .gymai-video-info { padding: 18px; }
 .gymai-video-cat {
@@ -871,8 +871,8 @@
   background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2);
   padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.8px;
 }
-.gymai-video-info h4 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin: 10px 0 6px; }
-.gymai-video-info p { font-size: 13px; color: #6b7280; line-height: 1.5; margin-bottom: 14px; }
+.gymai-video-info h4 { font-size: 16px; font-weight: 800; color: #fff; margin: 10px 0 6px; }
+.gymai-video-info p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 14px; }
 .gymai-watch-btn {
   display: inline-flex; align-items: center; gap: 6px;
   background: linear-gradient(135deg, #dc2626, #b91c1c);

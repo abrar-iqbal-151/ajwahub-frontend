@@ -164,6 +164,8 @@ function GymAI() {
   const [dietResult, setDietResult] = useState('');
   const [dietLoading, setDietLoading] = useState(false);
   const [dietError, setDietError] = useState('');
+  
+  const [activeVideo, setActiveVideo] = useState(null);
 
   const [ingredients, setIngredients] = useState('');
   const [recipeResult, setRecipeResult] = useState('');
@@ -505,10 +507,10 @@ function GymAI() {
                     <div className="gymai-video-info">
                       <span className="gymai-video-cat">{video.category}</span>
                       <h4>{video.title}</h4><p>{video.description}</p>
-                      <a href={video.url} target="_blank" rel="noopener noreferrer" className="gymai-watch-btn">
+                      <button onClick={() => setActiveVideo(video.url)} className="gymai-watch-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         Watch Video
-                      </a>
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -571,6 +573,34 @@ function GymAI() {
               {(dietResult || recipeResult).split('\n').map((line, i) => (
                 <p key={i} className={line.match(/^\d\./) || line.match(/^Day/) ? 'diet-heading' : ''}>{line}</p>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* VIDEO PLAYER MODAL */}
+      {activeVideo && (
+        <div className="gymai-modal-overlay" onClick={() => setActiveVideo(null)}>
+          <div className="gymai-modal-content" style={{ maxWidth: '900px', backgroundColor: '#000', borderRadius: '16px', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+            <button className="gymai-modal-close" onClick={() => setActiveVideo(null)}>×</button>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', width: '100%' }}>
+              {activeVideo.includes('youtube.com') || activeVideo.includes('youtu.be') ? (
+                <iframe
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  src={activeVideo.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                  title="Video Player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <video 
+                  src={activeVideo} 
+                  controls 
+                  autoPlay 
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', outline: 'none' }} 
+                />
+              )}
             </div>
           </div>
         </div>
