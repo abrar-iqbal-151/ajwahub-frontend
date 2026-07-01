@@ -60,7 +60,9 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
   const [errors, setErrors] = useState({ number: '', expiry: '', cvc: '', name: '' });
   const [focused, setFocused] = useState('');
 
-  const belowMinimum = total < STRIPE_MIN_PKR;
+  const isEmpty = total === 0;
+  const belowMinimum = total > 0 && total < STRIPE_MIN_PKR;
+  const isDisabled = isEmpty || belowMinimum || processing || !stripe;
 
   const setFieldError = (field, msg) =>
     setErrors(prev => ({ ...prev, [field]: msg }));
@@ -69,7 +71,11 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
     e.preventDefault();
     if (!stripe || !elements) return;
 
-    // Pre-validate: below Stripe minimum?
+    // Pre-validate
+    if (isEmpty) {
+      setFieldError('number', 'Your cart is empty. Please add items before paying.');
+      return;
+    }
     if (belowMinimum) {
       setFieldError('number', `Minimum order for card payment is PKR ${STRIPE_MIN_PKR}. Please add more items.`);
       return;
@@ -124,7 +130,18 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
   };
 
   return (
-    <form onSubmit={handleSubmit} className="sco-form" noValidate>
+    <form onSubmit={handleSubmit} className={`sco-form ${isEmpty || belowMinimum ? 'sco-form--disabled' : ''}`} noValidate>
+
+      {/* ── Empty Cart Warning ── */}
+      {isEmpty && (
+        <div className="sco-min-warning" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)', color: '#fca5a5' }}>
+          <span className="sco-min-warning-icon">🛒</span>
+          <div>
+            <strong>Your cart is empty</strong>
+            <p>Please select and add products to your cart before making a payment.</p>
+          </div>
+        </div>
+      )}
 
       {/* ── Minimum Amount Warning ── */}
       {belowMinimum && (
@@ -231,11 +248,13 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
         {/* Pay Button */}
         <button
           type="submit"
-          className={`sco-pay-btn ${processing || !stripe || belowMinimum ? 'sco-pay-btn--loading' : ''}`}
-          disabled={processing || !stripe || belowMinimum}
+          className={`sco-pay-btn ${isDisabled ? 'sco-pay-btn--loading' : ''}`}
+          disabled={isDisabled}
         >
           {processing ? (
             <><span className="spinner" /> Verifying Payment...</>
+          ) : isEmpty ? (
+            <>🛒 Cart is Empty</>
           ) : belowMinimum ? (
             <>⚠ Minimum PKR {STRIPE_MIN_PKR} required</>
           ) : (
