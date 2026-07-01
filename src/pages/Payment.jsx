@@ -515,6 +515,7 @@ function Payment() {
                         onSuccess={handleStripeSuccess}
                         onError={handleStripeError}
                         API={API}
+                        isCartEmpty={cartItems.length === 0}
                       />
                     </Elements>
                   </div>
