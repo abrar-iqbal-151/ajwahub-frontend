@@ -505,7 +505,7 @@ function Payment() {
                 >
                   💳 Pay by Card
                 </button>
-                {selectedPayment === 'stripe' && (
+                {selectedPayment === 'stripe' && cartItems.length > 0 && (
                   <div className="pay-mobile-box">
                     <Elements stripe={stripePromise}>
                       <StripeCheckout
@@ -595,7 +595,7 @@ function Payment() {
             </div>
             <div className="button-group">
               <button className="back-btn" onClick={() => setStep('shipping')}>← Back</button>
-              {selectedPayment !== 'stripe' && (
+              {(selectedPayment !== 'stripe' || cartItems.length === 0) && (
                 <button className={`pay-btn ${processing || cartItems.length === 0 ? 'processing' : ''}`} onClick={processPayment} disabled={processing || cartItems.length === 0}>
                   {processing ? <><span className="spinner"></span>Processing...</> : cartItems.length === 0 ? '🛒 Cart is Empty' : 'Pay Now'}
                 </button>
