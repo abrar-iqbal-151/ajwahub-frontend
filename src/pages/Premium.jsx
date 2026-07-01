@@ -30,6 +30,41 @@ function Premium() {
   const [modalHoverStar, setModalHoverStar] = useState(0);
   const [modalRatingStatus, setModalRatingStatus] = useState(null);
 
+  const getPriceForWeight = (basePrice, weight) => {
+    if (!weight) return basePrice;
+    const w = weight.toLowerCase().replace(/\s+/g, '');
+    if (w.includes('500g')) {
+      if (basePrice === 4300) return 2300;
+      return Math.round(basePrice * 0.535);
+    }
+    if (w.includes('2kg')) {
+      if (basePrice === 4300) return 8400;
+      return basePrice * 2 - 200;
+    }
+    if (w.includes('3kg')) {
+      if (basePrice === 4300) return 12200;
+      return basePrice * 3 - 700;
+    }
+    if (w.includes('5kg')) {
+      if (basePrice === 4300) return 21000;
+      return basePrice * 5 - 500;
+    }
+    return basePrice;
+  };
+
+  const getDisplayPrice = (product, weightLabel) => {
+    if (!weightLabel) return product.price;
+    const opt = (product.weights || []).find(w => w.label === weightLabel);
+    if (opt && opt.savings) {
+      const cleanSavings = opt.savings.replace(/,/g, '');
+      const match = cleanSavings.match(/\d+/);
+      if (match) {
+        return parseInt(match[0], 10);
+      }
+    }
+    return getPriceForWeight(product.price, weightLabel);
+  };
+
   const handleModalRate = async (star) => {
     if (modalRatingStatus === 'success') return;
     setModalRatingStatus('submitting');
@@ -81,16 +116,6 @@ function Premium() {
       .then(d => {
         const processed = (d.products || []).map(p => {
           p.id = p._id; // Normalize id to _id so wishlist matches index schema perfectly!
-          if (!p.weightOptions || p.weightOptions.length === 0) {
-            const base = p.price;
-            p.weightOptions = [
-              { label: '1kg Special Box', price: base, savings: 0 },
-              { label: '500g Mini Box', price: Math.round(base * 0.55), savings: 0 },
-              { label: '2kg Briefcase Box', price: (base * 2) - 500, savings: 500 },
-              { label: '3kg Saudi Box', price: (base * 3) - 700, savings: 700 },
-              { label: '5kg Family Carton', price: (base * 5) - 1500, savings: 1500 }
-            ];
-          }
           return p;
         });
         setProducts(processed);
@@ -118,16 +143,16 @@ function Premium() {
     }
   }, []);
 
-  const addToCart = (product, weightData = null) => {
+  const addToCart = (product, weightLabel = null) => {
     if (!user) { setShowLoginModal(true); return; }
 
-    const price = weightData ? weightData.price : product.price;
-    const weight = weightData ? weightData.label : product.weight;
+    const price = weightLabel ? getDisplayPrice(product, weightLabel) : product.price;
+    const weight = weightLabel ? weightLabel : product.weight;
     
     const unitKg = getUnitKg(weight);
     if (!checkStockLimit(product, unitKg, cart)) return;
 
-    const cartId = weightData ? `${product._id}-${weightData.label}` : product._id;
+    const cartId = weightLabel ? `${product._id}-${weightLabel}` : product._id;
 
     const existing = cart.find(i => i.id === cartId);
     const updated = existing
@@ -326,7 +351,7 @@ function Premium() {
                   <button className="premium-view-btn" onClick={(e) => {
                     e.stopPropagation();
                     setSelected(p);
-                    setSelectedWeight(p.weightOptions?.[0] || null);
+                    setSelectedWeight(null);
                     setShowModal(true);
                   }}>
                     View Details
@@ -356,7 +381,7 @@ function Premium() {
                 </div>
 
                 <div className="pd-price">
-                  PKR {(selectedWeight ? selectedWeight.price : selected.price)?.toLocaleString()}
+                  {selectedWeight ? `PKR ${getDisplayPrice(selected, selectedWeight).toLocaleString()}` : `PKR ${selected.price.toLocaleString()}`}
                 </div>
 
                 <div className="pd-storage-note">
@@ -400,27 +425,47 @@ function Premium() {
                   </div>
                 </div>
 
-                {selected.weightOptions && selected.weightOptions.length > 0 && (
-                  <div className="pd-weight-selection">
-                    <p className="weight-label">Weight: <span>{selectedWeight?.label || selected.weight}</span></p>
-                    <div className="weight-options">
-                      {selected.weightOptions.map((opt, idx) => (
+                <div className="pd-weight-selection">
+                  <p className="weight-label">Weight: <span>{selectedWeight || 'Select an option'}</span></p>
+                  <div className="weight-options">
+                    {(() => {
+                      const dbWeights = selected.weights && selected.weights.length > 0
+                        ? selected.weights
+                        : [
+                            { label: '1kg Special Box', savings: '' },
+                            { label: '2kg Briefcase Box', savings: '(Save Rs 500)' },
+                            { label: '3kg Saudi Box', savings: '(Save Rs 700)' },
+                            { label: '5kg Family Carton', savings: '(Save Rs 1500)' }
+                          ];
+                      const has500g = dbWeights.some(w => w.label.toLowerCase().replace(/\s+/g, '').includes('500g'));
+                      const finalWeights = has500g
+                        ? dbWeights
+                        : [{ label: '500g Mini Box', savings: '' }, ...dbWeights];
+
+                      return finalWeights.map((w, idx) => (
                         <button
                           key={idx}
-                          className={`weight-opt ${selectedWeight?.label === opt.label ? 'active' : ''}`}
-                          onClick={() => setSelectedWeight(opt)}
+                          className={`weight-opt ${selectedWeight === w.label ? 'active' : ''}`}
+                          onClick={() => setSelectedWeight(w.label)}
                         >
-                          {opt.label} {opt.savings > 0 && <span>(Save PKR {opt.savings})</span>}
+                          {w.label} {w.savings && <span>{w.savings}</span>}
                         </button>
-                      ))}
-                    </div>
+                      ));
+                    })()}
                   </div>
-                )}
+                </div>
 
                 <button
                   className="pd-add-to-cart-btn"
                   disabled={!selected.stock}
-                  onClick={() => { setShowModal(false); addToCart(selected, selectedWeight); }}
+                  onClick={() => {
+                    if (!selectedWeight) {
+                      alert('Please select a box size first.');
+                      return;
+                    }
+                    setShowModal(false); 
+                    addToCart(selected, selectedWeight); 
+                  }}
                 >
                   Add to Cart
                 </button>
