@@ -149,15 +149,7 @@ function Home() {
                 {item.video
                   ? (
                     <div className="premium-video-wrap">
-                      <video src={item.video} className="premium-product-image" playsInline muted loop
-                        onMouseEnter={e => e.target.play()}
-                        onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
-                        onTouchStart={e => {
-                          if (e.target.paused) e.target.play();
-                          else e.target.play();
-                        }}
-                      />
-                      <div className="premium-play-icon">▶</div>
+                      <video src={item.video} className="premium-product-image" autoPlay playsInline muted loop />
                     </div>
                   )
                   : <img src={item.image} alt={item.name} className="premium-product-image" />}

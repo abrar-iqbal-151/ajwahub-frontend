@@ -43,7 +43,7 @@ function AI() {
   const [image, setImage] = useState(null);
   const [languagePrompt, setLanguagePrompt] = useState({ show: false, text: '', image: null });
 
-  
+
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [compareImage1, setCompareImage1] = useState(null);
   const [compareImage2, setCompareImage2] = useState(null);
@@ -67,10 +67,10 @@ function AI() {
 
   const startCamera = async () => {
     if (isMobileDevice()) {
-      // Mobile: open native camera app
+
       if (nativeCameraRef.current) nativeCameraRef.current.click();
     } else {
-      // Desktop: open webcam modal
+
       setIsCameraActive(true);
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -125,13 +125,13 @@ function AI() {
   };
 
 
-  // Save current chat to localStorage whenever messages change
+
   useEffect(() => {
     try {
       const uid = user?._id || user?.email || 'guest';
       const toSave = messages.map(m => ({ role: m.role, text: m.text }));
       localStorage.setItem(`${CHAT_STORAGE_KEY}_${uid}`, JSON.stringify(toSave));
-    } catch {}
+    } catch { }
   }, [messages, user]);
 
   // Auto-scroll
@@ -142,7 +142,7 @@ function AI() {
     }
   }, [messages]);
 
-  // Fetch sessions from MongoDB when History tab is opened
+
   useEffect(() => {
     if (activeTab === 'history' && user) fetchSessions();
   }, [activeTab, user]);
@@ -152,7 +152,7 @@ function AI() {
       const res = await fetch(`${API_URL}/api/ai/sessions/${user._id}`);
       const data = await res.json();
       setSessions(Array.isArray(data) ? data : []);
-    } catch {}
+    } catch { }
   };
 
   // Save current session to MongoDB + start fresh
@@ -168,7 +168,7 @@ function AI() {
             messages: messages.map(m => ({ role: m.role, text: m.text }))
           })
         });
-      } catch {}
+      } catch { }
     }
     setMessages([INITIAL_MESSAGE]);
     const uid = user?._id || user?.email || 'guest';
@@ -176,7 +176,7 @@ function AI() {
     setActiveTab('chat');
   };
 
-  // Delete ALL sessions from MongoDB
+
   const clearHistory = async () => {
     if (!user) return;
     try {
@@ -184,18 +184,18 @@ function AI() {
       setSessions([]);
       setMessages([]);
       localStorage.removeItem(`${CHAT_STORAGE_KEY}_${user._id}`);
-    } catch {}
+    } catch { }
   };
 
-  // Delete a single session from MongoDB
+
   const deleteSession = async (id) => {
     try {
       await fetch(`${API_URL}/api/ai/session/${id}`, { method: 'DELETE' });
       setSessions(prev => prev.filter(s => s._id !== id));
-    } catch {}
+    } catch { }
   };
 
-  // Resume a past session
+
   const resumeSession = (session) => {
     setMessages(session.messages);
     const uid = user?._id || user?.email || 'guest';
@@ -211,7 +211,7 @@ function AI() {
   const executeSend = async (lang) => {
     const userText = languagePrompt.text;
     const userImage = languagePrompt.image;
-    
+
     setInputText('');
     setImage(null);
     setLanguagePrompt({ show: false, text: '', image: null });
@@ -276,7 +276,7 @@ function AI() {
 
     try {
       const [base64_1, base64_2] = await Promise.all([toBase64(compareImage1), toBase64(compareImage2)]);
-      
+
       const res = await fetch(`${API_URL}/api/ai/compare-images`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -409,7 +409,7 @@ function AI() {
                     <div className="ai-msg model">
                       <div className="ai-model-avatar"><FaRobot /></div>
                       <div className="ai-msg-bubble">
-                        <div className="ai-typing"><span/><span/><span/></div>
+                        <div className="ai-typing"><span /><span /><span /></div>
                       </div>
                     </div>
                   )}
@@ -421,7 +421,7 @@ function AI() {
                     <FaImage />
                   </button>
                   <input type="file" hidden ref={fileInputRef} onChange={(e) => setImage(e.target.files[0])} accept="image/*" />
-                  
+
                   {/* Camera Capture Input */}
                   <input type="file" accept="image/*" capture="environment" hidden ref={nativeCameraRef} onChange={handleNativeCameraCapture} />
                   <button className="ai-icon-btn ai-camera-btn" title="Scan Item with Camera" onClick={startCamera}>
@@ -455,7 +455,7 @@ function AI() {
                   <h2>Date Quality Scanner</h2>
                   <p>Upload two pictures of dates to compare their quality, appearance, and freshness using AI.</p>
                 </div>
-                
+
                 <div className="ai-compare-cards">
                   <div className="ai-compare-card">
                     <h3>Date Image 1</h3>
@@ -495,8 +495,8 @@ function AI() {
                 </div>
 
                 <div className="ai-compare-action">
-                  <button 
-                    className="ai-compare-btn" 
+                  <button
+                    className="ai-compare-btn"
                     disabled={!compareImage1 || !compareImage2 || comparing}
                     onClick={handleCompare}
                   >
