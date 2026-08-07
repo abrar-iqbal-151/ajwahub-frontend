@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import Footer from '../components/Footer';
 import '../css/AI.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:5000`;
 const CHAT_STORAGE_KEY = 'ajwahub_ai_chat';
 const INITIAL_MESSAGE = { role: 'model', text: '👋 Assalam o Alaikum! Main AjwaHub AI Assistant hoon. Koi bhi sawaal poochein!' };
 

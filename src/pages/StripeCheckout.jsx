@@ -51,7 +51,7 @@ function StripeField({ label, icon, children, error }) {
  */
 const STRIPE_MIN_PKR = 150; // must match backend
 
-export default function StripeCheckout({ total, userEmail, orderId, onSuccess, onError, API }) {
+export default function StripeCheckout({ total, userEmail, orderId, onSuccess, onError, API, isCartEmpty }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -60,7 +60,7 @@ export default function StripeCheckout({ total, userEmail, orderId, onSuccess, o
   const [errors, setErrors] = useState({ number: '', expiry: '', cvc: '', name: '' });
   const [focused, setFocused] = useState('');
 
-  const isEmpty = total === 0;
+  const isEmpty = isCartEmpty;
   const belowMinimum = total > 0 && total < STRIPE_MIN_PKR;
   const isDisabled = isEmpty || belowMinimum || processing || !stripe;
 
